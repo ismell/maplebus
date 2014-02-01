@@ -74,10 +74,13 @@ module end_frame_decoder(
     end
 
     always @(posedge clk or negedge reset) begin: OUTPUT
-        end_frame <= 0;
-        end_frame_error <= 0;
-
-        if (reset == 1'b1) begin
+        if (reset == 1'b0) begin
+            end_frame <= 0;
+            end_frame_error <= 0;
+        end else begin
+            end_frame <= 0;
+            end_frame_error <= 0;
+            
             if (next_state == DONE) begin
                 case (count)
                     8'd0: begin end

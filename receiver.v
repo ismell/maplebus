@@ -18,7 +18,7 @@ module receiver(
     
     end_frame_decoder efd(clk, reset, sdcka_posedge, sdcka_negedge, sdckb_posedge, sdckb_negedge, end_frame, end_frame_error);
     
-    data_decoder decoder(clk, reset, ~frame, sdcka_data, sdcka_posedge, sdcka_negedge, sdckb_data, sdckb_posedge, sdckb_negedge, data, data_ready);
+    data_decoder decoder(clk, reset, frame, sdcka_data, sdcka_posedge, sdcka_negedge, sdckb_data, sdckb_posedge, sdckb_negedge, data, data_ready);
     
     
     //=============Internal Constants======================
@@ -27,7 +27,6 @@ module receiver(
     //=============Internal Variables======================
     reg  [SIZE-1:0]         current_state;
     reg [SIZE-1:0]          next_state;
-    wire reset;
 
     initial begin
         current_state <= IDLE;

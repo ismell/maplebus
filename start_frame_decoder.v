@@ -77,12 +77,18 @@ module start_frame_decoder(
     end
 
     always @(posedge clk or negedge reset) begin: OUTPUT
-    	start_frame <= 0;
-    	start_with_crc <= 0;
-    	start_occupancy <= 0;
-    	start_reset <= 0;
-    	start_frame_error <= 0;
-        if (reset == 1'b1) begin
+        if (reset == 1'b0) begin
+        	start_frame <= 0;
+        	start_with_crc <= 0;
+        	start_occupancy <= 0;
+        	start_reset <= 0;
+        	start_frame_error <= 0;
+        end else begin
+            start_frame <= 0;
+            start_with_crc <= 0;
+            start_occupancy <= 0;
+            start_reset <= 0;
+            start_frame_error <= 0;
             if (next_state == DONE) begin
                 case (count)
                     8'd0: begin end

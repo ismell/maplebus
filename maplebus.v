@@ -13,12 +13,15 @@ module maplebus(
   output wire slrd,
   output wire slwr,
   output wire pkt_end,
-  output wire clk_out
+  output wire clk_out,
+  
+  output wire menable,
+  output wire mready
 );
 
 	assign clk_out = clk;
 	
-	wire menable, mready;
+	//wire menable, mready;
    wire [7:0] mdata;
 	receiver r(clk, reset, sdcka, sdckb, menable, mready, mdata);
     
