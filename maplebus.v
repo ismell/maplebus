@@ -6,6 +6,8 @@ module maplebus(
   
   input wire flagd,  //  EP6 full flag
   input wire flaga,  //  EP2 empty flag
+  input wire flagb,  //  Indexed Full Flag
+  input wire flagc,  //  Indexed Empty Flag
   
   inout wire [7:0] fdata,  
   output wire [1:0] faddr,  
@@ -25,6 +27,6 @@ module maplebus(
    wire [7:0] mdata;
 	receiver r(clk, reset, sdcka, sdckb, menable, mready, mdata);
     
-   fifo f(clk, reset, menable, mready, mdata, flagd, flaga, fdata, faddr, sloe, slrd, slwr, pkt_end);
+   fifo f(clk, reset, menable, mready, mdata, flagb, flagc, fdata, faddr, sloe, slrd, slwr, pkt_end);
     
 endmodule

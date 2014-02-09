@@ -6,8 +6,8 @@ module fifo(
   input wire mready, // master data ready
   input wire [7:0] mdata, // master data
   
-  input wire flagd,  //  EP6 full flag
-  input wire flaga,  //  EP2 empty flag
+  input wire full,
+  input wire empty,
   
   inout wire [7:0] fdata,  
   output wire [1:0] faddr,  
@@ -17,8 +17,6 @@ module fifo(
   output reg pkt_end
 );
 
-wire full = flagd;
-wire empty = flaga;
 reg [7:0] data_out;
 
 /*
