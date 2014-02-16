@@ -2,7 +2,7 @@ module maplebus(
   input wire clk,
   input wire reset,
   
-  inout tri1 sdcka, sdckb,
+  inout wire sdcka, sdckb,
   
   input wire flagd,  //  EP6 full flag
   input wire flaga,  //  EP2 empty flag
@@ -15,10 +15,7 @@ module maplebus(
   output wire slrd,
   output wire slwr,
   output wire pkt_end,
-  output wire clk_out,
-  
-  output wire menable,
-  output wire mready
+  output wire clk_out
 );
 
 	assign clk_out = clk;

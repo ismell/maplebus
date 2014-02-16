@@ -1,0 +1,131 @@
+# -------------------------------------------------------------------------- #
+#
+# Copyright (C) 1991-2013 Altera Corporation
+# Your use of Altera Corporation's design tools, logic functions 
+# and other software and tools, and its AMPP partner logic 
+# functions, and any output files from any of the foregoing 
+# (including device programming or simulation files), and any 
+# associated documentation or information are expressly subject 
+# to the terms and conditions of the Altera Program License 
+# Subscription Agreement, Altera MegaCore Function License 
+# Agreement, or other applicable license agreement, including, 
+# without limitation, that your use is for the sole purpose of 
+# programming logic devices manufactured by Altera and sold by 
+# Altera or its authorized distributors.  Please refer to the 
+# applicable agreement for further details.
+#
+# -------------------------------------------------------------------------- #
+#
+# Quartus II 64-Bit
+# Version 13.1.0 Build 162 10/23/2013 SJ Web Edition
+# Date created = 13:54:55  January 25, 2014
+#
+# -------------------------------------------------------------------------- #
+#
+# Notes:
+#
+# 1) The default values for assignments are stored in the file:
+#		MapleBus_assignment_defaults.qdf
+#    If this file doesn't exist, see file:
+#		assignment_defaults.qdf
+#
+# 2) Altera recommends that you do not modify this file. This
+#    file is updated automatically by the Quartus II software
+#    and any changes you make may be lost or overwritten.
+#
+# -------------------------------------------------------------------------- #
+
+
+
+# Project-Wide Assignments
+# ========================
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION 13.1
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "17:27:50  JANUARY 03, 2014"
+set_global_assignment -name LAST_QUARTUS_VERSION 13.1
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+
+# Pin & Location Assignments
+# ==========================
+set_location_assignment PIN_H5 -to clk
+set_location_assignment PIN_P2 -to slrd
+set_location_assignment PIN_M4 -to slwr
+set_location_assignment PIN_L4 -to faddr[1]
+set_location_assignment PIN_N3 -to faddr[0]
+set_location_assignment PIN_N2 -to pkt_end
+set_location_assignment PIN_N1 -to sloe
+set_location_assignment PIN_M3 -to flagd
+set_location_assignment PIN_L3 -to flaga
+set_location_assignment PIN_L1 -to fdata[0]
+set_location_assignment PIN_L2 -to fdata[1]
+set_location_assignment PIN_K2 -to fdata[2]
+set_location_assignment PIN_K3 -to fdata[3]
+set_location_assignment PIN_J3 -to fdata[4]
+set_location_assignment PIN_K1 -to fdata[5]
+set_location_assignment PIN_J1 -to fdata[6]
+set_location_assignment PIN_J2 -to fdata[7]
+
+# Classic Timing Assignments
+# ==========================
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
+
+# Analysis & Synthesis Assignments
+# ================================
+set_global_assignment -name FAMILY "MAX V"
+set_global_assignment -name TOP_LEVEL_ENTITY maplebus
+
+# Fitter Assignments
+# ==================
+set_global_assignment -name DEVICE 5M570ZF256C5
+set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR "-1"
+set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "3.3-V LVTTL"
+
+# EDA Netlist Writer Assignments
+# ==============================
+set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (Verilog)"
+
+# Power Estimation Assignments
+# ============================
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "NO HEAT SINK WITH STILL AIR"
+
+# start EDA_TOOL_SETTINGS(eda_simulation)
+# ---------------------------------------
+
+	# EDA Netlist Writer Assignments
+	# ==============================
+set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "VERILOG HDL" -section_id eda_simulation
+	set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST ON -section_id eda_simulation
+set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
+
+# end EDA_TOOL_SETTINGS(eda_simulation)
+# -------------------------------------
+
+# ---------------------
+# start ENTITY(fifo_in)
+
+# end ENTITY(fifo_in)
+# -------------------
+set_location_assignment PIN_E3 -to clk_out
+set_location_assignment PIN_M9 -to reset
+set_location_assignment PIN_E1 -to sdcka
+set_location_assignment PIN_E2 -to sdckb
+set_location_assignment PIN_D2 -to menable
+set_location_assignment PIN_D3 -to mready
+set_location_assignment PIN_M1 -to flagb
+set_location_assignment PIN_M2 -to flagc
+set_global_assignment -name VERILOG_FILE transmitter.v
+set_global_assignment -name VERILOG_FILE start_frame_encoder.v
+set_global_assignment -name VERILOG_FILE end_frame_encoder.v
+set_global_assignment -name VERILOG_FILE start_frame_decoder.v
+set_global_assignment -name VERILOG_FILE end_frame_decoder.v
+set_global_assignment -name VERILOG_FILE frame_decoder.v
+set_global_assignment -name VERILOG_FILE data_decoder.v
+set_global_assignment -name VERILOG_FILE synchronizer.v
+set_global_assignment -name SDC_FILE MapleBus.sdc
+set_global_assignment -name VERILOG_FILE maplebus.v
+set_global_assignment -name VERILOG_FILE receiver.v
+set_global_assignment -name VERILOG_FILE fifo.v
+set_global_assignment -name OPTIMIZE_HOLD_TIMING "IO PATHS AND MINIMUM TPD PATHS"
+set_global_assignment -name OPTIMIZE_MULTI_CORNER_TIMING OFF
+set_global_assignment -name WEAK_PULL_UP_RESISTOR OFF
+set_global_assignment -name ENABLE_DRC_SETTINGS ON
