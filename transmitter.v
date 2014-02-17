@@ -5,9 +5,8 @@ module transmitter(
   
   output reg sdcka, sdckb,
 
-  input wire empty, // Master FIFO is empty
-  input wire [7:0] data,// Master FIFO data
-  output wire next
+  output wire next,
+  input wire [7:0] data
   );
 
   // ================ Create modules ==================
@@ -16,7 +15,7 @@ module transmitter(
   frame_pattern_encoder #(.TICKS(4)) sfe(clk, reset, enable_sfe, sfe_done, sfe_sdcka, sfe_sdckb);
   
   wire de_sdcka, de_sdckb, de_done, de_next;
-  data_encoder de(clk, reset, sfe_done, de_done, de_sdcka, de_sdckb, de_next, empty, data);
+  data_encoder de(clk, reset, sfe_done, de_done, de_sdcka, de_sdckb, de_next, !enable, data);
 
   wire efe_sdcka, efe_sdckb, efe_done;
   frame_pattern_encoder #(.TICKS(2)) efe(clk, reset, de_done, efe_done, efe_sdckb, efe_sdcka);

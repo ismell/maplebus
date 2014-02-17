@@ -2,10 +2,14 @@ module fifo(
   input wire clk,
   input wire reset,
   
-  input wire menable, // master enabled
-  input wire mready, // master data ready
-  input wire [7:0] mdata_in, // master data in
-  output wire [7:0] mdata_out, // master data out
+  input wire rx_enable, // mbus is transmitting to master
+  input wire rx_write, // mbus data ready
+  input wire [7:0] rx_data, // mbus data out
+
+
+  output reg tx_enable, // The master has data to transmit to the mbus  
+  input wire tx_read, // Write next value to mdata_out
+  output wire [7:0] tx_data, // mbus data in
   
   input wire full,
   input wire empty,
@@ -21,12 +25,12 @@ module fifo(
 reg [7:0] data_out; // out from the master into the slave FIFO
 reg [7:0] data_in; // into the master from the slave FIFO
 
-assign mdata_out[7:0] = data_in[7:0];
+assign tx_data[7:0] = data_in[7:0];
 
-parameter EP2 = 2'b00;
-parameter EP4 = 2'b01;
-parameter EP6 = 2'b10;
-parameter EP8 = 2'b11;
+parameter EP2 = 2'b00; // OUT FIFO
+parameter EP4 = 2'b01; // DISABLED
+parameter EP6 = 2'b10; // IN FIFO
+parameter EP8 = 2'b11; // DISABLED
 
 assign fdata[7:0] = sloe ? data_out[7:0] : 8'bz;
 
@@ -57,7 +61,9 @@ initial begin
     pkt_end <= 1'b1;
     data_out <= 8'd0;
     faddr <= EP2;
-    sloe <= 1'b1; 
+    sloe <= 1'b1;
+
+    tx_enable <= 1'b0;
 end
 
 //Stream IN mode state machine 
@@ -77,10 +83,10 @@ begin
       next_state = IDLE;
     end
     IDLE: begin
-      if (menable) // Maple Bus has something to transmit
+      if (rx_enable) // Maple Bus has something to transmit
         next_state = SELECT_IN_FIFO;
       else if (empty == 1'b1) // Host has something to transmit on the MapleBus
-        next_state = CAN_READ;
+        next_state = READ_DATA;
       else
         next_state = IDLE;
     end
@@ -96,14 +102,14 @@ begin
         next_state = HAS_DATA;
     end
     DROP: begin // We don't even try and send the packet to the host
-      if (menable)
+      if (rx_enable)
         next_state = DROP;
       else
         next_state = SELECT_OUT_FIFO;
     end
     HAS_DATA: begin
-      if (menable) begin
-        if (mready)
+      if (rx_enable) begin
+        if (rx_write)
           next_state = SETUP_DATA;
         else
           next_state = HAS_DATA;
@@ -121,22 +127,21 @@ begin
       next_state = SELECT_OUT_FIFO;
     end
 
-    // Begin transmission from host
-    CAN_READ: begin
-      //TODO: Check if our read buffer is free
-      next_state = READ_DATA;
-    end
+    // Begin reception from host
     READ_DATA: begin
-      next_state = READ;
+      next_state = CAN_READ;
     end
-    READ: begin
-      next_state = IS_EMPTY;
-    end
-    IS_EMPTY: begin
+    CAN_READ: begin
       if (empty == 1'b0) // We are empty
         next_state = READ_DONE;
       else
-        next_state = CAN_READ;
+        if (tx_read)
+          next_state = READ;
+        else
+          next_state = CAN_READ;
+    end
+    READ: begin
+      next_state = READ_DATA;
     end
     READ_DONE: begin
       next_state = SELECT_OUT_FIFO;
@@ -151,22 +156,18 @@ end
 // Register outputs
 // -----------------------------------------
 
-//data generator counter
-always @(posedge clk, negedge reset)
-begin
+always @(posedge clk, negedge reset) begin : WRITE_DATA_OUT
   if (reset == 1'b0)
     data_out <= 8'd0;
   else if (next_state == SETUP_DATA)
-    data_out <= mdata_in;
+    data_out <= rx_data;
   else if (next_state == PKTEND)
     data_out <= 8'd0;
   else
     data_out <= data_out;
 end
 
-//data generator counter
-always @(posedge clk, negedge reset)
-begin
+always @(posedge clk, negedge reset) begin : READ_DATA_IN
   if (reset == 1'b0)
     data_in <= 8'd0;
   else if (next_state == READ_DATA)
@@ -177,9 +178,7 @@ begin
     data_in <= data_in;
 end
 
-// FIFO Address
-always @(posedge clk, negedge reset)
-begin
+always @(posedge clk, negedge reset) begin : FIFO_ADDRESS
   if (reset == 1'b0)
     faddr <= EP2;
   else
@@ -203,19 +202,34 @@ begin
     endcase
 end
 
-always @(posedge clk, negedge reset)
-begin
+always @(posedge clk, negedge reset) begin : ENABLE_TRANSMITTER
+  if (reset == 1'b0)
+    tx_enable <= 1'b0;
+  else
+    case (next_state)
+      READ_DATA:
+        tx_enable <= 1'b1;
+      CAN_READ:
+        tx_enable <= 1'b1;
+      READ:
+        tx_enable <= 1'b1;
+      default:
+        tx_enable <= 1'b0; 
+    endcase
+end
+
+always @(posedge clk, negedge reset) begin : SLAVE_OUTPUT_ENABLE
   if (reset == 1'b0)
     sloe <= 1'b1;
   else
     case (next_state)
-      CAN_READ:
+      IDLE:
         sloe <= 1'b0;
       READ_DATA:
         sloe <= 1'b0;
-      READ:
+      CAN_READ:
         sloe <= 1'b0;
-      IS_EMPTY:
+      READ:
         sloe <= 1'b0;
       default:
         sloe <= 1'b1; 

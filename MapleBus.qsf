@@ -109,13 +109,15 @@ set_location_assignment PIN_E3 -to clk_out
 set_location_assignment PIN_M9 -to reset
 set_location_assignment PIN_E1 -to sdcka
 set_location_assignment PIN_E2 -to sdckb
-set_location_assignment PIN_D2 -to menable
-set_location_assignment PIN_D3 -to mready
 set_location_assignment PIN_M1 -to flagb
 set_location_assignment PIN_M2 -to flagc
+set_global_assignment -name OPTIMIZE_HOLD_TIMING "IO PATHS AND MINIMUM TPD PATHS"
+set_global_assignment -name OPTIMIZE_MULTI_CORNER_TIMING OFF
+set_global_assignment -name WEAK_PULL_UP_RESISTOR OFF
+set_global_assignment -name ENABLE_DRC_SETTINGS ON
+set_global_assignment -name VERILOG_FILE frame_pattern_encoder.v
+set_global_assignment -name VERILOG_FILE data_encoder.v
 set_global_assignment -name VERILOG_FILE transmitter.v
-set_global_assignment -name VERILOG_FILE start_frame_encoder.v
-set_global_assignment -name VERILOG_FILE end_frame_encoder.v
 set_global_assignment -name VERILOG_FILE start_frame_decoder.v
 set_global_assignment -name VERILOG_FILE end_frame_decoder.v
 set_global_assignment -name VERILOG_FILE frame_decoder.v
@@ -125,7 +127,11 @@ set_global_assignment -name SDC_FILE MapleBus.sdc
 set_global_assignment -name VERILOG_FILE maplebus.v
 set_global_assignment -name VERILOG_FILE receiver.v
 set_global_assignment -name VERILOG_FILE fifo.v
-set_global_assignment -name OPTIMIZE_HOLD_TIMING "IO PATHS AND MINIMUM TPD PATHS"
-set_global_assignment -name OPTIMIZE_MULTI_CORNER_TIMING OFF
-set_global_assignment -name WEAK_PULL_UP_RESISTOR OFF
-set_global_assignment -name ENABLE_DRC_SETTINGS ON
+set_global_assignment -name EDA_RUN_TOOL_AUTOMATICALLY ON -section_id eda_simulation
+set_global_assignment -name EDA_TEST_BENCH_ENABLE_STATUS TEST_BENCH_MODE -section_id eda_simulation
+set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH MapleBusTest -section_id eda_simulation
+set_global_assignment -name EDA_TEST_BENCH_NAME MapleBusTest -section_id eda_simulation
+set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id MapleBusTest
+set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME maplebus_test -section_id MapleBusTest
+set_global_assignment -name EDA_TEST_BENCH_RUN_SIM_FOR "1 us" -section_id MapleBusTest
+set_global_assignment -name EDA_TEST_BENCH_FILE maplebus.vt -section_id MapleBusTest

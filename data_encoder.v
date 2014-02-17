@@ -2,7 +2,7 @@ module data_encoder(
   input wire clk,
   input wire reset,
   input wire enable,
-  input wire done,
+  output wire done,
   output reg sdcka,
   output reg sdckb,
   output reg next,
@@ -32,7 +32,7 @@ module data_encoder(
   reg [2:0] pointer;
   reg [0:7] buffer; // Our pointer counts up
 
-  reg current_bit;
+  wire current_bit;
 
   initial begin
     current_state <= IDLE;
@@ -131,9 +131,9 @@ module data_encoder(
         IDLE:
           pointer <= 0;
         PHASE1_TICK:
-          pointer <= pointer + 1;
+          pointer <= pointer + 3'b1;
         PHASE2_TOCK:
-          pointer <= pointer + 1;
+          pointer <= pointer + 3'b1;
         default:
           pointer <= pointer;
       endcase

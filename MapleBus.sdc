@@ -35,14 +35,16 @@ derive_pll_clocks -create_base_clocks
 
 # tsu/th constraints
 
-set_input_delay -clock "internal" -max 87.3ns [get_ports {slrd}] 
-set_input_delay -clock "internal" -min 3.700ns [get_ports {slrd}] 
-set_input_delay -clock "internal" -max 87.9ns [get_ports {slwr}] 
-set_input_delay -clock "internal" -min 3.600ns [get_ports {slwr}] 
+#set_input_delay -clock "internal" -max 87.3ns [get_ports {slrd}] 
+#set_input_delay -clock "internal" -min 3.700ns [get_ports {slrd}] 
+#set_input_delay -clock "internal" -max 87.9ns [get_ports {slwr}] 
+#set_input_delay -clock "internal" -min 3.600ns [get_ports {slwr}] 
+#set_input_delay -clock "internal" -max 91.4ns [get_ports {pkt_end}] 
+#set_input_delay -clock "internal" -min 2.500ns [get_ports {pkt_end}] 
+
 set_input_delay -clock "internal" -max 96.8ns [get_ports {fdata[0] fdata[1] fdata[2] fdata[3] fdata[4] fdata[5] fdata[6] fdata[7]}] 
 set_input_delay -clock "internal" -min 4.500ns [get_ports {fdata[0] fdata[1] fdata[2] fdata[3] fdata[4] fdata[5] fdata[6] fdata[7]}] 
-set_input_delay -clock "internal" -max 91.4ns [get_ports {pkt_end}] 
-set_input_delay -clock "internal" -min 2.500ns [get_ports {pkt_end}] 
+
 
 
 # tco constraints
