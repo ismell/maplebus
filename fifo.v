@@ -231,6 +231,8 @@ always @(posedge clk, negedge reset) begin : SLAVE_OUTPUT_ENABLE
         sloe <= 1'b0;
       READ:
         sloe <= 1'b0;
+      READ_DONE:
+        sloe <= 1'b0;
       default:
         sloe <= 1'b1; 
     endcase

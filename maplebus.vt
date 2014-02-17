@@ -4,40 +4,70 @@
 module maplebus_test;
 
   reg clk, reset;
-  tri1 sdcka, sdckb;
-  
-  reg enable;
-  wire transmitting, receiving, next, write;
-  reg [7:0] data;
-  wire [7:0] data_out;
-  
-  receiver rec(clk, reset, sdcka, sdckb, receiving, write, data_out);
 
-  transmitter dut(clk, reset, enable, transmitting, sdcka, sdckb, next, data);
+  wire sdcka;
+  wire sdckb;
+  
+  wire flaga; //  EP2 empty flag
+  wire flagb; //  Indexed Full Flag
+  reg flagc; //  Indexed Empty Flag
+  wire flagd; //  EP6 full flag
+
+  wire [7:0] fdata;  
+  wire [1:0] faddr;  
+  wire sloe;
+  wire slrd;
+  wire slwr;
+  wire pkt_end;
+  wire clk_out;
+
+  maplebus dut(
+    .clk(clk),
+    .reset(reset),
+    .sdcka(sdcka),
+    .sdckb(sdckb),
+    .flaga(flaga),
+    .flagb(flagb),
+    .flagc(flagc),
+    .flagd(flagd),
+    .fdata(fdata),
+    .faddr(faddr),
+    .sloe(sloe),
+    .slrd(slrd),
+    .slwr(slwr),
+    .pkt_end(pkt_end),
+    .clk_out(clk_out)
+  );
   
   always begin
-  	#1 clk = ~clk;
+    #1 clk = ~clk;
   end
+
+  reg [7:0] data;
+
+  assign flaga = 0;
+  assign flagb = 1;
+  assign flagd = 1;
+  assign fdata = sloe ? 8'bz : data;
   
   initial begin
-	  clk = 1'b0;
+    clk = 1'b0;
     reset = 1'b1;
-    enable = 1'b0;
-    
+    flagc = 0;
+
     data = 8'b01100110;
+    #4 flagc = 1;
     
-    #4 enable = 1'b1;
     
-    
-    while (!next)
-    	#2 $display ("Waiting for next flag");
+    while (slrd)
+      #2 $display ("Waiting for next flag");
     
     #2 data = 8'b10011001;
     
-    while (!next)
-    	#2 $display ("Waiting for 2nd next flag");
+    while (slrd)
+      #2 $display ("Waiting for 2nd next flag");
     
-    #2 enable = 1'b0;
+    flagc = 0;
 
     #400 $stop;
 

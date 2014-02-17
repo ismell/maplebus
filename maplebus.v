@@ -51,9 +51,8 @@ module maplebus(
   assign sdckb_in = transmitting ? 1'b1 : sdckb;
 
   // Let the pull up resistor handle the 1
-  //TODO: Change the z to a 1
-  assign sdcka = transmitting ? (sdcka_out ? 1'b1 : 1'b0) : 1'bz; 
-  assign sdckb = transmitting ? (sdckb_out ? 1'b1 : 1'b0) : 1'bz; 
+  assign sdcka = transmitting ? (sdcka_out ? 1'bz : 1'b0) : 1'bz; 
+  assign sdckb = transmitting ? (sdckb_out ? 1'bz : 1'b0) : 1'bz; 
     
   fifo f(
     .clk(clk),

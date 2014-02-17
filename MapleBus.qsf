@@ -127,7 +127,7 @@ set_global_assignment -name SDC_FILE MapleBus.sdc
 set_global_assignment -name VERILOG_FILE maplebus.v
 set_global_assignment -name VERILOG_FILE receiver.v
 set_global_assignment -name VERILOG_FILE fifo.v
-set_global_assignment -name EDA_RUN_TOOL_AUTOMATICALLY ON -section_id eda_simulation
+set_global_assignment -name EDA_RUN_TOOL_AUTOMATICALLY OFF -section_id eda_simulation
 set_global_assignment -name EDA_TEST_BENCH_ENABLE_STATUS TEST_BENCH_MODE -section_id eda_simulation
 set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH MapleBusTest -section_id eda_simulation
 set_global_assignment -name EDA_TEST_BENCH_NAME MapleBusTest -section_id eda_simulation
