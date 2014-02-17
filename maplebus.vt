@@ -1,0 +1,46 @@
+`timescale 1ns/1ns
+
+// Testbench
+module maplebus_test;
+
+  reg clk, reset;
+  tri1 sdcka, sdckb;
+  
+  reg enable;
+  wire transmitting, receiving, next, write;
+  reg [7:0] data;
+  wire [7:0] data_out;
+  
+  receiver rec(clk, reset, sdcka, sdckb, receiving, write, data_out);
+
+  transmitter dut(clk, reset, enable, transmitting, sdcka, sdckb, next, data);
+  
+  always begin
+  	#1 clk = ~clk;
+  end
+  
+  initial begin
+	  clk = 1'b0;
+    reset = 1'b1;
+    enable = 1'b0;
+    
+    data = 8'b01100110;
+    
+    #4 enable = 1'b1;
+    
+    
+    while (!next)
+    	#2 $display ("Waiting for next flag");
+    
+    #2 data = 8'b10011001;
+    
+    while (!next)
+    	#2 $display ("Waiting for 2nd next flag");
+    
+    #2 enable = 1'b0;
+
+    #400 $stop;
+
+  end
+  
+endmodule
