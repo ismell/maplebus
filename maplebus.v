@@ -2,7 +2,7 @@ module maplebus(
   input wire clk,
   input wire reset,
   
-  inout wire sdcka, sdckb,
+  inout tri1 sdcka, sdckb,
   
   input wire flaga,  //  EP2 empty flag
   input wire flagb,  //  Indexed Full Flag
@@ -15,10 +15,14 @@ module maplebus(
   output wire slrd,
   output wire slwr,
   output wire pkt_end,
-  output wire clk_out
+  output wire clk_out,
+  output wire txing,
+  output wire rxing
 );
 
   assign clk_out = clk;
+  assign txing = transmitting;
+  assign rxing = receiving;
   
   //wire menable, mready;
   wire [7:0] rx_data;
@@ -51,8 +55,8 @@ module maplebus(
   assign sdckb_in = transmitting ? 1'b1 : sdckb;
 
   // Let the pull up resistor handle the 1
-  assign sdcka = transmitting ? (sdcka_out ? 1'bz : 1'b0) : 1'bz; 
-  assign sdckb = transmitting ? (sdckb_out ? 1'bz : 1'b0) : 1'bz; 
+  assign sdcka = transmitting ? sdcka_out : 1'bz; 
+  assign sdckb = transmitting ? sdckb_out : 1'bz; 
     
   fifo f(
     .clk(clk),

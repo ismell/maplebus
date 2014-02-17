@@ -135,3 +135,7 @@ set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id MapleBusTest
 set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME maplebus_test -section_id MapleBusTest
 set_global_assignment -name EDA_TEST_BENCH_RUN_SIM_FOR "1 us" -section_id MapleBusTest
 set_global_assignment -name EDA_TEST_BENCH_FILE maplebus.vt -section_id MapleBusTest
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to sdcka
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to sdckb
+set_location_assignment PIN_D2 -to txing
+set_location_assignment PIN_D3 -to rxing
