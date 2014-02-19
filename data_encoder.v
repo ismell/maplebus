@@ -10,21 +10,24 @@ module data_encoder(
   input wire [7:0] data
 );
 
-  parameter SIZE = 12;
+  parameter SIZE = 15;
 
   // All the hold states are so we can output a 2mhz signal
-  parameter IDLE               = 12'b000000000001;
-  parameter PHASE1_SETUP       = 12'b000000000010;
-  parameter PHASE1_DATA        = 12'b000000000100;
-  parameter PHASE1_TICK        = 12'b000000001000;
-  parameter PHASE1_TICK_HOLD_1 = 12'b000000010000;
-  parameter PHASE1_TICK_HOLD_2 = 12'b000000100000;
-  parameter PHASE2_SETUP       = 12'b000001000000;
-  parameter PHASE2_DATA        = 12'b000010000000;
-  parameter PHASE2_TOCK        = 12'b000100000000;
-  parameter PHASE2_TOCK_HOLD_1 = 12'b001000000000;
-  parameter PHASE2_TOCK_HOLD_2 = 12'b010000000000;
-  parameter DONE               = 12'b100000000000;
+  parameter IDLE                = 15'b1 << 0;
+  parameter PHASE1_SETUP_1      = 15'b1 << 1;
+  parameter PHASE1_SETUP_2      = 15'b1 << 2;
+  parameter PHASE1_DATA_1       = 15'b1 << 3;
+  parameter PHASE1_DATA_2       = 15'b1 << 4;
+  parameter PHASE1_HOLD_1       = 15'b1 << 5;
+  parameter PHASE1_HOLD_2       = 15'b1 << 6;
+  parameter PHASE2_SETUP_1      = 15'b1 << 7;
+  parameter PHASE2_SETUP_2      = 15'b1 << 8;
+  parameter PHASE2_DATA_1       = 15'b1 << 9;
+  parameter PHASE2_DATA_2       = 15'b1 << 10;
+  parameter PHASE2_HOLD_1       = 15'b1 << 11;
+  parameter PHASE2_HOLD_2       = 15'b1 << 12;
+  parameter DONE_1              = 15'b1 << 13;
+  parameter DONE_2              = 15'b1 << 14;
 
   reg [SIZE-1:0] current_state;
   reg [SIZE-1:0] next_state;
@@ -58,33 +61,41 @@ module data_encoder(
     case(current_state)
       IDLE:
         if (enable)
-          next_state = PHASE1_SETUP;
+          next_state = PHASE1_SETUP_1;
         else
           next_state = IDLE;
-      PHASE1_SETUP:
-        next_state = PHASE1_DATA;
-      PHASE1_DATA:
-        next_state = PHASE1_TICK;
-      PHASE1_TICK:
-        next_state = PHASE1_TICK_HOLD_1;
-      PHASE1_TICK_HOLD_1:
-        next_state = PHASE1_TICK_HOLD_2;
-      PHASE1_TICK_HOLD_2:
-        next_state = PHASE2_SETUP;
+      PHASE1_SETUP_1:
+        next_state = PHASE1_SETUP_2;
+      PHASE1_SETUP_2:
+        next_state = PHASE1_DATA_1;
+      PHASE1_DATA_1:
+        next_state = PHASE1_DATA_2;
+      PHASE1_DATA_2:
+        next_state = PHASE1_HOLD_1;
+      PHASE1_HOLD_1:
+        next_state = PHASE1_HOLD_2;
+      PHASE1_HOLD_2:
+        next_state = PHASE2_SETUP_1;
 
-      PHASE2_SETUP:
-        next_state = PHASE2_DATA;
-      PHASE2_DATA:
-        next_state = PHASE2_TOCK;
-      PHASE2_TOCK:
-        next_state = PHASE2_TOCK_HOLD_1;
-      PHASE2_TOCK_HOLD_1:
-        next_state = PHASE2_TOCK_HOLD_2;
-      PHASE2_TOCK_HOLD_2:
+      PHASE2_SETUP_1:
+        next_state = PHASE2_SETUP_2;
+      PHASE2_SETUP_2:
+        next_state = PHASE2_DATA_1;
+      PHASE2_DATA_1:
+        next_state = PHASE2_DATA_2;
+      PHASE2_DATA_2:
+        next_state = PHASE2_HOLD_1;
+      PHASE2_HOLD_1:
+        next_state = PHASE2_HOLD_2;
+      PHASE2_HOLD_2:
         if (pointer == 0 && empty)
-          next_state = DONE;
+          next_state = DONE_1;
         else
-          next_state = PHASE1_SETUP;
+          next_state = PHASE1_SETUP_1;
+      DONE_1:
+        next_state = DONE_2;
+      DONE_2:
+        next_state = IDLE;
       default: 
         next_state = IDLE;
     endcase
@@ -95,7 +106,7 @@ module data_encoder(
   // -----------------------------------------
 
   assign current_bit = buffer[pointer +: 1];
-  assign done = (current_state == DONE ? 1'b1 : 1'b0);
+  assign done = (current_state == DONE_2 ? 1'b1 : 1'b0);
 
   // ------------------------------------------
   // Register outputs
@@ -110,7 +121,7 @@ module data_encoder(
       case (next_state)
         IDLE:
           buffer <= 0;
-        PHASE1_SETUP:
+        PHASE1_SETUP_1:
           if (pointer == 0)
             buffer <= data;
           else
@@ -130,9 +141,9 @@ module data_encoder(
       case (next_state)
         IDLE:
           pointer <= 0;
-        PHASE1_TICK:
+        PHASE1_HOLD_1:
           pointer <= pointer + 3'b1;
-        PHASE2_TOCK:
+        PHASE2_HOLD_1:
           pointer <= pointer + 3'b1;
         default:
           pointer <= pointer;
@@ -147,11 +158,11 @@ module data_encoder(
     end
     else begin
       case (next_state)
-        PHASE1_DATA:
+        PHASE1_DATA_1:
           if (pointer == 0)
             next <= 1;
           else
-          	next <= 0;
+            next <= 0;
         default:
           next <= 0;
       endcase
@@ -167,47 +178,65 @@ module data_encoder(
     end
     else begin
       case (next_state)
-        PHASE1_SETUP: begin
+        PHASE1_SETUP_1: begin
           sdcka <= 1'b1;
           sdckb <= sdckb;
         end
-        PHASE1_DATA: begin
+        PHASE1_SETUP_2: begin
+          sdcka <= 1'b1;
+          sdckb <= sdckb;
+        end
+        PHASE1_DATA_1: begin
           sdcka <= 1'b1;
           sdckb <= current_bit;
         end
-        PHASE1_TICK: begin
+        PHASE1_DATA_2: begin
+          sdcka <= 1'b1;
+          sdckb <= sdckb;
+        end
+        PHASE1_HOLD_1: begin
           sdcka <= 1'b0;
           sdckb <= sdckb;
         end
-        PHASE1_TICK_HOLD_1: begin
-          sdcka <= 1'b0;
-          sdckb <= sdckb;
-        end
-        PHASE1_TICK_HOLD_2: begin
+        PHASE1_HOLD_2: begin
           sdcka <= 1'b0;
           sdckb <= sdckb;
         end
 
-        PHASE2_SETUP: begin
+        PHASE2_SETUP_1: begin
           sdcka <= sdcka;
           sdckb <= 1'b1;
         end
-        PHASE2_DATA: begin
+        PHASE2_SETUP_2: begin
+          sdcka <= sdcka;
+          sdckb <= 1'b1;
+        end
+        PHASE2_DATA_1: begin
           sdcka <= current_bit;
           sdckb <= 1'b1;
         end
-        PHASE2_TOCK: begin
+        PHASE2_DATA_2: begin
+          sdcka <= sdcka;
+          sdckb <= 1'b1;
+        end
+        PHASE2_HOLD_1: begin
           sdcka <= sdcka;
           sdckb <= 1'b0;
         end
-        PHASE2_TOCK_HOLD_1: begin
+        PHASE2_HOLD_2: begin
           sdcka <= sdcka;
           sdckb <= 1'b0;
         end
-        PHASE2_TOCK_HOLD_2: begin
-          sdcka <= sdcka;
+
+        DONE_1: begin
+          sdcka <= 1'b1;
           sdckb <= 1'b0;
         end
+        DONE_2: begin
+          sdcka <= 1'b1;
+          sdckb <= 1'b0;
+        end
+
         default: begin
           sdcka <= 1'b1;
           sdckb <= 1'b1;
