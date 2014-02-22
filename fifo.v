@@ -36,20 +36,20 @@ assign fdata[7:0] = sloe ? data_out[7:0] : 8'bz;
 
 parameter SIZE = 14;
 
-parameter SELECT_OUT_FIFO = 14'b00000000000001;
-parameter IDLE            = 14'b00000000000010;
-parameter SELECT_IN_FIFO  = 14'b00000000000100;
-parameter IS_FULL         = 14'b00000000001000;
-parameter DROP            = 14'b00000000010000;
-parameter HAS_DATA        = 14'b00000000100000;
-parameter SETUP_DATA      = 14'b00000001000000;
-parameter WRITE           = 14'b00000010000000;
-parameter PKTEND          = 14'b00000100000000;
-parameter CAN_READ        = 14'b00001000000000;
-parameter READ_DATA       = 14'b00010000000000;
-parameter READ            = 14'b00100000000000;
-parameter IS_EMPTY        = 14'b01000000000000;
-parameter READ_DONE       = 14'b10000000000000;
+parameter SELECT_OUT_FIFO = 14'b1 << 0;
+parameter IDLE            = 14'b1 << 1;
+parameter SELECT_IN_FIFO  = 14'b1 << 2;
+parameter IS_FULL         = 14'b1 << 3;
+parameter DROP            = 14'b1 << 4;
+parameter HAS_DATA        = 14'b1 << 5;
+parameter SETUP_DATA      = 14'b1 << 6;
+parameter WRITE           = 14'b1 << 7;
+parameter PKTEND          = 14'b1 << 8;
+parameter CAN_READ        = 14'b1 << 9;
+parameter READ            = 14'b1 << 10;
+parameter READ_HOLD       = 14'b1 << 11;
+parameter READ_DATA       = 14'b1 << 12;
+parameter READ_DONE       = 14'b1 << 13;
 
 reg [SIZE-1:0] current_state;
 reg [SIZE-1:0] next_state;
@@ -86,7 +86,7 @@ begin
       if (rx_enable) // Maple Bus has something to transmit
         next_state = SELECT_IN_FIFO;
       else if (empty == 1'b1) // Host has something to transmit on the MapleBus
-        next_state = READ_DATA;
+        next_state = READ_HOLD;
       else
         next_state = IDLE;
     end
@@ -128,9 +128,6 @@ begin
     end
 
     // Begin reception from host
-    READ_DATA: begin
-      next_state = CAN_READ;
-    end
     CAN_READ: begin
       if (empty == 1'b0) // We are empty
         next_state = READ_DONE;
@@ -141,7 +138,13 @@ begin
           next_state = CAN_READ;
     end
     READ: begin
+      next_state = READ_HOLD;
+    end
+    READ_HOLD: begin
       next_state = READ_DATA;
+    end
+    READ_DATA: begin
+      next_state = CAN_READ;
     end
     READ_DONE: begin
       next_state = SELECT_OUT_FIFO;
@@ -207,11 +210,13 @@ always @(posedge clk, negedge reset) begin : ENABLE_TRANSMITTER
     tx_enable <= 1'b0;
   else
     case (next_state)
-      READ_DATA:
-        tx_enable <= 1'b1;
       CAN_READ:
         tx_enable <= 1'b1;
       READ:
+        tx_enable <= 1'b1;
+      READ_HOLD:
+        tx_enable <= 1'b1;
+      READ_DATA:
         tx_enable <= 1'b1;
       default:
         tx_enable <= 1'b0; 
@@ -225,11 +230,13 @@ always @(posedge clk, negedge reset) begin : SLAVE_OUTPUT_ENABLE
     case (next_state)
       IDLE:
         sloe <= 1'b0;
-      READ_DATA:
-        sloe <= 1'b0;
       CAN_READ:
         sloe <= 1'b0;
       READ:
+        sloe <= 1'b0;
+      READ_HOLD:
+        sloe <= 1'b0;
+      READ_DATA:
         sloe <= 1'b0;
       READ_DONE:
         sloe <= 1'b0;
