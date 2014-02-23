@@ -21,8 +21,6 @@ module maplebus(
 );
 
   assign clk_out = clk;
-  assign txing = transmitting;
-  assign rxing = receiving;
   
   //wire menable, mready;
   wire [7:0] rx_data;
@@ -51,6 +49,9 @@ module maplebus(
     .data(tx_data) // Data from FIFO
   );
 
+  assign txing = transmitting;
+  assign rxing = receiving;
+
   assign sdcka_in = transmitting ? 1'b1 : sdcka;
   assign sdckb_in = transmitting ? 1'b1 : sdckb;
 
@@ -66,6 +67,7 @@ module maplebus(
     .rx_data(rx_data),
 
     .tx_enable(tx_enable),
+    .tx_busy(transmitting),
     .tx_read(tx_read),
     .tx_data(tx_data),
 

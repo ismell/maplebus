@@ -38,9 +38,15 @@ module maplebus_test;
     .pkt_end(pkt_end),
     .clk_out(clk_out)
   );
-  
+
+  wire receiving, write;
+
+  wire [7:0] recv_data;
+
+  receiver rec(clk, reset, sdcka, sdckb, receiving, write, recv_data);
+
   always begin
-    #1 clk = ~clk;
+    #1 clk = ~clk;    
   end
 
   reg [7:0] data;
@@ -55,22 +61,21 @@ module maplebus_test;
     reset = 1'b1;
     flagc = 0;
 
-    data = 8'b01100110;
+    data = 8'b00000010;
     #4 flagc = 1;
     
+    @ (negedge slrd);
+    @ (posedge clk_out);
     
-    while (slrd)
-      #2 $display ("Waiting for next flag");
+    #1 data = 8'b11111111;
     
-    #2 data = 8'b10011001;
-    
-    while (slrd)
-      #2 $display ("Waiting for 2nd next flag");
-    
+    @ (negedge slrd);
+    @ (posedge clk_out);
+
+    #1 data = 8'bxxxxxxxx;
     flagc = 0;
 
-    #400 $stop;
-
+    #200 $stop;
   end
   
 endmodule

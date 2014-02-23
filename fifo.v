@@ -8,6 +8,7 @@ module fifo(
 
 
   output reg tx_enable, // The master has data to transmit to the mbus  
+  input wire tx_busy, // The transmitter is busy sending
   input wire tx_read, // Write next value to mdata_out
   output wire [7:0] tx_data, // mbus data in
   
@@ -147,7 +148,10 @@ begin
       next_state = CAN_READ;
     end
     READ_DONE: begin
-      next_state = SELECT_OUT_FIFO;
+      if (tx_busy)
+        next_state = READ_DONE;
+      else
+        next_state = SELECT_OUT_FIFO;
     end
 
     default: 
@@ -173,10 +177,10 @@ end
 always @(posedge clk, negedge reset) begin : READ_DATA_IN
   if (reset == 1'b0)
     data_in <= 8'd0;
+  else if (next_state == IDLE)
+    data_in <= 8'd0;
   else if (next_state == READ_DATA)
     data_in <= fdata[7:0];
-  else if (next_state == READ_DONE)
-    data_in <= 8'd0;
   else
     data_in <= data_in;
 end
@@ -228,8 +232,6 @@ always @(posedge clk, negedge reset) begin : SLAVE_OUTPUT_ENABLE
     sloe <= 1'b1;
   else
     case (next_state)
-      IDLE:
-        sloe <= 1'b0;
       CAN_READ:
         sloe <= 1'b0;
       READ:
@@ -237,8 +239,6 @@ always @(posedge clk, negedge reset) begin : SLAVE_OUTPUT_ENABLE
       READ_HOLD:
         sloe <= 1'b0;
       READ_DATA:
-        sloe <= 1'b0;
-      READ_DONE:
         sloe <= 1'b0;
       default:
         sloe <= 1'b1; 

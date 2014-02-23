@@ -95,7 +95,7 @@ set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "NO HEAT SINK WITH STI
 	# ==============================
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "VERILOG HDL" -section_id eda_simulation
 	set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST ON -section_id eda_simulation
-set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
+set_global_assignment -name EDA_TIME_SCALE "10 ps" -section_id eda_simulation
 
 # end EDA_TOOL_SETTINGS(eda_simulation)
 # -------------------------------------
@@ -115,18 +115,6 @@ set_global_assignment -name OPTIMIZE_HOLD_TIMING "IO PATHS AND MINIMUM TPD PATHS
 set_global_assignment -name OPTIMIZE_MULTI_CORNER_TIMING OFF
 set_global_assignment -name WEAK_PULL_UP_RESISTOR OFF
 set_global_assignment -name ENABLE_DRC_SETTINGS ON
-set_global_assignment -name VERILOG_FILE frame_pattern_encoder.v
-set_global_assignment -name VERILOG_FILE data_encoder.v
-set_global_assignment -name VERILOG_FILE transmitter.v
-set_global_assignment -name VERILOG_FILE start_frame_decoder.v
-set_global_assignment -name VERILOG_FILE end_frame_decoder.v
-set_global_assignment -name VERILOG_FILE frame_decoder.v
-set_global_assignment -name VERILOG_FILE data_decoder.v
-set_global_assignment -name VERILOG_FILE synchronizer.v
-set_global_assignment -name SDC_FILE MapleBus.sdc
-set_global_assignment -name VERILOG_FILE maplebus.v
-set_global_assignment -name VERILOG_FILE receiver.v
-set_global_assignment -name VERILOG_FILE fifo.v
 set_global_assignment -name EDA_RUN_TOOL_AUTOMATICALLY OFF -section_id eda_simulation
 set_global_assignment -name EDA_TEST_BENCH_ENABLE_STATUS TEST_BENCH_MODE -section_id eda_simulation
 set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH MapleBusTest -section_id eda_simulation
@@ -139,3 +127,16 @@ set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to sdcka
 set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to sdckb
 set_location_assignment PIN_D2 -to txing
 set_location_assignment PIN_D3 -to rxing
+set_global_assignment -name VERILOG_TEST_BENCH_FILE maplebus.vt
+set_global_assignment -name VERILOG_FILE frame_pattern_encoder.v
+set_global_assignment -name VERILOG_FILE data_encoder.v
+set_global_assignment -name VERILOG_FILE transmitter.v
+set_global_assignment -name VERILOG_FILE start_frame_decoder.v
+set_global_assignment -name VERILOG_FILE end_frame_decoder.v
+set_global_assignment -name VERILOG_FILE frame_decoder.v
+set_global_assignment -name VERILOG_FILE data_decoder.v
+set_global_assignment -name VERILOG_FILE synchronizer.v
+set_global_assignment -name SDC_FILE MapleBus.sdc
+set_global_assignment -name VERILOG_FILE maplebus.v
+set_global_assignment -name VERILOG_FILE receiver.v
+set_global_assignment -name VERILOG_FILE fifo.v
