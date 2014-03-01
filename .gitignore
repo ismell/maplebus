@@ -4,3 +4,6 @@
 !*/
 # And all the file types you're interested in.
 !*.v
+!*.scana
+!*.sst
+!*.sstgz
