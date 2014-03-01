@@ -129,7 +129,7 @@ function decode()
     var data;
 
     if (start_a) {
-      data = parse_data(start_a);
+      data = parse_data();
 
       if (data) {
         display_data(data);
@@ -352,18 +352,20 @@ function next_sdckb() {
   set_progress(100*sdckb_t.sample/n_samples);
 }
 
-function negative_transitions_before(channel, sample) {
+function negative_transitions_before(sample) {
   var count = 0;
   while (trs_is_not_last(ch_sdcka) || trs_is_not_last(ch_sdckb)) {
     if (abort_requested()) {
       return false;
     }
 
-    //debug("Starting with sample " + sdckb_t.sample + " with value " + sdckb_t.val, sdckb_t);
+    //debug("Starting at sample " + sdckb_t.sample + " with value " + sdckb_t.val, sdckb_t);
+
+    var bit = sdckb_t.val;
 
     next_sdckb();
 
-    //debug("Got with sample " + sdckb_t.sample + " with value " + sdckb_t.val, sdckb_t);
+    //debug("Got sample " + sdckb_t.sample + " with value " + sdckb_t.val, sdckb_t);
 
     if (sdckb_t.sample < sample) {
       //debug ("Sample is before " + sample);
@@ -372,16 +374,22 @@ function negative_transitions_before(channel, sample) {
       }
     } else {
       //debug ("We has passed our mark. we have " + count + " negative transitions");
-      return count;
+      if (count > 0)
+        return true;
+
+      return bit;
     }
   }
 }
 
-function parse_data(start_a, end_a) {
+function parse_data() {
   var phase = 1, count = 0, bits = [];
   var start, end, bit;
 
   var packet = [];
+
+  //debug ("Starting to parse data at sdcka: " + sdcka_t.sample, sdcka_t);
+  //debug ("Starting to parse data at sdckb: " + sdckb_t.sample, sdckb_t);
 
   while (trs_is_not_last(ch_sdcka) || trs_is_not_last(ch_sdckb)) {
     if (abort_requested()) {
@@ -396,13 +404,15 @@ function parse_data(start_a, end_a) {
           start = sdcka_t.sample;
         }
 
-        if (negative_transitions_before(ch_sdckb, sdcka_t.sample)) {
+        bit = negative_transitions_before(sdcka_t.sample);
+
+        if (bit === false || bit === true) {
           //debug("Found a negative transition", sdckb_t);
           sdckb_t = trs_get_prev(ch_sdckb);
           return packet;
         }
 
-        bit = sample_val(ch_sdckb, sdcka_t.sample);
+        //debug("Got Phase 1 bit " + bit);
         bits.push({
           channel: ch_sdcka,
           sample: sdcka_t.sample,
@@ -410,8 +420,6 @@ function parse_data(start_a, end_a) {
         });
 
         count += 1;
-
-        //sdckb_t = trs_go_after(ch_sdckb, sdcka_t.sample);
 
         phase = 2;
       } else {
@@ -422,6 +430,7 @@ function parse_data(start_a, end_a) {
       // Find negative sdckb
       if (sdckb_t.val === 0) {
         bit = sample_val(ch_sdcka, sdckb_t.sample);
+        //debug("Got Phase 2 bit " + bit);
         bits.push({
           channel: ch_sdckb,
           sample: sdckb_t.sample,
