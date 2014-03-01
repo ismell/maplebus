@@ -162,7 +162,18 @@ function display_data(data) {
         pre.push("Addl Words");
         pre.push("Words");
         hex_str = "WORDS";
-        desc = sample.value + " Additional Words in Frame";
+
+        var byte_delta = data.length - (sample.value * 4 + 5)
+        if (byte_delta) {
+          post.push("BAD");
+          if (byte_delta < 0) {
+            desc = "Missing " + (byte_delta * -1) + " bytes from frame";
+          } else {
+            desc = "Got " + byte_delta + " additional bytes in frame";
+          }
+        } else {
+          desc = sample.value + " Additional Words in Frame";
+        }
       } else if (idx === 1) {
         pre.push("Sender Address");
         pre.push("Sender Addr");
@@ -198,8 +209,8 @@ function display_data(data) {
           post.push("OK");
           desc = "Packet matches LRC";
         } else {
-          post.push("BAD");
-          desc = "LRC Error. Packet LRC: " + lrc;
+          post.push("BAD " + int_to_str_hex(lrc));
+          desc = "LRC Error. Packet LRC: " + int_to_str_hex(lrc);
         }
       }
 
@@ -211,13 +222,15 @@ function display_data(data) {
     hex_add_byte(ch_sdcka, sample.start, sample.end, sample.value);
 
     draw_bits(ch_sdcka, sample);
+    
+    if (desc) dec_item_add_comment(desc);
+
     pre.forEach(function(str) {
-      dec_item_add_pre_text(str);
+      dec_item_add_pre_text(str + " ");
     });
     post.forEach(function(str) {
-      dec_item_add_post_text(str);
+      dec_item_add_post_text(" " + str);
     });
-    if (desc) dec_item_add_comment(desc);
 
   });
   //debug("Ending packet");
