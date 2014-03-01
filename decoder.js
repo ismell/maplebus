@@ -344,10 +344,12 @@ function draw_bits(channel, sample) {
 
 function next_sdcka() {
   sdcka_t = trs_get_next(ch_sdcka);
+  set_progress(100*sdcka_t.sample/n_samples);
 }
 
 function next_sdckb() {
   sdckb_t = trs_get_next(ch_sdckb);
+  set_progress(100*sdckb_t.sample/n_samples);
 }
 
 function negative_transitions_before(channel, sample) {
@@ -582,7 +584,7 @@ function lable_start_frame(start_sample, end_sample, count) {
 }
 
 function lable_end_frame(start_sample, end_sample, count) {
-  debug("Found end frame at: [" + start_sample + ", " + end_sample + "] with count: " + count);
+  //debug("Found end frame at: [" + start_sample + ", " + end_sample + "] with count: " + count);
   dec_item_new(ch_sdcka, start_sample, end_sample);
 
   if (count == 2) {
