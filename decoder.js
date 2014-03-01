@@ -1,5 +1,5 @@
 /* jshint loopfunc: true, undef: true, unused: false, strict: false */
-/* global ch_sdcka, ch_sdckb, dec_item_add_post_text, dec_item_add_comment, hex_add_byte, dark_colors, pkt_start, pkt_end, pkt_add_item, trs_go_before, dec_item_add_data, sample_val, ui_clear, ui_add_ch_selector, dec_item_add_sample_point, DRAW_0, DRAW_1, clear_dec_items, dec_item_new, dec_item_add_pre_text, get_ui_vals, add_to_err_log, trs_get_first, trs_is_not_last, abort_requested, trs_get_next, debug, trs_go_after, sample_rate, get_ch_color */
+/* global ch_sdcka, ch_sdckb, trs_get_prev, dec_item_add_post_text, dec_item_add_comment, hex_add_byte, dark_colors, pkt_start, pkt_end, pkt_add_item, trs_go_before, dec_item_add_data, sample_val, ui_clear, ui_add_ch_selector, dec_item_add_sample_point, DRAW_0, DRAW_1, clear_dec_items, dec_item_new, dec_item_add_pre_text, get_ui_vals, add_to_err_log, trs_get_first, trs_is_not_last, abort_requested, trs_get_next, debug, trs_go_after, sample_rate, get_ch_color */
 
 /*
 *************************************************************************************
@@ -129,29 +129,26 @@ function decode()
     var data;
 
     if (start_a) {
-      //TODO: Can we make parse data find an end condition instead?
-      end_a = find_end_frame();
+      data = parse_data(start_a);
 
-      if (end_a) {
-        data = parse_data(start_a, end_a);
-
-        if (data) {
-          display_data(data);
-        } else {
-          debug("NO DATA FOUND!");
-        }
+      if (data) {
+        display_data(data);
+      } else {
+        //debug("NO DATA FOUND!");
       }
+      
+      end_a = find_end_frame();
     }
   }
 }
 
 function display_data(data) {
-  debug("Starting packet with " + data.length + " bytes");
+  //debug("Starting packet with " + data.length + " bytes");
   pkt_start("DATA");
   var parse = data.length >= 5;
   var command, lrc = 0;
   data.forEach(function(sample, idx) {
-    debug("Adding data item: "+JSON.stringify(sample));
+    //debug("Adding data item: "+JSON.stringify(sample));
 
     var pre = [], post = [], desc, hex_str;
 
@@ -223,7 +220,7 @@ function display_data(data) {
     if (desc) dec_item_add_comment(desc);
 
   });
-  debug("Ending packet");
+  //debug("Ending packet");
   pkt_end();
 }
 
@@ -340,12 +337,34 @@ function next_sdckb() {
   sdckb_t = trs_get_next(ch_sdckb);
 }
 
+function negative_transitions_before(channel, sample) {
+  var count = 0;
+  while (trs_is_not_last(ch_sdcka) || trs_is_not_last(ch_sdckb)) {
+    if (abort_requested()) {
+      return false;
+    }
+
+    //debug("Starting with sample " + sdckb_t.sample + " with value " + sdckb_t.val, sdckb_t);
+
+    next_sdckb();
+
+    //debug("Got with sample " + sdckb_t.sample + " with value " + sdckb_t.val, sdckb_t);
+
+    if (sdckb_t.sample < sample) {
+      //debug ("Sample is before " + sample);
+      if (sdckb_t.val === 0) {
+        count += 1;
+      }
+    } else {
+      //debug ("We has passed our mark. we have " + count + " negative transitions");
+      return count;
+    }
+  }
+}
+
 function parse_data(start_a, end_a) {
   var phase = 1, count = 0, bits = [];
   var start, end, bit;
-
-  sdcka_t = trs_go_after(ch_sdcka, start_a.sample);
-  sdckb_t = trs_go_before(ch_sdckb, start_a.sample);
 
   var packet = [];
 
@@ -354,17 +373,18 @@ function parse_data(start_a, end_a) {
       return false;
     }
 
-    if (sdcka_t.sample > end_a.sample || sdckb_t.sample > end_a.sample) {
-      debug("Reached the end of the packet");
-      return packet;
-    }
-
     if (phase === 1) {
-      debug("IN Phase 1");
+      //debug("IN Phase 1");
       // Find negative sdcka
       if (sdcka_t.val === 0) {
         if (!start) {
           start = sdcka_t.sample;
+        }
+
+        if (negative_transitions_before(ch_sdckb, sdcka_t.sample)) {
+          //debug("Found a negative transition", sdckb_t);
+          sdckb_t = trs_get_prev(ch_sdckb);
+          return packet;
         }
 
         bit = sample_val(ch_sdckb, sdcka_t.sample);
@@ -376,14 +396,14 @@ function parse_data(start_a, end_a) {
 
         count += 1;
 
-        sdckb_t = trs_go_after(ch_sdckb, sdcka_t.sample);
+        //sdckb_t = trs_go_after(ch_sdckb, sdcka_t.sample);
 
         phase = 2;
       } else {
         next_sdcka();
       }
     } else if (phase === 2) {
-      debug("IN Phase 2");
+      //debug("IN Phase 2");
       // Find negative sdckb
       if (sdckb_t.val === 0) {
         bit = sample_val(ch_sdcka, sdckb_t.sample);
@@ -396,7 +416,7 @@ function parse_data(start_a, end_a) {
         count += 1;
 
         if (count >= 8) {
-          debug("Byte found");
+          //debug("Byte found");
           end = sdckb_t.sample;
 
           var bit_array = extract_bits(bits);
@@ -479,22 +499,22 @@ function find_end_frame() {
     if (abort_requested()) {
       return false;
     }
-    debug ("Looking at sdcka: " + sdcka_t.sample + " sdckb: " + sdckb_t.sample);
+    //debug ("Looking at sdcka: " + sdcka_t.sample + " sdckb: " + sdckb_t.sample);
 
     if (start_b) {
       if (end_b) {
         if (sdcka_t.sample >= end_b.sample) {
-          debug("Out of frame with count: " + count);
+          //debug("Out of frame with count: " + count);
           if (count === 0 || count === 1) {
             // Nothing special ignore it
             start_b = end_b = null;
             count = 0;
           } else if (count === 2) {
-            debug("Found end frame!");
+            //debug("Found end frame!");
             lable_end_frame(start_b.sample, end_b.sample, count);
             return start_b;
           } else {
-            debug("Found a bad end frame");
+            //debug("Found a bad end frame");
             lable_end_frame(start_b.sample, end_b.sample, count);
 
             // End frame error, stop
@@ -502,7 +522,7 @@ function find_end_frame() {
           }
         } else {
           if (sdcka_t.val === 0) {
-            debug("Found falling edge on sdcka at " + sdcka_t.sample);
+            //debug("Found falling edge on sdcka at " + sdcka_t.sample);
             count += 1;
           }
 
@@ -510,27 +530,27 @@ function find_end_frame() {
         }
       } else {
         end_b = sdckb_t;
-        debug("Found rising edge at " + end_b.sample);
+        //debug("Found rising edge at " + end_b.sample);
         sdcka_t = trs_go_after(ch_sdcka, start_b.sample);
       }
     } else {
-      debug("We are looking for a falling edge on sdckb");
+      //debug("We are looking for a falling edge on sdckb");
       if (sdckb_t.val === 0) {
         // We caught the first negative edge
         start_b = sdckb_t;
-        debug("Found one at: " + sdckb_t.sample);
+        //debug("Found one at: " + sdckb_t.sample);
       }
 
       next_sdckb();
     }
   }
-  debug("reached end of samples");
+  //debug("reached end of samples");
 
   return null;
 }
 
 function lable_start_frame(start_sample, end_sample, count) {
-  debug("Found start frame at: [" + start_sample + ", " + end_sample + "] with count: " + count);
+  //debug("Found start frame at: [" + start_sample + ", " + end_sample + "] with count: " + count);
   dec_item_new(ch_sdckb, start_sample, end_sample);
 
   if (count == 4) {
