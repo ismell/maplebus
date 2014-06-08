@@ -1,0 +1,1 @@
+-debug "typical" --relax -L "xil_defaultlib" -L "unisims_ver" -L "unimacro_ver" -L "secureip" --snapshot "rxMapleBusLoopBackTest_behav" --prj "C:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.sim/Loopback/behav/rxMapleBusLoopBackTest.prj" "xil_defaultlib.rxMapleBusLoopBackTest" "xil_defaultlib.glbl" 

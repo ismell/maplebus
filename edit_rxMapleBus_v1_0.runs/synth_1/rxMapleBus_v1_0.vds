@@ -1,0 +1,383 @@
+#-----------------------------------------------------------
+# Vivado v2014.1 (64-bit)
+# SW Build 881834 on Fri Apr  4 14:15:54 MDT 2014
+# IP Build 877625 on Fri Mar 28 16:29:15 MDT 2014
+# Start of session at: Sat May 31 09:17:40 2014
+# Process ID: 10724
+# Log file: c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/rxMapleBus_v1_0.vds
+# Journal file: c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1\vivado.jou
+#-----------------------------------------------------------
+source rxMapleBus_v1_0.tcl
+# set_param gui.test TreeTableDev
+# set_param xicom.use_bs_reader 1
+# set_msg_config -id {HDL 9-1061} -limit 100000
+# set_msg_config -id {HDL 9-1654} -limit 100000
+# set_msg_config -id {HDL-1065} -limit 10000
+# set_msg_config -id {Labtools 27-147} -limit 4294967295
+# create_project -in_memory -part xc7z010clg400-1
+# set_property target_language Verilog [current_project]
+# set_param project.compositeFile.enableAutoGeneration 0
+# set_property default_lib xil_defaultlib [current_project]
+# set_property ip_repo_paths {
+#   C:/Users/me/Projects/Zynq/ip_repo/rxMapleBus_1.0
+#   C:/Users/me/Projects/Zynq/ip_repo/rxMapleLite_1.0.1
+#   C:/Users/me/Projects/Zynq/ip_repo/rxMapleBusLite_1.0
+#   C:/Users/me/Projects/Zynq/ip_repo/rxMapleBus_1.0
+# } [current_fileset]
+# add_files -quiet c:/users/me/projects/zynq/ip_repo/edit_rxMapleBus_v1_0.runs/fifo_generator_0_synth_1/fifo_generator_0.dcp
+# set_property used_in_implementation false [get_files c:/users/me/projects/zynq/ip_repo/edit_rxMapleBus_v1_0.runs/fifo_generator_0_synth_1/fifo_generator_0.dcp]
+# read_verilog -library xil_defaultlib {
+#   c:/users/me/projects/zynq/ip_repo/rxmaplebus_1.0/hdl/rxMapleBus_v1_0_S_AXI_CRTL.v
+#   c:/users/me/projects/zynq/ip_repo/rxmaplebus_1.0/hdl/rxMapleBus_v1_0.v
+# }
+# read_xdc dont_buffer.xdc
+# set_property used_in_implementation false [get_files dont_buffer.xdc]
+# set_param synth.vivado.isSynthRun true
+# set_property webtalk.parent_dir c:/users/me/projects/zynq/ip_repo/edit_rxMapleBus_v1_0.cache/wt [current_project]
+# set_property parent.project_dir c:/users/me/projects/zynq/ip_repo [current_project]
+# synth_design -top rxMapleBus_v1_0 -part xc7z010clg400-1
+Command: synth_design -top rxMapleBus_v1_0 -part xc7z010clg400-1
+
+Starting synthesis...
+
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7z010'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z010'
+WARNING: [Synth 8-1849] concatenation with unsized literal; will interpret as 32 bits [c:/users/me/projects/zynq/ip_repo/rxmaplebus_1.0/hdl/rxMapleBus_v1_0_S_AXI_CRTL.v:126]
+WARNING: [Synth 8-1849] concatenation with unsized literal; will interpret as 32 bits [c:/users/me/projects/zynq/ip_repo/rxmaplebus_1.0/hdl/rxMapleBus_v1_0_S_AXI_CRTL.v:127]
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 231.070 ; gain = 104.434
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'rxMapleBus_v1_0' [c:/users/me/projects/zynq/ip_repo/rxmaplebus_1.0/hdl/rxMapleBus_v1_0.v:4]
+	Parameter C_S_AXI_CRTL_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_S_AXI_CRTL_ADDR_WIDTH bound to: 5 - type: integer 
+	Parameter C_AXIS_TDATA_WIDTH bound to: 8 - type: integer 
+INFO: [Synth 8-638] synthesizing module 'rxMapleBus_v1_0_S_AXI_CRTL' [c:/users/me/projects/zynq/ip_repo/rxmaplebus_1.0/hdl/rxMapleBus_v1_0_S_AXI_CRTL.v:4]
+	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_S_AXI_ADDR_WIDTH bound to: 5 - type: integer 
+	Parameter C_DATA_COUNTWIDTH bound to: 11 - type: integer 
+	Parameter ADDR_LSB bound to: 2 - type: integer 
+	Parameter OPT_MEM_ADDR_BITS bound to: 2 - type: integer 
+INFO: [Synth 8-226] default block is never used [c:/users/me/projects/zynq/ip_repo/rxmaplebus_1.0/hdl/rxMapleBus_v1_0_S_AXI_CRTL.v:410]
+INFO: [Synth 8-256] done synthesizing module 'rxMapleBus_v1_0_S_AXI_CRTL' (1#1) [c:/users/me/projects/zynq/ip_repo/rxmaplebus_1.0/hdl/rxMapleBus_v1_0_S_AXI_CRTL.v:4]
+INFO: [Synth 8-638] synthesizing module 'fifo_generator_0' [c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/.Xil/Vivado-10724-speedy/realtime/fifo_generator_0_stub.v:7]
+INFO: [Synth 8-256] done synthesizing module 'fifo_generator_0' (2#1) [c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/.Xil/Vivado-10724-speedy/realtime/fifo_generator_0_stub.v:7]
+INFO: [Synth 8-256] done synthesizing module 'rxMapleBus_v1_0' (3#1) [c:/users/me/projects/zynq/ip_repo/rxmaplebus_1.0/hdl/rxMapleBus_v1_0.v:4]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 249.035 ; gain = 122.398
+---------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------
+Start RTL Optimization
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+Loading clock regions from C:/Xilinx/Vivado/2014.1/data\parts/xilinx/zynq/zynq/xc7z010/ClockRegion.xml
+Loading clock buffers from C:/Xilinx/Vivado/2014.1/data\parts/xilinx/zynq/zynq/xc7z010/ClockBuffers.xml
+Loading clock placement rules from C:/Xilinx/Vivado/2014.1/data/parts/xilinx/zynq/ClockPlacerRules.xml
+Loading package pin functions from C:/Xilinx/Vivado/2014.1/data\parts/xilinx/zynq/PinFunctions.xml...
+Loading package from C:/Xilinx/Vivado/2014.1/data\parts/xilinx/zynq/zynq/xc7z010/clg400/Package.xml
+Loading io standards from C:/Xilinx/Vivado/2014.1/data\./parts/xilinx/zynq/IOStandards.xml
+
+Processing XDC Constraints
+Parsing XDC File [c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/dont_buffer.xdc]
+Finished Parsing XDC File [c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/dont_buffer.xdc]
+Completed Processing XDC Constraints
+
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+
+---------------------------------------------------------------------------------
+Start RTL Optimization
+---------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7z010clg400-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:24 ; elapsed = 00:00:26 . Memory (MB): peak = 450.730 ; gain = 324.094
+---------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+Applied set_property BUFFER_TYPE = NONE for aclk. (constraint file  c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/dont_buffer.xdc, line 4).
+Applied set_property BUFFER_TYPE = NONE for aresetn. (constraint file  c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/dont_buffer.xdc, line 4).
+Applied set_property BUFFER_TYPE = NONE for s_axis_tx_tready. (constraint file  c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/dont_buffer.xdc, line 4).
+Applied set_property BUFFER_TYPE = NONE for s_axis_tx_tlast. (constraint file  c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/dont_buffer.xdc, line 4).
+Applied set_property BUFFER_TYPE = NONE for s_axis_tx_tvalid. (constraint file  c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/dont_buffer.xdc, line 4).
+Applied set_property BUFFER_TYPE = NONE for m_axis_rx_tvalid. (constraint file  c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/dont_buffer.xdc, line 4).
+Applied set_property BUFFER_TYPE = NONE for m_axis_rx_tlast. (constraint file  c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/dont_buffer.xdc, line 4).
+Applied set_property BUFFER_TYPE = NONE for m_axis_rx_tready. (constraint file  c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/dont_buffer.xdc, line 4).
+Applied set_property BUFFER_TYPE = NONE for s_axis_tx_tdata[7]. (constraint file  c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/dont_buffer.xdc, line 4).
+Applied set_property BUFFER_TYPE = NONE for s_axis_tx_tdata[6]. (constraint file  c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/dont_buffer.xdc, line 4).
+Applied set_property BUFFER_TYPE = NONE for s_axis_tx_tdata[5]. (constraint file  c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/dont_buffer.xdc, line 4).
+Applied set_property BUFFER_TYPE = NONE for s_axis_tx_tdata[4]. (constraint file  c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/dont_buffer.xdc, line 4).
+Applied set_property BUFFER_TYPE = NONE for s_axis_tx_tdata[3]. (constraint file  c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/dont_buffer.xdc, line 4).
+Applied set_property BUFFER_TYPE = NONE for s_axis_tx_tdata[2]. (constraint file  c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/dont_buffer.xdc, line 4).
+Applied set_property BUFFER_TYPE = NONE for s_axis_tx_tdata[1]. (constraint file  c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/dont_buffer.xdc, line 4).
+Applied set_property BUFFER_TYPE = NONE for s_axis_tx_tdata[0]. (constraint file  c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/dont_buffer.xdc, line 4).
+Applied set_property BUFFER_TYPE = NONE for s_axis_tx_tstrb[0]. (constraint file  c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/dont_buffer.xdc, line 4).
+Applied set_property BUFFER_TYPE = NONE for m_axis_rx_tdata[7]. (constraint file  c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/dont_buffer.xdc, line 4).
+Applied set_property BUFFER_TYPE = NONE for m_axis_rx_tdata[6]. (constraint file  c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/dont_buffer.xdc, line 4).
+Applied set_property BUFFER_TYPE = NONE for m_axis_rx_tdata[5]. (constraint file  c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/dont_buffer.xdc, line 4).
+Applied set_property BUFFER_TYPE = NONE for m_axis_rx_tdata[4]. (constraint file  c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/dont_buffer.xdc, line 4).
+Applied set_property BUFFER_TYPE = NONE for m_axis_rx_tdata[3]. (constraint file  c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/dont_buffer.xdc, line 4).
+Applied set_property BUFFER_TYPE = NONE for m_axis_rx_tdata[2]. (constraint file  c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/dont_buffer.xdc, line 4).
+Applied set_property BUFFER_TYPE = NONE for m_axis_rx_tdata[1]. (constraint file  c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/dont_buffer.xdc, line 4).
+Applied set_property BUFFER_TYPE = NONE for m_axis_rx_tdata[0]. (constraint file  c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/dont_buffer.xdc, line 4).
+Applied set_property BUFFER_TYPE = NONE for m_axis_rx_tstrb[0]. (constraint file  c:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/dont_buffer.xdc, line 4).
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:24 ; elapsed = 00:00:26 . Memory (MB): peak = 450.730 ; gain = 324.094
+---------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------
+Finished RTL Optimization : Time (s): cpu = 00:00:24 ; elapsed = 00:00:26 . Memory (MB): peak = 450.730 ; gain = 324.094
+---------------------------------------------------------------------------------
+
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 8     
+	                5 Bit    Registers := 2     
+	                2 Bit    Registers := 2     
+	                1 Bit    Registers := 5     
++---Muxes : 
+	   8 Input     32 Bit        Muxes := 7     
+	   2 Input     32 Bit        Muxes := 7     
+	   2 Input      1 Bit        Muxes := 6     
+
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------
+Start RTL Hierarchical Component Statistics 
+---------------------------------------------------------------------------------
+Hierarchical RTL Component report 
+Module rxMapleBus_v1_0 
+Detailed RTL Component Info : 
+Module rxMapleBus_v1_0_S_AXI_CRTL 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 8     
+	                5 Bit    Registers := 2     
+	                2 Bit    Registers := 2     
+	                1 Bit    Registers := 5     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 7     
+	   8 Input     32 Bit        Muxes := 7     
+	   2 Input      1 Bit        Muxes := 6     
+
+---------------------------------------------------------------------------------
+Finished RTL Hierarchical Component Statistics
+---------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 80 (col length:40)
+BRAMs: 120 (col length: RAMB18 40 RAMB36 20)
+
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------
+Start Cross Boundary Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-3332] Sequential element (\rxMapleBus_v1_0_S_AXI_CRTL_inst/axi_awaddr_reg[1] ) is unused and will be removed from module rxMapleBus_v1_0.
+WARNING: [Synth 8-3332] Sequential element (\rxMapleBus_v1_0_S_AXI_CRTL_inst/axi_awaddr_reg[0] ) is unused and will be removed from module rxMapleBus_v1_0.
+WARNING: [Synth 8-3332] Sequential element (\rxMapleBus_v1_0_S_AXI_CRTL_inst/axi_araddr_reg[1] ) is unused and will be removed from module rxMapleBus_v1_0.
+WARNING: [Synth 8-3332] Sequential element (\rxMapleBus_v1_0_S_AXI_CRTL_inst/axi_araddr_reg[0] ) is unused and will be removed from module rxMapleBus_v1_0.
+WARNING: [Synth 8-3332] Sequential element (\rxMapleBus_v1_0_S_AXI_CRTL_inst/axi_araddr_reg[1] ) is unused and will be removed from module rxMapleBus_v1_0.
+WARNING: [Synth 8-3332] Sequential element (\rxMapleBus_v1_0_S_AXI_CRTL_inst/axi_araddr_reg[0] ) is unused and will be removed from module rxMapleBus_v1_0.
+WARNING: [Synth 8-3332] Sequential element (\rxMapleBus_v1_0_S_AXI_CRTL_inst/axi_awaddr_reg[1] ) is unused and will be removed from module rxMapleBus_v1_0.
+WARNING: [Synth 8-3332] Sequential element (\rxMapleBus_v1_0_S_AXI_CRTL_inst/axi_awaddr_reg[0] ) is unused and will be removed from module rxMapleBus_v1_0.
+WARNING: [Synth 8-3331] design rxMapleBus_v1_0 has unconnected port s_axi_crtl_awaddr[1]
+WARNING: [Synth 8-3331] design rxMapleBus_v1_0 has unconnected port s_axi_crtl_awaddr[0]
+WARNING: [Synth 8-3331] design rxMapleBus_v1_0 has unconnected port s_axi_crtl_awprot[2]
+WARNING: [Synth 8-3331] design rxMapleBus_v1_0 has unconnected port s_axi_crtl_awprot[1]
+WARNING: [Synth 8-3331] design rxMapleBus_v1_0 has unconnected port s_axi_crtl_awprot[0]
+WARNING: [Synth 8-3331] design rxMapleBus_v1_0 has unconnected port s_axi_crtl_araddr[1]
+WARNING: [Synth 8-3331] design rxMapleBus_v1_0 has unconnected port s_axi_crtl_araddr[0]
+WARNING: [Synth 8-3331] design rxMapleBus_v1_0 has unconnected port s_axi_crtl_arprot[2]
+WARNING: [Synth 8-3331] design rxMapleBus_v1_0 has unconnected port s_axi_crtl_arprot[1]
+WARNING: [Synth 8-3331] design rxMapleBus_v1_0 has unconnected port s_axi_crtl_arprot[0]
+---------------------------------------------------------------------------------
+Finished Cross Boundary Optimization : Time (s): cpu = 00:00:46 ; elapsed = 00:00:48 . Memory (MB): peak = 538.430 ; gain = 411.793
+---------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------
+Start RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------
+Start Area Optimization
+---------------------------------------------------------------------------------
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\rxMapleBus_v1_0_S_AXI_CRTL_inst/axi_rresp_reg[1] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\rxMapleBus_v1_0_S_AXI_CRTL_inst/axi_bresp_reg[1] )
+WARNING: [Synth 8-3332] Sequential element (\rxMapleBus_v1_0_S_AXI_CRTL_inst/axi_bresp_reg[1] ) is unused and will be removed from module rxMapleBus_v1_0.
+WARNING: [Synth 8-3332] Sequential element (\rxMapleBus_v1_0_S_AXI_CRTL_inst/axi_bresp_reg[0] ) is unused and will be removed from module rxMapleBus_v1_0.
+WARNING: [Synth 8-3332] Sequential element (\rxMapleBus_v1_0_S_AXI_CRTL_inst/axi_rresp_reg[1] ) is unused and will be removed from module rxMapleBus_v1_0.
+WARNING: [Synth 8-3332] Sequential element (\rxMapleBus_v1_0_S_AXI_CRTL_inst/axi_rresp_reg[0] ) is unused and will be removed from module rxMapleBus_v1_0.
+---------------------------------------------------------------------------------
+Finished Area Optimization : Time (s): cpu = 00:00:47 ; elapsed = 00:00:49 . Memory (MB): peak = 561.484 ; gain = 434.848
+---------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:47 ; elapsed = 00:00:50 . Memory (MB): peak = 561.484 ; gain = 434.848
+---------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:47 ; elapsed = 00:00:50 . Memory (MB): peak = 561.484 ; gain = 434.848
+---------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:48 ; elapsed = 00:00:50 . Memory (MB): peak = 561.484 ; gain = 434.848
+---------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:48 ; elapsed = 00:00:51 . Memory (MB): peak = 561.484 ; gain = 434.848
+---------------------------------------------------------------------------------
+
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:48 ; elapsed = 00:00:51 . Memory (MB): peak = 561.484 ; gain = 434.848
+---------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:49 ; elapsed = 00:00:51 . Memory (MB): peak = 561.484 ; gain = 434.848
+---------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------
+Start RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++------+-----------------+----------+
+|      |BlackBox name    |Instances |
++------+-----------------+----------+
+|1     |fifo_generator_0 |         2|
++------+-----------------+----------+
+
+Report Cell Usage: 
++------+--------------------+------+
+|      |Cell                |Count |
++------+--------------------+------+
+|1     |fifo_generator_0    |     1|
+|2     |fifo_generator_0__1 |     1|
+|3     |LUT1                |     1|
+|4     |LUT2                |     1|
+|5     |LUT3                |     2|
+|6     |LUT4                |     6|
+|7     |LUT5                |    42|
+|8     |LUT6                |    55|
+|9     |MUXF7               |    32|
+|10    |FDRE                |   267|
+|11    |IBUF                |    47|
+|12    |OBUF                |    41|
++------+--------------------+------+
+
+Report Instance Areas: 
++------+----------------------------------+---------------------------+------+
+|      |Instance                          |Module                     |Cells |
++------+----------------------------------+---------------------------+------+
+|1     |top                               |                           |   586|
+|2     |  rxMapleBus_v1_0_S_AXI_CRTL_inst |rxMapleBus_v1_0_S_AXI_CRTL |   406|
++------+----------------------------------+---------------------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:49 ; elapsed = 00:00:51 . Memory (MB): peak = 561.484 ; gain = 434.848
+---------------------------------------------------------------------------------
+
+Synthesis finished with 0 errors, 0 critical warnings and 22 warnings.
+Synthesis Optimization Complete : Time (s): cpu = 00:00:49 ; elapsed = 00:00:51 . Memory (MB): peak = 561.484 ; gain = 434.848
+INFO: [Netlist 29-17] Analyzing 47 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Opt 31-140] Inserted 0 IBUFs to IO ports without IO buffers.
+INFO: [Opt 31-141] Inserted 0 OBUFs to IO ports without IO buffers.
+INFO: [Opt 31-138] Pushed 0 inverter(s).
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+INFO: [Common 17-83] Releasing license: Synthesis
+18 Infos, 24 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:48 ; elapsed = 00:00:51 . Memory (MB): peak = 561.484 ; gain = 385.957
+# write_checkpoint rxMapleBus_v1_0.dcp
+# report_utilization -file rxMapleBus_v1_0_utilization_synth.rpt -pb rxMapleBus_v1_0_utilization_synth.pb
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.038 . Memory (MB): peak = 561.484 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Sat May 31 09:18:33 2014...

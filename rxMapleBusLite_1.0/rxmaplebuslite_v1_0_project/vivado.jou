@@ -1,0 +1,11 @@
+#-----------------------------------------------------------
+# Vivado v2014.1 (64-bit)
+# SW Build 881834 on Fri Apr  4 14:15:54 MDT 2014
+# IP Build 877625 on Fri Mar 28 16:29:15 MDT 2014
+# Start of session at: Fri May 30 19:25:33 2014
+# Process ID: 3172
+# Log file: C:/Users/me/Projects/Zynq/ip_repo/rxMapleBusLite_1.0/rxmaplebuslite_v1_0_project/vivado.log
+# Journal file: C:/Users/me/Projects/Zynq/ip_repo/rxMapleBusLite_1.0/rxmaplebuslite_v1_0_project\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project {C:\Users\me\Projects\Zynq\ip_repo\rxMapleBusLite_1.0\rxmaplebuslite_v1_0_project\rxMapleBusLite_v1_0_project.xpr}

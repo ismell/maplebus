@@ -1,0 +1,106 @@
+#-----------------------------------------------------------
+# Vivado v2014.1 (64-bit)
+# SW Build 881834 on Fri Apr  4 14:15:54 MDT 2014
+# IP Build 877625 on Fri Mar 28 16:29:15 MDT 2014
+# Start of session at: Sat May 31 09:51:58 2014
+# Process ID: 10748
+# Log file: C:/Users/me/Projects/Zynq/ip_repo/vivado.log
+# Journal file: C:/Users/me/Projects/Zynq/ip_repo\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project {C:\Users\me\Projects\Zynq\ip_repo\edit_rxMapleBus_v1_0.xpr}
+update_compile_order -fileset sources_1
+set_property runtime 1000ns [get_filesets Loopback]
+launch_xsim -simset Loopback -mode behavioral -noclean_dir
+launch_xsim -simset Loopback -mode behavioral -noclean_dir
+add_wave {{/rxMapleBusLoopBackTest/DUT}} 
+save_wave_config {C:/Users/me/Projects/Zynq/ip_repo\rxMapleBusLoopBackTest_behav.wcfg}
+close_sim
+update_compile_order -fileset Loopback
+update_compile_order -fileset Loopback
+update_compile_order -fileset Loopback
+update_compile_order -fileset Loopback
+launch_xsim -simset Loopback -mode behavioral -noclean_dir
+launch_xsim -simset Loopback -mode behavioral -noclean_dir
+launch_xsim -simset Loopback -mode behavioral -noclean_dir
+add_wave {{/rxMapleBusLoopBackTest/ACLK}} {{/rxMapleBusLoopBackTest/ARESETN}} {{/rxMapleBusLoopBackTest/s_axis_tx_tready}} {{/rxMapleBusLoopBackTest/s_axis_tx_tdata}} {{/rxMapleBusLoopBackTest/s_axis_tx_tstrb}} {{/rxMapleBusLoopBackTest/s_axis_tx_tlast}} {{/rxMapleBusLoopBackTest/s_axis_tx_tvalid}} {{/rxMapleBusLoopBackTest/current_state}} {{/rxMapleBusLoopBackTest/next_state}} {{/rxMapleBusLoopBackTest/count}} 
+restart
+run 1 us
+save_wave_config {C:/Users/me/Projects/Zynq/ip_repo\rxMapleBusLoopBackTest_behav.wcfg}
+launch_xsim -simset Loopback -mode behavioral -noclean_dir
+add_wave {{/rxMapleBusLoopBackTest/DUT/rxMapleBus_v1_0_S_AXI_CRTL_inst/rx_data_count}} {{/rxMapleBusLoopBackTest/DUT/rxMapleBus_v1_0_S_AXI_CRTL_inst/tx_data_count}} 
+restart
+run 1 us
+add_wave {{/rxMapleBusLoopBackTest/DUT/axis_rx_data_count}} {{/rxMapleBusLoopBackTest/DUT/axis_tx_data_count}} 
+restart
+run 1 us
+save_wave_config {C:/Users/me/Projects/Zynq/ip_repo\rxMapleBusLoopBackTest_behav1.wcfg}
+save_wave_config {C:/Users/me/Projects/Zynq/ip_repo\rxMapleBusLoopBackTest_behav1.wcfg}
+launch_xsim -simset Loopback -mode behavioral -noclean_dir
+launch_xsim -simset Loopback -mode behavioral -noclean_dir
+save_wave_config {C:/Users/me/Projects/Zynq/ip_repo\rxMapleBusLoopBackTest_behav1.wcfg}
+launch_xsim -simset Loopback -mode behavioral -noclean_dir
+launch_xsim -simset Loopback -mode behavioral -noclean_dir
+save_wave_config {C:/Users/me/Projects/Zynq/ip_repo\rxMapleBusLoopBackTest_behav1.wcfg}
+launch_xsim -simset Loopback -mode behavioral -noclean_dir
+launch_xsim -simset Loopback -mode behavioral -noclean_dir
+add_wave {{/rxMapleBusLoopBackTest/m_axis_rx_tready}} {{/rxMapleBusLoopBackTest/m_axis_rx_tdata}} {{/rxMapleBusLoopBackTest/m_axis_rx_tstrb}} {{/rxMapleBusLoopBackTest/m_axis_rx_tlast}} {{/rxMapleBusLoopBackTest/m_axis_rx_tvalid}} 
+restart
+run 1 us
+add_wave {{/rxMapleBusLoopBackTest/DUT/axis_rx_data_count}} {{/rxMapleBusLoopBackTest/DUT/axis_tx_data_count}} 
+save_wave_config {C:/Users/me/Projects/Zynq/ip_repo\rxMapleBusLoopBackTest_behav2.wcfg}
+launch_xsim -simset Loopback -mode behavioral -noclean_dir
+launch_xsim -simset Loopback -mode behavioral -noclean_dir
+launch_xsim -simset Loopback -mode behavioral -noclean_dir
+close_sim
+import_files -norecurse {C:/Users/me/Projects/MapleBus/fifo.v C:/Users/me/Projects/MapleBus/maplebus.v C:/Users/me/Projects/MapleBus/data_encoder.v C:/Users/me/Projects/MapleBus/transmitter.v C:/Users/me/Projects/MapleBus/frame_pattern_encoder.v}
+update_compile_order -fileset sources_1
+file delete -force C:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/fifo.v
+remove_files C:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/fifo.v
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+launch_xsim -simset Loopback -mode behavioral -noclean_dir
+file delete -force C:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/maplebus.v
+remove_files C:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/maplebus.v
+launch_xsim -simset Loopback -mode behavioral -noclean_dir
+launch_xsim -simset Loopback -mode behavioral -noclean_dir
+launch_xsim -simset Loopback -mode behavioral -noclean_dir
+launch_xsim -simset Loopback -mode behavioral -noclean_dir
+launch_xsim -simset Loopback -mode behavioral -noclean_dir
+add_wave {{/rxMapleBusLoopBackTest/DUT/sdcka}} {{/rxMapleBusLoopBackTest/DUT/sdckb}} 
+add_wave {{/rxMapleBusLoopBackTest/DUT/t/S_AXIS_TREADY}} {{/rxMapleBusLoopBackTest/DUT/t/S_AXIS_TDATA}} {{/rxMapleBusLoopBackTest/DUT/t/S_AXIS_TSTRB}} {{/rxMapleBusLoopBackTest/DUT/t/S_AXIS_TLAST}} {{/rxMapleBusLoopBackTest/DUT/t/S_AXIS_TVALID}} {{/rxMapleBusLoopBackTest/DUT/t/SDCKA}} {{/rxMapleBusLoopBackTest/DUT/t/SDCKB}} {{/rxMapleBusLoopBackTest/DUT/t/ENABLE}} {{/rxMapleBusLoopBackTest/DUT/t/TRANSMITTING}} {{/rxMapleBusLoopBackTest/DUT/t/current_state}} {{/rxMapleBusLoopBackTest/DUT/t/next_state}} 
+restart
+run 1 us
+save_wave_config {C:/Users/me/Projects/Zynq/ip_repo\rxMapleBusLoopBackTest_behav2.wcfg}
+launch_xsim -simset Loopback -mode behavioral -noclean_dir
+launch_xsim -simset Loopback -mode behavioral -noclean_dir
+launch_xsim -simset Loopback -mode behavioral -noclean_dir
+add_wave {{/rxMapleBusLoopBackTest/DUT/t/de/pointer}} {{/rxMapleBusLoopBackTest/DUT/t/de/buffer}} {{/rxMapleBusLoopBackTest/DUT/t/de/current_bit}} {{/rxMapleBusLoopBackTest/DUT/t/de/data}} 
+restart
+run 1 us
+run 1 us
+run 1 us
+run 5 us
+save_wave_config {C:/Users/me/Projects/Zynq/ip_repo\rxMapleBusLoopBackTest_behav2.wcfg}
+launch_xsim -simset Loopback -mode behavioral -noclean_dir
+launch_xsim -simset Loopback -mode behavioral -noclean_dir
+add_wave {{/rxMapleBusLoopBackTest/DUT/t/de/last}} 
+restart
+run 5 us
+save_wave_config {C:/Users/me/Projects/Zynq/ip_repo\rxMapleBusLoopBackTest_behav2.wcfg}
+launch_xsim -simset Loopback -mode behavioral -noclean_dir
+run 5 us
+add_wave {{/rxMapleBusLoopBackTest/DUT/t/de/current_state}} {{/rxMapleBusLoopBackTest/DUT/t/de/next_state}} 
+save_wave_config {C:/Users/me/Projects/Zynq/ip_repo\rxMapleBusLoopBackTest_behav2.wcfg}
+launch_xsim -simset Loopback -mode behavioral -noclean_dir
+run 5 us
+launch_xsim -simset Loopback -mode behavioral -noclean_dir
+run 5 us
+close_sim
+import_files -norecurse {C:/Users/me/Projects/MapleBus/receiver.v C:/Users/me/Projects/MapleBus/start_frame_decoder.v C:/Users/me/Projects/MapleBus/synchronizer.v C:/Users/me/Projects/MapleBus/frame_decoder.v C:/Users/me/Projects/MapleBus/data_decoder.v C:/Users/me/Projects/MapleBus/end_frame_decoder.v}
+update_compile_order -fileset sources_1
+update_compile_order -fileset Loopback
+update_compile_order -fileset Loopback
+update_compile_order -fileset sources_1
+update_compile_order -fileset Loopback

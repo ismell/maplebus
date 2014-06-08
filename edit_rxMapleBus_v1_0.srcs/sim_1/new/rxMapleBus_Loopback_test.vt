@@ -1,0 +1,26 @@
+`timescale 1 ps / 1 ps
+// lib IP_Integrator_Lib
+module axi_stream_system_wrapper_tb();
+reg ACLK;
+reg ARESETN;
+
+initial begin
+  ACLK = 1'b0;
+  forever begin
+    ACLK = #5 ~ACLK;
+  end
+end
+
+initial begin
+  ARESETN = 1'b0;
+  repeat (16) @(posedge ACLK);
+  #1;
+  ARESETN = 1'b1;
+  repeat (1000) @(posedge ACLK);
+  $finish;
+end
+
+axi_stream_system_wrapper axi_stream_system_wrapper_i
+       (.ACLK(ACLK),
+        .ARESETN(ARESETN));
+endmodule
