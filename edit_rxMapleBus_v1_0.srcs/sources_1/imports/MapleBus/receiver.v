@@ -138,6 +138,7 @@ module receiver #
   end
 
   assign enable_decoder = (current_state == ENABLED);
+  assign RECEIVING = (current_state == ENABLED);
 
   // -----------------------------------------
   // Register outputs

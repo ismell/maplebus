@@ -1,4 +1,6 @@
 `timescale 1 ns / 1 ps
+`default_nettype none
+
 // lib IP_Integrator_Lib
 module rxMapleBusLoopBackTest;
   reg ACLK;

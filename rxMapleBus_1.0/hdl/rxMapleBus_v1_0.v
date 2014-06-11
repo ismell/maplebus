@@ -59,7 +59,7 @@ module rxMapleBus_v1_0 #
   wire  [10:0] axis_rx_data_count;
   wire  [10:0] axis_tx_data_count;
 
-  wire sdcka_out, sdckb_out, sdcka_in, sdckb_in, tx_enable, transmitting, receiving, tx_read;
+  wire sdcka_out, sdckb_out, sdcka_in, sdckb_in, transmitting, receiving;
 
   // Instantiation of Axi Bus Interface S_AXI_CRTL
   rxMapleBus_v1_0_S_AXI_CRTL # (

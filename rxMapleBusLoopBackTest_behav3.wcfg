@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="rxMapleBusLoopBackTest_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="rxMapleBusLoopBackTest" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="13" />
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/ACLK" type="logic">
+      <obj_property name="ElementShortName">ACLK</obj_property>
+      <obj_property name="ObjectShortName">ACLK</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/ARESETN" type="logic">
+      <obj_property name="ElementShortName">ARESETN</obj_property>
+      <obj_property name="ObjectShortName">ARESETN</obj_property>
+   </wvobject>
+   <wvobject fp_name="group127" type="group">
+      <obj_property name="label">S_TX</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axis_tx_tready" type="logic">
+         <obj_property name="ElementShortName">s_axis_tx_tready</obj_property>
+         <obj_property name="ObjectShortName">s_axis_tx_tready</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axis_tx_tdata" type="array">
+         <obj_property name="ElementShortName">s_axis_tx_tdata[7:0]</obj_property>
+         <obj_property name="ObjectShortName">s_axis_tx_tdata[7:0]</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axis_tx_tstrb" type="array">
+         <obj_property name="ElementShortName">s_axis_tx_tstrb[0:0]</obj_property>
+         <obj_property name="ObjectShortName">s_axis_tx_tstrb[0:0]</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axis_tx_tlast" type="logic">
+         <obj_property name="ElementShortName">s_axis_tx_tlast</obj_property>
+         <obj_property name="ObjectShortName">s_axis_tx_tlast</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axis_tx_tvalid" type="logic">
+         <obj_property name="ElementShortName">s_axis_tx_tvalid</obj_property>
+         <obj_property name="ObjectShortName">s_axis_tx_tvalid</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group128" type="group">
+      <obj_property name="label">M_TX</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/axis_tx_tready" type="logic">
+         <obj_property name="ElementShortName">axis_tx_tready</obj_property>
+         <obj_property name="ObjectShortName">axis_tx_tready</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/axis_tx_tdata" type="array">
+         <obj_property name="ElementShortName">axis_tx_tdata[7:0]</obj_property>
+         <obj_property name="ObjectShortName">axis_tx_tdata[7:0]</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/axis_tx_tstrb" type="array">
+         <obj_property name="ElementShortName">axis_tx_tstrb[0:0]</obj_property>
+         <obj_property name="ObjectShortName">axis_tx_tstrb[0:0]</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/axis_tx_tlast" type="logic">
+         <obj_property name="ElementShortName">axis_tx_tlast</obj_property>
+         <obj_property name="ObjectShortName">axis_tx_tlast</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/axis_tx_tvalid" type="logic">
+         <obj_property name="ElementShortName">axis_tx_tvalid</obj_property>
+         <obj_property name="ObjectShortName">axis_tx_tvalid</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/axis_tx_data_count" type="array">
+      <obj_property name="ElementShortName">axis_tx_data_count[10:0]</obj_property>
+      <obj_property name="ObjectShortName">axis_tx_data_count[10:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/sdcka" type="logic">
+      <obj_property name="ElementShortName">sdcka</obj_property>
+      <obj_property name="ObjectShortName">sdcka</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/sdckb" type="logic">
+      <obj_property name="ElementShortName">sdckb</obj_property>
+      <obj_property name="ObjectShortName">sdckb</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/transmitting" type="logic">
+      <obj_property name="ElementShortName">transmitting</obj_property>
+      <obj_property name="ObjectShortName">transmitting</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider126">
+      <obj_property name="label">Receiving</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/receiving" type="logic">
+      <obj_property name="ElementShortName">receiving</obj_property>
+      <obj_property name="ObjectShortName">receiving</obj_property>
+   </wvobject>
+   <wvobject fp_name="group130" type="group">
+      <obj_property name="label">S_RX</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/axis_rx_tvalid" type="logic">
+         <obj_property name="ElementShortName">axis_rx_tvalid</obj_property>
+         <obj_property name="ObjectShortName">axis_rx_tvalid</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/axis_rx_tdata" type="array">
+         <obj_property name="ElementShortName">axis_rx_tdata[7:0]</obj_property>
+         <obj_property name="ObjectShortName">axis_rx_tdata[7:0]</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/axis_rx_tstrb" type="array">
+         <obj_property name="ElementShortName">axis_rx_tstrb[0:0]</obj_property>
+         <obj_property name="ObjectShortName">axis_rx_tstrb[0:0]</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/axis_rx_tlast" type="logic">
+         <obj_property name="ElementShortName">axis_rx_tlast</obj_property>
+         <obj_property name="ObjectShortName">axis_rx_tlast</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/axis_rx_tready" type="logic">
+         <obj_property name="ElementShortName">axis_rx_tready</obj_property>
+         <obj_property name="ObjectShortName">axis_rx_tready</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/axis_rx_data_count" type="array">
+      <obj_property name="ElementShortName">axis_rx_data_count[10:0]</obj_property>
+      <obj_property name="ObjectShortName">axis_rx_data_count[10:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="group129" type="group">
+      <obj_property name="label">M_RX</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/m_axis_rx_tready" type="logic">
+         <obj_property name="ElementShortName">m_axis_rx_tready</obj_property>
+         <obj_property name="ObjectShortName">m_axis_rx_tready</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/m_axis_rx_tvalid" type="logic">
+         <obj_property name="ElementShortName">m_axis_rx_tvalid</obj_property>
+         <obj_property name="ObjectShortName">m_axis_rx_tvalid</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/m_axis_rx_tdata" type="array">
+         <obj_property name="ElementShortName">m_axis_rx_tdata[7:0]</obj_property>
+         <obj_property name="ObjectShortName">m_axis_rx_tdata[7:0]</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/m_axis_rx_tstrb" type="array">
+         <obj_property name="ElementShortName">m_axis_rx_tstrb[0:0]</obj_property>
+         <obj_property name="ObjectShortName">m_axis_rx_tstrb[0:0]</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/m_axis_rx_tlast" type="logic">
+         <obj_property name="ElementShortName">m_axis_rx_tlast</obj_property>
+         <obj_property name="ObjectShortName">m_axis_rx_tlast</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>

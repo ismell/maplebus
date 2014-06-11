@@ -164,12 +164,17 @@ module data_decoder(
           end else begin
             tvalid <= 0;
           end
+        DONE:
+          tvalid <= 1'd1;
         default:
           tvalid <= 0;
       endcase
     end
   end
 
+  // We are outputting an extra byte just to mark it as last
+  // What we should do is buffer the byte until either we get
+  // a new one, or we hit the done stage
   always @(posedge aclk) begin: TLAST
     if (aresetn == 1'b0) begin
       tlast <= 0;
