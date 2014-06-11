@@ -213,3 +213,13 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+
+###############
+## Vivado
+###############
+*.cache/
+*.runs/
+*.sim/
+xsim.dir/
+*.pb

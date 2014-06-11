@@ -101,6 +101,20 @@ i
 K
 analyzing module %s311*xsimverific2
 glbl2default:defaultZ10-311
+è
++Analyzing Verilog file "%s" into library %s165*xsimverific2y
+eC:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/synchronizer.v2default:default2"
+xil_defaultlib2default:defaultZ10-165
+S
+analyzing module %s311*xsimverific2 
+synchronizer2default:defaultZ10-311
+ð
++Analyzing Verilog file "%s" into library %s165*xsimverific2€
+lC:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/start_frame_decoder.v2default:default2"
+xil_defaultlib2default:defaultZ10-165
+Z
+analyzing module %s311*xsimverific2'
+start_frame_decoder2default:defaultZ10-311
 ò
 +Analyzing Verilog file "%s" into library %s165*xsimverific2‚
 nC:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/frame_pattern_encoder.v2default:default2"
@@ -108,6 +122,13 @@ nC:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/M
 \
 analyzing module %s311*xsimverific2)
 frame_pattern_encoder2default:defaultZ10-311
+í
++Analyzing Verilog file "%s" into library %s165*xsimverific2~
+jC:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/end_frame_decoder.v2default:default2"
+xil_defaultlib2default:defaultZ10-165
+X
+analyzing module %s311*xsimverific2%
+end_frame_decoder2default:defaultZ10-311
 è
 +Analyzing Verilog file "%s" into library %s165*xsimverific2y
 eC:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/data_encoder.v2default:default2"
@@ -115,6 +136,13 @@ eC:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/M
 S
 analyzing module %s311*xsimverific2 
 data_encoder2default:defaultZ10-311
+è
++Analyzing Verilog file "%s" into library %s165*xsimverific2y
+eC:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/data_decoder.v2default:default2"
+xil_defaultlib2default:defaultZ10-165
+S
+analyzing module %s311*xsimverific2 
+data_decoder2default:defaultZ10-311
 Ô
 +Analyzing Verilog file "%s" into library %s165*xsimverific2e
 QC:/Users/me/Projects/Zynq/ip_repo/rxmaplebus_1.0/hdl/rxMapleBus_v1_0_S_AXI_CRTL.v2default:default2"
@@ -129,6 +157,13 @@ dC:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/M
 R
 analyzing module %s311*xsimverific2
 transmitter2default:defaultZ10-311
+ä
++Analyzing Verilog file "%s" into library %s165*xsimverific2u
+aC:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/receiver.v2default:default2"
+xil_defaultlib2default:defaultZ10-165
+O
+analyzing module %s311*xsimverific2
+receiver2default:defaultZ10-311
 É
 +Analyzing Verilog file "%s" into library %s165*xsimverific2Z
 FC:/Users/me/Projects/Zynq/ip_repo/rxmaplebus_1.0/hdl/rxMapleBus_v1_0.v2default:default2"
@@ -188,6 +223,36 @@ c"%s" Line %s.  Module %s doesn't have a timescale but atleast one module in des
 nC:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/frame_pattern_encoder.v2default:default2
 42default:default22
 frame_pattern_encoder(TICKS=2)2default:defaultZ43-4099
+¬
+c"%s" Line %s.  Module %s doesn't have a timescale but atleast one module in design has a timescale
+469*	simulator2u
+aC:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/receiver.v2default:default2
+32default:default2
+receiver2default:defaultZ43-4099
+´
+c"%s" Line %s.  Module %s doesn't have a timescale but atleast one module in design has a timescale
+469*	simulator2y
+eC:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/synchronizer.v2default:default2
+32default:default2 
+synchronizer2default:defaultZ43-4099
+Ã
+c"%s" Line %s.  Module %s doesn't have a timescale but atleast one module in design has a timescale
+469*	simulator2€
+lC:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/start_frame_decoder.v2default:default2
+42default:default2'
+start_frame_decoder2default:defaultZ43-4099
+´
+c"%s" Line %s.  Module %s doesn't have a timescale but atleast one module in design has a timescale
+469*	simulator2y
+eC:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/data_decoder.v2default:default2
+52default:default2 
+data_decoder2default:defaultZ43-4099
+¾
+c"%s" Line %s.  Module %s doesn't have a timescale but atleast one module in design has a timescale
+469*	simulator2~
+jC:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/end_frame_decoder.v2default:default2
+42default:default2%
+end_frame_decoder2default:defaultZ43-4099
 ²
 c"%s" Line %s.  Module %s doesn't have a timescale but atleast one module in design has a timescale
 469*	simulator2x
@@ -212,6 +277,36 @@ c"%s" Line %s.  Module %s doesn't have a timescale but atleast one module in des
 nC:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/frame_pattern_encoder.v2default:default2
 42default:default22
 frame_pattern_encoder(TICKS=2)2default:defaultZ43-4099
+¬
+c"%s" Line %s.  Module %s doesn't have a timescale but atleast one module in design has a timescale
+469*	simulator2u
+aC:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/receiver.v2default:default2
+32default:default2
+receiver2default:defaultZ43-4099
+´
+c"%s" Line %s.  Module %s doesn't have a timescale but atleast one module in design has a timescale
+469*	simulator2y
+eC:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/synchronizer.v2default:default2
+32default:default2 
+synchronizer2default:defaultZ43-4099
+Ã
+c"%s" Line %s.  Module %s doesn't have a timescale but atleast one module in design has a timescale
+469*	simulator2€
+lC:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/start_frame_decoder.v2default:default2
+42default:default2'
+start_frame_decoder2default:defaultZ43-4099
+´
+c"%s" Line %s.  Module %s doesn't have a timescale but atleast one module in design has a timescale
+469*	simulator2y
+eC:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/data_decoder.v2default:default2
+52default:default2 
+data_decoder2default:defaultZ43-4099
+¾
+c"%s" Line %s.  Module %s doesn't have a timescale but atleast one module in design has a timescale
+469*	simulator2~
+jC:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/end_frame_decoder.v2default:default2
+42default:default2%
+end_frame_decoder2default:defaultZ43-4099
 E
 (Completed simulation data flow analysis
 279*	simulatorZ43-3395
@@ -418,6 +513,26 @@ t
 a
 Compiling module %s405*	simulator2/
 xil_defaultlib.transmitter
+2default:defaultZ43-3953
+b
+Compiling module %s405*	simulator20
+xil_defaultlib.synchronizer
+2default:defaultZ43-3953
+i
+Compiling module %s405*	simulator27
+#xil_defaultlib.start_frame_decoder
+2default:defaultZ43-3953
+b
+Compiling module %s405*	simulator20
+xil_defaultlib.data_decoder
+2default:defaultZ43-3953
+g
+Compiling module %s405*	simulator25
+!xil_defaultlib.end_frame_decoder
+2default:defaultZ43-3953
+^
+Compiling module %s405*	simulator2,
+xil_defaultlib.receiver
 2default:defaultZ43-3953
 e
 Compiling module %s405*	simulator23

@@ -2,7 +2,7 @@
 // End frame decoder
 
 module end_frame_decoder(
-  input wire clk, reset,
+  input wire aclk, aresetn,
   input wire sdcka_posedge, sdcka_negedge,
   input wire sdckb_posedge, sdckb_negedge,
   output reg end_frame, end_frame_error
@@ -14,7 +14,7 @@ module end_frame_decoder(
   //=============Internal Variables======================
   reg   [SIZE-1:0]          current_state;
   reg   [SIZE-1:0]          next_state;
-   
+
   reg [7:0] count;
 
   initial begin
@@ -24,8 +24,8 @@ module end_frame_decoder(
     end_frame_error <= 0;
   end
 
-  always @ (posedge clk or negedge reset) begin: FSM_SEQ 
-    if (reset == 1'b0) begin
+  always @ (posedge aclk) begin: FSM_SEQ
+    if (aresetn == 1'b0) begin
       current_state <= IDLE;
     end else begin
       current_state <= next_state;
@@ -36,7 +36,7 @@ module end_frame_decoder(
     case (current_state)
       IDLE:
         if (sdckb_negedge) begin
-           next_state = COUNTING; 
+           next_state = COUNTING;
         end else begin
           next_state = IDLE;
         end
@@ -50,15 +50,15 @@ module end_frame_decoder(
         next_state = IDLE;
       default:
         next_state = IDLE;
-    endcase 
+    endcase
   end
 
   // -----------------------------------------
   // Register outputs
   // -----------------------------------------
 
-  always @(posedge clk or negedge reset) begin: COUNTER
-    if (reset == 1'b0) begin
+  always @(posedge aclk) begin: COUNTER
+    if (aresetn == 1'b0) begin
       count <= 0;
     end else begin
       if (next_state == COUNTING) begin
@@ -73,14 +73,14 @@ module end_frame_decoder(
     end
   end
 
-  always @(posedge clk or negedge reset) begin: OUTPUT
-    if (reset == 1'b0) begin
+  always @(posedge aclk) begin: OUTPUT
+    if (aresetn == 1'b0) begin
       end_frame <= 0;
       end_frame_error <= 0;
     end else begin
       end_frame <= 0;
       end_frame_error <= 0;
-      
+
       if (next_state == DONE) begin
         case (count)
           8'd0: begin end

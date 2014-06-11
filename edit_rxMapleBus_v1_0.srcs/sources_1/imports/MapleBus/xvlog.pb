@@ -107,10 +107,10 @@ dC:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/M
 9The veri library search path for library "%s" is now "%s"232*xsimverific2
 work2default:default2x
 dC:/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/xsim.dir/work2default:defaultZ10-232
-´
-+Analyzing Verilog file "%s" into library %s165*xsimverific2O
-;c:\users\me\appdata\local\temp\SublimeLinter3\transmitter.v2default:default2
+µ
++Analyzing Verilog file "%s" into library %s165*xsimverific2P
+<c:\users\me\appdata\local\temp\SublimeLinter3\synchronizer.v2default:default2
 work2default:defaultZ10-165
-R
-analyzing module %s311*xsimverific2
-transmitter2default:defaultZ10-311
+S
+analyzing module %s311*xsimverific2 
+synchronizer2default:defaultZ10-311

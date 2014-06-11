@@ -2,10 +2,10 @@
 // Start frame decoder
 
 module start_frame_decoder(
-  input wire clk, reset,
+  input wire aclk, aresetn,
   input wire sdcka_posedge, sdcka_negedge,
   input wire sdckb_posedge, sdckb_negedge,
-  output reg start_frame, start_with_crc, start_occupancy, start_reset, 
+  output reg start_frame, start_with_crc, start_occupancy, start_reset,
   output reg start_frame_error);
 
   //=============Internal Constants======================
@@ -14,7 +14,7 @@ module start_frame_decoder(
   //=============Internal Variables======================
   reg   [SIZE-1:0]          current_state;
   reg   [SIZE-1:0]          next_state;
-   
+
   reg [7:0] count;
 
   initial begin
@@ -27,8 +27,8 @@ module start_frame_decoder(
     start_frame_error <= 0;
   end
 
-  always @ (posedge clk or negedge reset) begin: FSM_SEQ 
-    if (reset == 1'b0) begin
+  always @ (posedge aclk) begin: FSM_SEQ
+    if (aresetn == 1'b0) begin
       current_state <= IDLE;
     end else begin
       current_state <= next_state;
@@ -39,7 +39,7 @@ module start_frame_decoder(
     case (current_state)
       IDLE:
         if (sdcka_negedge) begin
-           next_state = COUNTING; 
+           next_state = COUNTING;
         end else begin
           next_state = IDLE;
         end
@@ -53,15 +53,15 @@ module start_frame_decoder(
         next_state = IDLE;
       default:
         next_state = IDLE;
-    endcase 
+    endcase
   end
 
   // -----------------------------------------
   // Register outputs
   // -----------------------------------------
 
-  always @(posedge clk or negedge reset) begin: COUNTER
-    if (reset == 1'b0) begin
+  always @(posedge aclk) begin: COUNTER
+    if (aresetn == 1'b0) begin
       count <= 0;
     end else begin
       if (next_state == COUNTING) begin
@@ -76,8 +76,8 @@ module start_frame_decoder(
     end
   end
 
-  always @(posedge clk or negedge reset) begin: OUTPUT
-    if (reset == 1'b0) begin
+  always @(posedge aclk) begin: OUTPUT
+    if (aresetn == 1'b0) begin
       start_frame <= 0;
       start_with_crc <= 0;
       start_occupancy <= 0;
