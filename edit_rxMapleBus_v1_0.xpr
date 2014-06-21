@@ -101,18 +101,6 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/rxmaplebus_1.0/hdl/rxMapleBus_v1_0_S_AXIS_TX.v">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/rxmaplebus_1.0/hdl/rxMapleBus_v1_0_M_AXIS_RX.v">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <File Path="$PPRDIR/rxmaplebus_1.0/component.xml">
         <FileInfo SFType="IPXACT"/>
       </File>
