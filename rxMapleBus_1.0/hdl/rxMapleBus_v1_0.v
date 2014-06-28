@@ -59,7 +59,13 @@ module rxMapleBus_v1_0 #
   wire  [10:0] axis_rx_data_count;
   wire  [10:0] axis_tx_data_count;
 
-  wire sdcka_out, sdckb_out, sdcka_in, sdckb_in, transmitting, receiving;
+  wire enable_tx, enable_rx, enable_loopback, reset_tx, reset_rx;
+
+  wire sdcka_tx, sdckb_tx, transmitting, receiving;
+  reg sdcka_in, sdckb_in, sdcka_out, sdckb_out;
+
+  assign sdcka = sdcka_out,
+         sdckb = sdckb_out;
 
   // Instantiation of Axi Bus Interface S_AXI_CRTL
   rxMapleBus_v1_0_S_AXI_CRTL # (
@@ -88,17 +94,18 @@ module rxMapleBus_v1_0 #
     .S_AXI_RVALID(s_axi_crtl_rvalid),
     .S_AXI_RREADY(s_axi_crtl_rready),
     .RX_DATA_COUNT(axis_rx_data_count),
-    .TX_DATA_COUNT(axis_tx_data_count)
+    .TX_DATA_COUNT(axis_tx_data_count),
+    .ENABLE_TX(enable_tx),
+    .ENABLE_RX(enable_rx),
+    .ENABLE_LOOPBACK(enable_loopback),
+    .RESET_TX(reset_tx),
+    .RESET_RX(reset_rx)
   );
-
-  assign sdcka = sdcka_out;
-  assign sdckb = sdckb_out;
-
 
   // Instantiation of Axi Bus Interface S_AXIS_TX
   fifo_generator_0 tx_fifo (
     .s_aclk(aclk),                      // input wire s_aclk
-    .s_aresetn(aresetn),                    // input wire s_aresetn
+    .s_aresetn(aresetn && !reset_tx),    // input wire s_aresetn
     .s_axis_tvalid(s_axis_tx_tvalid),       // input wire s_axis_tvalid
     .s_axis_tready(s_axis_tx_tready),       // output wire s_axis_tready
     .s_axis_tdata(s_axis_tx_tdata),     // input wire [7 : 0] s_axis_tdata
@@ -120,14 +127,58 @@ module rxMapleBus_v1_0 #
     .S_AXIS_TSTRB(axis_tx_tstrb),       // input wire [0 : 0] s_axis_tstrb
     .S_AXIS_TLAST(axis_tx_tlast),       // input wire s_axis_tlast
     .S_AXIS_TVALID(axis_tx_tvalid),     // input wire s_axis_tvalid
-    .SDCKA(sdcka_out),
-    .SDCKB(sdckb_out),
+    .SDCKA(sdcka_tx),
+    .SDCKB(sdckb_tx),
     .ENABLE(axis_tx_tvalid), // FIFO should enable the transmitter
     .TRANSMITTING(transmitting) // Output the signal
   );
 
-  assign sdcka_in = sdcka_out;
-  assign sdckb_in = sdckb_out;
+  always @(*)
+  begin : ASSIGN_SDCKX_IN
+    if (enable_loopback) begin
+      if (transmitting) begin
+        sdcka_in = sdcka_tx;
+        sdckb_in = sdckb_tx;
+      end else begin
+        sdcka_in = 1'b1;
+        sdckb_in = 1'b1;
+      end
+    end else begin
+      if (enable_rx) begin
+        if (transmitting) begin
+          sdcka_in = 1'b1;
+          sdckb_in = 1'b1;
+        end else begin
+          sdcka_in = sdcka;
+          sdckb_in = sdckb;
+        end
+      end else begin
+        sdcka_in = 1'b1;
+        sdckb_in = 1'b1;
+      end
+    end
+  end
+
+  always @(*)
+  begin : ASSIGN_SDCKX_OUT
+    if (enable_loopback) begin
+      sdcka_out = 1'bz;
+      sdckb_out = 1'bz;
+    end else begin
+      if (enable_tx) begin
+        if (transmitting) begin
+          sdcka_out = sdcka_tx;
+          sdckb_out = sdckb_tx;
+        end else begin
+          sdcka_out = 1'bz;
+          sdckb_out = 1'bz;
+        end
+      end else begin
+        sdcka_out = 1'bz;
+        sdckb_out = 1'bz;
+      end
+    end
+  end
 
   // Instantiation of Maple Bus Receiver
   receiver r(
@@ -149,14 +200,14 @@ module rxMapleBus_v1_0 #
   // Instantiation of Axi Bus Interface M_AXIS_RX
   fifo_generator_0 rx_fifo (
     .s_aclk(aclk),                      // input wire s_aclk
-    .s_aresetn(aresetn),                    // input wire s_aresetn
-    .s_axis_tvalid(axis_rx_tvalid),   // input wire s_axis_tvalid
-    .s_axis_tready(axis_rx_tready),   // output wire s_axis_tready
-    .s_axis_tdata(axis_rx_tdata), // input wire [7 : 0] s_axis_tdata
-    .s_axis_tstrb(axis_rx_tstrb), // input wire [0 : 0] s_axis_tstrb
-    .s_axis_tlast(axis_rx_tlast), // input wire s_axis_tlast
-    .m_axis_tvalid(m_axis_rx_tvalid),       // output wire m_axis_tvalid
-    .m_axis_tready(m_axis_rx_tready),       // input wire m_axis_tready
+    .s_aresetn(aresetn && !reset_rx),   // input wire s_aresetn
+    .s_axis_tvalid(axis_rx_tvalid),     // input wire s_axis_tvalid
+    .s_axis_tready(axis_rx_tready),     // output wire s_axis_tready
+    .s_axis_tdata(axis_rx_tdata),       // input wire [7 : 0] s_axis_tdata
+    .s_axis_tstrb(axis_rx_tstrb),       // input wire [0 : 0] s_axis_tstrb
+    .s_axis_tlast(axis_rx_tlast),       // input wire s_axis_tlast
+    .m_axis_tvalid(m_axis_rx_tvalid),   // output wire m_axis_tvalid
+    .m_axis_tready(m_axis_rx_tready),   // input wire m_axis_tready
     .m_axis_tdata(m_axis_rx_tdata),     // output wire [7 : 0] m_axis_tdata
     .m_axis_tstrb(m_axis_rx_tstrb),     // output wire [0 : 0] m_axis_tstrb
     .m_axis_tlast(m_axis_rx_tlast),     // output wire m_axis_tlast
