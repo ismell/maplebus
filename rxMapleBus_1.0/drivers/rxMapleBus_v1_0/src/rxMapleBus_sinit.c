@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* (c) Copyright 2013 Xilinx, Inc. All rights reserved.
+* (c) Copyright 2010-13 Xilinx, Inc. All rights reserved.
 *
 * This file contains confidential and proprietary information of Xilinx, Inc.
 * and is protected under U.S. and international copyright and other
@@ -41,25 +41,28 @@
 /*****************************************************************************/
 /**
 *
-* @file rxMapleLite_hw.c
+* @file rxMapleBus_sinit.c
 *
-* This file contains low level rxMapleLite functions.
+* This file contains the implementation of the rxMapleBus driver's static
+* initialization functionality.
+*
+* @note		None.
 *
 * <pre>
+*
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
-* 1.00  rer  04/14/14 First Release
-*
+* 1.00  rer  05/26/14 First Release
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
 
-#include "rxMapleLite_hw.h"
-#include "xgpiops.h"
+#include "xparameters.h"
+#include "rxMapleBus.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -67,28 +70,37 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-/************************** Variable Definitions *****************************/
-
 /************************** Function Prototypes ******************************/
 
+/************************** Variable Definitions *****************************/
+extern rxMapleBus_Config rxMapleBus_ConfigTable[];
 
 /*****************************************************************************/
-/*
+/**
 *
-* This function resets the rxMapleLite module by writing reset values to
-* all registers
+* This function looks for the device configuration based on the unique device
+* ID. The table rxMapleBus_ConfigTable[] contains the configuration information
+* for each device in the system.
 *
-* @param	Base address of rxMapleLite module
+* @param	DeviceId is the unique device ID of the device being looked up.
 *
-* @return	None
+* @return	A pointer to the configuration table entry corresponding to the
+*           given device ID, or NULL if no match is found.
 *
 * @note		None.
 *
 ******************************************************************************/
-void XGpioPs_ResetHw(u32 BaseAddress)
+rxMapleBus_Config *rxMapleBus_LookupConfig(u16 DeviceId)
 {
-	
+	rxMapleBus_Config *CfgPtr = NULL;
+	u32 Index;
 
+	for (Index = 0; Index < XPAR_RXMAPLEBUS_NUM_INSTANCES; Index++) {
+		if (rxMapleBus_ConfigTable[Index].DeviceId == DeviceId) {
+			CfgPtr = &rxMapleBus_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return CfgPtr;
 }
-
-

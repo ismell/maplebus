@@ -2,82 +2,56 @@
 #ifndef RXMAPLEBUS_H
 #define RXMAPLEBUS_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 
 /****************** Include Files ********************/
 #include "xil_types.h"
 #include "xstatus.h"
-
-#define RXMAPLEBUS_S_AXI_CRTL_SLV_REG0_OFFSET 0
-#define RXMAPLEBUS_S_AXI_CRTL_SLV_REG1_OFFSET 4
-#define RXMAPLEBUS_S_AXI_CRTL_SLV_REG2_OFFSET 8
-#define RXMAPLEBUS_S_AXI_CRTL_SLV_REG3_OFFSET 12
-#define RXMAPLEBUS_S_AXI_CRTL_SLV_REG4_OFFSET 16
-#define RXMAPLEBUS_S_AXI_CRTL_SLV_REG5_OFFSET 20
-#define RXMAPLEBUS_S_AXI_CRTL_SLV_REG6_OFFSET 24
-#define RXMAPLEBUS_S_AXI_CRTL_SLV_REG7_OFFSET 28
-
+#include "rxMapleBus_hw.h"
 
 /**************************** Type Definitions *****************************/
-/**
- *
- * Write a value to a RXMAPLEBUS register. A 32 bit write is performed.
- * If the component is implemented in a smaller width, only the least
- * significant data is written.
- *
- * @param   BaseAddress is the base address of the RXMAPLEBUSdevice.
- * @param   RegOffset is the register offset from the base to write to.
- * @param   Data is the data written to the register.
- *
- * @return  None.
- *
- * @note
- * C-style signature:
- * 	void RXMAPLEBUS_mWriteReg(u32 BaseAddress, unsigned RegOffset, u32 Data)
- *
- */
-#define RXMAPLEBUS_mWriteReg(BaseAddress, RegOffset, Data) \
-  	Xil_Out32((BaseAddress) + (RegOffset), (u32)(Data))
 
 /**
- *
- * Read a value from a RXMAPLEBUS register. A 32 bit read is performed.
- * If the component is implemented in a smaller width, only the least
- * significant data is read from the register. The most significant data
- * will be read as 0.
- *
- * @param   BaseAddress is the base address of the RXMAPLEBUS device.
- * @param   RegOffset is the register offset from the base to write to.
- *
- * @return  Data is the data from the register.
- *
- * @note
- * C-style signature:
- * 	u32 RXMAPLEBUS_mReadReg(u32 BaseAddress, unsigned RegOffset)
- *
+ * This typedef contains configuration information for a device.
  */
-#define RXMAPLEBUS_mReadReg(BaseAddress, RegOffset) \
-    Xil_In32((BaseAddress) + (RegOffset))
+typedef struct {
+	u16 DeviceId;		/**< Unique ID of device */
+	u32 BaseAddr;		/**< Register base address */
+} rxMapleBus_Config;
+
+/**
+ * The rxMapleBus driver instance data. The user is required to allocate a
+ * variable of this type for the MapleBus device in the system. A pointer
+ * to a variable of this type is then passed to the driver API functions.
+ */
+typedef struct {
+	rxMapleBus_Config MapleBusConfig;	/**< Device configuration */
+	u32 IsReady;			/**< Device is initialized and ready */
+} rxMapleBus;
 
 /************************** Function Prototypes ****************************/
-/**
- *
- * Run a self-test on the driver/device. Note this may be a destructive test if
- * resets of the device are performed.
- *
- * If the hardware system is not built correctly, this function may never
- * return to the caller.
- *
- * @param   baseaddr_p is the base address of the RXMAPLEBUS instance to be worked on.
- *
- * @return
- *
- *    - XST_SUCCESS   if all self-test code passed
- *    - XST_FAILURE   if any self-test code failed
- *
- * @note    Caching must be turned off for this function to work.
- * @note    Self test may fail if data memory and device are not on the same bus.
- *
- */
-XStatus RXMAPLEBUS_Reg_SelfTest(void * baseaddr_p);
 
-#endif // RXMAPLEBUS_H
+/*
+ * Functions in rxMapleBus.c
+ */
+int rxMapleBus_CfgInitialize(rxMapleBus *InstancePtr, rxMapleBus_Config *ConfigPtr,
+                              u32 EffectiveAddr);
+
+/*
+ * Diagnostic functions in rxMapleBus_selftest.c
+ */
+XStatus rxMapleBus_SelfTest(u32 BaseAddress);
+
+/*
+ * Functions in rxMapleBus_sinit.c
+ */
+rxMapleBus_Config *rxMapleBus_LookupConfig(u16 DeviceId);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* end of protection macro */

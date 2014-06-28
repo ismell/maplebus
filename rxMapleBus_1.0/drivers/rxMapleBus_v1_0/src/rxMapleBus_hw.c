@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* (c) Copyright 2010-13 Xilinx, Inc. All rights reserved.
+* (c) Copyright 2013 Xilinx, Inc. All rights reserved.
 *
 * This file contains confidential and proprietary information of Xilinx, Inc.
 * and is protected under U.S. and international copyright and other
@@ -41,25 +41,25 @@
 /*****************************************************************************/
 /**
 *
-* @file rxMapleLite_g.c
+* @file rxMapleBus_hw.c
 *
-* This file contains a configuration table that specifies the configuration
-* of rxMapleLite devices in the system.
+* This file contains low level rxMapleBus functions.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
-* 1.00a rer  05/26/14 First Release
+* 1.00  rer  04/14/14 First Release
+*
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
 
-#include "rxMapleLite.h"
-#include "xparameters.h"
+#include "rxMapleBus_hw.h"
+#include "xgpiops.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -67,17 +67,28 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+/************************** Variable Definitions *****************************/
+
 /************************** Function Prototypes ******************************/
 
-/************************** Variable Prototypes ******************************/
 
-/**
- * This table contains configuration information for each GPIO device
- * in the system.
- */
-rxMapleBus_Config rxMapleBus_ConfigTable[XPAR_RXMAPLELITE_NUM_INSTANCES] = {
-	{
-		XPAR_RXMAPLELITE_0_DEVICE_ID,	/* Unique ID of device */
-		XPAR_RXMAPLELITE_0_BASEADDR		/* Base address of device */
-	}
-};
+/*****************************************************************************/
+/*
+*
+* This function resets the rxMapleBus module by writing reset values to
+* all registers
+*
+* @param	Base address of rxMapleBus module
+*
+* @return	None
+*
+* @note		None.
+*
+******************************************************************************/
+void rxMapleBus_ResetHw(u32 BaseAddress)
+{
+	
+
+}
+
+

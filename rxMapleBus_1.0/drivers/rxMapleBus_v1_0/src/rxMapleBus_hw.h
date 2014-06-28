@@ -41,66 +41,106 @@
 /*****************************************************************************/
 /**
 *
-* @file rxMapleLite_sinit.c
+* @file rxMapleBus_hw.h
 *
-* This file contains the implementation of the rxMapleLite driver's static
-* initialization functionality.
-*
-* @note		None.
+* This header file contains the identifiers and basic driver functions (or
+* macros) that can be used to access the device. Other driver functions
+* are defined in xgpiops.h.
 *
 * <pre>
-*
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date     Changes
-* ----- ---- -------- -----------------------------------------------
+* ----- ---- -------- -------------------------------------------------
 * 1.00  rer  05/26/14 First Release
 * </pre>
 *
 ******************************************************************************/
+#ifndef RXMAPLEBUS_HW_H		/* prevent circular inclusions */
+#define RXMAPLEBUS_HW_H		/* by using protection macros */
+
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
 
 /***************************** Include Files *********************************/
 
-#include "xparameters.h"
-#include "rxMapleLite.h"
+#include "xil_types.h"
+#include "xil_assert.h"
+#include "xil_io.h"
 
 /************************** Constant Definitions *****************************/
+
+/** @name Register offsets for the rxMapleBus. Each register is 32 bits.
+ *  @{
+ */
+#define RXMAPLEBUS_REG0_OFFSET 0
+#define RXMAPLEBUS_REG1_OFFSET 4
+#define RXMAPLEBUS_REG2_OFFSET 8
+#define RXMAPLEBUS_REG3_OFFSET 12
+#define RXMAPLEBUS_REG4_OFFSET 16
+/* @} */
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+/**
+ *
+ * Write a value to a RXMAPLEBUS register. A 32 bit write is performed.
+ * If the component is implemented in a smaller width, only the least
+ * significant data is written.
+ *
+ * @param   BaseAddress is the base address of the rxMapleBus device.
+ * @param   RegOffset is the register offset from the base to write to.
+ * @param   Data is the data written to the register.
+ *
+ * @return  None.
+ *
+ * @note
+ * C-style signature:
+ * 	void RXMAPLEBUS_mWriteReg(u32 BaseAddress, unsigned RegOffset, u32 Data)
+ *
+ */
+#define rxMapleBus_WriteReg(BaseAddress, RegOffset, Data) \
+  	Xil_Out32((BaseAddress) + (RegOffset), (u32)(Data))
+
+/**
+ *
+ * Read a value from a RXMAPLEBUS register. A 32 bit read is performed.
+ * If the component is implemented in a smaller width, only the least
+ * significant data is read from the register. The most significant data
+ * will be read as 0.
+ *
+ * @param   BaseAddress is the base address of the rxMapleBus device.
+ * @param   RegOffset is the register offset from the base to write to.
+ *
+ * @return  Data is the data from the register.
+ *
+ * @note
+ * C-style signature:
+ * 	u32 RXMAPLEBUS_mReadReg(u32 BaseAddress, unsigned RegOffset)
+ *
+ */
+#define rxMapleBus_ReadReg(BaseAddress, RegOffset) \
+    Xil_In32((BaseAddress) + (RegOffset))
+
+
 /************************** Function Prototypes ******************************/
 
-/************************** Variable Definitions *****************************/
-extern rxMapleLite_Config rxMapleLite_ConfigTable[];
-
-/*****************************************************************************/
 /**
-*
-* This function looks for the device configuration based on the unique device
-* ID. The table rxMapleLite_ConfigTable[] contains the configuration information
-* for each device in the system.
-*
-* @param	DeviceId is the unique device ID of the device being looked up.
-*
-* @return	A pointer to the configuration table entry corresponding to the
-*           given device ID, or NULL if no match is found.
-*
-* @note		None.
-*
-******************************************************************************/
-rxMapleLite_Config *rxMapleLite_LookupConfig(u16 DeviceId)
-{
-	rxMapleLite_Config *CfgPtr = NULL;
-	u32 Index;
+ *
+ * Performs a full hardware reset.
+ *
+ * @param   BaseAddress is the base address of the rxMapleBus device.
+ *
+ * @return	None
+ *
+ */
+void rxMapleBus_ResetHw(u32 BaseAddress);
 
-	for (Index = 0; Index < XPAR_RXMAPLELITE_NUM_INSTANCES; Index++) {
-		if (rxMapleLite_ConfigTable[Index].DeviceId == DeviceId) {
-			CfgPtr = &rxMapleLite_ConfigTable[Index];
-			break;
-		}
-	}
-
-	return CfgPtr;
+#ifdef __cplusplus
 }
+#endif /* __cplusplus */
+
+#endif /* RXMAPLEBUS_HW_H */
