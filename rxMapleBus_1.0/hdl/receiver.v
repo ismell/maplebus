@@ -15,6 +15,8 @@ module receiver #
     output wire [C_M_AXIS_TDATA_WIDTH-1 : 0] M_AXIS_TDATA,
     // TSTRB is the byte qualifier that indicates whether the content of the associated byte of TDATA is processed as a data byte or a position byte.
     output wire [(C_M_AXIS_TDATA_WIDTH/8)-1 : 0] M_AXIS_TSTRB,
+    // TSTRB is the byte qualifier that indicates whether the content of the associated byte of TDATA is processed as a null byte or a position byte.
+    output wire [(C_M_AXIS_TDATA_WIDTH/8)-1 : 0] M_AXIS_TKEEP,
     // TLAST indicates the boundary of a packet.
     output wire  M_AXIS_TLAST,
     // TREADY indicates that the slave can accept a transfer in the current cycle.
@@ -82,6 +84,7 @@ module receiver #
     .tdata(M_AXIS_TDATA),
     .tvalid(M_AXIS_TVALID),
     .tstrb(M_AXIS_TSTRB),
+    .tkeep(M_AXIS_TKEEP),
     .tlast(M_AXIS_TLAST)
   );
 

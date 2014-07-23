@@ -39,6 +39,7 @@ module rxMapleBusLoopBackTest #
   wire  s_axis_tx_tready;
   wire [C_AXIS_TDATA_WIDTH-1:0] s_axis_tx_tdata;
   wire [(C_AXIS_TDATA_WIDTH/8)-1:0] s_axis_tx_tstrb;
+  wire [(C_AXIS_TDATA_WIDTH/8)-1:0] s_axis_tx_tkeep;
   wire  s_axis_tx_tlast;
   reg  s_axis_tx_tvalid;
 
@@ -46,6 +47,7 @@ module rxMapleBusLoopBackTest #
   wire  m_axis_rx_tready;
   wire [C_AXIS_TDATA_WIDTH-1:0] m_axis_rx_tdata;
   wire [(C_AXIS_TDATA_WIDTH/8)-1:0] m_axis_rx_tstrb;
+  wire [(C_AXIS_TDATA_WIDTH/8)-1:0] m_axis_rx_tkeep;
   wire  m_axis_rx_tlast;
   wire  m_axis_rx_tvalid;
 
@@ -82,6 +84,7 @@ module rxMapleBusLoopBackTest #
     .s_axis_tx_tready(s_axis_tx_tready),
     .s_axis_tx_tdata(s_axis_tx_tdata),
     .s_axis_tx_tstrb(s_axis_tx_tstrb),
+    .s_axis_tx_tkeep(s_axis_tx_tkeep),
     .s_axis_tx_tlast(s_axis_tx_tlast),
     .s_axis_tx_tvalid(s_axis_tx_tvalid),
 
@@ -90,6 +93,7 @@ module rxMapleBusLoopBackTest #
     .m_axis_rx_tready(m_axis_rx_tready),   // input wire m_axis_tready
     .m_axis_rx_tdata(m_axis_rx_tdata),     // output wire [7 : 0] m_axis_tdata
     .m_axis_rx_tstrb(m_axis_rx_tstrb),     // output wire [0 : 0] m_axis_tstrb
+    .m_axis_rx_tkeep(m_axis_rx_tkeep),     // output wire [0 : 0] m_axis_tkeep
     .m_axis_rx_tlast(m_axis_rx_tlast),      // output wire m_axis_tlast
 
     // SDCKX
@@ -148,6 +152,7 @@ module rxMapleBusLoopBackTest #
   end
 
   assign s_axis_tx_tstrb = 1;
+  assign s_axis_tx_tkeep = 1;
   assign s_axis_tx_tdata = count;
   assign s_axis_tx_tlast = (current_state == WRITING) & (count == 4);
 

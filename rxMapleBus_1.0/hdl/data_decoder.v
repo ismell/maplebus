@@ -11,6 +11,7 @@ module data_decoder(
   output reg [7:0] tdata,
   output reg tvalid,
   output reg [0:0] tstrb,
+  output reg [0:0] tkeep,
   output reg tlast
   );
 
@@ -172,22 +173,24 @@ module data_decoder(
     end
   end
 
-  // We are outputting an extra byte just to mark it as last
-  // What we should do is buffer the byte until either we get
-  // a new one, or we hit the done stage
+  // Output TLAST with a NULL packet so it won't get
+  // counted in the byte count.
   always @(posedge aclk) begin: TLAST
     if (aresetn == 1'b0) begin
       tlast <= 0;
       tstrb <= 1;
+      tkeep <= 1;
     end else begin
       case (next_state)
         DONE: begin
           tlast <= 1'd1;
           tstrb <= 0;
+          tkeep <= 0;
         end
         default: begin
           tlast <= 0;
           tstrb <= 1;
+          tkeep <= 1;
         end
       endcase
     end

@@ -14,6 +14,7 @@ module transmitter #
     input wire [C_S_AXIS_TDATA_WIDTH-1 : 0] S_AXIS_TDATA,
     // Byte qualifier
     input wire [(C_S_AXIS_TDATA_WIDTH/8)-1 : 0] S_AXIS_TSTRB, // We don't actually use this
+    input wire [(C_S_AXIS_TDATA_WIDTH/8)-1 : 0] S_AXIS_TKEEP, // We don't actually use this
     // Indicates boundary of last packet
     input wire  S_AXIS_TLAST,
     // Data is in valid

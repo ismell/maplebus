@@ -39,6 +39,7 @@ module rxMapleBus_v1_0 #
     output wire  s_axis_tx_tready,
     input wire [C_AXIS_TDATA_WIDTH-1 : 0] s_axis_tx_tdata,
     input wire [(C_AXIS_TDATA_WIDTH/8)-1 : 0] s_axis_tx_tstrb,
+    input wire [(C_AXIS_TDATA_WIDTH/8)-1 : 0] s_axis_tx_tkeep,
     input wire  s_axis_tx_tlast,
     input wire  s_axis_tx_tvalid,
 
@@ -46,6 +47,7 @@ module rxMapleBus_v1_0 #
     output wire  m_axis_rx_tvalid,
     output wire [C_AXIS_TDATA_WIDTH-1 : 0] m_axis_rx_tdata,
     output wire [(C_AXIS_TDATA_WIDTH/8)-1 : 0] m_axis_rx_tstrb,
+    output wire [(C_AXIS_TDATA_WIDTH/8)-1 : 0] m_axis_rx_tkeep,
     output wire  m_axis_rx_tlast,
     input wire  m_axis_rx_tready,
     inout wire sdcka, sdckb
@@ -54,10 +56,11 @@ module rxMapleBus_v1_0 #
   wire  axis_tx_tvalid, axis_rx_tvalid;
   wire [C_AXIS_TDATA_WIDTH-1 : 0] axis_tx_tdata, axis_rx_tdata;
   wire [(C_AXIS_TDATA_WIDTH/8)-1 : 0] axis_tx_tstrb, axis_rx_tstrb;
+  wire [(C_AXIS_TDATA_WIDTH/8)-1 : 0] axis_tx_tkeep, axis_rx_tkeep;
   wire  axis_tx_tlast, axis_rx_tlast;
   wire  axis_tx_tready, axis_rx_tready;
-  wire  [10:0] axis_rx_data_count;
-  wire  [10:0] axis_tx_data_count;
+  wire  [11:0] axis_rx_data_count;
+  wire  [11:0] axis_tx_data_count;
 
   wire enable_tx, enable_rx, enable_loopback, reset_tx, reset_rx;
 
@@ -110,11 +113,13 @@ module rxMapleBus_v1_0 #
     .s_axis_tready(s_axis_tx_tready),       // output wire s_axis_tready
     .s_axis_tdata(s_axis_tx_tdata),     // input wire [7 : 0] s_axis_tdata
     .s_axis_tstrb(s_axis_tx_tstrb),     // input wire [0 : 0] s_axis_tstrb
+    .s_axis_tkeep(s_axis_tx_tkeep),     // input wire [0 : 0] s_axis_tkeep
     .s_axis_tlast(s_axis_tx_tlast),     // input wire s_axis_tlast
     .m_axis_tvalid(axis_tx_tvalid), // output wire m_axis_tvalid
     .m_axis_tready(axis_tx_tready), // input wire m_axis_tready
     .m_axis_tdata(axis_tx_tdata),   // output wire [7 : 0] m_axis_tdata
     .m_axis_tstrb(axis_tx_tstrb),   // output wire [0 : 0] m_axis_tstrb
+    .m_axis_tkeep(axis_tx_tkeep),   // output wire [0 : 0] m_axis_tkeep
     .m_axis_tlast(axis_tx_tlast),   // output wire m_axis_tlast
     .axis_data_count(axis_tx_data_count)    // output wire [10 : 0] axis_data_count
   );
@@ -125,6 +130,7 @@ module rxMapleBus_v1_0 #
     .S_AXIS_TREADY(axis_tx_tready),     // output wire s_axis_tready
     .S_AXIS_TDATA(axis_tx_tdata),       // input wire [7 : 0] s_axis_tdata
     .S_AXIS_TSTRB(axis_tx_tstrb),       // input wire [0 : 0] s_axis_tstrb
+    .S_AXIS_TKEEP(axis_tx_tkeep),       // input wire [0 : 0] s_axis_tkeep
     .S_AXIS_TLAST(axis_tx_tlast),       // input wire s_axis_tlast
     .S_AXIS_TVALID(axis_tx_tvalid),     // input wire s_axis_tvalid
     .SDCKA(sdcka_tx),
@@ -190,6 +196,7 @@ module rxMapleBus_v1_0 #
     .M_AXIS_TREADY(axis_rx_tready),     // input wire m_axis_tready
     .M_AXIS_TDATA(axis_rx_tdata),       // output wire [7 : 0] m_axis_tdata
     .M_AXIS_TSTRB(axis_rx_tstrb),       // output wire [0 : 0] m_axis_tstrb
+    .M_AXIS_TKEEP(axis_rx_tkeep),       // output wire [0 : 0] m_axis_tkeep
     .M_AXIS_TLAST(axis_rx_tlast),       // output wire m_axis_tlast
     .M_AXIS_TVALID(axis_rx_tvalid),     // output wire m_axis_tvalid
 
@@ -205,11 +212,13 @@ module rxMapleBus_v1_0 #
     .s_axis_tready(axis_rx_tready),     // output wire s_axis_tready
     .s_axis_tdata(axis_rx_tdata),       // input wire [7 : 0] s_axis_tdata
     .s_axis_tstrb(axis_rx_tstrb),       // input wire [0 : 0] s_axis_tstrb
+    .s_axis_tkeep(axis_rx_tkeep),       // input wire [0 : 0] s_axis_tkeep
     .s_axis_tlast(axis_rx_tlast),       // input wire s_axis_tlast
     .m_axis_tvalid(m_axis_rx_tvalid),   // output wire m_axis_tvalid
     .m_axis_tready(m_axis_rx_tready),   // input wire m_axis_tready
     .m_axis_tdata(m_axis_rx_tdata),     // output wire [7 : 0] m_axis_tdata
     .m_axis_tstrb(m_axis_rx_tstrb),     // output wire [0 : 0] m_axis_tstrb
+    .m_axis_tkeep(m_axis_rx_tkeep),     // output wire [0 : 0] m_axis_tkeep
     .m_axis_tlast(m_axis_rx_tlast),     // output wire m_axis_tlast
     .axis_data_count(axis_rx_data_count)    // output wire [10 : 0] axis_data_count
   );

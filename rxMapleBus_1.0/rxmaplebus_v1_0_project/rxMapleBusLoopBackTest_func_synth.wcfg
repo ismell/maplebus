@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="rxMapleBusLoopBackTest_func_synth.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="rxMapleBusLoopBackTest" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="139" />
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axi_crtl_awprot" type="array">
+      <obj_property name="ElementShortName">s_axi_crtl_awprot[2:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axi_crtl_awprot[2:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axi_crtl_arprot" type="array">
+      <obj_property name="ElementShortName">s_axi_crtl_arprot[2:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axi_crtl_arprot[2:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/aclk" type="logic">
+      <obj_property name="ElementShortName">aclk</obj_property>
+      <obj_property name="ObjectShortName">aclk</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/aresetn" type="logic">
+      <obj_property name="ElementShortName">aresetn</obj_property>
+      <obj_property name="ObjectShortName">aresetn</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/aresetn_IBUF" type="logic">
+      <obj_property name="ElementShortName">aresetn_IBUF</obj_property>
+      <obj_property name="ObjectShortName">aresetn_IBUF</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/axis_rx_data_count" type="array">
+      <obj_property name="ElementShortName">axis_rx_data_count[10:0]</obj_property>
+      <obj_property name="ObjectShortName">axis_rx_data_count[10:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/axis_rx_tdata" type="array">
+      <obj_property name="ElementShortName">axis_rx_tdata[7:0]</obj_property>
+      <obj_property name="ObjectShortName">axis_rx_tdata[7:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/axis_rx_tlast" type="logic">
+      <obj_property name="ElementShortName">axis_rx_tlast</obj_property>
+      <obj_property name="ObjectShortName">axis_rx_tlast</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/axis_rx_tready" type="logic">
+      <obj_property name="ElementShortName">axis_rx_tready</obj_property>
+      <obj_property name="ObjectShortName">axis_rx_tready</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/axis_rx_tstrb" type="logic">
+      <obj_property name="ElementShortName">axis_rx_tstrb</obj_property>
+      <obj_property name="ObjectShortName">axis_rx_tstrb</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/axis_rx_tvalid" type="logic">
+      <obj_property name="ElementShortName">axis_rx_tvalid</obj_property>
+      <obj_property name="ObjectShortName">axis_rx_tvalid</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/axis_tx_data_count" type="array">
+      <obj_property name="ElementShortName">axis_tx_data_count[10:0]</obj_property>
+      <obj_property name="ObjectShortName">axis_tx_data_count[10:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/axis_tx_tdata" type="array">
+      <obj_property name="ElementShortName">axis_tx_tdata[7:0]</obj_property>
+      <obj_property name="ObjectShortName">axis_tx_tdata[7:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/axis_tx_tlast" type="logic">
+      <obj_property name="ElementShortName">axis_tx_tlast</obj_property>
+      <obj_property name="ObjectShortName">axis_tx_tlast</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/axis_tx_tready" type="logic">
+      <obj_property name="ElementShortName">axis_tx_tready</obj_property>
+      <obj_property name="ObjectShortName">axis_tx_tready</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/axis_tx_tstrb" type="logic">
+      <obj_property name="ElementShortName">axis_tx_tstrb</obj_property>
+      <obj_property name="ObjectShortName">axis_tx_tstrb</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/axis_tx_tvalid" type="logic">
+      <obj_property name="ElementShortName">axis_tx_tvalid</obj_property>
+      <obj_property name="ObjectShortName">axis_tx_tvalid</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/enable_loopback" type="logic">
+      <obj_property name="ElementShortName">enable_loopback</obj_property>
+      <obj_property name="ObjectShortName">enable_loopback</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/enable_rx" type="logic">
+      <obj_property name="ElementShortName">enable_rx</obj_property>
+      <obj_property name="ObjectShortName">enable_rx</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/enable_tx" type="logic">
+      <obj_property name="ElementShortName">enable_tx</obj_property>
+      <obj_property name="ObjectShortName">enable_tx</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/m_axis_rx_tdata" type="array">
+      <obj_property name="ElementShortName">m_axis_rx_tdata[7:0]</obj_property>
+      <obj_property name="ObjectShortName">m_axis_rx_tdata[7:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/m_axis_rx_tlast" type="logic">
+      <obj_property name="ElementShortName">m_axis_rx_tlast</obj_property>
+      <obj_property name="ObjectShortName">m_axis_rx_tlast</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/m_axis_rx_tready" type="logic">
+      <obj_property name="ElementShortName">m_axis_rx_tready</obj_property>
+      <obj_property name="ObjectShortName">m_axis_rx_tready</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/m_axis_rx_tstrb" type="array">
+      <obj_property name="ElementShortName">m_axis_rx_tstrb[0:0]</obj_property>
+      <obj_property name="ObjectShortName">m_axis_rx_tstrb[0:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/m_axis_rx_tvalid" type="logic">
+      <obj_property name="ElementShortName">m_axis_rx_tvalid</obj_property>
+      <obj_property name="ObjectShortName">m_axis_rx_tvalid</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\n_0_SDCKAr_reg[0]_i_4 " type="logic">
+      <obj_property name="ElementShortName">\n_0_SDCKAr_reg[0]_i_4 </obj_property>
+      <obj_property name="ObjectShortName">\n_0_SDCKAr_reg[0]_i_4 </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\n_0_SDCKAr_reg[0]_i_6 " type="logic">
+      <obj_property name="ElementShortName">\n_0_SDCKAr_reg[0]_i_6 </obj_property>
+      <obj_property name="ObjectShortName">\n_0_SDCKAr_reg[0]_i_6 </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\n_0_SDCKBr_reg[0]_i_5 " type="logic">
+      <obj_property name="ElementShortName">\n_0_SDCKBr_reg[0]_i_5 </obj_property>
+      <obj_property name="ObjectShortName">\n_0_SDCKBr_reg[0]_i_5 </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\n_0_SDCKBr_reg[0]_i_8 " type="logic">
+      <obj_property name="ElementShortName">\n_0_SDCKBr_reg[0]_i_8 </obj_property>
+      <obj_property name="ObjectShortName">\n_0_SDCKBr_reg[0]_i_8 </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/n_0_rxMapleBus_v1_0_S_AXI_CRTL_inst" type="logic">
+      <obj_property name="ElementShortName">n_0_rxMapleBus_v1_0_S_AXI_CRTL_inst</obj_property>
+      <obj_property name="ObjectShortName">n_0_rxMapleBus_v1_0_S_AXI_CRTL_inst</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/n_1_rxMapleBus_v1_0_S_AXI_CRTL_inst" type="logic">
+      <obj_property name="ElementShortName">n_1_rxMapleBus_v1_0_S_AXI_CRTL_inst</obj_property>
+      <obj_property name="ObjectShortName">n_1_rxMapleBus_v1_0_S_AXI_CRTL_inst</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/n_2_rxMapleBus_v1_0_S_AXI_CRTL_inst" type="logic">
+      <obj_property name="ElementShortName">n_2_rxMapleBus_v1_0_S_AXI_CRTL_inst</obj_property>
+      <obj_property name="ObjectShortName">n_2_rxMapleBus_v1_0_S_AXI_CRTL_inst</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/n_3_rxMapleBus_v1_0_S_AXI_CRTL_inst" type="logic">
+      <obj_property name="ElementShortName">n_3_rxMapleBus_v1_0_S_AXI_CRTL_inst</obj_property>
+      <obj_property name="ObjectShortName">n_3_rxMapleBus_v1_0_S_AXI_CRTL_inst</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/n_4_rxMapleBus_v1_0_S_AXI_CRTL_inst" type="logic">
+      <obj_property name="ElementShortName">n_4_rxMapleBus_v1_0_S_AXI_CRTL_inst</obj_property>
+      <obj_property name="ObjectShortName">n_4_rxMapleBus_v1_0_S_AXI_CRTL_inst</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/n_5_rxMapleBus_v1_0_S_AXI_CRTL_inst" type="logic">
+      <obj_property name="ElementShortName">n_5_rxMapleBus_v1_0_S_AXI_CRTL_inst</obj_property>
+      <obj_property name="ObjectShortName">n_5_rxMapleBus_v1_0_S_AXI_CRTL_inst</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_aresetn0" type="logic">
+      <obj_property name="ElementShortName">s_aresetn0</obj_property>
+      <obj_property name="ObjectShortName">s_aresetn0</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_aresetn02_out" type="logic">
+      <obj_property name="ElementShortName">s_aresetn02_out</obj_property>
+      <obj_property name="ObjectShortName">s_aresetn02_out</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axi_crtl_araddr" type="array">
+      <obj_property name="ElementShortName">s_axi_crtl_araddr[4:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axi_crtl_araddr[4:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_araddr_IBUF[2] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_araddr_IBUF[2] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_araddr_IBUF[2] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_araddr_IBUF[3] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_araddr_IBUF[3] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_araddr_IBUF[3] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_araddr_IBUF[4] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_araddr_IBUF[4] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_araddr_IBUF[4] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axi_crtl_arready" type="logic">
+      <obj_property name="ElementShortName">s_axi_crtl_arready</obj_property>
+      <obj_property name="ObjectShortName">s_axi_crtl_arready</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axi_crtl_arvalid" type="logic">
+      <obj_property name="ElementShortName">s_axi_crtl_arvalid</obj_property>
+      <obj_property name="ObjectShortName">s_axi_crtl_arvalid</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axi_crtl_arvalid_IBUF" type="logic">
+      <obj_property name="ElementShortName">s_axi_crtl_arvalid_IBUF</obj_property>
+      <obj_property name="ObjectShortName">s_axi_crtl_arvalid_IBUF</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axi_crtl_awaddr" type="array">
+      <obj_property name="ElementShortName">s_axi_crtl_awaddr[4:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axi_crtl_awaddr[4:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_awaddr_IBUF[2] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_awaddr_IBUF[2] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_awaddr_IBUF[2] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_awaddr_IBUF[3] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_awaddr_IBUF[3] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_awaddr_IBUF[3] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_awaddr_IBUF[4] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_awaddr_IBUF[4] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_awaddr_IBUF[4] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axi_crtl_awready" type="logic">
+      <obj_property name="ElementShortName">s_axi_crtl_awready</obj_property>
+      <obj_property name="ObjectShortName">s_axi_crtl_awready</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axi_crtl_awvalid" type="logic">
+      <obj_property name="ElementShortName">s_axi_crtl_awvalid</obj_property>
+      <obj_property name="ObjectShortName">s_axi_crtl_awvalid</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axi_crtl_awvalid_IBUF" type="logic">
+      <obj_property name="ElementShortName">s_axi_crtl_awvalid_IBUF</obj_property>
+      <obj_property name="ObjectShortName">s_axi_crtl_awvalid_IBUF</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axi_crtl_bready" type="logic">
+      <obj_property name="ElementShortName">s_axi_crtl_bready</obj_property>
+      <obj_property name="ObjectShortName">s_axi_crtl_bready</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axi_crtl_bready_IBUF" type="logic">
+      <obj_property name="ElementShortName">s_axi_crtl_bready_IBUF</obj_property>
+      <obj_property name="ObjectShortName">s_axi_crtl_bready_IBUF</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axi_crtl_bresp" type="array">
+      <obj_property name="ElementShortName">s_axi_crtl_bresp[1:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axi_crtl_bresp[1:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axi_crtl_bvalid" type="logic">
+      <obj_property name="ElementShortName">s_axi_crtl_bvalid</obj_property>
+      <obj_property name="ObjectShortName">s_axi_crtl_bvalid</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axi_crtl_rdata" type="array">
+      <obj_property name="ElementShortName">s_axi_crtl_rdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axi_crtl_rdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axi_crtl_rdata_OBUF" type="array">
+      <obj_property name="ElementShortName">s_axi_crtl_rdata_OBUF[31:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axi_crtl_rdata_OBUF[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axi_crtl_rready" type="logic">
+      <obj_property name="ElementShortName">s_axi_crtl_rready</obj_property>
+      <obj_property name="ObjectShortName">s_axi_crtl_rready</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axi_crtl_rready_IBUF" type="logic">
+      <obj_property name="ElementShortName">s_axi_crtl_rready_IBUF</obj_property>
+      <obj_property name="ObjectShortName">s_axi_crtl_rready_IBUF</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axi_crtl_rresp" type="array">
+      <obj_property name="ElementShortName">s_axi_crtl_rresp[1:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axi_crtl_rresp[1:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axi_crtl_rvalid" type="logic">
+      <obj_property name="ElementShortName">s_axi_crtl_rvalid</obj_property>
+      <obj_property name="ObjectShortName">s_axi_crtl_rvalid</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axi_crtl_wdata" type="array">
+      <obj_property name="ElementShortName">s_axi_crtl_wdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axi_crtl_wdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[0] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[0] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[0] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[10] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[10] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[10] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[11] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[11] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[11] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[12] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[12] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[12] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[13] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[13] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[13] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[14] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[14] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[14] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[15] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[15] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[15] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[16] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[16] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[16] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[17] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[17] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[17] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[18] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[18] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[18] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[19] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[19] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[19] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[1] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[1] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[1] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[20] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[20] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[20] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[21] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[21] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[21] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[22] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[22] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[22] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[23] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[23] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[23] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[24] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[24] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[24] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[25] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[25] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[25] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[26] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[26] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[26] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[27] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[27] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[27] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[28] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[28] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[28] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[29] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[29] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[29] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[2] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[2] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[2] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[30] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[30] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[30] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[31] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[31] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[31] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[3] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[3] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[3] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[4] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[4] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[4] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[5] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[5] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[5] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[6] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[6] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[6] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[7] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[7] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[7] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[8] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[8] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[8] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wdata_IBUF[9] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wdata_IBUF[9] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wdata_IBUF[9] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axi_crtl_wready" type="logic">
+      <obj_property name="ElementShortName">s_axi_crtl_wready</obj_property>
+      <obj_property name="ObjectShortName">s_axi_crtl_wready</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axi_crtl_wstrb" type="array">
+      <obj_property name="ElementShortName">s_axi_crtl_wstrb[3:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axi_crtl_wstrb[3:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wstrb_IBUF[0] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wstrb_IBUF[0] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wstrb_IBUF[0] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wstrb_IBUF[1] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wstrb_IBUF[1] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wstrb_IBUF[1] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wstrb_IBUF[2] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wstrb_IBUF[2] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wstrb_IBUF[2] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/\s_axi_crtl_wstrb_IBUF[3] " type="logic">
+      <obj_property name="ElementShortName">\s_axi_crtl_wstrb_IBUF[3] </obj_property>
+      <obj_property name="ObjectShortName">\s_axi_crtl_wstrb_IBUF[3] </obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axi_crtl_wvalid" type="logic">
+      <obj_property name="ElementShortName">s_axi_crtl_wvalid</obj_property>
+      <obj_property name="ObjectShortName">s_axi_crtl_wvalid</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axi_crtl_wvalid_IBUF" type="logic">
+      <obj_property name="ElementShortName">s_axi_crtl_wvalid_IBUF</obj_property>
+      <obj_property name="ObjectShortName">s_axi_crtl_wvalid_IBUF</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axis_tx_tdata" type="array">
+      <obj_property name="ElementShortName">s_axis_tx_tdata[7:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axis_tx_tdata[7:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axis_tx_tlast" type="logic">
+      <obj_property name="ElementShortName">s_axis_tx_tlast</obj_property>
+      <obj_property name="ObjectShortName">s_axis_tx_tlast</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axis_tx_tready" type="logic">
+      <obj_property name="ElementShortName">s_axis_tx_tready</obj_property>
+      <obj_property name="ObjectShortName">s_axis_tx_tready</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axis_tx_tstrb" type="array">
+      <obj_property name="ElementShortName">s_axis_tx_tstrb[0:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axis_tx_tstrb[0:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/s_axis_tx_tvalid" type="logic">
+      <obj_property name="ElementShortName">s_axis_tx_tvalid</obj_property>
+      <obj_property name="ObjectShortName">s_axis_tx_tvalid</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/sdcka" type="logic">
+      <obj_property name="ElementShortName">sdcka</obj_property>
+      <obj_property name="ObjectShortName">sdcka</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/sdcka_in" type="logic">
+      <obj_property name="ElementShortName">sdcka_in</obj_property>
+      <obj_property name="ObjectShortName">sdcka_in</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/sdcka_out0" type="logic">
+      <obj_property name="ElementShortName">sdcka_out0</obj_property>
+      <obj_property name="ObjectShortName">sdcka_out0</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/sdcka_tx" type="logic">
+      <obj_property name="ElementShortName">sdcka_tx</obj_property>
+      <obj_property name="ObjectShortName">sdcka_tx</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/sdckb" type="logic">
+      <obj_property name="ElementShortName">sdckb</obj_property>
+      <obj_property name="ObjectShortName">sdckb</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/sdckb_in" type="logic">
+      <obj_property name="ElementShortName">sdckb_in</obj_property>
+      <obj_property name="ObjectShortName">sdckb_in</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/sdckb_tx" type="logic">
+      <obj_property name="ElementShortName">sdckb_tx</obj_property>
+      <obj_property name="ObjectShortName">sdckb_tx</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/xlnx_opt_" type="logic">
+      <obj_property name="ElementShortName">xlnx_opt_</obj_property>
+      <obj_property name="ObjectShortName">xlnx_opt_</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/xlnx_opt__1" type="logic">
+      <obj_property name="ElementShortName">xlnx_opt__1</obj_property>
+      <obj_property name="ObjectShortName">xlnx_opt__1</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/xlnx_opt__10" type="logic">
+      <obj_property name="ElementShortName">xlnx_opt__10</obj_property>
+      <obj_property name="ObjectShortName">xlnx_opt__10</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/xlnx_opt__11" type="logic">
+      <obj_property name="ElementShortName">xlnx_opt__11</obj_property>
+      <obj_property name="ObjectShortName">xlnx_opt__11</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/xlnx_opt__12" type="logic">
+      <obj_property name="ElementShortName">xlnx_opt__12</obj_property>
+      <obj_property name="ObjectShortName">xlnx_opt__12</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/xlnx_opt__13" type="logic">
+      <obj_property name="ElementShortName">xlnx_opt__13</obj_property>
+      <obj_property name="ObjectShortName">xlnx_opt__13</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/xlnx_opt__14" type="logic">
+      <obj_property name="ElementShortName">xlnx_opt__14</obj_property>
+      <obj_property name="ObjectShortName">xlnx_opt__14</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/xlnx_opt__15" type="logic">
+      <obj_property name="ElementShortName">xlnx_opt__15</obj_property>
+      <obj_property name="ObjectShortName">xlnx_opt__15</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/xlnx_opt__16" type="logic">
+      <obj_property name="ElementShortName">xlnx_opt__16</obj_property>
+      <obj_property name="ObjectShortName">xlnx_opt__16</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/xlnx_opt__17" type="logic">
+      <obj_property name="ElementShortName">xlnx_opt__17</obj_property>
+      <obj_property name="ObjectShortName">xlnx_opt__17</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/xlnx_opt__18" type="logic">
+      <obj_property name="ElementShortName">xlnx_opt__18</obj_property>
+      <obj_property name="ObjectShortName">xlnx_opt__18</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/xlnx_opt__19" type="logic">
+      <obj_property name="ElementShortName">xlnx_opt__19</obj_property>
+      <obj_property name="ObjectShortName">xlnx_opt__19</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/xlnx_opt__2" type="logic">
+      <obj_property name="ElementShortName">xlnx_opt__2</obj_property>
+      <obj_property name="ObjectShortName">xlnx_opt__2</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/xlnx_opt__20" type="logic">
+      <obj_property name="ElementShortName">xlnx_opt__20</obj_property>
+      <obj_property name="ObjectShortName">xlnx_opt__20</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/xlnx_opt__21" type="logic">
+      <obj_property name="ElementShortName">xlnx_opt__21</obj_property>
+      <obj_property name="ObjectShortName">xlnx_opt__21</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/xlnx_opt__22" type="logic">
+      <obj_property name="ElementShortName">xlnx_opt__22</obj_property>
+      <obj_property name="ObjectShortName">xlnx_opt__22</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/xlnx_opt__23" type="logic">
+      <obj_property name="ElementShortName">xlnx_opt__23</obj_property>
+      <obj_property name="ObjectShortName">xlnx_opt__23</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/xlnx_opt__24" type="logic">
+      <obj_property name="ElementShortName">xlnx_opt__24</obj_property>
+      <obj_property name="ObjectShortName">xlnx_opt__24</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/xlnx_opt__3" type="logic">
+      <obj_property name="ElementShortName">xlnx_opt__3</obj_property>
+      <obj_property name="ObjectShortName">xlnx_opt__3</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/xlnx_opt__4" type="logic">
+      <obj_property name="ElementShortName">xlnx_opt__4</obj_property>
+      <obj_property name="ObjectShortName">xlnx_opt__4</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/xlnx_opt__5" type="logic">
+      <obj_property name="ElementShortName">xlnx_opt__5</obj_property>
+      <obj_property name="ObjectShortName">xlnx_opt__5</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/xlnx_opt__6" type="logic">
+      <obj_property name="ElementShortName">xlnx_opt__6</obj_property>
+      <obj_property name="ObjectShortName">xlnx_opt__6</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/xlnx_opt__7" type="logic">
+      <obj_property name="ElementShortName">xlnx_opt__7</obj_property>
+      <obj_property name="ObjectShortName">xlnx_opt__7</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/xlnx_opt__8" type="logic">
+      <obj_property name="ElementShortName">xlnx_opt__8</obj_property>
+      <obj_property name="ObjectShortName">xlnx_opt__8</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/rxMapleBusLoopBackTest/DUT/xlnx_opt__9" type="logic">
+      <obj_property name="ElementShortName">xlnx_opt__9</obj_property>
+      <obj_property name="ObjectShortName">xlnx_opt__9</obj_property>
+   </wvobject>
+</wave_config>
