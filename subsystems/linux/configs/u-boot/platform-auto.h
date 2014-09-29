@@ -14,7 +14,7 @@
 #define CONFIG_SYS_CONSOLE_IS_IN_ENV 1
 
 /* Board name */
-#define XILINX_BOARD_NAME	HelloWorld
+#define XILINX_BOARD_NAME	MicroZed
 #define CONFIG_HOSTNAME	XILINX_BOARD_NAME
 
 /* processor - ps7_cortexa9_0 */
@@ -193,15 +193,21 @@
 	"bootenvsize=0x20000\0" \
 	"bootenvstart=0x500000\0" \
 	"eraseenv=sf probe 0 && sf erase ${bootenvstart} ${bootenvsize}\0" \
-	"kernelsize=0xa80000\0" \
-	"kernelstart=0x520000\0" \
+	"jffs2_img=rootfs.jffs2\0" \
+	"load_jffs2=tftp ${clobstart} ${jffs2_img}\0" \
+	"update_jffs2=setenv img jffs2; setenv psize ${jffs2size}; setenv installcmd \"install_jffs2\"; run load_jffs2 test_img; setenv img; setenv psize; setenv installcmd\0" \
+	"sd_update_jffs2=echo Updating jffs2 from SD; mmcinfo && fatload mmc 0:1 ${clobstart} ${jffs2_img} && run install_jffs2\0" \
+	"install_jffs2=sf probe 0 && sf erase ${jffs2start} ${jffs2size} && " \
+		"sf write ${clobstart} ${jffs2start} ${filesize}\0" \
 	"kernel_img=image.ub\0" \
 	"load_kernel=tftp ${clobstart} ${kernel_img}\0" \
-	"update_kernel=setenv img kernel; setenv psize ${kernelsize}; setenv installcmd \"install_kernel\"; run load_kernel test_crc; setenv img; setenv psize; setenv installcmd\0" \
+	"update_kernel=setenv img kernel; setenv psize ${kernelsize}; setenv installcmd \"install_kernel\"; run load_kernel test_img; setenv img; setenv psize; setenv installcmd\0" \
 	"sd_update_kernel=echo Updating kernel from SD; mmcinfo && fatload mmc 0:1 ${clobstart} ${kernel_img} && run install_kernel\0" \
-	"install_kernel=sf probe 0 && sf erase ${kernelstart} ${kernelsize} && " \
-		"sf write ${clobstart} ${kernelstart} ${filesize}\0" \
-	"cp_kernel2ram=sf probe 0 && sf read ${netstart} ${kernelstart} ${kernelsize}\0" \
+	"cp_kernel2ram=tftp ${netstart} ${kernel_img}\0" \
+	"dtb_img=system.dtb\0" \
+	"load_dtb=tftp ${clobstart} ${dtb_img}\0" \
+	"update_dtb=setenv img dtb; setenv psize ${dtbsize}; setenv installcmd \"install_dtb\"; run load_dtb test_img; setenv img; setenv psize; setenv installcmd\0" \
+	"sd_update_dtb=echo Updating dtb from SD; mmcinfo && fatload mmc 0:1 ${clobstart} ${dtb_img} && run install_dtb\0" \
 	"sdboot=echo boot Petalinux; mmcinfo && fatload mmc 0 ${netstart} ${kernel_img} && bootm \0" \
 	"fault=echo ${img} image size is greater than allocated place - partition ${img} is NOT UPDATED\0" \
 	"test_crc=if imi ${clobstart}; then run test_img; else echo ${img} Bad CRC - ${img} is NOT UPDATED; fi\0" \

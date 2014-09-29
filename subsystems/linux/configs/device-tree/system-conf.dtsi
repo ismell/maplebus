@@ -7,7 +7,7 @@
 /include/ "pl.dtsi"
 
 / {
-	model = "HelloWorld";
+	model = "MapleBus360";
 	aliases {
 		serial0 = &ps7_uart_1;
 		ethernet0 = &ps7_ethernet_0;
