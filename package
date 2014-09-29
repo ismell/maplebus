@@ -1,0 +1,2 @@
+#!/bin/bash
+petalinux-package --boot --force --fsbl images/linux/zynq_fsbl.elf --fpga images/linux/root_wrapper.bit --u-boot && mv BOOT.BIN /tftpboot/
