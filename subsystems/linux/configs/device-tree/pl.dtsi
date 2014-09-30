@@ -14,10 +14,14 @@
 			dma-channel@40400000 {
 				compatible = "xlnx,axi-dma-mm2s-channel";
 				interrupts = <0 29 4>;
+				xlnx,datawidth = <0x20>;
+				xlnx,device-id = <0x0>;
 			} ;
 			dma-channel@40400030 {
 				compatible = "xlnx,axi-dma-s2mm-channel";
 				interrupts = <0 30 4>;
+				xlnx,datawidth = <0x20>;
+				xlnx,device-id = <0x0>;
 			} ;
 		} ;
 		rxMapleBus_0: rxMapleBus@43c00000 {

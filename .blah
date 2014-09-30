@@ -1,0 +1,4 @@
+xemacps e000b000.ps7-ethernet: eth0: no PHY setup
+/opt/Xilinx/PetaLinux/petalinux-v2014.2-final/components/linux-kernel/xlnx-3.14/drivers/rtc/hctosys.c: unable to open rtc device (rtc0)
+xilinx-dma 40400000.axi-dma: unable to read datawidth property
+
