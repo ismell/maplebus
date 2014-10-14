@@ -393,8 +393,9 @@ static int dmatest_slave_func(void *data)
 			failed_tests++;
 			continue;
 		}
-		dma_async_issue_pending(tx_chan);
+    // We need to issue the RX Channel first! Otherwise we discard the messages!
 		dma_async_issue_pending(rx_chan);
+		dma_async_issue_pending(tx_chan);
 
 		tx_tmo = wait_for_completion_timeout(&tx_cmp, tx_tmo);
 
