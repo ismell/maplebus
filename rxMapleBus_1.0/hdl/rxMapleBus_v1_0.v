@@ -108,19 +108,22 @@ module rxMapleBus_v1_0 #
   // Instantiation of Axi Bus Interface S_AXIS_TX
   fifo_generator_0 tx_fifo (
     .s_aclk(aclk),                      // input wire s_aclk
-    .s_aresetn(aresetn && !reset_tx),    // input wire s_aresetn
-    .s_axis_tvalid(s_axis_tx_tvalid),       // input wire s_axis_tvalid
-    .s_axis_tready(s_axis_tx_tready),       // output wire s_axis_tready
+    .s_aresetn(aresetn && !reset_tx),   // input wire s_aresetn
+    
+    .s_axis_tvalid(s_axis_tx_tvalid),   // input wire s_axis_tvalid
+    .s_axis_tready(s_axis_tx_tready),   // output wire s_axis_tready
     .s_axis_tdata(s_axis_tx_tdata),     // input wire [7 : 0] s_axis_tdata
     .s_axis_tstrb(s_axis_tx_tstrb),     // input wire [0 : 0] s_axis_tstrb
     .s_axis_tkeep(s_axis_tx_tkeep),     // input wire [0 : 0] s_axis_tkeep
     .s_axis_tlast(s_axis_tx_tlast),     // input wire s_axis_tlast
-    .m_axis_tvalid(axis_tx_tvalid), // output wire m_axis_tvalid
-    .m_axis_tready(axis_tx_tready), // input wire m_axis_tready
-    .m_axis_tdata(axis_tx_tdata),   // output wire [7 : 0] m_axis_tdata
-    .m_axis_tstrb(axis_tx_tstrb),   // output wire [0 : 0] m_axis_tstrb
-    .m_axis_tkeep(axis_tx_tkeep),   // output wire [0 : 0] m_axis_tkeep
-    .m_axis_tlast(axis_tx_tlast),   // output wire m_axis_tlast
+    
+    .m_axis_tvalid(axis_tx_tvalid),     // output wire m_axis_tvalid
+    .m_axis_tready(axis_tx_tready),     // input wire m_axis_tready
+    .m_axis_tdata(axis_tx_tdata),       // output wire [7 : 0] m_axis_tdata
+    .m_axis_tstrb(axis_tx_tstrb),       // output wire [0 : 0] m_axis_tstrb
+    .m_axis_tkeep(axis_tx_tkeep),       // output wire [0 : 0] m_axis_tkeep
+    .m_axis_tlast(axis_tx_tlast),       // output wire m_axis_tlast
+    
     .axis_data_count(axis_tx_data_count)    // output wire [10 : 0] axis_data_count
   );
 
@@ -135,7 +138,7 @@ module rxMapleBus_v1_0 #
     .S_AXIS_TVALID(axis_tx_tvalid),     // input wire s_axis_tvalid
     .SDCKA(sdcka_tx),
     .SDCKB(sdckb_tx),
-    .ENABLE(axis_tx_tvalid), // FIFO should enable the transmitter
+    .ENABLE(enable_tx), // FIFO should enable the transmitter
     .TRANSMITTING(transmitting) // Output the signal
   );
 
@@ -200,7 +203,7 @@ module rxMapleBus_v1_0 #
     .M_AXIS_TLAST(axis_rx_tlast),       // output wire m_axis_tlast
     .M_AXIS_TVALID(axis_rx_tvalid),     // output wire m_axis_tvalid
 
-    .ENABLE(axis_tx_tvalid), // FIFO should enable the receiver
+    .ENABLE(enable_rx),   // Enable the receiver
     .RECEIVING(receiving) // A packet is being received
   );
 
@@ -208,12 +211,14 @@ module rxMapleBus_v1_0 #
   fifo_generator_0 rx_fifo (
     .s_aclk(aclk),                      // input wire s_aclk
     .s_aresetn(aresetn && !reset_rx),   // input wire s_aresetn
+    
     .s_axis_tvalid(axis_rx_tvalid),     // input wire s_axis_tvalid
     .s_axis_tready(axis_rx_tready),     // output wire s_axis_tready
     .s_axis_tdata(axis_rx_tdata),       // input wire [7 : 0] s_axis_tdata
     .s_axis_tstrb(axis_rx_tstrb),       // input wire [0 : 0] s_axis_tstrb
     .s_axis_tkeep(axis_rx_tkeep),       // input wire [0 : 0] s_axis_tkeep
     .s_axis_tlast(axis_rx_tlast),       // input wire s_axis_tlast
+    
     .m_axis_tvalid(m_axis_rx_tvalid),   // output wire m_axis_tvalid
     .m_axis_tready(m_axis_rx_tready),   // input wire m_axis_tready
     .m_axis_tdata(m_axis_rx_tdata),     // output wire [7 : 0] m_axis_tdata

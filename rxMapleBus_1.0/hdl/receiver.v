@@ -124,7 +124,7 @@ module receiver #
   always @(*) begin: FSM_COMBO
     case (current_state)
       IDLE:
-        if ((start_frame || start_with_crc || start_reset) && M_AXIS_TREADY)
+        if ((start_frame || start_with_crc || start_reset) && M_AXIS_TREADY && ENABLE)
            next_state = ENABLED;
         else
           next_state = IDLE;

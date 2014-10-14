@@ -232,7 +232,7 @@ module rxMapleBus_v1_0_S_AXI_CRTL #
 	begin : ASSIGN_REGISTERS
 	  if ( S_AXI_ARESETN == 1'b0 )
 	    begin
-	      slv_reg0 <= 32'h04;
+	      slv_reg0 <= 32'h07;// Enable TX, Enable RX, Enable Loopback
 	      slv_reg2 <= 0;
 	    end
 	  else begin
@@ -373,6 +373,7 @@ module rxMapleBus_v1_0_S_AXI_CRTL #
 	        3'h0   : reg_data_out <= slv_reg0;
 	        3'h1   : reg_data_out <= {tx_data_count, rx_data_count};
 	        3'h2   : reg_data_out <= slv_reg2;
+	        3'h7   : reg_data_out <= 32'hB82FD918; // Magic detection number
 	        default : reg_data_out <= 0;
 	      endcase
 	    end
