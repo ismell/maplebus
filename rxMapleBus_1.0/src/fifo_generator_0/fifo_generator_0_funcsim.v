@@ -1,10 +1,10 @@
 // Copyright 1986-2014 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
-// Tool Version: Vivado v.2014.1 (win64) Build 881834 Fri Apr  4 14:15:54 MDT 2014
-// Date        : Tue Jul 22 18:14:58 2014
-// Host        : speedy running 64-bit major release  (build 9200)
+// Tool Version: Vivado v.2014.2 (lin64) Build 932637 Wed Jun 11 13:08:52 MDT 2014
+// Date        : Tue Oct 14 10:45:19 2014
+// Host        : aida-ipod.ad.ismell.org running 64-bit CentOS Linux release 7.0.1406 (Core)
 // Command     : write_verilog -force -mode funcsim
-//               c:/users/me/projects/zynq/ip_repo/rxmaplebus_1.0/src/fifo_generator_0/fifo_generator_0_funcsim.v
+//               /home/me/Projects/ip_repo/rxMapleBus_1.0/src/fifo_generator_0/fifo_generator_0_funcsim.v
 // Design      : fifo_generator_0
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -12,8 +12,8 @@
 // --------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* downgradeipidentifiedwarnings = "yes" *) (* x_core_info = "fifo_generator_v12_0,Vivado 2014.1" *) (* CHECK_LICENSE_TYPE = "fifo_generator_0,fifo_generator_v12_0,{}" *) 
-(* core_generation_info = "fifo_generator_0,fifo_generator_v12_0,{x_ipProduct=Vivado 2014.1,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=fifo_generator,x_ipVersion=12.0,x_ipCoreRevision=0,x_ipLanguage=VERILOG,C_COMMON_CLOCK=1,C_COUNT_TYPE=0,C_DATA_COUNT_WIDTH=10,C_DEFAULT_VALUE=BlankString,C_DIN_WIDTH=8,C_DOUT_RST_VAL=0,C_DOUT_WIDTH=8,C_ENABLE_RLOCS=0,C_FAMILY=zynq,C_FULL_FLAGS_RST_VAL=0,C_HAS_ALMOST_EMPTY=0,C_HAS_ALMOST_FULL=0,C_HAS_BACKUP=0,C_HAS_DATA_COUNT=0,C_HAS_INT_CLK=0,C_HAS_MEMINIT_FILE=0,C_HAS_OVERFLOW=0,C_HAS_RD_DATA_COUNT=0,C_HAS_RD_RST=0,C_HAS_RST=1,C_HAS_SRST=0,C_HAS_UNDERFLOW=0,C_HAS_VALID=0,C_HAS_WR_ACK=0,C_HAS_WR_DATA_COUNT=0,C_HAS_WR_RST=0,C_IMPLEMENTATION_TYPE=0,C_INIT_WR_PNTR_VAL=0,C_MEMORY_TYPE=1,C_MIF_FILE_NAME=BlankString,C_OPTIMIZATION_MODE=0,C_OVERFLOW_LOW=0,C_PRELOAD_LATENCY=0,C_PRELOAD_REGS=1,C_PRIM_FIFO_TYPE=4kx4,C_PROG_EMPTY_THRESH_ASSERT_VAL=4,C_PROG_EMPTY_THRESH_NEGATE_VAL=5,C_PROG_EMPTY_TYPE=0,C_PROG_FULL_THRESH_ASSERT_VAL=1023,C_PROG_FULL_THRESH_NEGATE_VAL=1022,C_PROG_FULL_TYPE=0,C_RD_DATA_COUNT_WIDTH=10,C_RD_DEPTH=1024,C_RD_FREQ=1,C_RD_PNTR_WIDTH=10,C_UNDERFLOW_LOW=0,C_USE_DOUT_RST=0,C_USE_ECC=0,C_USE_EMBEDDED_REG=0,C_USE_PIPELINE_REG=0,C_POWER_SAVING_MODE=0,C_USE_FIFO16_FLAGS=0,C_USE_FWFT_DATA_COUNT=0,C_VALID_LOW=0,C_WR_ACK_LOW=0,C_WR_DATA_COUNT_WIDTH=10,C_WR_DEPTH=1024,C_WR_FREQ=1,C_WR_PNTR_WIDTH=10,C_WR_RESPONSE_LATENCY=1,C_MSGON_VAL=1,C_ENABLE_RST_SYNC=1,C_ERROR_INJECTION_TYPE=0,C_SYNCHRONIZER_STAGE=2,C_INTERFACE_TYPE=1,C_AXI_TYPE=1,C_HAS_AXI_WR_CHANNEL=1,C_HAS_AXI_RD_CHANNEL=1,C_HAS_SLAVE_CE=0,C_HAS_MASTER_CE=0,C_ADD_NGC_CONSTRAINT=0,C_USE_COMMON_OVERFLOW=0,C_USE_COMMON_UNDERFLOW=0,C_USE_DEFAULT_SETTINGS=0,C_AXI_ID_WIDTH=1,C_AXI_ADDR_WIDTH=32,C_AXI_DATA_WIDTH=64,C_AXI_LEN_WIDTH=8,C_AXI_LOCK_WIDTH=1,C_HAS_AXI_ID=0,C_HAS_AXI_AWUSER=0,C_HAS_AXI_WUSER=0,C_HAS_AXI_BUSER=0,C_HAS_AXI_ARUSER=0,C_HAS_AXI_RUSER=0,C_AXI_ARUSER_WIDTH=1,C_AXI_AWUSER_WIDTH=1,C_AXI_WUSER_WIDTH=1,C_AXI_BUSER_WIDTH=1,C_AXI_RUSER_WIDTH=1,C_HAS_AXIS_TDATA=1,C_HAS_AXIS_TID=0,C_HAS_AXIS_TDEST=0,C_HAS_AXIS_TUSER=0,C_HAS_AXIS_TREADY=1,C_HAS_AXIS_TLAST=1,C_HAS_AXIS_TSTRB=1,C_HAS_AXIS_TKEEP=1,C_AXIS_TDATA_WIDTH=8,C_AXIS_TID_WIDTH=1,C_AXIS_TDEST_WIDTH=1,C_AXIS_TUSER_WIDTH=1,C_AXIS_TSTRB_WIDTH=1,C_AXIS_TKEEP_WIDTH=1,C_WACH_TYPE=0,C_WDCH_TYPE=0,C_WRCH_TYPE=0,C_RACH_TYPE=0,C_RDCH_TYPE=0,C_AXIS_TYPE=0,C_IMPLEMENTATION_TYPE_WACH=2,C_IMPLEMENTATION_TYPE_WDCH=1,C_IMPLEMENTATION_TYPE_WRCH=2,C_IMPLEMENTATION_TYPE_RACH=2,C_IMPLEMENTATION_TYPE_RDCH=1,C_IMPLEMENTATION_TYPE_AXIS=1,C_APPLICATION_TYPE_WACH=0,C_APPLICATION_TYPE_WDCH=0,C_APPLICATION_TYPE_WRCH=0,C_APPLICATION_TYPE_RACH=0,C_APPLICATION_TYPE_RDCH=0,C_APPLICATION_TYPE_AXIS=1,C_PRIM_FIFO_TYPE_WACH=512x36,C_PRIM_FIFO_TYPE_WDCH=1kx36,C_PRIM_FIFO_TYPE_WRCH=512x36,C_PRIM_FIFO_TYPE_RACH=512x36,C_PRIM_FIFO_TYPE_RDCH=1kx36,C_PRIM_FIFO_TYPE_AXIS=2kx18,C_USE_ECC_WACH=0,C_USE_ECC_WDCH=0,C_USE_ECC_WRCH=0,C_USE_ECC_RACH=0,C_USE_ECC_RDCH=0,C_USE_ECC_AXIS=0,C_ERROR_INJECTION_TYPE_WACH=0,C_ERROR_INJECTION_TYPE_WDCH=0,C_ERROR_INJECTION_TYPE_WRCH=0,C_ERROR_INJECTION_TYPE_RACH=0,C_ERROR_INJECTION_TYPE_RDCH=0,C_ERROR_INJECTION_TYPE_AXIS=0,C_DIN_WIDTH_WACH=32,C_DIN_WIDTH_WDCH=64,C_DIN_WIDTH_WRCH=2,C_DIN_WIDTH_RACH=32,C_DIN_WIDTH_RDCH=64,C_DIN_WIDTH_AXIS=11,C_WR_DEPTH_WACH=16,C_WR_DEPTH_WDCH=1024,C_WR_DEPTH_WRCH=16,C_WR_DEPTH_RACH=16,C_WR_DEPTH_RDCH=1024,C_WR_DEPTH_AXIS=2048,C_WR_PNTR_WIDTH_WACH=4,C_WR_PNTR_WIDTH_WDCH=10,C_WR_PNTR_WIDTH_WRCH=4,C_WR_PNTR_WIDTH_RACH=4,C_WR_PNTR_WIDTH_RDCH=10,C_WR_PNTR_WIDTH_AXIS=11,C_HAS_DATA_COUNTS_WACH=0,C_HAS_DATA_COUNTS_WDCH=0,C_HAS_DATA_COUNTS_WRCH=0,C_HAS_DATA_COUNTS_RACH=0,C_HAS_DATA_COUNTS_RDCH=0,C_HAS_DATA_COUNTS_AXIS=1,C_HAS_PROG_FLAGS_WACH=0,C_HAS_PROG_FLAGS_WDCH=0,C_HAS_PROG_FLAGS_WRCH=0,C_HAS_PROG_FLAGS_RACH=0,C_HAS_PROG_FLAGS_RDCH=0,C_HAS_PROG_FLAGS_AXIS=0,C_PROG_FULL_TYPE_WACH=0,C_PROG_FULL_TYPE_WDCH=0,C_PROG_FULL_TYPE_WRCH=0,C_PROG_FULL_TYPE_RACH=0,C_PROG_FULL_TYPE_RDCH=0,C_PROG_FULL_TYPE_AXIS=0,C_PROG_FULL_THRESH_ASSERT_VAL_WACH=15,C_PROG_FULL_THRESH_ASSERT_VAL_WDCH=1023,C_PROG_FULL_THRESH_ASSERT_VAL_WRCH=15,C_PROG_FULL_THRESH_ASSERT_VAL_RACH=15,C_PROG_FULL_THRESH_ASSERT_VAL_RDCH=1023,C_PROG_FULL_THRESH_ASSERT_VAL_AXIS=2047,C_PROG_EMPTY_TYPE_WACH=0,C_PROG_EMPTY_TYPE_WDCH=0,C_PROG_EMPTY_TYPE_WRCH=0,C_PROG_EMPTY_TYPE_RACH=0,C_PROG_EMPTY_TYPE_RDCH=0,C_PROG_EMPTY_TYPE_AXIS=0,C_PROG_EMPTY_THRESH_ASSERT_VAL_WACH=14,C_PROG_EMPTY_THRESH_ASSERT_VAL_WDCH=1022,C_PROG_EMPTY_THRESH_ASSERT_VAL_WRCH=14,C_PROG_EMPTY_THRESH_ASSERT_VAL_RACH=14,C_PROG_EMPTY_THRESH_ASSERT_VAL_RDCH=1022,C_PROG_EMPTY_THRESH_ASSERT_VAL_AXIS=2046,C_REG_SLICE_MODE_WACH=0,C_REG_SLICE_MODE_WDCH=0,C_REG_SLICE_MODE_WRCH=0,C_REG_SLICE_MODE_RACH=0,C_REG_SLICE_MODE_RDCH=0,C_REG_SLICE_MODE_AXIS=0}" *) 
+(* downgradeipidentifiedwarnings = "yes" *) (* x_core_info = "fifo_generator_v12_0,Vivado 2014.2" *) (* CHECK_LICENSE_TYPE = "fifo_generator_0,fifo_generator_v12_0,{}" *) 
+(* core_generation_info = "fifo_generator_0,fifo_generator_v12_0,{x_ipProduct=Vivado 2014.2,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=fifo_generator,x_ipVersion=12.0,x_ipCoreRevision=1,x_ipLanguage=VERILOG,C_COMMON_CLOCK=1,C_COUNT_TYPE=0,C_DATA_COUNT_WIDTH=10,C_DEFAULT_VALUE=BlankString,C_DIN_WIDTH=8,C_DOUT_RST_VAL=0,C_DOUT_WIDTH=8,C_ENABLE_RLOCS=0,C_FAMILY=zynq,C_FULL_FLAGS_RST_VAL=0,C_HAS_ALMOST_EMPTY=0,C_HAS_ALMOST_FULL=0,C_HAS_BACKUP=0,C_HAS_DATA_COUNT=0,C_HAS_INT_CLK=0,C_HAS_MEMINIT_FILE=0,C_HAS_OVERFLOW=0,C_HAS_RD_DATA_COUNT=0,C_HAS_RD_RST=0,C_HAS_RST=1,C_HAS_SRST=0,C_HAS_UNDERFLOW=0,C_HAS_VALID=0,C_HAS_WR_ACK=0,C_HAS_WR_DATA_COUNT=0,C_HAS_WR_RST=0,C_IMPLEMENTATION_TYPE=0,C_INIT_WR_PNTR_VAL=0,C_MEMORY_TYPE=1,C_MIF_FILE_NAME=BlankString,C_OPTIMIZATION_MODE=0,C_OVERFLOW_LOW=0,C_PRELOAD_LATENCY=0,C_PRELOAD_REGS=1,C_PRIM_FIFO_TYPE=4kx4,C_PROG_EMPTY_THRESH_ASSERT_VAL=4,C_PROG_EMPTY_THRESH_NEGATE_VAL=5,C_PROG_EMPTY_TYPE=0,C_PROG_FULL_THRESH_ASSERT_VAL=1023,C_PROG_FULL_THRESH_NEGATE_VAL=1022,C_PROG_FULL_TYPE=0,C_RD_DATA_COUNT_WIDTH=10,C_RD_DEPTH=1024,C_RD_FREQ=1,C_RD_PNTR_WIDTH=10,C_UNDERFLOW_LOW=0,C_USE_DOUT_RST=0,C_USE_ECC=0,C_USE_EMBEDDED_REG=0,C_USE_PIPELINE_REG=0,C_POWER_SAVING_MODE=0,C_USE_FIFO16_FLAGS=0,C_USE_FWFT_DATA_COUNT=0,C_VALID_LOW=0,C_WR_ACK_LOW=0,C_WR_DATA_COUNT_WIDTH=10,C_WR_DEPTH=1024,C_WR_FREQ=1,C_WR_PNTR_WIDTH=10,C_WR_RESPONSE_LATENCY=1,C_MSGON_VAL=1,C_ENABLE_RST_SYNC=1,C_ERROR_INJECTION_TYPE=0,C_SYNCHRONIZER_STAGE=2,C_INTERFACE_TYPE=1,C_AXI_TYPE=1,C_HAS_AXI_WR_CHANNEL=1,C_HAS_AXI_RD_CHANNEL=1,C_HAS_SLAVE_CE=0,C_HAS_MASTER_CE=0,C_ADD_NGC_CONSTRAINT=0,C_USE_COMMON_OVERFLOW=0,C_USE_COMMON_UNDERFLOW=0,C_USE_DEFAULT_SETTINGS=0,C_AXI_ID_WIDTH=1,C_AXI_ADDR_WIDTH=32,C_AXI_DATA_WIDTH=64,C_AXI_LEN_WIDTH=8,C_AXI_LOCK_WIDTH=1,C_HAS_AXI_ID=0,C_HAS_AXI_AWUSER=0,C_HAS_AXI_WUSER=0,C_HAS_AXI_BUSER=0,C_HAS_AXI_ARUSER=0,C_HAS_AXI_RUSER=0,C_AXI_ARUSER_WIDTH=1,C_AXI_AWUSER_WIDTH=1,C_AXI_WUSER_WIDTH=1,C_AXI_BUSER_WIDTH=1,C_AXI_RUSER_WIDTH=1,C_HAS_AXIS_TDATA=1,C_HAS_AXIS_TID=0,C_HAS_AXIS_TDEST=0,C_HAS_AXIS_TUSER=0,C_HAS_AXIS_TREADY=1,C_HAS_AXIS_TLAST=1,C_HAS_AXIS_TSTRB=1,C_HAS_AXIS_TKEEP=1,C_AXIS_TDATA_WIDTH=8,C_AXIS_TID_WIDTH=1,C_AXIS_TDEST_WIDTH=1,C_AXIS_TUSER_WIDTH=1,C_AXIS_TSTRB_WIDTH=1,C_AXIS_TKEEP_WIDTH=1,C_WACH_TYPE=0,C_WDCH_TYPE=0,C_WRCH_TYPE=0,C_RACH_TYPE=0,C_RDCH_TYPE=0,C_AXIS_TYPE=0,C_IMPLEMENTATION_TYPE_WACH=2,C_IMPLEMENTATION_TYPE_WDCH=1,C_IMPLEMENTATION_TYPE_WRCH=2,C_IMPLEMENTATION_TYPE_RACH=2,C_IMPLEMENTATION_TYPE_RDCH=1,C_IMPLEMENTATION_TYPE_AXIS=1,C_APPLICATION_TYPE_WACH=0,C_APPLICATION_TYPE_WDCH=0,C_APPLICATION_TYPE_WRCH=0,C_APPLICATION_TYPE_RACH=0,C_APPLICATION_TYPE_RDCH=0,C_APPLICATION_TYPE_AXIS=1,C_PRIM_FIFO_TYPE_WACH=512x36,C_PRIM_FIFO_TYPE_WDCH=1kx36,C_PRIM_FIFO_TYPE_WRCH=512x36,C_PRIM_FIFO_TYPE_RACH=512x36,C_PRIM_FIFO_TYPE_RDCH=1kx36,C_PRIM_FIFO_TYPE_AXIS=2kx18,C_USE_ECC_WACH=0,C_USE_ECC_WDCH=0,C_USE_ECC_WRCH=0,C_USE_ECC_RACH=0,C_USE_ECC_RDCH=0,C_USE_ECC_AXIS=0,C_ERROR_INJECTION_TYPE_WACH=0,C_ERROR_INJECTION_TYPE_WDCH=0,C_ERROR_INJECTION_TYPE_WRCH=0,C_ERROR_INJECTION_TYPE_RACH=0,C_ERROR_INJECTION_TYPE_RDCH=0,C_ERROR_INJECTION_TYPE_AXIS=0,C_DIN_WIDTH_WACH=32,C_DIN_WIDTH_WDCH=64,C_DIN_WIDTH_WRCH=2,C_DIN_WIDTH_RACH=32,C_DIN_WIDTH_RDCH=64,C_DIN_WIDTH_AXIS=11,C_WR_DEPTH_WACH=16,C_WR_DEPTH_WDCH=1024,C_WR_DEPTH_WRCH=16,C_WR_DEPTH_RACH=16,C_WR_DEPTH_RDCH=1024,C_WR_DEPTH_AXIS=2048,C_WR_PNTR_WIDTH_WACH=4,C_WR_PNTR_WIDTH_WDCH=10,C_WR_PNTR_WIDTH_WRCH=4,C_WR_PNTR_WIDTH_RACH=4,C_WR_PNTR_WIDTH_RDCH=10,C_WR_PNTR_WIDTH_AXIS=11,C_HAS_DATA_COUNTS_WACH=0,C_HAS_DATA_COUNTS_WDCH=0,C_HAS_DATA_COUNTS_WRCH=0,C_HAS_DATA_COUNTS_RACH=0,C_HAS_DATA_COUNTS_RDCH=0,C_HAS_DATA_COUNTS_AXIS=1,C_HAS_PROG_FLAGS_WACH=0,C_HAS_PROG_FLAGS_WDCH=0,C_HAS_PROG_FLAGS_WRCH=0,C_HAS_PROG_FLAGS_RACH=0,C_HAS_PROG_FLAGS_RDCH=0,C_HAS_PROG_FLAGS_AXIS=0,C_PROG_FULL_TYPE_WACH=0,C_PROG_FULL_TYPE_WDCH=0,C_PROG_FULL_TYPE_WRCH=0,C_PROG_FULL_TYPE_RACH=0,C_PROG_FULL_TYPE_RDCH=0,C_PROG_FULL_TYPE_AXIS=0,C_PROG_FULL_THRESH_ASSERT_VAL_WACH=15,C_PROG_FULL_THRESH_ASSERT_VAL_WDCH=1023,C_PROG_FULL_THRESH_ASSERT_VAL_WRCH=15,C_PROG_FULL_THRESH_ASSERT_VAL_RACH=15,C_PROG_FULL_THRESH_ASSERT_VAL_RDCH=1023,C_PROG_FULL_THRESH_ASSERT_VAL_AXIS=2047,C_PROG_EMPTY_TYPE_WACH=0,C_PROG_EMPTY_TYPE_WDCH=0,C_PROG_EMPTY_TYPE_WRCH=0,C_PROG_EMPTY_TYPE_RACH=0,C_PROG_EMPTY_TYPE_RDCH=0,C_PROG_EMPTY_TYPE_AXIS=0,C_PROG_EMPTY_THRESH_ASSERT_VAL_WACH=14,C_PROG_EMPTY_THRESH_ASSERT_VAL_WDCH=1022,C_PROG_EMPTY_THRESH_ASSERT_VAL_WRCH=14,C_PROG_EMPTY_THRESH_ASSERT_VAL_RACH=14,C_PROG_EMPTY_THRESH_ASSERT_VAL_RDCH=1022,C_PROG_EMPTY_THRESH_ASSERT_VAL_AXIS=2046,C_REG_SLICE_MODE_WACH=0,C_REG_SLICE_MODE_WDCH=0,C_REG_SLICE_MODE_WRCH=0,C_REG_SLICE_MODE_RACH=0,C_REG_SLICE_MODE_RDCH=0,C_REG_SLICE_MODE_AXIS=0}" *) 
 (* NotValidForBitStream *)
 module fifo_generator_0
    (s_aclk,
@@ -382,7 +382,7 @@ module fifo_generator_0
    (* C_WR_PNTR_WIDTH_WDCH = "10" *) 
    (* C_WR_PNTR_WIDTH_WRCH = "4" *) 
    (* C_WR_RESPONSE_LATENCY = "1" *) 
-   fifo_generator_0fifo_generator_v12_0__parameterized0 U0
+   fifo_generator_0_fifo_generator_v12_0__parameterized0 U0
        (.almost_empty(NLW_U0_almost_empty_UNCONNECTED),
         .almost_full(NLW_U0_almost_full_UNCONNECTED),
         .axi_ar_data_count(NLW_U0_axi_ar_data_count_UNCONNECTED[4:0]),
@@ -617,97 +617,97 @@ module fifo_generator_0
 endmodule
 
 (* ORIG_REF_NAME = "blk_mem_gen_generic_cstr" *) 
-module fifo_generator_0blk_mem_gen_generic_cstr
+module fifo_generator_0_blk_mem_gen_generic_cstr
    (D,
     WEA,
     s_aclk,
     I1,
-    O1,
+    O3,
     O2,
     DIADI);
   output [10:0]D;
   input [0:0]WEA;
   input s_aclk;
   input I1;
-  input [10:0]O1;
+  input [10:0]O3;
   input [10:0]O2;
   input [10:0]DIADI;
 
   wire [10:0]D;
   wire [10:0]DIADI;
   wire I1;
-  wire [10:0]O1;
   wire [10:0]O2;
+  wire [10:0]O3;
   wire [0:0]WEA;
   wire s_aclk;
 
-fifo_generator_0blk_mem_gen_prim_width \ramloop[0].ram.r 
+fifo_generator_0_blk_mem_gen_prim_width \ramloop[0].ram.r 
        (.D(D),
         .DIADI(DIADI),
         .I1(I1),
-        .O1(O1),
         .O2(O2),
+        .O3(O3),
         .WEA(WEA),
         .s_aclk(s_aclk));
 endmodule
 
 (* ORIG_REF_NAME = "blk_mem_gen_prim_width" *) 
-module fifo_generator_0blk_mem_gen_prim_width
+module fifo_generator_0_blk_mem_gen_prim_width
    (D,
     WEA,
     s_aclk,
     I1,
-    O1,
+    O3,
     O2,
     DIADI);
   output [10:0]D;
   input [0:0]WEA;
   input s_aclk;
   input I1;
-  input [10:0]O1;
+  input [10:0]O3;
   input [10:0]O2;
   input [10:0]DIADI;
 
   wire [10:0]D;
   wire [10:0]DIADI;
   wire I1;
-  wire [10:0]O1;
   wire [10:0]O2;
+  wire [10:0]O3;
   wire [0:0]WEA;
   wire s_aclk;
 
-fifo_generator_0blk_mem_gen_prim_wrapper \prim_noinit.ram 
+fifo_generator_0_blk_mem_gen_prim_wrapper \prim_noinit.ram 
        (.D(D),
         .DIADI(DIADI),
         .I1(I1),
-        .O1(O1),
         .O2(O2),
+        .O3(O3),
         .WEA(WEA),
         .s_aclk(s_aclk));
 endmodule
 
 (* ORIG_REF_NAME = "blk_mem_gen_prim_wrapper" *) 
-module fifo_generator_0blk_mem_gen_prim_wrapper
+module fifo_generator_0_blk_mem_gen_prim_wrapper
    (D,
     WEA,
     s_aclk,
     I1,
-    O1,
+    O3,
     O2,
     DIADI);
   output [10:0]D;
   input [0:0]WEA;
   input s_aclk;
   input I1;
-  input [10:0]O1;
+  input [10:0]O3;
   input [10:0]O2;
   input [10:0]DIADI;
 
   wire [10:0]D;
   wire [10:0]DIADI;
   wire I1;
-  wire [10:0]O1;
   wire [10:0]O2;
+  wire [10:0]O3;
   wire [0:0]WEA;
   wire \n_52_DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram ;
   wire \n_53_DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram ;
@@ -727,7 +727,6 @@ module fifo_generator_0blk_mem_gen_prim_wrapper
   wire [3:2]\NLW_DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram_DOPBDOP_UNCONNECTED ;
   wire [7:0]\NLW_DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram_ECCPARITY_UNCONNECTED ;
   wire [8:0]\NLW_DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram_RDADDRECC_UNCONNECTED ;
-  wire [3:2]\NLW_DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram_WEA_UNCONNECTED ;
 
 (* box_type = "PRIMITIVE" *) 
    RAMB36E1 #(
@@ -907,7 +906,7 @@ module fifo_generator_0blk_mem_gen_prim_wrapper
     .WRITE_WIDTH_A(18),
     .WRITE_WIDTH_B(18)) 
      \DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram 
-       (.ADDRARDADDR({1'b1,O1,1'b1,1'b1,1'b1,1'b1}),
+       (.ADDRARDADDR({1'b1,O3,1'b1,1'b1,1'b1,1'b1}),
         .ADDRBWRADDR({1'b1,O2,1'b1,1'b1,1'b1,1'b1}),
         .CASCADEINA(1'b0),
         .CASCADEINB(1'b0),
@@ -937,117 +936,117 @@ module fifo_generator_0blk_mem_gen_prim_wrapper
         .RSTREGARSTREG(1'b0),
         .RSTREGB(1'b0),
         .SBITERR(\NLW_DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram_SBITERR_UNCONNECTED ),
-        .WEA({\NLW_DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram_WEA_UNCONNECTED [3:2],WEA,WEA}),
+        .WEA({WEA,WEA,WEA,WEA}),
         .WEBWE({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}));
 endmodule
 
 (* ORIG_REF_NAME = "blk_mem_gen_top" *) 
-module fifo_generator_0blk_mem_gen_top
+module fifo_generator_0_blk_mem_gen_top
    (D,
     WEA,
     s_aclk,
     I1,
-    O1,
+    O3,
     O2,
     DIADI);
   output [10:0]D;
   input [0:0]WEA;
   input s_aclk;
   input I1;
-  input [10:0]O1;
+  input [10:0]O3;
   input [10:0]O2;
   input [10:0]DIADI;
 
   wire [10:0]D;
   wire [10:0]DIADI;
   wire I1;
-  wire [10:0]O1;
   wire [10:0]O2;
+  wire [10:0]O3;
   wire [0:0]WEA;
   wire s_aclk;
 
-fifo_generator_0blk_mem_gen_generic_cstr \valid.cstr 
+fifo_generator_0_blk_mem_gen_generic_cstr \valid.cstr 
        (.D(D),
         .DIADI(DIADI),
         .I1(I1),
-        .O1(O1),
         .O2(O2),
+        .O3(O3),
         .WEA(WEA),
         .s_aclk(s_aclk));
 endmodule
 
 (* ORIG_REF_NAME = "blk_mem_gen_v8_2" *) 
-module fifo_generator_0blk_mem_gen_v8_2__parameterized0
+module fifo_generator_0_blk_mem_gen_v8_2__parameterized0
    (D,
     WEA,
     s_aclk,
     I1,
-    O1,
+    O3,
     O2,
     DIADI);
   output [10:0]D;
   input [0:0]WEA;
   input s_aclk;
   input I1;
-  input [10:0]O1;
+  input [10:0]O3;
   input [10:0]O2;
   input [10:0]DIADI;
 
   wire [10:0]D;
   wire [10:0]DIADI;
   wire I1;
-  wire [10:0]O1;
   wire [10:0]O2;
+  wire [10:0]O3;
   wire [0:0]WEA;
   wire s_aclk;
 
-fifo_generator_0blk_mem_gen_v8_2_synth inst_blk_mem_gen
+fifo_generator_0_blk_mem_gen_v8_2_synth inst_blk_mem_gen
        (.D(D),
         .DIADI(DIADI),
         .I1(I1),
-        .O1(O1),
         .O2(O2),
+        .O3(O3),
         .WEA(WEA),
         .s_aclk(s_aclk));
 endmodule
 
 (* ORIG_REF_NAME = "blk_mem_gen_v8_2_synth" *) 
-module fifo_generator_0blk_mem_gen_v8_2_synth
+module fifo_generator_0_blk_mem_gen_v8_2_synth
    (D,
     WEA,
     s_aclk,
     I1,
-    O1,
+    O3,
     O2,
     DIADI);
   output [10:0]D;
   input [0:0]WEA;
   input s_aclk;
   input I1;
-  input [10:0]O1;
+  input [10:0]O3;
   input [10:0]O2;
   input [10:0]DIADI;
 
   wire [10:0]D;
   wire [10:0]DIADI;
   wire I1;
-  wire [10:0]O1;
   wire [10:0]O2;
+  wire [10:0]O3;
   wire [0:0]WEA;
   wire s_aclk;
 
-fifo_generator_0blk_mem_gen_top \gnativebmg.native_blk_mem_gen 
+fifo_generator_0_blk_mem_gen_top \gnativebmg.native_blk_mem_gen 
        (.D(D),
         .DIADI(DIADI),
         .I1(I1),
-        .O1(O1),
         .O2(O2),
+        .O3(O3),
         .WEA(WEA),
         .s_aclk(s_aclk));
 endmodule
 
 (* ORIG_REF_NAME = "compare" *) 
-module fifo_generator_0compare
+module fifo_generator_0_compare
    (comp0,
     v1_reg,
     I1);
@@ -1087,7 +1086,7 @@ module fifo_generator_0compare
 endmodule
 
 (* ORIG_REF_NAME = "compare" *) 
-module fifo_generator_0compare_0
+module fifo_generator_0_compare_0
    (comp1,
     v1_reg_0,
     I2);
@@ -1127,7 +1126,7 @@ module fifo_generator_0compare_0
 endmodule
 
 (* ORIG_REF_NAME = "compare" *) 
-module fifo_generator_0compare_1
+module fifo_generator_0_compare_1
    (p_0_in,
     v1_reg_1,
     I3);
@@ -1167,7 +1166,7 @@ module fifo_generator_0compare_1
 endmodule
 
 (* ORIG_REF_NAME = "compare" *) 
-module fifo_generator_0compare_2
+module fifo_generator_0_compare_2
    (comp0,
     v1_reg,
     I1);
@@ -1207,7 +1206,7 @@ module fifo_generator_0compare_2
 endmodule
 
 (* ORIG_REF_NAME = "compare" *) 
-module fifo_generator_0compare_3
+module fifo_generator_0_compare_3
    (comp1,
     v1_reg_0,
     I2);
@@ -1247,21 +1246,39 @@ module fifo_generator_0compare_3
 endmodule
 
 (* ORIG_REF_NAME = "fifo_generator_ramfifo" *) 
-module fifo_generator_0fifo_generator_ramfifo
+module fifo_generator_0_fifo_generator_ramfifo
    (O1,
     Q,
-    m_axis_tvalid,
-    O,
     O2,
+    m_axis_tvalid,
     O3,
     O4,
     O5,
     O6,
     O7,
-    axis_wr_eop,
     O8,
-    s_axis_tready,
     O9,
+    O10,
+    O11,
+    O12,
+    O13,
+    O14,
+    O15,
+    O16,
+    O17,
+    O18,
+    O19,
+    O20,
+    O21,
+    O22,
+    O23,
+    O24,
+    O25,
+    O26,
+    O27,
+    axis_wr_eop,
+    O28,
+    s_axis_tready,
     s_aclk,
     DIADI,
     I1,
@@ -1271,22 +1288,40 @@ module fifo_generator_0fifo_generator_ramfifo
     axis_wr_eop_d1,
     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg ,
     CO,
-    s_aresetn,
-    I2);
+    I2,
+    s_aresetn);
   output O1;
   output [10:0]Q;
+  output O2;
   output m_axis_tvalid;
-  output [3:0]O;
-  output [3:0]O2;
-  output [3:0]O3;
-  output [3:0]O4;
-  output [3:0]O5;
-  output [3:0]O6;
+  output O3;
+  output O4;
+  output O5;
+  output O6;
   output O7;
-  output axis_wr_eop;
   output O8;
-  output s_axis_tready;
   output O9;
+  output O10;
+  output O11;
+  output O12;
+  output O13;
+  output O14;
+  output O15;
+  output O16;
+  output O17;
+  output O18;
+  output O19;
+  output O20;
+  output O21;
+  output O22;
+  output O23;
+  output O24;
+  output O25;
+  output O26;
+  output O27;
+  output axis_wr_eop;
+  output O28;
+  output s_axis_tready;
   input s_aclk;
   input [10:0]DIADI;
   input I1;
@@ -1296,30 +1331,48 @@ module fifo_generator_0fifo_generator_ramfifo
   input axis_wr_eop_d1;
   input [11:0]\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg ;
   input [0:0]CO;
-  input s_aresetn;
   input [0:0]I2;
+  input s_aresetn;
 
   wire [0:0]CO;
   wire [10:0]DIADI;
   wire I1;
   wire [0:0]I2;
-  wire [3:0]O;
   wire O1;
-  wire [3:0]O2;
-  wire [3:0]O3;
-  wire [3:0]O4;
-  wire [3:0]O5;
-  wire [3:0]O6;
+  wire O10;
+  wire O11;
+  wire O12;
+  wire O13;
+  wire O14;
+  wire O15;
+  wire O16;
+  wire O17;
+  wire O18;
+  wire O19;
+  wire O2;
+  wire O20;
+  wire O21;
+  wire O22;
+  wire O23;
+  wire O24;
+  wire O25;
+  wire O26;
+  wire O27;
+  wire O28;
+  wire O3;
+  wire O4;
+  wire O5;
+  wire O6;
   wire O7;
   wire O8;
   wire O9;
   wire [10:0]Q;
-  wire RD_RST;
   wire RST;
   wire axis_almost_full;
   wire [11:0]axis_data_count;
   wire axis_wr_eop;
   wire axis_wr_eop_d1;
+  wire clear;
   wire [11:0]\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg ;
   wire [4:0]\grss.rsts/c1/v1_reg ;
   wire [4:0]\grss.rsts/c2/v1_reg ;
@@ -1328,19 +1381,33 @@ module fifo_generator_0fifo_generator_ramfifo
   wire \gwss.wsts/p_0_in ;
   wire \gwss.wsts/p_2_out ;
   wire \gwss.wsts/ram_full_comb ;
+  wire lopt;
+  wire lopt_1;
+  wire lopt_10;
+  wire lopt_2;
+  wire lopt_3;
+  wire lopt_4;
+  wire lopt_5;
+  wire lopt_6;
+  wire lopt_7;
+  wire lopt_8;
+  wire lopt_9;
   wire m_axis_tready;
   wire m_axis_tvalid;
+  wire \n_17_gntv_or_sync_fifo.gl0.wr ;
   wire \n_1_gntv_or_sync_fifo.gl0.rd ;
   wire \n_24_gntv_or_sync_fifo.gl0.rd ;
   wire \n_25_gntv_or_sync_fifo.gl0.rd ;
   wire \n_26_gntv_or_sync_fifo.gl0.rd ;
+  wire \n_29_gntv_or_sync_fifo.gl0.rd ;
   wire \n_2_gntv_or_sync_fifo.gl0.rd ;
   wire n_5_rstblk;
   wire \n_6_gntv_or_sync_fifo.gl0.wr ;
+  wire \n_7_gntv_or_sync_fifo.gl0.wr ;
   wire [10:0]p_20_out;
   wire p_2_out;
   wire p_8_out;
-  wire [10:10]p_8_out_1;
+  wire [10:10]p_8_out_0;
   wire [10:0]p_9_out;
   wire ram_full_i;
   wire [9:0]rd_pntr_plus1;
@@ -1352,27 +1419,48 @@ module fifo_generator_0fifo_generator_ramfifo
   wire s_axis_tvalid;
   wire [10:10]wr_pntr_plus2;
 
-fifo_generator_0rd_logic \gntv_or_sync_fifo.gl0.rd 
-       (.E(\n_2_gntv_or_sync_fifo.gl0.rd ),
+fifo_generator_0_rd_logic \gntv_or_sync_fifo.gl0.rd 
+       (.CO(CO),
+        .E(\n_2_gntv_or_sync_fifo.gl0.rd ),
         .I1(I1),
         .I2(p_9_out[10]),
-        .I3(p_8_out_1),
+        .I3(p_8_out_0),
         .I4(wr_pntr_plus2),
-        .I5(\n_6_gntv_or_sync_fifo.gl0.wr ),
+        .I5(I2),
+        .I6(Q[0]),
+        .I7(\n_6_gntv_or_sync_fifo.gl0.wr ),
+        .I8(\n_17_gntv_or_sync_fifo.gl0.wr ),
+        .I9(\n_7_gntv_or_sync_fifo.gl0.wr ),
         .O1(\n_1_gntv_or_sync_fifo.gl0.rd ),
+        .O15(O15),
         .O2(p_20_out),
+        .O26(O26),
         .O3(rd_pntr_plus1),
         .O4(\n_24_gntv_or_sync_fifo.gl0.rd ),
         .O5(\n_25_gntv_or_sync_fifo.gl0.rd ),
         .O6(\n_26_gntv_or_sync_fifo.gl0.rd ),
-        .O7(O4),
-        .O8(O5),
-        .O9(O6),
-        .Q({RD_RST,n_5_rstblk}),
+        .O7(O2),
+        .O8(\n_29_gntv_or_sync_fifo.gl0.rd ),
+        .Q({clear,n_5_rstblk}),
         .axis_almost_full(axis_almost_full),
-        .axis_data_count(axis_data_count),
+        .axis_data_count({axis_data_count[11],axis_data_count[0]}),
+        .axis_wr_eop_d1(axis_wr_eop_d1),
         .comp0(\gwss.wsts/comp0 ),
         .comp1(\gwss.wsts/comp1 ),
+        .lopt(axis_data_count[1]),
+        .lopt_1(lopt),
+        .lopt_10(lopt_7),
+        .lopt_11(lopt_8),
+        .lopt_12(lopt_9),
+        .lopt_13(lopt_10),
+        .lopt_2(lopt_1),
+        .lopt_3(axis_data_count[2]),
+        .lopt_4(lopt_2),
+        .lopt_5(lopt_3),
+        .lopt_6(axis_data_count[3]),
+        .lopt_7(lopt_4),
+        .lopt_8(lopt_5),
+        .lopt_9(lopt_6),
         .m_axis_tready(m_axis_tready),
         .m_axis_tvalid(m_axis_tvalid),
         .p_0_in(\gwss.wsts/p_0_in ),
@@ -1386,24 +1474,49 @@ fifo_generator_0rd_logic \gntv_or_sync_fifo.gl0.rd
         .s_axis_tvalid(s_axis_tvalid),
         .v1_reg(\grss.rsts/c1/v1_reg ),
         .v1_reg_0(\grss.rsts/c2/v1_reg ));
-fifo_generator_0wr_logic \gntv_or_sync_fifo.gl0.wr 
+fifo_generator_0_wr_logic \gntv_or_sync_fifo.gl0.wr 
        (.AR(RST),
         .DIADI(DIADI[0]),
         .I1(\n_24_gntv_or_sync_fifo.gl0.rd ),
         .I2(\n_25_gntv_or_sync_fifo.gl0.rd ),
         .I3(\n_26_gntv_or_sync_fifo.gl0.rd ),
         .I4(I1),
-        .O1(p_9_out),
-        .O2(p_20_out[9:0]),
-        .O3(rd_pntr_plus1),
-        .O4(p_8_out_1),
-        .O7(O7),
+        .I5(\n_29_gntv_or_sync_fifo.gl0.rd ),
+        .I6(p_20_out[9:0]),
+        .I7(rd_pntr_plus1),
+        .O1(\n_6_gntv_or_sync_fifo.gl0.wr ),
+        .O16(O16),
+        .O17(O17),
+        .O18(O18),
+        .O19(O19),
+        .O2(\n_17_gntv_or_sync_fifo.gl0.wr ),
+        .O20(O20),
+        .O21(O21),
+        .O22(O22),
+        .O23(O23),
+        .O24(O24),
+        .O25(O25),
+        .O27(O27),
+        .O3(p_9_out),
+        .O4(p_8_out_0),
         .Q(wr_pntr_plus2),
-        .WEA(\n_6_gntv_or_sync_fifo.gl0.wr ),
+        .WEA(\n_7_gntv_or_sync_fifo.gl0.wr ),
         .axis_almost_full(axis_almost_full),
+        .axis_data_count(axis_data_count[10:1]),
         .axis_wr_eop(axis_wr_eop),
         .comp0(\gwss.wsts/comp0 ),
         .comp1(\gwss.wsts/comp1 ),
+        .lopt(lopt),
+        .lopt_1(lopt_1),
+        .lopt_10(lopt_10),
+        .lopt_2(lopt_2),
+        .lopt_3(lopt_3),
+        .lopt_4(lopt_4),
+        .lopt_5(lopt_5),
+        .lopt_6(lopt_6),
+        .lopt_7(lopt_7),
+        .lopt_8(lopt_8),
+        .lopt_9(lopt_9),
         .m_axis_tready(m_axis_tready),
         .p_0_in(\gwss.wsts/p_0_in ),
         .p_2_out(p_2_out),
@@ -1417,32 +1530,37 @@ fifo_generator_0wr_logic \gntv_or_sync_fifo.gl0.wr
         .s_axis_tvalid(s_axis_tvalid),
         .v1_reg(\grss.rsts/c1/v1_reg ),
         .v1_reg_0(\grss.rsts/c2/v1_reg ));
-fifo_generator_0memory \gntv_or_sync_fifo.mem 
-       (.CO(CO),
-        .DIADI(DIADI),
+fifo_generator_0_memory \gntv_or_sync_fifo.mem 
+       (.DIADI(DIADI),
         .E(\n_2_gntv_or_sync_fifo.gl0.rd ),
         .I1(\n_1_gntv_or_sync_fifo.gl0.rd ),
         .I2(I1),
-        .I3(I2),
-        .O(O),
-        .O1(p_9_out),
+        .O1(O3),
+        .O10(O10),
+        .O11(O11),
+        .O12(O12),
+        .O13(O13),
+        .O14(O14),
         .O2(p_20_out),
-        .O3(O2),
-        .O4(O3),
+        .O28(O28),
+        .O3(p_9_out),
+        .O4(O4),
+        .O5(O5),
+        .O6(O6),
+        .O7(O7),
         .O8(O8),
         .O9(O9),
         .Q(Q),
-        .WEA(\n_6_gntv_or_sync_fifo.gl0.wr ),
-        .axis_almost_full(axis_almost_full),
+        .WEA(\n_7_gntv_or_sync_fifo.gl0.wr ),
         .axis_wr_eop_d1(axis_wr_eop_d1),
         .\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg (\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg ),
         .m_axis_tready(m_axis_tready),
         .p_8_out(p_8_out),
         .s_aclk(s_aclk));
-fifo_generator_0reset_blk_ramfifo rstblk
+fifo_generator_0_reset_blk_ramfifo rstblk
        (.AR(RST),
         .O1(O1),
-        .Q({RD_RST,n_5_rstblk}),
+        .Q({clear,n_5_rstblk}),
         .rst_d2(rst_d2),
         .rst_full_gen_i(rst_full_gen_i),
         .s_aclk(s_aclk),
@@ -1450,21 +1568,39 @@ fifo_generator_0reset_blk_ramfifo rstblk
 endmodule
 
 (* ORIG_REF_NAME = "fifo_generator_top" *) 
-module fifo_generator_0fifo_generator_top
-   (clear,
+module fifo_generator_0_fifo_generator_top
+   (O1,
     Q,
-    m_axis_tvalid,
-    O,
-    O1,
     O2,
+    m_axis_tvalid,
     O3,
     O4,
     O5,
     O6,
-    axis_wr_eop,
     O7,
-    s_axis_tready,
     O8,
+    O9,
+    O10,
+    O11,
+    O12,
+    O13,
+    O14,
+    O15,
+    O16,
+    O17,
+    O18,
+    O19,
+    O20,
+    O21,
+    O22,
+    O23,
+    O24,
+    O25,
+    O26,
+    O27,
+    axis_wr_eop,
+    O28,
+    s_axis_tready,
     s_aclk,
     DIADI,
     I1,
@@ -1474,22 +1610,40 @@ module fifo_generator_0fifo_generator_top
     axis_wr_eop_d1,
     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg ,
     CO,
-    s_aresetn,
-    I2);
-  output clear;
+    I2,
+    s_aresetn);
+  output O1;
   output [10:0]Q;
+  output O2;
   output m_axis_tvalid;
-  output [3:0]O;
-  output [3:0]O1;
-  output [3:0]O2;
-  output [3:0]O3;
-  output [3:0]O4;
-  output [3:0]O5;
+  output O3;
+  output O4;
+  output O5;
   output O6;
-  output axis_wr_eop;
   output O7;
-  output s_axis_tready;
   output O8;
+  output O9;
+  output O10;
+  output O11;
+  output O12;
+  output O13;
+  output O14;
+  output O15;
+  output O16;
+  output O17;
+  output O18;
+  output O19;
+  output O20;
+  output O21;
+  output O22;
+  output O23;
+  output O24;
+  output O25;
+  output O26;
+  output O27;
+  output axis_wr_eop;
+  output O28;
+  output s_axis_tready;
   input s_aclk;
   input [10:0]DIADI;
   input I1;
@@ -1499,27 +1653,45 @@ module fifo_generator_0fifo_generator_top
   input axis_wr_eop_d1;
   input [11:0]\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg ;
   input [0:0]CO;
-  input s_aresetn;
   input [0:0]I2;
+  input s_aresetn;
 
   wire [0:0]CO;
   wire [10:0]DIADI;
   wire I1;
   wire [0:0]I2;
-  wire [3:0]O;
-  wire [3:0]O1;
-  wire [3:0]O2;
-  wire [3:0]O3;
-  wire [3:0]O4;
-  wire [3:0]O5;
+  wire O1;
+  wire O10;
+  wire O11;
+  wire O12;
+  wire O13;
+  wire O14;
+  wire O15;
+  wire O16;
+  wire O17;
+  wire O18;
+  wire O19;
+  wire O2;
+  wire O20;
+  wire O21;
+  wire O22;
+  wire O23;
+  wire O24;
+  wire O25;
+  wire O26;
+  wire O27;
+  wire O28;
+  wire O3;
+  wire O4;
+  wire O5;
   wire O6;
   wire O7;
   wire O8;
+  wire O9;
   wire [10:0]Q;
   wire [11:0]axis_data_count;
   wire axis_wr_eop;
   wire axis_wr_eop_d1;
-  wire clear;
   wire [11:0]\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg ;
   wire m_axis_tready;
   wire m_axis_tvalid;
@@ -1528,21 +1700,39 @@ module fifo_generator_0fifo_generator_top
   wire s_axis_tready;
   wire s_axis_tvalid;
 
-fifo_generator_0fifo_generator_ramfifo \grf.rf 
+fifo_generator_0_fifo_generator_ramfifo \grf.rf 
        (.CO(CO),
         .DIADI(DIADI),
         .I1(I1),
         .I2(I2),
-        .O(O),
-        .O1(clear),
-        .O2(O1),
-        .O3(O2),
-        .O4(O3),
-        .O5(O4),
-        .O6(O5),
-        .O7(O6),
-        .O8(O7),
-        .O9(O8),
+        .O1(O1),
+        .O10(O10),
+        .O11(O11),
+        .O12(O12),
+        .O13(O13),
+        .O14(O14),
+        .O15(O15),
+        .O16(O16),
+        .O17(O17),
+        .O18(O18),
+        .O19(O19),
+        .O2(O2),
+        .O20(O20),
+        .O21(O21),
+        .O22(O22),
+        .O23(O23),
+        .O24(O24),
+        .O25(O25),
+        .O26(O26),
+        .O27(O27),
+        .O28(O28),
+        .O3(O3),
+        .O4(O4),
+        .O5(O5),
+        .O6(O6),
+        .O7(O7),
+        .O8(O8),
+        .O9(O9),
         .Q(Q),
         .axis_data_count(axis_data_count),
         .axis_wr_eop(axis_wr_eop),
@@ -1623,7 +1813,7 @@ endmodule
 (* C_PROG_EMPTY_THRESH_ASSERT_VAL_RACH = "14" *) (* C_PROG_EMPTY_THRESH_ASSERT_VAL_RDCH = "1022" *) (* C_PROG_EMPTY_THRESH_ASSERT_VAL_AXIS = "2046" *) 
 (* C_REG_SLICE_MODE_WACH = "0" *) (* C_REG_SLICE_MODE_WDCH = "0" *) (* C_REG_SLICE_MODE_WRCH = "0" *) 
 (* C_REG_SLICE_MODE_RACH = "0" *) (* C_REG_SLICE_MODE_RDCH = "0" *) (* C_REG_SLICE_MODE_AXIS = "0" *) 
-module fifo_generator_0fifo_generator_v12_0__parameterized0
+module fifo_generator_0_fifo_generator_v12_0__parameterized0
    (backup,
     backup_marker,
     clk,
@@ -2715,7 +2905,7 @@ GND GND
        (.G(\<const0> ));
 VCC VCC
        (.P(\<const1> ));
-fifo_generator_0fifo_generator_v12_0_synth inst_fifo_gen
+fifo_generator_0_fifo_generator_v12_0_synth inst_fifo_gen
        (.DIADI({s_axis_tdata,s_axis_tstrb,s_axis_tkeep,s_axis_tlast}),
         .Q({m_axis_tdata,m_axis_tstrb,m_axis_tkeep,m_axis_tlast}),
         .axis_data_count(axis_data_count),
@@ -2728,7 +2918,7 @@ fifo_generator_0fifo_generator_v12_0_synth inst_fifo_gen
 endmodule
 
 (* ORIG_REF_NAME = "fifo_generator_v12_0_synth" *) 
-module fifo_generator_0fifo_generator_v12_0_synth
+module fifo_generator_0_fifo_generator_v12_0_synth
    (axis_data_count,
     Q,
     m_axis_tvalid,
@@ -2753,11 +2943,11 @@ module fifo_generator_0fifo_generator_v12_0_synth
   wire [11:0]axis_data_count;
   wire axis_wr_eop;
   wire axis_wr_eop_d1;
-  wire clear;
   wire [11:0]\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg ;
   wire m_axis_tready;
   wire m_axis_tvalid;
-  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_11 ;
+  wire \n_0_gaxis_fifo.gaxisf.axisf ;
+  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_10 ;
   wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_12 ;
   wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_13 ;
   wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_14 ;
@@ -2765,28 +2955,28 @@ module fifo_generator_0fifo_generator_v12_0_synth
   wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_16 ;
   wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_17 ;
   wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_18 ;
+  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_19 ;
   wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_20 ;
   wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_21 ;
   wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_22 ;
   wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_23 ;
-  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_6 ;
   wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_7 ;
   wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_8 ;
   wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_9 ;
   wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg ;
-  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_10 ;
-  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_19 ;
+  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_11 ;
   wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_5 ;
-  wire \n_13_gaxis_fifo.gaxisf.axisf ;
+  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_6 ;
+  wire \n_12_gaxis_fifo.gaxisf.axisf ;
   wire \n_14_gaxis_fifo.gaxisf.axisf ;
   wire \n_15_gaxis_fifo.gaxisf.axisf ;
   wire \n_16_gaxis_fifo.gaxisf.axisf ;
   wire \n_17_gaxis_fifo.gaxisf.axisf ;
   wire \n_18_gaxis_fifo.gaxisf.axisf ;
   wire \n_19_gaxis_fifo.gaxisf.axisf ;
-  wire \n_1_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_10 ;
-  wire \n_1_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_19 ;
+  wire \n_1_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_11 ;
   wire \n_1_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_5 ;
+  wire \n_1_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_6 ;
   wire \n_20_gaxis_fifo.gaxisf.axisf ;
   wire \n_21_gaxis_fifo.gaxisf.axisf ;
   wire \n_22_gaxis_fifo.gaxisf.axisf ;
@@ -2797,11 +2987,11 @@ module fifo_generator_0fifo_generator_v12_0_synth
   wire \n_27_gaxis_fifo.gaxisf.axisf ;
   wire \n_28_gaxis_fifo.gaxisf.axisf ;
   wire \n_29_gaxis_fifo.gaxisf.axisf ;
-  wire \n_2_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_10 ;
-  wire \n_2_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_19 ;
+  wire \n_2_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_11 ;
   wire \n_2_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_3 ;
   wire \n_2_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_4 ;
   wire \n_2_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_5 ;
+  wire \n_2_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_6 ;
   wire \n_30_gaxis_fifo.gaxisf.axisf ;
   wire \n_31_gaxis_fifo.gaxisf.axisf ;
   wire \n_32_gaxis_fifo.gaxisf.axisf ;
@@ -2810,45 +3000,63 @@ module fifo_generator_0fifo_generator_v12_0_synth
   wire \n_35_gaxis_fifo.gaxisf.axisf ;
   wire \n_36_gaxis_fifo.gaxisf.axisf ;
   wire \n_37_gaxis_fifo.gaxisf.axisf ;
-  wire \n_39_gaxis_fifo.gaxisf.axisf ;
-  wire \n_3_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_10 ;
-  wire \n_3_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_19 ;
+  wire \n_38_gaxis_fifo.gaxisf.axisf ;
+  wire \n_3_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_11 ;
   wire \n_3_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_3 ;
   wire \n_3_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_4 ;
   wire \n_3_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_5 ;
-  wire \n_41_gaxis_fifo.gaxisf.axisf ;
+  wire \n_3_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_6 ;
+  wire \n_40_gaxis_fifo.gaxisf.axisf ;
   wire p_13_in;
   wire s_aclk;
   wire s_aresetn;
   wire s_axis_tready;
   wire s_axis_tvalid;
-  wire [3:0]\NLW_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_10_O_UNCONNECTED ;
-  wire [3:0]\NLW_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_19_O_UNCONNECTED ;
-  wire [3:2]\NLW_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_3_CO_UNCONNECTED ;
+  wire [3:0]\NLW_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_11_O_UNCONNECTED ;
+  wire [3:3]\NLW_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_3_CO_UNCONNECTED ;
   wire [3:0]\NLW_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_3_O_UNCONNECTED ;
-  wire [3:3]\NLW_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_4_CO_UNCONNECTED ;
+  wire [3:2]\NLW_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_4_CO_UNCONNECTED ;
   wire [3:0]\NLW_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_4_O_UNCONNECTED ;
   wire [3:0]\NLW_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_5_O_UNCONNECTED ;
+  wire [3:0]\NLW_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_6_O_UNCONNECTED ;
 
-fifo_generator_0fifo_generator_top \gaxis_fifo.gaxisf.axisf 
+fifo_generator_0_fifo_generator_top \gaxis_fifo.gaxisf.axisf 
        (.CO(p_13_in),
         .DIADI(DIADI),
         .I1(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg ),
-        .I2(\n_2_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_3 ),
-        .O({\n_13_gaxis_fifo.gaxisf.axisf ,\n_14_gaxis_fifo.gaxisf.axisf ,\n_15_gaxis_fifo.gaxisf.axisf ,\n_16_gaxis_fifo.gaxisf.axisf }),
-        .O1({\n_17_gaxis_fifo.gaxisf.axisf ,\n_18_gaxis_fifo.gaxisf.axisf ,\n_19_gaxis_fifo.gaxisf.axisf ,\n_20_gaxis_fifo.gaxisf.axisf }),
-        .O2({\n_21_gaxis_fifo.gaxisf.axisf ,\n_22_gaxis_fifo.gaxisf.axisf ,\n_23_gaxis_fifo.gaxisf.axisf ,\n_24_gaxis_fifo.gaxisf.axisf }),
-        .O3({\n_25_gaxis_fifo.gaxisf.axisf ,\n_26_gaxis_fifo.gaxisf.axisf ,\n_27_gaxis_fifo.gaxisf.axisf ,\n_28_gaxis_fifo.gaxisf.axisf }),
-        .O4({\n_29_gaxis_fifo.gaxisf.axisf ,\n_30_gaxis_fifo.gaxisf.axisf ,\n_31_gaxis_fifo.gaxisf.axisf ,\n_32_gaxis_fifo.gaxisf.axisf }),
-        .O5({\n_33_gaxis_fifo.gaxisf.axisf ,\n_34_gaxis_fifo.gaxisf.axisf ,\n_35_gaxis_fifo.gaxisf.axisf ,\n_36_gaxis_fifo.gaxisf.axisf }),
-        .O6(\n_37_gaxis_fifo.gaxisf.axisf ),
-        .O7(\n_39_gaxis_fifo.gaxisf.axisf ),
-        .O8(\n_41_gaxis_fifo.gaxisf.axisf ),
+        .I2(\n_2_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_4 ),
+        .O1(\n_0_gaxis_fifo.gaxisf.axisf ),
+        .O10(\n_21_gaxis_fifo.gaxisf.axisf ),
+        .O11(\n_22_gaxis_fifo.gaxisf.axisf ),
+        .O12(\n_23_gaxis_fifo.gaxisf.axisf ),
+        .O13(\n_24_gaxis_fifo.gaxisf.axisf ),
+        .O14(\n_25_gaxis_fifo.gaxisf.axisf ),
+        .O15(\n_26_gaxis_fifo.gaxisf.axisf ),
+        .O16(\n_27_gaxis_fifo.gaxisf.axisf ),
+        .O17(\n_28_gaxis_fifo.gaxisf.axisf ),
+        .O18(\n_29_gaxis_fifo.gaxisf.axisf ),
+        .O19(\n_30_gaxis_fifo.gaxisf.axisf ),
+        .O2(\n_12_gaxis_fifo.gaxisf.axisf ),
+        .O20(\n_31_gaxis_fifo.gaxisf.axisf ),
+        .O21(\n_32_gaxis_fifo.gaxisf.axisf ),
+        .O22(\n_33_gaxis_fifo.gaxisf.axisf ),
+        .O23(\n_34_gaxis_fifo.gaxisf.axisf ),
+        .O24(\n_35_gaxis_fifo.gaxisf.axisf ),
+        .O25(\n_36_gaxis_fifo.gaxisf.axisf ),
+        .O26(\n_37_gaxis_fifo.gaxisf.axisf ),
+        .O27(\n_38_gaxis_fifo.gaxisf.axisf ),
+        .O28(\n_40_gaxis_fifo.gaxisf.axisf ),
+        .O3(\n_14_gaxis_fifo.gaxisf.axisf ),
+        .O4(\n_15_gaxis_fifo.gaxisf.axisf ),
+        .O5(\n_16_gaxis_fifo.gaxisf.axisf ),
+        .O6(\n_17_gaxis_fifo.gaxisf.axisf ),
+        .O7(\n_18_gaxis_fifo.gaxisf.axisf ),
+        .O8(\n_19_gaxis_fifo.gaxisf.axisf ),
+        .O9(\n_20_gaxis_fifo.gaxisf.axisf ),
         .Q(Q),
         .axis_data_count(axis_data_count),
         .axis_wr_eop(axis_wr_eop),
         .axis_wr_eop_d1(axis_wr_eop_d1),
-        .clear(clear),
         .\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg (\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg ),
         .m_axis_tready(m_axis_tready),
         .m_axis_tvalid(m_axis_tvalid),
@@ -2861,35 +3069,35 @@ fifo_generator_0fifo_generator_top \gaxis_fifo.gaxisf.axisf
     .INIT(1'b0)) 
      \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[0] 
        (.C(s_aclk),
-        .CE(\n_39_gaxis_fifo.gaxisf.axisf ),
-        .CLR(clear),
-        .D(\n_16_gaxis_fifo.gaxisf.axisf ),
+        .CE(\n_40_gaxis_fifo.gaxisf.axisf ),
+        .CLR(\n_0_gaxis_fifo.gaxisf.axisf ),
+        .D(\n_14_gaxis_fifo.gaxisf.axisf ),
         .Q(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [0]));
 (* counter = "5" *) 
    FDCE #(
     .INIT(1'b0)) 
      \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[10] 
        (.C(s_aclk),
-        .CE(\n_39_gaxis_fifo.gaxisf.axisf ),
-        .CLR(clear),
-        .D(\n_22_gaxis_fifo.gaxisf.axisf ),
+        .CE(\n_40_gaxis_fifo.gaxisf.axisf ),
+        .CLR(\n_0_gaxis_fifo.gaxisf.axisf ),
+        .D(\n_24_gaxis_fifo.gaxisf.axisf ),
         .Q(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [10]));
 (* counter = "5" *) 
    FDCE #(
     .INIT(1'b0)) 
      \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[11] 
        (.C(s_aclk),
-        .CE(\n_39_gaxis_fifo.gaxisf.axisf ),
-        .CLR(clear),
-        .D(\n_21_gaxis_fifo.gaxisf.axisf ),
+        .CE(\n_40_gaxis_fifo.gaxisf.axisf ),
+        .CLR(\n_0_gaxis_fifo.gaxisf.axisf ),
+        .D(\n_25_gaxis_fifo.gaxisf.axisf ),
         .Q(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [11]));
 (* counter = "5" *) 
    FDCE #(
     .INIT(1'b0)) 
      \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[1] 
        (.C(s_aclk),
-        .CE(\n_39_gaxis_fifo.gaxisf.axisf ),
-        .CLR(clear),
+        .CE(\n_40_gaxis_fifo.gaxisf.axisf ),
+        .CLR(\n_0_gaxis_fifo.gaxisf.axisf ),
         .D(\n_15_gaxis_fifo.gaxisf.axisf ),
         .Q(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [1]));
 (* counter = "5" *) 
@@ -2897,35 +3105,35 @@ fifo_generator_0fifo_generator_top \gaxis_fifo.gaxisf.axisf
     .INIT(1'b0)) 
      \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[2] 
        (.C(s_aclk),
-        .CE(\n_39_gaxis_fifo.gaxisf.axisf ),
-        .CLR(clear),
-        .D(\n_14_gaxis_fifo.gaxisf.axisf ),
+        .CE(\n_40_gaxis_fifo.gaxisf.axisf ),
+        .CLR(\n_0_gaxis_fifo.gaxisf.axisf ),
+        .D(\n_16_gaxis_fifo.gaxisf.axisf ),
         .Q(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [2]));
 (* counter = "5" *) 
    FDCE #(
     .INIT(1'b0)) 
      \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[3] 
        (.C(s_aclk),
-        .CE(\n_39_gaxis_fifo.gaxisf.axisf ),
-        .CLR(clear),
-        .D(\n_13_gaxis_fifo.gaxisf.axisf ),
+        .CE(\n_40_gaxis_fifo.gaxisf.axisf ),
+        .CLR(\n_0_gaxis_fifo.gaxisf.axisf ),
+        .D(\n_17_gaxis_fifo.gaxisf.axisf ),
         .Q(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [3]));
 (* counter = "5" *) 
    FDCE #(
     .INIT(1'b0)) 
      \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[4] 
        (.C(s_aclk),
-        .CE(\n_39_gaxis_fifo.gaxisf.axisf ),
-        .CLR(clear),
-        .D(\n_20_gaxis_fifo.gaxisf.axisf ),
+        .CE(\n_40_gaxis_fifo.gaxisf.axisf ),
+        .CLR(\n_0_gaxis_fifo.gaxisf.axisf ),
+        .D(\n_18_gaxis_fifo.gaxisf.axisf ),
         .Q(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [4]));
 (* counter = "5" *) 
    FDCE #(
     .INIT(1'b0)) 
      \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[5] 
        (.C(s_aclk),
-        .CE(\n_39_gaxis_fifo.gaxisf.axisf ),
-        .CLR(clear),
+        .CE(\n_40_gaxis_fifo.gaxisf.axisf ),
+        .CLR(\n_0_gaxis_fifo.gaxisf.axisf ),
         .D(\n_19_gaxis_fifo.gaxisf.axisf ),
         .Q(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [5]));
 (* counter = "5" *) 
@@ -2933,85 +3141,91 @@ fifo_generator_0fifo_generator_top \gaxis_fifo.gaxisf.axisf
     .INIT(1'b0)) 
      \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[6] 
        (.C(s_aclk),
-        .CE(\n_39_gaxis_fifo.gaxisf.axisf ),
-        .CLR(clear),
-        .D(\n_18_gaxis_fifo.gaxisf.axisf ),
+        .CE(\n_40_gaxis_fifo.gaxisf.axisf ),
+        .CLR(\n_0_gaxis_fifo.gaxisf.axisf ),
+        .D(\n_20_gaxis_fifo.gaxisf.axisf ),
         .Q(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [6]));
 (* counter = "5" *) 
    FDCE #(
     .INIT(1'b0)) 
      \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[7] 
        (.C(s_aclk),
-        .CE(\n_39_gaxis_fifo.gaxisf.axisf ),
-        .CLR(clear),
-        .D(\n_17_gaxis_fifo.gaxisf.axisf ),
+        .CE(\n_40_gaxis_fifo.gaxisf.axisf ),
+        .CLR(\n_0_gaxis_fifo.gaxisf.axisf ),
+        .D(\n_21_gaxis_fifo.gaxisf.axisf ),
         .Q(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [7]));
 (* counter = "5" *) 
    FDCE #(
     .INIT(1'b0)) 
      \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[8] 
        (.C(s_aclk),
-        .CE(\n_39_gaxis_fifo.gaxisf.axisf ),
-        .CLR(clear),
-        .D(\n_24_gaxis_fifo.gaxisf.axisf ),
+        .CE(\n_40_gaxis_fifo.gaxisf.axisf ),
+        .CLR(\n_0_gaxis_fifo.gaxisf.axisf ),
+        .D(\n_22_gaxis_fifo.gaxisf.axisf ),
         .Q(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [8]));
 (* counter = "5" *) 
    FDCE #(
     .INIT(1'b0)) 
      \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[9] 
        (.C(s_aclk),
-        .CE(\n_39_gaxis_fifo.gaxisf.axisf ),
-        .CLR(clear),
+        .CE(\n_40_gaxis_fifo.gaxisf.axisf ),
+        .CLR(\n_0_gaxis_fifo.gaxisf.axisf ),
         .D(\n_23_gaxis_fifo.gaxisf.axisf ),
         .Q(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [9]));
 LUT2 #(
-    .INIT(4'hE)) 
-     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_11 
-       (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [6]),
-        .I1(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [7]),
-        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_11 ));
+    .INIT(4'h1)) 
+     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_10 
+       (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [8]),
+        .I1(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [9]),
+        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_10 ));
 LUT2 #(
     .INIT(4'hE)) 
      \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_12 
-       (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [4]),
-        .I1(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [5]),
+       (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [6]),
+        .I1(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [7]),
         .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_12 ));
 LUT2 #(
     .INIT(4'hE)) 
      \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_13 
-       (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [2]),
-        .I1(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [3]),
+       (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [4]),
+        .I1(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [5]),
         .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_13 ));
 LUT2 #(
     .INIT(4'hE)) 
      \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_14 
-       (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [0]),
-        .I1(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [1]),
+       (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [2]),
+        .I1(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [3]),
         .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_14 ));
 LUT2 #(
-    .INIT(4'h1)) 
+    .INIT(4'hE)) 
      \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_15 
-       (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [6]),
-        .I1(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [7]),
+       (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [0]),
+        .I1(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [1]),
         .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_15 ));
 LUT2 #(
     .INIT(4'h1)) 
      \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_16 
-       (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [4]),
-        .I1(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [5]),
+       (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [6]),
+        .I1(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [7]),
         .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_16 ));
 LUT2 #(
     .INIT(4'h1)) 
      \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_17 
-       (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [2]),
-        .I1(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [3]),
+       (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [4]),
+        .I1(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [5]),
         .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_17 ));
 LUT2 #(
     .INIT(4'h1)) 
      \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_18 
+       (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [2]),
+        .I1(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [3]),
+        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_18 ));
+LUT2 #(
+    .INIT(4'h1)) 
+     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_19 
        (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [0]),
         .I1(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [1]),
-        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_18 ));
+        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_19 ));
 LUT3 #(
     .INIT(8'h01)) 
      \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_20 
@@ -3042,77 +3256,71 @@ LUT3 #(
         .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_23 ));
 LUT2 #(
     .INIT(4'hE)) 
-     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_6 
+     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_7 
        (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [10]),
         .I1(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [11]),
-        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_6 ));
-LUT2 #(
-    .INIT(4'hE)) 
-     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_7 
-       (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [8]),
-        .I1(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [9]),
         .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_7 ));
 LUT2 #(
-    .INIT(4'h1)) 
+    .INIT(4'hE)) 
      \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_8 
-       (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [10]),
-        .I1(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [11]),
+       (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [8]),
+        .I1(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [9]),
         .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_8 ));
 LUT2 #(
     .INIT(4'h1)) 
      \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_9 
-       (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [8]),
-        .I1(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [9]),
+       (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [10]),
+        .I1(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [11]),
         .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_9 ));
 FDCE #(
     .INIT(1'b0)) 
      \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg 
        (.C(s_aclk),
         .CE(1'b1),
-        .CLR(clear),
-        .D(\n_41_gaxis_fifo.gaxisf.axisf ),
+        .CLR(\n_0_gaxis_fifo.gaxisf.axisf ),
+        .D(\n_12_gaxis_fifo.gaxisf.axisf ),
         .Q(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg ));
-CARRY4 \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_10 
-       (.CI(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_19 ),
-        .CO({\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_10 ,\n_1_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_10 ,\n_2_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_10 ,\n_3_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_10 }),
-        .CYINIT(1'b0),
-        .DI({1'b0,1'b0,1'b0,1'b0}),
-        .O(\NLW_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_10_O_UNCONNECTED [3:0]),
-        .S({1'b1,1'b1,1'b1,1'b1}));
-CARRY4 \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_19 
+CARRY4 \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_11 
        (.CI(1'b0),
-        .CO({\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_19 ,\n_1_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_19 ,\n_2_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_19 ,\n_3_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_19 }),
+        .CO({\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_11 ,\n_1_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_11 ,\n_2_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_11 ,\n_3_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_11 }),
         .CYINIT(1'b1),
         .DI({1'b0,1'b0,1'b0,1'b0}),
-        .O(\NLW_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_19_O_UNCONNECTED [3:0]),
+        .O(\NLW_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_11_O_UNCONNECTED [3:0]),
         .S({\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_20 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_21 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_22 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_23 }));
 CARRY4 \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_3 
        (.CI(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_5 ),
-        .CO({\NLW_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_3_CO_UNCONNECTED [3:2],\n_2_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_3 ,\n_3_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_3 }),
-        .CYINIT(1'b0),
-        .DI({1'b0,1'b0,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_6 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_7 }),
-        .O(\NLW_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_3_O_UNCONNECTED [3:0]),
-        .S({1'b0,1'b0,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_8 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_9 }));
-CARRY4 \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_4 
-       (.CI(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_10 ),
-        .CO({\NLW_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_4_CO_UNCONNECTED [3],p_13_in,\n_2_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_4 ,\n_3_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_4 }),
+        .CO({\NLW_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_3_CO_UNCONNECTED [3],p_13_in,\n_2_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_3 ,\n_3_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_3 }),
         .CYINIT(1'b0),
         .DI({1'b0,1'b0,1'b0,1'b0}),
-        .O(\NLW_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_4_O_UNCONNECTED [3:0]),
+        .O(\NLW_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_3_O_UNCONNECTED [3:0]),
         .S({1'b0,1'b1,1'b1,1'b1}));
+CARRY4 \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_4 
+       (.CI(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_6 ),
+        .CO({\NLW_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_4_CO_UNCONNECTED [3:2],\n_2_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_4 ,\n_3_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_4 }),
+        .CYINIT(1'b0),
+        .DI({1'b0,1'b0,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_7 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_8 }),
+        .O(\NLW_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_4_O_UNCONNECTED [3:0]),
+        .S({1'b0,1'b0,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_9 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_10 }));
 CARRY4 \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_5 
-       (.CI(1'b0),
+       (.CI(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_11 ),
         .CO({\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_5 ,\n_1_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_5 ,\n_2_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_5 ,\n_3_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_5 }),
         .CYINIT(1'b0),
-        .DI({\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_11 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_12 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_13 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_14 }),
+        .DI({1'b0,1'b0,1'b0,1'b0}),
         .O(\NLW_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_5_O_UNCONNECTED [3:0]),
-        .S({\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_15 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_16 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_17 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_18 }));
+        .S({1'b1,1'b1,1'b1,1'b1}));
+CARRY4 \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_6 
+       (.CI(1'b0),
+        .CO({\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_6 ,\n_1_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_6 ,\n_2_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_6 ,\n_3_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_6 }),
+        .CYINIT(1'b0),
+        .DI({\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_12 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_13 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_14 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_15 }),
+        .O(\NLW_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_reg_i_6_O_UNCONNECTED [3:0]),
+        .S({\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_16 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_17 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_18 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_19 }));
 FDCE #(
     .INIT(1'b0)) 
      \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_wr_eop_d1_reg 
        (.C(s_aclk),
         .CE(1'b1),
-        .CLR(clear),
+        .CLR(\n_0_gaxis_fifo.gaxisf.axisf ),
         .D(axis_wr_eop),
         .Q(axis_wr_eop_d1));
 (* counter = "6" *) 
@@ -3120,35 +3328,35 @@ FDCE #(
     .INIT(1'b0)) 
      \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[0] 
        (.C(s_aclk),
-        .CE(\n_37_gaxis_fifo.gaxisf.axisf ),
-        .CLR(clear),
-        .D(\n_28_gaxis_fifo.gaxisf.axisf ),
+        .CE(\n_38_gaxis_fifo.gaxisf.axisf ),
+        .CLR(\n_0_gaxis_fifo.gaxisf.axisf ),
+        .D(\n_26_gaxis_fifo.gaxisf.axisf ),
         .Q(axis_data_count[0]));
 (* counter = "6" *) 
    FDCE #(
     .INIT(1'b0)) 
      \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[10] 
        (.C(s_aclk),
-        .CE(\n_37_gaxis_fifo.gaxisf.axisf ),
-        .CLR(clear),
-        .D(\n_34_gaxis_fifo.gaxisf.axisf ),
+        .CE(\n_38_gaxis_fifo.gaxisf.axisf ),
+        .CLR(\n_0_gaxis_fifo.gaxisf.axisf ),
+        .D(\n_36_gaxis_fifo.gaxisf.axisf ),
         .Q(axis_data_count[10]));
 (* counter = "6" *) 
    FDCE #(
     .INIT(1'b0)) 
      \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[11] 
        (.C(s_aclk),
-        .CE(\n_37_gaxis_fifo.gaxisf.axisf ),
-        .CLR(clear),
-        .D(\n_33_gaxis_fifo.gaxisf.axisf ),
+        .CE(\n_38_gaxis_fifo.gaxisf.axisf ),
+        .CLR(\n_0_gaxis_fifo.gaxisf.axisf ),
+        .D(\n_37_gaxis_fifo.gaxisf.axisf ),
         .Q(axis_data_count[11]));
 (* counter = "6" *) 
    FDCE #(
     .INIT(1'b0)) 
      \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[1] 
        (.C(s_aclk),
-        .CE(\n_37_gaxis_fifo.gaxisf.axisf ),
-        .CLR(clear),
+        .CE(\n_38_gaxis_fifo.gaxisf.axisf ),
+        .CLR(\n_0_gaxis_fifo.gaxisf.axisf ),
         .D(\n_27_gaxis_fifo.gaxisf.axisf ),
         .Q(axis_data_count[1]));
 (* counter = "6" *) 
@@ -3156,35 +3364,35 @@ FDCE #(
     .INIT(1'b0)) 
      \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[2] 
        (.C(s_aclk),
-        .CE(\n_37_gaxis_fifo.gaxisf.axisf ),
-        .CLR(clear),
-        .D(\n_26_gaxis_fifo.gaxisf.axisf ),
+        .CE(\n_38_gaxis_fifo.gaxisf.axisf ),
+        .CLR(\n_0_gaxis_fifo.gaxisf.axisf ),
+        .D(\n_28_gaxis_fifo.gaxisf.axisf ),
         .Q(axis_data_count[2]));
 (* counter = "6" *) 
    FDCE #(
     .INIT(1'b0)) 
      \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[3] 
        (.C(s_aclk),
-        .CE(\n_37_gaxis_fifo.gaxisf.axisf ),
-        .CLR(clear),
-        .D(\n_25_gaxis_fifo.gaxisf.axisf ),
+        .CE(\n_38_gaxis_fifo.gaxisf.axisf ),
+        .CLR(\n_0_gaxis_fifo.gaxisf.axisf ),
+        .D(\n_29_gaxis_fifo.gaxisf.axisf ),
         .Q(axis_data_count[3]));
 (* counter = "6" *) 
    FDCE #(
     .INIT(1'b0)) 
      \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[4] 
        (.C(s_aclk),
-        .CE(\n_37_gaxis_fifo.gaxisf.axisf ),
-        .CLR(clear),
-        .D(\n_32_gaxis_fifo.gaxisf.axisf ),
+        .CE(\n_38_gaxis_fifo.gaxisf.axisf ),
+        .CLR(\n_0_gaxis_fifo.gaxisf.axisf ),
+        .D(\n_30_gaxis_fifo.gaxisf.axisf ),
         .Q(axis_data_count[4]));
 (* counter = "6" *) 
    FDCE #(
     .INIT(1'b0)) 
      \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[5] 
        (.C(s_aclk),
-        .CE(\n_37_gaxis_fifo.gaxisf.axisf ),
-        .CLR(clear),
+        .CE(\n_38_gaxis_fifo.gaxisf.axisf ),
+        .CLR(\n_0_gaxis_fifo.gaxisf.axisf ),
         .D(\n_31_gaxis_fifo.gaxisf.axisf ),
         .Q(axis_data_count[5]));
 (* counter = "6" *) 
@@ -3192,317 +3400,318 @@ FDCE #(
     .INIT(1'b0)) 
      \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[6] 
        (.C(s_aclk),
-        .CE(\n_37_gaxis_fifo.gaxisf.axisf ),
-        .CLR(clear),
-        .D(\n_30_gaxis_fifo.gaxisf.axisf ),
+        .CE(\n_38_gaxis_fifo.gaxisf.axisf ),
+        .CLR(\n_0_gaxis_fifo.gaxisf.axisf ),
+        .D(\n_32_gaxis_fifo.gaxisf.axisf ),
         .Q(axis_data_count[6]));
 (* counter = "6" *) 
    FDCE #(
     .INIT(1'b0)) 
      \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[7] 
        (.C(s_aclk),
-        .CE(\n_37_gaxis_fifo.gaxisf.axisf ),
-        .CLR(clear),
-        .D(\n_29_gaxis_fifo.gaxisf.axisf ),
+        .CE(\n_38_gaxis_fifo.gaxisf.axisf ),
+        .CLR(\n_0_gaxis_fifo.gaxisf.axisf ),
+        .D(\n_33_gaxis_fifo.gaxisf.axisf ),
         .Q(axis_data_count[7]));
 (* counter = "6" *) 
    FDCE #(
     .INIT(1'b0)) 
      \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[8] 
        (.C(s_aclk),
-        .CE(\n_37_gaxis_fifo.gaxisf.axisf ),
-        .CLR(clear),
-        .D(\n_36_gaxis_fifo.gaxisf.axisf ),
+        .CE(\n_38_gaxis_fifo.gaxisf.axisf ),
+        .CLR(\n_0_gaxis_fifo.gaxisf.axisf ),
+        .D(\n_34_gaxis_fifo.gaxisf.axisf ),
         .Q(axis_data_count[8]));
 (* counter = "6" *) 
    FDCE #(
     .INIT(1'b0)) 
      \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[9] 
        (.C(s_aclk),
-        .CE(\n_37_gaxis_fifo.gaxisf.axisf ),
-        .CLR(clear),
+        .CE(\n_38_gaxis_fifo.gaxisf.axisf ),
+        .CLR(\n_0_gaxis_fifo.gaxisf.axisf ),
         .D(\n_35_gaxis_fifo.gaxisf.axisf ),
         .Q(axis_data_count[9]));
 endmodule
 
 (* ORIG_REF_NAME = "memory" *) 
-module fifo_generator_0memory
+module fifo_generator_0_memory
    (Q,
-    O,
-    O3,
+    O1,
     O4,
+    O5,
+    O6,
+    O7,
     O8,
     O9,
+    O10,
+    O11,
+    O12,
+    O13,
+    O14,
+    O28,
     WEA,
     s_aclk,
     I1,
-    O1,
+    O3,
     O2,
     DIADI,
-    I2,
     m_axis_tready,
+    I2,
     p_8_out,
     axis_wr_eop_d1,
     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg ,
-    CO,
-    axis_almost_full,
-    I3,
     E);
   output [10:0]Q;
-  output [3:0]O;
-  output [3:0]O3;
-  output [3:0]O4;
+  output O1;
+  output O4;
+  output O5;
+  output O6;
+  output O7;
   output O8;
   output O9;
+  output O10;
+  output O11;
+  output O12;
+  output O13;
+  output O14;
+  output O28;
   input [0:0]WEA;
   input s_aclk;
   input I1;
-  input [10:0]O1;
+  input [10:0]O3;
   input [10:0]O2;
   input [10:0]DIADI;
-  input I2;
   input m_axis_tready;
+  input I2;
   input p_8_out;
   input axis_wr_eop_d1;
   input [11:0]\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg ;
-  input [0:0]CO;
-  input axis_almost_full;
-  input [0:0]I3;
   input [0:0]E;
 
-  wire [0:0]CO;
   wire [10:0]DIADI;
   wire [0:0]E;
   wire I1;
   wire I2;
-  wire [0:0]I3;
-  wire [3:0]O;
-  wire [10:0]O1;
+  wire O1;
+  wire O10;
+  wire O11;
+  wire O12;
+  wire O13;
+  wire O14;
   wire [10:0]O2;
-  wire [3:0]O3;
-  wire [3:0]O4;
+  wire O28;
+  wire [10:0]O3;
+  wire O4;
+  wire O5;
+  wire O6;
+  wire O7;
   wire O8;
   wire O9;
   wire [10:0]Q;
   wire [0:0]WEA;
-  wire axis_almost_full;
   wire axis_wr_eop_d1;
   wire [10:0]doutb;
   wire [11:0]\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg ;
   wire m_axis_tready;
   wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[0]_i_3 ;
   wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[0]_i_4 ;
-  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[0]_i_5 ;
-  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[0]_i_6 ;
-  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[0]_i_7 ;
+  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[10]_i_2 ;
+  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[11]_i_2 ;
+  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[1]_i_2 ;
+  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[2]_i_2 ;
+  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[3]_i_2 ;
   wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[4]_i_2 ;
-  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[4]_i_3 ;
-  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[4]_i_4 ;
-  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[4]_i_5 ;
+  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[5]_i_2 ;
+  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[6]_i_2 ;
+  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[7]_i_2 ;
   wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[8]_i_2 ;
-  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[8]_i_3 ;
-  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[8]_i_4 ;
-  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[8]_i_5 ;
-  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[0]_i_2 ;
-  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[4]_i_1 ;
-  wire \n_1_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[0]_i_2 ;
-  wire \n_1_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[4]_i_1 ;
-  wire \n_1_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[8]_i_1 ;
-  wire \n_2_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[0]_i_2 ;
-  wire \n_2_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[4]_i_1 ;
-  wire \n_2_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[8]_i_1 ;
-  wire \n_3_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[0]_i_2 ;
-  wire \n_3_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[4]_i_1 ;
-  wire \n_3_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[8]_i_1 ;
-  wire p_14_out;
+  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[9]_i_2 ;
+  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[10]_i_3 ;
+  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[1]_i_3 ;
+  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[2]_i_3 ;
+  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[3]_i_3 ;
+  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[4]_i_3 ;
+  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[5]_i_3 ;
+  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[6]_i_3 ;
+  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[7]_i_3 ;
+  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[8]_i_3 ;
+  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[9]_i_3 ;
   wire p_8_out;
   wire s_aclk;
-  wire [3:3]\NLW_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[8]_i_1_CO_UNCONNECTED ;
+  wire [3:2]\NLW_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[9]_i_3_CARRY4_CO_UNCONNECTED ;
+  wire [3:3]\NLW_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[9]_i_3_CARRY4_DI_UNCONNECTED ;
 
 LUT5 #(
     .INIT(32'hAAAA6AAA)) 
      \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[0]_i_1 
        (.I0(axis_wr_eop_d1),
-        .I1(I2),
-        .I2(m_axis_tready),
-        .I3(Q[0]),
-        .I4(p_8_out),
-        .O(O8));
-LUT5 #(
-    .INIT(32'h5555D555)) 
-     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[0]_i_3 
-       (.I0(axis_wr_eop_d1),
         .I1(Q[0]),
         .I2(m_axis_tready),
         .I3(I2),
         .I4(p_8_out),
-        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[0]_i_3 ));
-LUT6 #(
-    .INIT(64'hFF7F00000080FFFF)) 
-     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[0]_i_4 
-       (.I0(I2),
-        .I1(m_axis_tready),
-        .I2(Q[0]),
-        .I3(p_8_out),
-        .I4(axis_wr_eop_d1),
-        .I5(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [3]),
-        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[0]_i_4 ));
-LUT6 #(
-    .INIT(64'hFF7F00000080FFFF)) 
-     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[0]_i_5 
-       (.I0(I2),
-        .I1(m_axis_tready),
-        .I2(Q[0]),
-        .I3(p_8_out),
-        .I4(axis_wr_eop_d1),
-        .I5(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [2]),
-        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[0]_i_5 ));
-LUT6 #(
-    .INIT(64'hFF7F00000080FFFF)) 
-     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[0]_i_6 
-       (.I0(I2),
-        .I1(m_axis_tready),
-        .I2(Q[0]),
-        .I3(p_8_out),
-        .I4(axis_wr_eop_d1),
-        .I5(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [1]),
-        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[0]_i_6 ));
+        .O(O28));
 LUT6 #(
     .INIT(64'h0080FFFFFF7F0000)) 
-     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[0]_i_7 
-       (.I0(I2),
+     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[0]_i_3 
+       (.I0(Q[0]),
         .I1(m_axis_tready),
-        .I2(Q[0]),
+        .I2(I2),
         .I3(p_8_out),
         .I4(axis_wr_eop_d1),
         .I5(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [0]),
-        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[0]_i_7 ));
-LUT6 #(
-    .INIT(64'hFF7F00000080FFFF)) 
-     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[4]_i_2 
-       (.I0(I2),
+        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[0]_i_3 ));
+LUT5 #(
+    .INIT(32'h0080FFFF)) 
+     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[0]_i_4 
+       (.I0(Q[0]),
         .I1(m_axis_tready),
-        .I2(Q[0]),
+        .I2(I2),
         .I3(p_8_out),
         .I4(axis_wr_eop_d1),
-        .I5(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [7]),
-        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[4]_i_2 ));
+        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[0]_i_4 ));
+LUT6 #(
+    .INIT(64'h9999999959999999)) 
+     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[10]_i_2 
+       (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [10]),
+        .I1(axis_wr_eop_d1),
+        .I2(Q[0]),
+        .I3(m_axis_tready),
+        .I4(I2),
+        .I5(p_8_out),
+        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[10]_i_2 ));
 LUT6 #(
     .INIT(64'hFF7F00000080FFFF)) 
-     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[4]_i_3 
-       (.I0(I2),
+     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[11]_i_2 
+       (.I0(Q[0]),
         .I1(m_axis_tready),
-        .I2(Q[0]),
-        .I3(p_8_out),
-        .I4(axis_wr_eop_d1),
-        .I5(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [6]),
-        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[4]_i_3 ));
-LUT6 #(
-    .INIT(64'hFF7F00000080FFFF)) 
-     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[4]_i_4 
-       (.I0(I2),
-        .I1(m_axis_tready),
-        .I2(Q[0]),
-        .I3(p_8_out),
-        .I4(axis_wr_eop_d1),
-        .I5(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [5]),
-        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[4]_i_4 ));
-LUT6 #(
-    .INIT(64'hFF7F00000080FFFF)) 
-     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[4]_i_5 
-       (.I0(I2),
-        .I1(m_axis_tready),
-        .I2(Q[0]),
-        .I3(p_8_out),
-        .I4(axis_wr_eop_d1),
-        .I5(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [4]),
-        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[4]_i_5 ));
-LUT6 #(
-    .INIT(64'hFF7F00000080FFFF)) 
-     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[8]_i_2 
-       (.I0(I2),
-        .I1(m_axis_tready),
-        .I2(Q[0]),
+        .I2(I2),
         .I3(p_8_out),
         .I4(axis_wr_eop_d1),
         .I5(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [11]),
+        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[11]_i_2 ));
+LUT6 #(
+    .INIT(64'h9999999959999999)) 
+     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[1]_i_2 
+       (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [1]),
+        .I1(axis_wr_eop_d1),
+        .I2(Q[0]),
+        .I3(m_axis_tready),
+        .I4(I2),
+        .I5(p_8_out),
+        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[1]_i_2 ));
+LUT6 #(
+    .INIT(64'h9999999959999999)) 
+     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[2]_i_2 
+       (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [2]),
+        .I1(axis_wr_eop_d1),
+        .I2(Q[0]),
+        .I3(m_axis_tready),
+        .I4(I2),
+        .I5(p_8_out),
+        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[2]_i_2 ));
+LUT6 #(
+    .INIT(64'h9999999959999999)) 
+     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[3]_i_2 
+       (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [3]),
+        .I1(axis_wr_eop_d1),
+        .I2(Q[0]),
+        .I3(m_axis_tready),
+        .I4(I2),
+        .I5(p_8_out),
+        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[3]_i_2 ));
+LUT6 #(
+    .INIT(64'h9999999959999999)) 
+     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[4]_i_2 
+       (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [4]),
+        .I1(axis_wr_eop_d1),
+        .I2(Q[0]),
+        .I3(m_axis_tready),
+        .I4(I2),
+        .I5(p_8_out),
+        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[4]_i_2 ));
+LUT6 #(
+    .INIT(64'h9999999959999999)) 
+     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[5]_i_2 
+       (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [5]),
+        .I1(axis_wr_eop_d1),
+        .I2(Q[0]),
+        .I3(m_axis_tready),
+        .I4(I2),
+        .I5(p_8_out),
+        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[5]_i_2 ));
+LUT6 #(
+    .INIT(64'h9999999959999999)) 
+     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[6]_i_2 
+       (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [6]),
+        .I1(axis_wr_eop_d1),
+        .I2(Q[0]),
+        .I3(m_axis_tready),
+        .I4(I2),
+        .I5(p_8_out),
+        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[6]_i_2 ));
+LUT6 #(
+    .INIT(64'h9999999959999999)) 
+     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[7]_i_2 
+       (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [7]),
+        .I1(axis_wr_eop_d1),
+        .I2(Q[0]),
+        .I3(m_axis_tready),
+        .I4(I2),
+        .I5(p_8_out),
+        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[7]_i_2 ));
+LUT6 #(
+    .INIT(64'h9999999959999999)) 
+     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[8]_i_2 
+       (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [8]),
+        .I1(axis_wr_eop_d1),
+        .I2(Q[0]),
+        .I3(m_axis_tready),
+        .I4(I2),
+        .I5(p_8_out),
         .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[8]_i_2 ));
 LUT6 #(
-    .INIT(64'hFF7F00000080FFFF)) 
-     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[8]_i_3 
-       (.I0(I2),
-        .I1(m_axis_tready),
+    .INIT(64'h9999999959999999)) 
+     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[9]_i_2 
+       (.I0(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [9]),
+        .I1(axis_wr_eop_d1),
         .I2(Q[0]),
-        .I3(p_8_out),
-        .I4(axis_wr_eop_d1),
-        .I5(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [10]),
-        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[8]_i_3 ));
-LUT6 #(
-    .INIT(64'hFF7F00000080FFFF)) 
-     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[8]_i_4 
-       (.I0(I2),
-        .I1(m_axis_tready),
-        .I2(Q[0]),
-        .I3(p_8_out),
-        .I4(axis_wr_eop_d1),
-        .I5(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [9]),
-        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[8]_i_4 ));
-LUT6 #(
-    .INIT(64'hFF7F00000080FFFF)) 
-     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[8]_i_5 
-       (.I0(I2),
-        .I1(m_axis_tready),
-        .I2(Q[0]),
-        .I3(p_8_out),
-        .I4(axis_wr_eop_d1),
-        .I5(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [8]),
-        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[8]_i_5 ));
-CARRY4 \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[0]_i_2 
+        .I3(m_axis_tready),
+        .I4(I2),
+        .I5(p_8_out),
+        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[9]_i_2 ));
+(* XILINX_LEGACY_PRIM = "(MUXCY,XORCY)" *) 
+   (* XILINX_TRANSFORM_PINMAP = "LO:O" *) 
+   CARRY4 \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[1]_i_3_CARRY4 
        (.CI(1'b0),
-        .CO({\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[0]_i_2 ,\n_1_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[0]_i_2 ,\n_2_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[0]_i_2 ,\n_3_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[0]_i_2 }),
-        .CYINIT(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[0]_i_3 ),
+        .CO({\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[4]_i_3 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[3]_i_3 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[2]_i_3 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[1]_i_3 }),
+        .CYINIT(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[0]_i_4 ),
         .DI(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [3:0]),
-        .O(O),
-        .S({\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[0]_i_4 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[0]_i_5 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[0]_i_6 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[0]_i_7 }));
-CARRY4 \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[4]_i_1 
-       (.CI(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[0]_i_2 ),
-        .CO({\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[4]_i_1 ,\n_1_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[4]_i_1 ,\n_2_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[4]_i_1 ,\n_3_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[4]_i_1 }),
+        .O({O6,O5,O4,O1}),
+        .S({\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[3]_i_2 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[2]_i_2 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[1]_i_2 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[0]_i_3 }));
+(* XILINX_LEGACY_PRIM = "(MUXCY,XORCY)" *) 
+   (* XILINX_TRANSFORM_PINMAP = "LO:O" *) 
+   CARRY4 \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[5]_i_3_CARRY4 
+       (.CI(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[4]_i_3 ),
+        .CO({\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[8]_i_3 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[7]_i_3 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[6]_i_3 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[5]_i_3 }),
         .CYINIT(1'b0),
         .DI(\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [7:4]),
-        .O(O3),
-        .S({\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[4]_i_2 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[4]_i_3 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[4]_i_4 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[4]_i_5 }));
-CARRY4 \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[8]_i_1 
-       (.CI(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[4]_i_1 ),
-        .CO({\NLW_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[8]_i_1_CO_UNCONNECTED [3],\n_1_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[8]_i_1 ,\n_2_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[8]_i_1 ,\n_3_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[8]_i_1 }),
+        .O({O10,O9,O8,O7}),
+        .S({\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[7]_i_2 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[6]_i_2 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[5]_i_2 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[4]_i_2 }));
+(* XILINX_LEGACY_PRIM = "(MUXCY,XORCY)" *) 
+   (* XILINX_TRANSFORM_PINMAP = "LO:O" *) 
+   CARRY4 \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[9]_i_3_CARRY4 
+       (.CI(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[8]_i_3 ),
+        .CO({\NLW_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[9]_i_3_CARRY4_CO_UNCONNECTED [3:2],\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[10]_i_3 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[9]_i_3 }),
         .CYINIT(1'b0),
-        .DI({1'b0,\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [10:8]}),
-        .O(O4),
-        .S({\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[8]_i_2 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[8]_i_3 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[8]_i_4 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[8]_i_5 }));
-LUT5 #(
-    .INIT(32'h55555504)) 
-     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_1 
-       (.I0(p_14_out),
-        .I1(axis_almost_full),
-        .I2(p_8_out),
-        .I3(I3),
-        .I4(I2),
-        .O(O9));
-LUT6 #(
-    .INIT(64'h0000400000000000)) 
-     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_2 
-       (.I0(axis_wr_eop_d1),
-        .I1(I2),
-        .I2(m_axis_tready),
-        .I3(Q[0]),
-        .I4(p_8_out),
-        .I5(CO),
-        .O(p_14_out));
-fifo_generator_0blk_mem_gen_v8_2__parameterized0 \gbm.gbmg.gbmga.ngecc.bmg 
+        .DI({\NLW_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg[9]_i_3_CARRY4_DI_UNCONNECTED [3],\gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt_reg [10:8]}),
+        .O({O14,O13,O12,O11}),
+        .S({\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[11]_i_2 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[10]_i_2 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[9]_i_2 ,\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_cnt[8]_i_2 }));
+fifo_generator_0_blk_mem_gen_v8_2__parameterized0 \gbm.gbmg.gbmga.ngecc.bmg 
        (.D(doutb),
         .DIADI(DIADI),
         .I1(I1),
-        .O1(O1),
         .O2(O2),
+        .O3(O3),
         .WEA(WEA),
         .s_aclk(s_aclk));
 FDRE #(
@@ -3596,7 +3805,7 @@ FDRE #(
 endmodule
 
 (* ORIG_REF_NAME = "rd_bin_cntr" *) 
-module fifo_generator_0rd_bin_cntr
+module fifo_generator_0_rd_bin_cntr
    (O1,
     Q,
     O2,
@@ -3611,11 +3820,11 @@ module fifo_generator_0rd_bin_cntr
     I3,
     I4,
     p_0_in,
-    axis_almost_full,
-    comp1,
-    p_14_out_0,
-    I5,
     rst_full_gen_i,
+    axis_almost_full,
+    I9,
+    p_14_out,
+    comp1,
     p_2_out_1,
     comp0,
     comp0_0,
@@ -3637,11 +3846,11 @@ module fifo_generator_0rd_bin_cntr
   input [0:0]I3;
   input [0:0]I4;
   input p_0_in;
-  input axis_almost_full;
-  input comp1;
-  input p_14_out_0;
-  input I5;
   input rst_full_gen_i;
+  input axis_almost_full;
+  input I9;
+  input p_14_out;
+  input comp1;
   input p_2_out_1;
   input comp0;
   input comp0_0;
@@ -3654,7 +3863,7 @@ module fifo_generator_0rd_bin_cntr
   wire [0:0]I2;
   wire [0:0]I3;
   wire [0:0]I4;
-  wire I5;
+  wire I9;
   wire O1;
   wire O2;
   wire O3;
@@ -3670,7 +3879,7 @@ module fifo_generator_0rd_bin_cntr
   wire comp1_1;
   wire \n_0_gc0.count[10]_i_2 ;
   wire p_0_in;
-  wire p_14_out_0;
+  wire p_14_out;
   wire p_18_out;
   wire p_2_out;
   wire p_2_out_1;
@@ -3681,14 +3890,14 @@ module fifo_generator_0rd_bin_cntr
   wire s_aclk;
 
 LUT6 #(
-    .INIT(64'h00AA0000CCEE0CCC)) 
+    .INIT(64'h3000BA303030BA30)) 
      \gaf.gaf0.ram_afull_i_i_1 
        (.I0(p_0_in),
-        .I1(axis_almost_full),
-        .I2(comp1),
-        .I3(p_14_out_0),
-        .I4(I5),
-        .I5(rst_full_gen_i),
+        .I1(rst_full_gen_i),
+        .I2(axis_almost_full),
+        .I3(I9),
+        .I4(p_14_out),
+        .I5(comp1),
         .O(p_2_out));
 LUT1 #(
     .INIT(2'h1)) 
@@ -3797,7 +4006,7 @@ FDCE #(
     .INIT(1'b0)) 
      \gc0.count_d1_reg[0] 
        (.C(s_aclk),
-        .CE(p_14_out_0),
+        .CE(p_14_out),
         .CLR(I1),
         .D(O7[0]),
         .Q(Q[0]));
@@ -3805,7 +4014,7 @@ FDCE #(
     .INIT(1'b0)) 
      \gc0.count_d1_reg[10] 
        (.C(s_aclk),
-        .CE(p_14_out_0),
+        .CE(p_14_out),
         .CLR(I1),
         .D(rd_pntr_plus1),
         .Q(Q[10]));
@@ -3813,7 +4022,7 @@ FDCE #(
     .INIT(1'b0)) 
      \gc0.count_d1_reg[1] 
        (.C(s_aclk),
-        .CE(p_14_out_0),
+        .CE(p_14_out),
         .CLR(I1),
         .D(O7[1]),
         .Q(Q[1]));
@@ -3821,7 +4030,7 @@ FDCE #(
     .INIT(1'b0)) 
      \gc0.count_d1_reg[2] 
        (.C(s_aclk),
-        .CE(p_14_out_0),
+        .CE(p_14_out),
         .CLR(I1),
         .D(O7[2]),
         .Q(Q[2]));
@@ -3829,7 +4038,7 @@ FDCE #(
     .INIT(1'b0)) 
      \gc0.count_d1_reg[3] 
        (.C(s_aclk),
-        .CE(p_14_out_0),
+        .CE(p_14_out),
         .CLR(I1),
         .D(O7[3]),
         .Q(Q[3]));
@@ -3837,7 +4046,7 @@ FDCE #(
     .INIT(1'b0)) 
      \gc0.count_d1_reg[4] 
        (.C(s_aclk),
-        .CE(p_14_out_0),
+        .CE(p_14_out),
         .CLR(I1),
         .D(O7[4]),
         .Q(Q[4]));
@@ -3845,7 +4054,7 @@ FDCE #(
     .INIT(1'b0)) 
      \gc0.count_d1_reg[5] 
        (.C(s_aclk),
-        .CE(p_14_out_0),
+        .CE(p_14_out),
         .CLR(I1),
         .D(O7[5]),
         .Q(Q[5]));
@@ -3853,7 +4062,7 @@ FDCE #(
     .INIT(1'b0)) 
      \gc0.count_d1_reg[6] 
        (.C(s_aclk),
-        .CE(p_14_out_0),
+        .CE(p_14_out),
         .CLR(I1),
         .D(O7[6]),
         .Q(Q[6]));
@@ -3861,7 +4070,7 @@ FDCE #(
     .INIT(1'b0)) 
      \gc0.count_d1_reg[7] 
        (.C(s_aclk),
-        .CE(p_14_out_0),
+        .CE(p_14_out),
         .CLR(I1),
         .D(O7[7]),
         .Q(Q[7]));
@@ -3869,7 +4078,7 @@ FDCE #(
     .INIT(1'b0)) 
      \gc0.count_d1_reg[8] 
        (.C(s_aclk),
-        .CE(p_14_out_0),
+        .CE(p_14_out),
         .CLR(I1),
         .D(O7[8]),
         .Q(Q[8]));
@@ -3877,7 +4086,7 @@ FDCE #(
     .INIT(1'b0)) 
      \gc0.count_d1_reg[9] 
        (.C(s_aclk),
-        .CE(p_14_out_0),
+        .CE(p_14_out),
         .CLR(I1),
         .D(O7[9]),
         .Q(Q[9]));
@@ -3886,7 +4095,7 @@ FDCE #(
     .INIT(1'b1)) 
      \gc0.count_reg[0] 
        (.C(s_aclk),
-        .CE(p_14_out_0),
+        .CE(p_14_out),
         .D(plusOp[0]),
         .PRE(I1),
         .Q(O7[0]));
@@ -3895,7 +4104,7 @@ FDCE #(
     .INIT(1'b0)) 
      \gc0.count_reg[10] 
        (.C(s_aclk),
-        .CE(p_14_out_0),
+        .CE(p_14_out),
         .CLR(I1),
         .D(plusOp[10]),
         .Q(rd_pntr_plus1));
@@ -3904,7 +4113,7 @@ FDCE #(
     .INIT(1'b0)) 
      \gc0.count_reg[1] 
        (.C(s_aclk),
-        .CE(p_14_out_0),
+        .CE(p_14_out),
         .CLR(I1),
         .D(plusOp[1]),
         .Q(O7[1]));
@@ -3913,7 +4122,7 @@ FDCE #(
     .INIT(1'b0)) 
      \gc0.count_reg[2] 
        (.C(s_aclk),
-        .CE(p_14_out_0),
+        .CE(p_14_out),
         .CLR(I1),
         .D(plusOp[2]),
         .Q(O7[2]));
@@ -3922,7 +4131,7 @@ FDCE #(
     .INIT(1'b0)) 
      \gc0.count_reg[3] 
        (.C(s_aclk),
-        .CE(p_14_out_0),
+        .CE(p_14_out),
         .CLR(I1),
         .D(plusOp[3]),
         .Q(O7[3]));
@@ -3931,7 +4140,7 @@ FDCE #(
     .INIT(1'b0)) 
      \gc0.count_reg[4] 
        (.C(s_aclk),
-        .CE(p_14_out_0),
+        .CE(p_14_out),
         .CLR(I1),
         .D(plusOp[4]),
         .Q(O7[4]));
@@ -3940,7 +4149,7 @@ FDCE #(
     .INIT(1'b0)) 
      \gc0.count_reg[5] 
        (.C(s_aclk),
-        .CE(p_14_out_0),
+        .CE(p_14_out),
         .CLR(I1),
         .D(plusOp[5]),
         .Q(O7[5]));
@@ -3949,7 +4158,7 @@ FDCE #(
     .INIT(1'b0)) 
      \gc0.count_reg[6] 
        (.C(s_aclk),
-        .CE(p_14_out_0),
+        .CE(p_14_out),
         .CLR(I1),
         .D(plusOp[6]),
         .Q(O7[6]));
@@ -3958,7 +4167,7 @@ FDCE #(
     .INIT(1'b0)) 
      \gc0.count_reg[7] 
        (.C(s_aclk),
-        .CE(p_14_out_0),
+        .CE(p_14_out),
         .CLR(I1),
         .D(plusOp[7]),
         .Q(O7[7]));
@@ -3967,7 +4176,7 @@ FDCE #(
     .INIT(1'b0)) 
      \gc0.count_reg[8] 
        (.C(s_aclk),
-        .CE(p_14_out_0),
+        .CE(p_14_out),
         .CLR(I1),
         .D(plusOp[8]),
         .Q(O7[8]));
@@ -3976,7 +4185,7 @@ FDCE #(
     .INIT(1'b0)) 
      \gc0.count_reg[9] 
        (.C(s_aclk),
-        .CE(p_14_out_0),
+        .CE(p_14_out),
         .CLR(I1),
         .D(plusOp[9]),
         .Q(O7[9]));
@@ -4015,32 +4224,33 @@ LUT5 #(
      ram_empty_fb_i_i_1
        (.I0(comp0_0),
         .I1(p_18_out),
-        .I2(p_14_out_0),
+        .I2(p_14_out),
         .I3(comp1_1),
-        .I4(I5),
+        .I4(I9),
         .O(O3));
 LUT6 #(
-    .INIT(64'h0088008800F8F0F8)) 
+    .INIT(64'h00008F880F008F88)) 
      ram_full_fb_i_i_1
        (.I0(comp1),
-        .I1(I5),
-        .I2(p_2_out_1),
-        .I3(p_14_out_0),
-        .I4(comp0),
-        .I5(rst_full_gen_i),
+        .I1(I9),
+        .I2(rst_full_gen_i),
+        .I3(p_2_out_1),
+        .I4(p_14_out),
+        .I5(comp0),
         .O(ram_full_comb));
 endmodule
 
 (* ORIG_REF_NAME = "rd_fwft" *) 
-module fifo_generator_0rd_fwft
+module fifo_generator_0_rd_fwft
    (O1,
     O2,
     E,
-    m_axis_tvalid,
     O7,
+    m_axis_tvalid,
     O8,
-    O9,
-    p_14_out_0,
+    O15,
+    O26,
+    p_14_out,
     s_aclk,
     Q,
     I1,
@@ -4048,15 +4258,37 @@ module fifo_generator_0rd_fwft
     p_18_out,
     s_axis_tvalid,
     ram_full_i,
-    axis_data_count);
+    axis_data_count,
+    CO,
+    I5,
+    axis_almost_full,
+    I6,
+    axis_wr_eop_d1,
+    I7,
+    I8,
+    lopt,
+    lopt_1,
+    lopt_2,
+    lopt_3,
+    lopt_4,
+    lopt_5,
+    lopt_6,
+    lopt_7,
+    lopt_8,
+    lopt_9,
+    lopt_10,
+    lopt_11,
+    lopt_12,
+    lopt_13);
   output O1;
   output O2;
   output [0:0]E;
+  output O7;
   output m_axis_tvalid;
-  output [3:0]O7;
-  output [3:0]O8;
-  output [3:0]O9;
-  output p_14_out_0;
+  output O8;
+  output O15;
+  output O26;
+  output p_14_out;
   input s_aclk;
   input [1:0]Q;
   input I1;
@@ -4064,55 +4296,88 @@ module fifo_generator_0rd_fwft
   input p_18_out;
   input s_axis_tvalid;
   input ram_full_i;
-  input [11:0]axis_data_count;
+  input [1:0]axis_data_count;
+  input [0:0]CO;
+  input [0:0]I5;
+  input axis_almost_full;
+  input [0:0]I6;
+  input axis_wr_eop_d1;
+  input I7;
+  input I8;
+  input lopt;
+  output lopt_1;
+  input lopt_2;
+  input lopt_3;
+  output lopt_4;
+  input lopt_5;
+  input lopt_6;
+  output lopt_7;
+  input lopt_8;
+  output lopt_9;
+  output lopt_10;
+  output lopt_11;
+  output lopt_12;
+  input lopt_13;
 
+  wire [0:0]CO;
   wire [0:0]E;
   wire I1;
+  wire [0:0]I5;
+  wire [0:0]I6;
+  wire I7;
+  wire I8;
   wire O1;
+  wire O15;
   wire O2;
-  wire [3:0]O7;
-  wire [3:0]O8;
-  wire [3:0]O9;
+  wire O26;
+  wire O7;
+  wire O8;
   wire [1:0]Q;
-  wire [11:0]axis_data_count;
+  wire axis_almost_full;
+  wire [1:0]axis_data_count;
+  wire axis_wr_eop_d1;
   wire [0:0]curr_fwft_state;
   wire empty_fwft_fb;
   wire empty_fwft_i0;
+  wire \^lopt_1 ;
+  wire \^lopt_10 ;
+  wire \^lopt_11 ;
+  wire \^lopt_12 ;
+  wire \^lopt_2 ;
+  wire \^lopt_3 ;
+  wire \^lopt_4 ;
+  wire \^lopt_5 ;
+  wire \^lopt_6 ;
+  wire \^lopt_7 ;
+  wire \^lopt_8 ;
+  wire \^lopt_9 ;
   wire m_axis_tready;
   wire m_axis_tvalid;
+  wire \n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_2 ;
+  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[0]_i_2 ;
   wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[11]_i_4 ;
-  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[11]_i_5 ;
-  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[11]_i_6 ;
-  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[11]_i_7 ;
-  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[3]_i_2 ;
-  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[3]_i_3 ;
-  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[3]_i_4 ;
-  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[3]_i_5 ;
-  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[3]_i_6 ;
-  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[7]_i_2 ;
-  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[7]_i_3 ;
-  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[7]_i_4 ;
-  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[7]_i_5 ;
-  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[3]_i_1 ;
-  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[7]_i_1 ;
   wire \n_0_gpregsm1.curr_fwft_state_reg[1] ;
-  wire \n_1_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[11]_i_2 ;
-  wire \n_1_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[3]_i_1 ;
-  wire \n_1_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[7]_i_1 ;
-  wire \n_2_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[11]_i_2 ;
-  wire \n_2_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[3]_i_1 ;
-  wire \n_2_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[7]_i_1 ;
-  wire \n_3_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[11]_i_2 ;
-  wire \n_3_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[3]_i_1 ;
-  wire \n_3_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[7]_i_1 ;
   wire [1:0]next_fwft_state;
-  wire p_14_out_0;
+  wire p_14_out;
   wire p_18_out;
   wire ram_full_i;
   wire s_aclk;
   wire s_axis_tvalid;
-  wire [3:3]\NLW_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[11]_i_2_CO_UNCONNECTED ;
 
+  assign O26 = lopt_13;
+  assign \^lopt_1  = lopt;
+  assign \^lopt_3  = lopt_2;
+  assign \^lopt_4  = lopt_3;
+  assign \^lopt_6  = lopt_5;
+  assign \^lopt_7  = lopt_6;
+  assign \^lopt_9  = lopt_8;
+  assign lopt_1 = \^lopt_2 ;
+  assign lopt_10 = \^lopt_11 ;
+  assign lopt_11 = \^lopt_12 ;
+  assign lopt_12 = \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[11]_i_4 ;
+  assign lopt_4 = \^lopt_5 ;
+  assign lopt_7 = \^lopt_8 ;
+  assign lopt_9 = \^lopt_10 ;
 LUT6 #(
     .INIT(64'h000000007F777777)) 
      \DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram_i_2 
@@ -4152,155 +4417,54 @@ LUT6 #(
         .PRE(Q[1]),
         .Q(O1));
 LUT6 #(
-    .INIT(64'h0000F700FFFF08FF)) 
-     \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[11]_i_4 
-       (.I0(m_axis_tready),
+    .INIT(64'h7777777770777070)) 
+     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_1 
+       (.I0(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_2 ),
+        .I1(CO),
+        .I2(I5),
+        .I3(O1),
+        .I4(axis_almost_full),
+        .I5(I1),
+        .O(O7));
+(* SOFT_HLUTNM = "soft_lutpair0" *) 
+   LUT5 #(
+    .INIT(32'h00004000)) 
+     \gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_2 
+       (.I0(O1),
         .I1(I1),
-        .I2(O1),
-        .I3(s_axis_tvalid),
-        .I4(ram_full_i),
-        .I5(axis_data_count[11]),
-        .O(\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[11]_i_4 ));
+        .I2(m_axis_tready),
+        .I3(I6),
+        .I4(axis_wr_eop_d1),
+        .O(\n_0_gaxis_fifo.gaxisf.gaxis_pkt_fifo.axis_pkt_read_i_2 ));
 LUT6 #(
-    .INIT(64'h0000F700FFFF08FF)) 
-     \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[11]_i_5 
-       (.I0(m_axis_tready),
+    .INIT(64'hFFFF40FF0000BF00)) 
+     \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[0]_i_2 
+       (.I0(O1),
         .I1(I1),
-        .I2(O1),
-        .I3(s_axis_tvalid),
-        .I4(ram_full_i),
-        .I5(axis_data_count[10]),
-        .O(\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[11]_i_5 ));
-LUT6 #(
-    .INIT(64'h0000F700FFFF08FF)) 
-     \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[11]_i_6 
-       (.I0(m_axis_tready),
-        .I1(I1),
-        .I2(O1),
-        .I3(s_axis_tvalid),
-        .I4(ram_full_i),
-        .I5(axis_data_count[9]),
-        .O(\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[11]_i_6 ));
-LUT6 #(
-    .INIT(64'h0000F700FFFF08FF)) 
-     \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[11]_i_7 
-       (.I0(m_axis_tready),
-        .I1(I1),
-        .I2(O1),
-        .I3(s_axis_tvalid),
-        .I4(ram_full_i),
-        .I5(axis_data_count[8]),
-        .O(\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[11]_i_7 ));
-LUT5 #(
-    .INIT(32'hFFFF08FF)) 
-     \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[3]_i_2 
-       (.I0(m_axis_tready),
-        .I1(I1),
-        .I2(O1),
-        .I3(s_axis_tvalid),
-        .I4(ram_full_i),
-        .O(\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[3]_i_2 ));
-LUT6 #(
-    .INIT(64'h0000F700FFFF08FF)) 
-     \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[3]_i_3 
-       (.I0(m_axis_tready),
-        .I1(I1),
-        .I2(O1),
-        .I3(s_axis_tvalid),
-        .I4(ram_full_i),
-        .I5(axis_data_count[3]),
-        .O(\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[3]_i_3 ));
-LUT6 #(
-    .INIT(64'h0000F700FFFF08FF)) 
-     \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[3]_i_4 
-       (.I0(m_axis_tready),
-        .I1(I1),
-        .I2(O1),
-        .I3(s_axis_tvalid),
-        .I4(ram_full_i),
-        .I5(axis_data_count[2]),
-        .O(\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[3]_i_4 ));
-LUT6 #(
-    .INIT(64'h0000F700FFFF08FF)) 
-     \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[3]_i_5 
-       (.I0(m_axis_tready),
-        .I1(I1),
-        .I2(O1),
-        .I3(s_axis_tvalid),
-        .I4(ram_full_i),
-        .I5(axis_data_count[1]),
-        .O(\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[3]_i_5 ));
-LUT6 #(
-    .INIT(64'hFFFF08FF0000F700)) 
-     \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[3]_i_6 
-       (.I0(m_axis_tready),
-        .I1(I1),
-        .I2(O1),
+        .I2(m_axis_tready),
         .I3(s_axis_tvalid),
         .I4(ram_full_i),
         .I5(axis_data_count[0]),
-        .O(\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[3]_i_6 ));
+        .O(\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[0]_i_2 ));
 LUT6 #(
-    .INIT(64'h0000F700FFFF08FF)) 
-     \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[7]_i_2 
-       (.I0(m_axis_tready),
+    .INIT(64'h0000BF00FFFF40FF)) 
+     \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[11]_i_4 
+       (.I0(O1),
         .I1(I1),
-        .I2(O1),
+        .I2(m_axis_tready),
         .I3(s_axis_tvalid),
         .I4(ram_full_i),
-        .I5(axis_data_count[7]),
-        .O(\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[7]_i_2 ));
-LUT6 #(
-    .INIT(64'h0000F700FFFF08FF)) 
-     \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[7]_i_3 
-       (.I0(m_axis_tready),
-        .I1(I1),
-        .I2(O1),
-        .I3(s_axis_tvalid),
-        .I4(ram_full_i),
-        .I5(axis_data_count[6]),
-        .O(\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[7]_i_3 ));
-LUT6 #(
-    .INIT(64'h0000F700FFFF08FF)) 
-     \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[7]_i_4 
-       (.I0(m_axis_tready),
-        .I1(I1),
-        .I2(O1),
-        .I3(s_axis_tvalid),
-        .I4(ram_full_i),
-        .I5(axis_data_count[5]),
-        .O(\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[7]_i_4 ));
-LUT6 #(
-    .INIT(64'h0000F700FFFF08FF)) 
-     \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[7]_i_5 
-       (.I0(m_axis_tready),
-        .I1(I1),
-        .I2(O1),
-        .I3(s_axis_tvalid),
-        .I4(ram_full_i),
-        .I5(axis_data_count[4]),
-        .O(\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[7]_i_5 ));
-CARRY4 \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[11]_i_2 
-       (.CI(\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[7]_i_1 ),
-        .CO({\NLW_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[11]_i_2_CO_UNCONNECTED [3],\n_1_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[11]_i_2 ,\n_2_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[11]_i_2 ,\n_3_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[11]_i_2 }),
-        .CYINIT(1'b0),
-        .DI({1'b0,axis_data_count[10:8]}),
-        .O(O9),
-        .S({\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[11]_i_4 ,\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[11]_i_5 ,\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[11]_i_6 ,\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[11]_i_7 }));
-CARRY4 \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[3]_i_1 
+        .I5(axis_data_count[1]),
+        .O(\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[11]_i_4 ));
+(* XILINX_LEGACY_PRIM = "(MUXCY,XORCY)" *) 
+   (* XILINX_TRANSFORM_PINMAP = "LO:O" *) 
+   CARRY4 \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[1]_i_3_CARRY4 
        (.CI(1'b0),
-        .CO({\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[3]_i_1 ,\n_1_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[3]_i_1 ,\n_2_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[3]_i_1 ,\n_3_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[3]_i_1 }),
-        .CYINIT(\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[3]_i_2 ),
-        .DI(axis_data_count[3:0]),
-        .O(O7),
-        .S({\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[3]_i_3 ,\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[3]_i_4 ,\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[3]_i_5 ,\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[3]_i_6 }));
-CARRY4 \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[7]_i_1 
-       (.CI(\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[3]_i_1 ),
-        .CO({\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[7]_i_1 ,\n_1_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[7]_i_1 ,\n_2_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[7]_i_1 ,\n_3_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[7]_i_1 }),
-        .CYINIT(1'b0),
-        .DI(axis_data_count[7:4]),
-        .O(O8),
-        .S({\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[7]_i_2 ,\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[7]_i_3 ,\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[7]_i_4 ,\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[7]_i_5 }));
+        .CO({\^lopt_8 ,\^lopt_5 ,\^lopt_2 ,O8}),
+        .CYINIT(I7),
+        .DI({\^lopt_7 ,\^lopt_4 ,\^lopt_1 ,axis_data_count[0]}),
+        .O({\^lopt_12 ,\^lopt_11 ,\^lopt_10 ,O15}),
+        .S({\^lopt_9 ,\^lopt_6 ,\^lopt_3 ,\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[0]_i_2 }));
 LUT6 #(
     .INIT(64'h0000000008FFFFFF)) 
      \gc0.count_d1[10]_i_1 
@@ -4310,7 +4474,7 @@ LUT6 #(
         .I3(curr_fwft_state),
         .I4(\n_0_gpregsm1.curr_fwft_state_reg[1] ),
         .I5(p_18_out),
-        .O(p_14_out_0));
+        .O(p_14_out));
 LUT6 #(
     .INIT(64'h0000000008FF0000)) 
      \goreg_bm.dout_i[10]_i_1 
@@ -4321,8 +4485,7 @@ LUT6 #(
         .I4(\n_0_gpregsm1.curr_fwft_state_reg[1] ),
         .I5(Q[0]),
         .O(E));
-(* SOFT_HLUTNM = "soft_lutpair0" *) 
-   LUT5 #(
+LUT5 #(
     .INIT(32'hEFFFAAAA)) 
      \gpregsm1.curr_fwft_state[0]_i_1 
        (.I0(\n_0_gpregsm1.curr_fwft_state_reg[1] ),
@@ -4369,7 +4532,7 @@ LUT6 #(
 endmodule
 
 (* ORIG_REF_NAME = "rd_logic" *) 
-module fifo_generator_0rd_logic
+module fifo_generator_0_rd_logic
    (p_8_out,
     O1,
     E,
@@ -4378,10 +4541,11 @@ module fifo_generator_0rd_logic
     O4,
     O5,
     O6,
-    m_axis_tvalid,
     O7,
+    m_axis_tvalid,
     O8,
-    O9,
+    O15,
+    O26,
     p_2_out,
     ram_full_comb,
     v1_reg,
@@ -4396,13 +4560,33 @@ module fifo_generator_0rd_logic
     I2,
     I3,
     I4,
-    p_0_in,
-    axis_almost_full,
-    comp1,
+    CO,
     I5,
+    axis_almost_full,
+    I6,
+    axis_wr_eop_d1,
+    I7,
+    I8,
+    p_0_in,
     rst_full_gen_i,
+    I9,
+    comp1,
     p_2_out_1,
-    comp0);
+    comp0,
+    lopt,
+    lopt_1,
+    lopt_2,
+    lopt_3,
+    lopt_4,
+    lopt_5,
+    lopt_6,
+    lopt_7,
+    lopt_8,
+    lopt_9,
+    lopt_10,
+    lopt_11,
+    lopt_12,
+    lopt_13);
   output p_8_out;
   output O1;
   output [0:0]E;
@@ -4411,10 +4595,11 @@ module fifo_generator_0rd_logic
   output O4;
   output O5;
   output O6;
+  output O7;
   output m_axis_tvalid;
-  output [3:0]O7;
-  output [3:0]O8;
-  output [3:0]O9;
+  output O8;
+  output O15;
+  output O26;
   output p_2_out;
   output ram_full_comb;
   input [4:0]v1_reg;
@@ -4425,47 +4610,88 @@ module fifo_generator_0rd_logic
   input m_axis_tready;
   input s_axis_tvalid;
   input ram_full_i;
-  input [11:0]axis_data_count;
+  input [1:0]axis_data_count;
   input [0:0]I2;
   input [0:0]I3;
   input [0:0]I4;
-  input p_0_in;
+  input [0:0]CO;
+  input [0:0]I5;
   input axis_almost_full;
-  input comp1;
-  input I5;
+  input [0:0]I6;
+  input axis_wr_eop_d1;
+  input I7;
+  input I8;
+  input p_0_in;
   input rst_full_gen_i;
+  input I9;
+  input comp1;
   input p_2_out_1;
   input comp0;
+  input lopt;
+  output lopt_1;
+  input lopt_2;
+  input lopt_3;
+  output lopt_4;
+  input lopt_5;
+  input lopt_6;
+  output lopt_7;
+  input lopt_8;
+  output lopt_9;
+  output lopt_10;
+  output lopt_11;
+  output lopt_12;
+  input lopt_13;
 
+  wire [0:0]CO;
   wire [0:0]E;
   wire I1;
   wire [0:0]I2;
   wire [0:0]I3;
   wire [0:0]I4;
-  wire I5;
+  wire [0:0]I5;
+  wire [0:0]I6;
+  wire I7;
+  wire I8;
+  wire I9;
   wire O1;
+  wire O15;
   wire [10:0]O2;
+  wire O26;
   wire [9:0]O3;
   wire O4;
   wire O5;
   wire O6;
-  wire [3:0]O7;
-  wire [3:0]O8;
-  wire [3:0]O9;
+  wire O7;
+  wire O8;
   wire [1:0]Q;
   wire axis_almost_full;
-  wire [11:0]axis_data_count;
+  wire [1:0]axis_data_count;
+  wire axis_wr_eop_d1;
   wire comp0;
   wire comp0_1;
   wire comp1;
   wire comp1_0;
+  wire lopt;
+  wire lopt_1;
+  wire lopt_10;
+  wire lopt_11;
+  wire lopt_12;
+  wire lopt_13;
+  wire lopt_2;
+  wire lopt_3;
+  wire lopt_4;
+  wire lopt_5;
+  wire lopt_6;
+  wire lopt_7;
+  wire lopt_8;
+  wire lopt_9;
   wire m_axis_tready;
   wire m_axis_tvalid;
   wire n_0_rpntr;
   wire n_12_rpntr;
   wire n_18_rpntr;
   wire p_0_in;
-  wire p_14_out_0;
+  wire p_14_out;
   wire p_18_out;
   wire p_2_out;
   wire p_2_out_1;
@@ -4478,24 +4704,46 @@ module fifo_generator_0rd_logic
   wire [4:0]v1_reg;
   wire [4:0]v1_reg_0;
 
-fifo_generator_0rd_fwft \gr1.rfwft 
-       (.E(E),
+fifo_generator_0_rd_fwft \gr1.rfwft 
+       (.CO(CO),
+        .E(E),
         .I1(I1),
+        .I5(I5),
+        .I6(I6),
+        .I7(I7),
+        .I8(I8),
         .O1(p_8_out),
+        .O15(O15),
         .O2(O1),
+        .O26(O26),
         .O7(O7),
         .O8(O8),
-        .O9(O9),
         .Q(Q),
+        .axis_almost_full(axis_almost_full),
         .axis_data_count(axis_data_count),
+        .axis_wr_eop_d1(axis_wr_eop_d1),
+        .lopt(lopt),
+        .lopt_1(lopt_1),
+        .lopt_10(lopt_10),
+        .lopt_11(lopt_11),
+        .lopt_12(lopt_12),
+        .lopt_13(lopt_13),
+        .lopt_2(lopt_2),
+        .lopt_3(lopt_3),
+        .lopt_4(lopt_4),
+        .lopt_5(lopt_5),
+        .lopt_6(lopt_6),
+        .lopt_7(lopt_7),
+        .lopt_8(lopt_8),
+        .lopt_9(lopt_9),
         .m_axis_tready(m_axis_tready),
         .m_axis_tvalid(m_axis_tvalid),
-        .p_14_out_0(p_14_out_0),
+        .p_14_out(p_14_out),
         .p_18_out(p_18_out),
         .ram_full_i(ram_full_i),
         .s_aclk(s_aclk),
         .s_axis_tvalid(s_axis_tvalid));
-fifo_generator_0rd_status_flags_ss \grss.rsts 
+fifo_generator_0_rd_status_flags_ss \grss.rsts 
        (.I1(n_0_rpntr),
         .I2(n_12_rpntr),
         .I3(n_18_rpntr),
@@ -4506,12 +4754,12 @@ fifo_generator_0rd_status_flags_ss \grss.rsts
         .s_aclk(s_aclk),
         .v1_reg(v1_reg),
         .v1_reg_0(v1_reg_0));
-fifo_generator_0rd_bin_cntr rpntr
+fifo_generator_0_rd_bin_cntr rpntr
        (.I1(Q[1]),
         .I2(I2),
         .I3(I3),
         .I4(I4),
-        .I5(I5),
+        .I9(I9),
         .O1(n_0_rpntr),
         .O2(n_12_rpntr),
         .O3(n_18_rpntr),
@@ -4526,7 +4774,7 @@ fifo_generator_0rd_bin_cntr rpntr
         .comp1(comp1),
         .comp1_1(comp1_0),
         .p_0_in(p_0_in),
-        .p_14_out_0(p_14_out_0),
+        .p_14_out(p_14_out),
         .p_18_out(p_18_out),
         .p_2_out(p_2_out),
         .p_2_out_1(p_2_out_1),
@@ -4536,7 +4784,7 @@ fifo_generator_0rd_bin_cntr rpntr
 endmodule
 
 (* ORIG_REF_NAME = "rd_status_flags_ss" *) 
-module fifo_generator_0rd_status_flags_ss
+module fifo_generator_0_rd_status_flags_ss
    (comp0,
     comp1,
     p_18_out,
@@ -4569,11 +4817,11 @@ module fifo_generator_0rd_status_flags_ss
   wire [4:0]v1_reg;
   wire [4:0]v1_reg_0;
 
-fifo_generator_0compare_2 c1
+fifo_generator_0_compare_2 c1
        (.I1(I1),
         .comp0(comp0),
         .v1_reg(v1_reg));
-fifo_generator_0compare_3 c2
+fifo_generator_0_compare_3 c2
        (.I2(I2),
         .comp1(comp1),
         .v1_reg_0(v1_reg_0));
@@ -4589,7 +4837,7 @@ fifo_generator_0compare_3 c2
 endmodule
 
 (* ORIG_REF_NAME = "reset_blk_ramfifo" *) 
-module fifo_generator_0reset_blk_ramfifo
+module fifo_generator_0_reset_blk_ramfifo
    (O1,
     rst_full_gen_i,
     AR,
@@ -4764,7 +5012,7 @@ LUT2 #(
 endmodule
 
 (* ORIG_REF_NAME = "wr_bin_cntr" *) 
-module fifo_generator_0wr_bin_cntr
+module fifo_generator_0_wr_bin_cntr
    (Q,
     v1_reg,
     O1,
@@ -4773,8 +5021,8 @@ module fifo_generator_0wr_bin_cntr
     v1_reg_2,
     v1_reg_3,
     O4,
-    O2,
-    O3,
+    I6,
+    I7,
     E,
     s_aclk,
     AR);
@@ -4786,21 +5034,21 @@ module fifo_generator_0wr_bin_cntr
   output [4:0]v1_reg_2;
   output [4:0]v1_reg_3;
   output [0:0]O4;
-  input [9:0]O2;
-  input [9:0]O3;
+  input [9:0]I6;
+  input [9:0]I7;
   input [0:0]E;
   input s_aclk;
   input [0:0]AR;
 
   wire [0:0]AR;
   wire [0:0]E;
+  wire [9:0]I6;
+  wire [9:0]I7;
   wire [10:0]O1;
-  wire [9:0]O2;
-  wire [9:0]O3;
   wire [0:0]O4;
   wire [0:0]Q;
   wire \n_0_gcc0.gc1.gsym.count[10]_i_2 ;
-  wire [9:0]p_8_out_1;
+  wire [9:0]p_8_out_0;
   wire [10:0]plusOp__0;
   wire s_aclk;
   wire [4:0]v1_reg;
@@ -4921,7 +5169,7 @@ FDPE #(
         .CE(E),
         .D(wr_pntr_plus2[0]),
         .PRE(AR),
-        .Q(p_8_out_1[0]));
+        .Q(p_8_out_0[0]));
 FDCE #(
     .INIT(1'b0)) 
      \gcc0.gc1.gsym.count_d1_reg[10] 
@@ -4937,7 +5185,7 @@ FDCE #(
         .CE(E),
         .CLR(AR),
         .D(wr_pntr_plus2[1]),
-        .Q(p_8_out_1[1]));
+        .Q(p_8_out_0[1]));
 FDCE #(
     .INIT(1'b0)) 
      \gcc0.gc1.gsym.count_d1_reg[2] 
@@ -4945,7 +5193,7 @@ FDCE #(
         .CE(E),
         .CLR(AR),
         .D(wr_pntr_plus2[2]),
-        .Q(p_8_out_1[2]));
+        .Q(p_8_out_0[2]));
 FDCE #(
     .INIT(1'b0)) 
      \gcc0.gc1.gsym.count_d1_reg[3] 
@@ -4953,7 +5201,7 @@ FDCE #(
         .CE(E),
         .CLR(AR),
         .D(wr_pntr_plus2[3]),
-        .Q(p_8_out_1[3]));
+        .Q(p_8_out_0[3]));
 FDCE #(
     .INIT(1'b0)) 
      \gcc0.gc1.gsym.count_d1_reg[4] 
@@ -4961,7 +5209,7 @@ FDCE #(
         .CE(E),
         .CLR(AR),
         .D(wr_pntr_plus2[4]),
-        .Q(p_8_out_1[4]));
+        .Q(p_8_out_0[4]));
 FDCE #(
     .INIT(1'b0)) 
      \gcc0.gc1.gsym.count_d1_reg[5] 
@@ -4969,7 +5217,7 @@ FDCE #(
         .CE(E),
         .CLR(AR),
         .D(wr_pntr_plus2[5]),
-        .Q(p_8_out_1[5]));
+        .Q(p_8_out_0[5]));
 FDCE #(
     .INIT(1'b0)) 
      \gcc0.gc1.gsym.count_d1_reg[6] 
@@ -4977,7 +5225,7 @@ FDCE #(
         .CE(E),
         .CLR(AR),
         .D(wr_pntr_plus2[6]),
-        .Q(p_8_out_1[6]));
+        .Q(p_8_out_0[6]));
 FDCE #(
     .INIT(1'b0)) 
      \gcc0.gc1.gsym.count_d1_reg[7] 
@@ -4985,7 +5233,7 @@ FDCE #(
         .CE(E),
         .CLR(AR),
         .D(wr_pntr_plus2[7]),
-        .Q(p_8_out_1[7]));
+        .Q(p_8_out_0[7]));
 FDCE #(
     .INIT(1'b0)) 
      \gcc0.gc1.gsym.count_d1_reg[8] 
@@ -4993,7 +5241,7 @@ FDCE #(
         .CE(E),
         .CLR(AR),
         .D(wr_pntr_plus2[8]),
-        .Q(p_8_out_1[8]));
+        .Q(p_8_out_0[8]));
 FDCE #(
     .INIT(1'b0)) 
      \gcc0.gc1.gsym.count_d1_reg[9] 
@@ -5001,14 +5249,14 @@ FDCE #(
         .CE(E),
         .CLR(AR),
         .D(wr_pntr_plus2[9]),
-        .Q(p_8_out_1[9]));
+        .Q(p_8_out_0[9]));
 FDCE #(
     .INIT(1'b0)) 
      \gcc0.gc1.gsym.count_d2_reg[0] 
        (.C(s_aclk),
         .CE(E),
         .CLR(AR),
-        .D(p_8_out_1[0]),
+        .D(p_8_out_0[0]),
         .Q(O1[0]));
 FDCE #(
     .INIT(1'b0)) 
@@ -5024,7 +5272,7 @@ FDCE #(
        (.C(s_aclk),
         .CE(E),
         .CLR(AR),
-        .D(p_8_out_1[1]),
+        .D(p_8_out_0[1]),
         .Q(O1[1]));
 FDCE #(
     .INIT(1'b0)) 
@@ -5032,7 +5280,7 @@ FDCE #(
        (.C(s_aclk),
         .CE(E),
         .CLR(AR),
-        .D(p_8_out_1[2]),
+        .D(p_8_out_0[2]),
         .Q(O1[2]));
 FDCE #(
     .INIT(1'b0)) 
@@ -5040,7 +5288,7 @@ FDCE #(
        (.C(s_aclk),
         .CE(E),
         .CLR(AR),
-        .D(p_8_out_1[3]),
+        .D(p_8_out_0[3]),
         .Q(O1[3]));
 FDCE #(
     .INIT(1'b0)) 
@@ -5048,7 +5296,7 @@ FDCE #(
        (.C(s_aclk),
         .CE(E),
         .CLR(AR),
-        .D(p_8_out_1[4]),
+        .D(p_8_out_0[4]),
         .Q(O1[4]));
 FDCE #(
     .INIT(1'b0)) 
@@ -5056,7 +5304,7 @@ FDCE #(
        (.C(s_aclk),
         .CE(E),
         .CLR(AR),
-        .D(p_8_out_1[5]),
+        .D(p_8_out_0[5]),
         .Q(O1[5]));
 FDCE #(
     .INIT(1'b0)) 
@@ -5064,7 +5312,7 @@ FDCE #(
        (.C(s_aclk),
         .CE(E),
         .CLR(AR),
-        .D(p_8_out_1[6]),
+        .D(p_8_out_0[6]),
         .Q(O1[6]));
 FDCE #(
     .INIT(1'b0)) 
@@ -5072,7 +5320,7 @@ FDCE #(
        (.C(s_aclk),
         .CE(E),
         .CLR(AR),
-        .D(p_8_out_1[7]),
+        .D(p_8_out_0[7]),
         .Q(O1[7]));
 FDCE #(
     .INIT(1'b0)) 
@@ -5080,7 +5328,7 @@ FDCE #(
        (.C(s_aclk),
         .CE(E),
         .CLR(AR),
-        .D(p_8_out_1[8]),
+        .D(p_8_out_0[8]),
         .Q(O1[8]));
 FDCE #(
     .INIT(1'b0)) 
@@ -5088,7 +5336,7 @@ FDCE #(
        (.C(s_aclk),
         .CE(E),
         .CLR(AR),
-        .D(p_8_out_1[9]),
+        .D(p_8_out_0[9]),
         .Q(O1[9]));
 (* counter = "8" *) 
    FDCE #(
@@ -5193,219 +5441,231 @@ LUT4 #(
     .INIT(16'h9009)) 
      \gmux.gm[0].gm1.m1_i_1 
        (.I0(O1[0]),
-        .I1(O2[0]),
+        .I1(I6[0]),
         .I2(O1[1]),
-        .I3(O2[1]),
+        .I3(I6[1]),
         .O(v1_reg[0]));
 LUT4 #(
     .INIT(16'h9009)) 
      \gmux.gm[0].gm1.m1_i_1__0 
        (.I0(O1[0]),
-        .I1(O3[0]),
+        .I1(I7[0]),
         .I2(O1[1]),
-        .I3(O3[1]),
+        .I3(I7[1]),
         .O(v1_reg_0[0]));
 LUT4 #(
     .INIT(16'h9009)) 
      \gmux.gm[0].gm1.m1_i_1__1 
        (.I0(O1[0]),
-        .I1(O2[0]),
+        .I1(I6[0]),
         .I2(O1[1]),
-        .I3(O2[1]),
+        .I3(I6[1]),
         .O(v1_reg_1[0]));
 LUT4 #(
     .INIT(16'h9009)) 
      \gmux.gm[0].gm1.m1_i_1__2 
-       (.I0(p_8_out_1[0]),
-        .I1(O2[0]),
-        .I2(p_8_out_1[1]),
-        .I3(O2[1]),
+       (.I0(p_8_out_0[0]),
+        .I1(I6[0]),
+        .I2(p_8_out_0[1]),
+        .I3(I6[1]),
         .O(v1_reg_2[0]));
 LUT4 #(
     .INIT(16'h9009)) 
      \gmux.gm[0].gm1.m1_i_1__3 
        (.I0(wr_pntr_plus2[0]),
-        .I1(O2[0]),
+        .I1(I6[0]),
         .I2(wr_pntr_plus2[1]),
-        .I3(O2[1]),
+        .I3(I6[1]),
         .O(v1_reg_3[0]));
 LUT4 #(
     .INIT(16'h9009)) 
      \gmux.gm[1].gms.ms_i_1 
        (.I0(O1[2]),
-        .I1(O2[2]),
+        .I1(I6[2]),
         .I2(O1[3]),
-        .I3(O2[3]),
+        .I3(I6[3]),
         .O(v1_reg[1]));
 LUT4 #(
     .INIT(16'h9009)) 
      \gmux.gm[1].gms.ms_i_1__0 
        (.I0(O1[2]),
-        .I1(O3[2]),
+        .I1(I7[2]),
         .I2(O1[3]),
-        .I3(O3[3]),
+        .I3(I7[3]),
         .O(v1_reg_0[1]));
 LUT4 #(
     .INIT(16'h9009)) 
      \gmux.gm[1].gms.ms_i_1__1 
        (.I0(O1[2]),
-        .I1(O2[2]),
+        .I1(I6[2]),
         .I2(O1[3]),
-        .I3(O2[3]),
+        .I3(I6[3]),
         .O(v1_reg_1[1]));
 LUT4 #(
     .INIT(16'h9009)) 
      \gmux.gm[1].gms.ms_i_1__2 
-       (.I0(p_8_out_1[2]),
-        .I1(O2[2]),
-        .I2(p_8_out_1[3]),
-        .I3(O2[3]),
+       (.I0(p_8_out_0[2]),
+        .I1(I6[2]),
+        .I2(p_8_out_0[3]),
+        .I3(I6[3]),
         .O(v1_reg_2[1]));
 LUT4 #(
     .INIT(16'h9009)) 
      \gmux.gm[1].gms.ms_i_1__3 
        (.I0(wr_pntr_plus2[2]),
-        .I1(O2[2]),
+        .I1(I6[2]),
         .I2(wr_pntr_plus2[3]),
-        .I3(O2[3]),
+        .I3(I6[3]),
         .O(v1_reg_3[1]));
 LUT4 #(
     .INIT(16'h9009)) 
      \gmux.gm[2].gms.ms_i_1 
        (.I0(O1[4]),
-        .I1(O2[4]),
+        .I1(I6[4]),
         .I2(O1[5]),
-        .I3(O2[5]),
+        .I3(I6[5]),
         .O(v1_reg[2]));
 LUT4 #(
     .INIT(16'h9009)) 
      \gmux.gm[2].gms.ms_i_1__0 
        (.I0(O1[4]),
-        .I1(O3[4]),
+        .I1(I7[4]),
         .I2(O1[5]),
-        .I3(O3[5]),
+        .I3(I7[5]),
         .O(v1_reg_0[2]));
 LUT4 #(
     .INIT(16'h9009)) 
      \gmux.gm[2].gms.ms_i_1__1 
        (.I0(O1[4]),
-        .I1(O2[4]),
+        .I1(I6[4]),
         .I2(O1[5]),
-        .I3(O2[5]),
+        .I3(I6[5]),
         .O(v1_reg_1[2]));
 LUT4 #(
     .INIT(16'h9009)) 
      \gmux.gm[2].gms.ms_i_1__2 
-       (.I0(p_8_out_1[4]),
-        .I1(O2[4]),
-        .I2(p_8_out_1[5]),
-        .I3(O2[5]),
+       (.I0(p_8_out_0[4]),
+        .I1(I6[4]),
+        .I2(p_8_out_0[5]),
+        .I3(I6[5]),
         .O(v1_reg_2[2]));
 LUT4 #(
     .INIT(16'h9009)) 
      \gmux.gm[2].gms.ms_i_1__3 
        (.I0(wr_pntr_plus2[4]),
-        .I1(O2[4]),
+        .I1(I6[4]),
         .I2(wr_pntr_plus2[5]),
-        .I3(O2[5]),
+        .I3(I6[5]),
         .O(v1_reg_3[2]));
 LUT4 #(
     .INIT(16'h9009)) 
      \gmux.gm[3].gms.ms_i_1 
        (.I0(O1[6]),
-        .I1(O2[6]),
+        .I1(I6[6]),
         .I2(O1[7]),
-        .I3(O2[7]),
+        .I3(I6[7]),
         .O(v1_reg[3]));
 LUT4 #(
     .INIT(16'h9009)) 
      \gmux.gm[3].gms.ms_i_1__0 
        (.I0(O1[6]),
-        .I1(O3[6]),
+        .I1(I7[6]),
         .I2(O1[7]),
-        .I3(O3[7]),
+        .I3(I7[7]),
         .O(v1_reg_0[3]));
 LUT4 #(
     .INIT(16'h9009)) 
      \gmux.gm[3].gms.ms_i_1__1 
        (.I0(O1[6]),
-        .I1(O2[6]),
+        .I1(I6[6]),
         .I2(O1[7]),
-        .I3(O2[7]),
+        .I3(I6[7]),
         .O(v1_reg_1[3]));
 LUT4 #(
     .INIT(16'h9009)) 
      \gmux.gm[3].gms.ms_i_1__2 
-       (.I0(p_8_out_1[6]),
-        .I1(O2[6]),
-        .I2(p_8_out_1[7]),
-        .I3(O2[7]),
+       (.I0(p_8_out_0[6]),
+        .I1(I6[6]),
+        .I2(p_8_out_0[7]),
+        .I3(I6[7]),
         .O(v1_reg_2[3]));
 LUT4 #(
     .INIT(16'h9009)) 
      \gmux.gm[3].gms.ms_i_1__3 
        (.I0(wr_pntr_plus2[6]),
-        .I1(O2[6]),
+        .I1(I6[6]),
         .I2(wr_pntr_plus2[7]),
-        .I3(O2[7]),
+        .I3(I6[7]),
         .O(v1_reg_3[3]));
 LUT4 #(
     .INIT(16'h9009)) 
      \gmux.gm[4].gms.ms_i_1 
        (.I0(O1[8]),
-        .I1(O2[8]),
+        .I1(I6[8]),
         .I2(O1[9]),
-        .I3(O2[9]),
+        .I3(I6[9]),
         .O(v1_reg[4]));
 LUT4 #(
     .INIT(16'h9009)) 
      \gmux.gm[4].gms.ms_i_1__0 
        (.I0(O1[8]),
-        .I1(O3[8]),
+        .I1(I7[8]),
         .I2(O1[9]),
-        .I3(O3[9]),
+        .I3(I7[9]),
         .O(v1_reg_0[4]));
 LUT4 #(
     .INIT(16'h9009)) 
      \gmux.gm[4].gms.ms_i_1__1 
        (.I0(O1[8]),
-        .I1(O2[8]),
+        .I1(I6[8]),
         .I2(O1[9]),
-        .I3(O2[9]),
+        .I3(I6[9]),
         .O(v1_reg_1[4]));
 LUT4 #(
     .INIT(16'h9009)) 
      \gmux.gm[4].gms.ms_i_1__2 
-       (.I0(p_8_out_1[8]),
-        .I1(O2[8]),
-        .I2(p_8_out_1[9]),
-        .I3(O2[9]),
+       (.I0(p_8_out_0[8]),
+        .I1(I6[8]),
+        .I2(p_8_out_0[9]),
+        .I3(I6[9]),
         .O(v1_reg_2[4]));
 LUT4 #(
     .INIT(16'h9009)) 
      \gmux.gm[4].gms.ms_i_1__3 
        (.I0(wr_pntr_plus2[8]),
-        .I1(O2[8]),
+        .I1(I6[8]),
         .I2(wr_pntr_plus2[9]),
-        .I3(O2[9]),
+        .I3(I6[9]),
         .O(v1_reg_3[4]));
 endmodule
 
 (* ORIG_REF_NAME = "wr_logic" *) 
-module fifo_generator_0wr_logic
+module fifo_generator_0_wr_logic
    (comp0,
     comp1,
     p_0_in,
     p_2_out,
     axis_almost_full,
     ram_full_i,
+    O1,
     WEA,
-    O7,
+    O16,
+    O17,
+    O18,
+    O19,
+    O20,
+    O21,
+    O22,
+    O23,
+    O24,
+    O2,
+    O25,
+    O27,
     axis_wr_eop,
     s_axis_tready,
     Q,
     v1_reg,
-    O1,
+    O3,
     v1_reg_0,
     O4,
     I1,
@@ -5415,27 +5675,52 @@ module fifo_generator_0wr_logic
     s_aclk,
     rst_d2,
     p_2_out_1,
+    axis_data_count,
     s_axis_tvalid,
+    m_axis_tready,
     p_8_out,
     I4,
-    m_axis_tready,
+    I5,
     DIADI,
-    O2,
-    O3,
-    AR);
+    I6,
+    I7,
+    AR,
+    lopt,
+    lopt_1,
+    lopt_2,
+    lopt_3,
+    lopt_4,
+    lopt_5,
+    lopt_6,
+    lopt_7,
+    lopt_8,
+    lopt_9,
+    lopt_10);
   output comp0;
   output comp1;
   output p_0_in;
   output p_2_out;
   output axis_almost_full;
   output ram_full_i;
+  output O1;
   output [0:0]WEA;
-  output O7;
+  output O16;
+  output O17;
+  output O18;
+  output O19;
+  output O20;
+  output O21;
+  output O22;
+  output O23;
+  output O24;
+  output O2;
+  output O25;
+  output O27;
   output axis_wr_eop;
   output s_axis_tready;
   output [0:0]Q;
   output [4:0]v1_reg;
-  output [10:0]O1;
+  output [10:0]O3;
   output [4:0]v1_reg_0;
   output [0:0]O4;
   input I1;
@@ -5445,14 +5730,27 @@ module fifo_generator_0wr_logic
   input s_aclk;
   input rst_d2;
   input p_2_out_1;
+  input [9:0]axis_data_count;
   input s_axis_tvalid;
+  input m_axis_tready;
   input p_8_out;
   input I4;
-  input m_axis_tready;
+  input I5;
   input [0:0]DIADI;
-  input [9:0]O2;
-  input [9:0]O3;
+  input [9:0]I6;
+  input [9:0]I7;
   input [0:0]AR;
+  input lopt;
+  output lopt_1;
+  input lopt_2;
+  output lopt_3;
+  input lopt_4;
+  output lopt_5;
+  input lopt_6;
+  input lopt_7;
+  input lopt_8;
+  input lopt_9;
+  output lopt_10;
 
   wire [0:0]AR;
   wire [0:0]DIADI;
@@ -5460,20 +5758,45 @@ module fifo_generator_0wr_logic
   wire I2;
   wire I3;
   wire I4;
-  wire [10:0]O1;
-  wire [9:0]O2;
-  wire [9:0]O3;
+  wire I5;
+  wire [9:0]I6;
+  wire [9:0]I7;
+  wire O1;
+  wire O16;
+  wire O17;
+  wire O18;
+  wire O19;
+  wire O2;
+  wire O20;
+  wire O21;
+  wire O22;
+  wire O23;
+  wire O24;
+  wire O25;
+  wire O27;
+  wire [10:0]O3;
   wire [0:0]O4;
-  wire O7;
   wire [0:0]Q;
   wire [0:0]WEA;
   wire axis_almost_full;
+  wire [9:0]axis_data_count;
   wire axis_wr_eop;
   wire [4:0]\c0/v1_reg ;
   wire [4:0]\c1/v1_reg ;
   wire comp0;
   wire comp1;
   wire [4:0]\gaf.c2/v1_reg ;
+  wire lopt;
+  wire lopt_1;
+  wire lopt_10;
+  wire lopt_2;
+  wire lopt_3;
+  wire lopt_4;
+  wire lopt_5;
+  wire lopt_6;
+  wire lopt_7;
+  wire lopt_8;
+  wire lopt_9;
   wire m_axis_tready;
   wire p_0_in;
   wire p_2_out;
@@ -5488,19 +5811,44 @@ module fifo_generator_0wr_logic
   wire [4:0]v1_reg;
   wire [4:0]v1_reg_0;
 
-fifo_generator_0wr_status_flags_ss \gwss.wsts 
+fifo_generator_0_wr_status_flags_ss \gwss.wsts 
        (.DIADI(DIADI),
         .E(WEA),
         .I1(I1),
         .I2(I2),
         .I3(I3),
         .I4(I4),
+        .I5(I5),
         .O1(ram_full_i),
-        .O7(O7),
+        .O16(O16),
+        .O17(O17),
+        .O18(O18),
+        .O19(O19),
+        .O2(O1),
+        .O20(O20),
+        .O21(O21),
+        .O22(O22),
+        .O23(O23),
+        .O24(O24),
+        .O25(O25),
+        .O27(O27),
+        .O3(O2),
         .axis_almost_full(axis_almost_full),
+        .axis_data_count(axis_data_count),
         .axis_wr_eop(axis_wr_eop),
         .comp0(comp0),
         .comp1(comp1),
+        .lopt(lopt),
+        .lopt_1(lopt_1),
+        .lopt_10(lopt_10),
+        .lopt_2(lopt_2),
+        .lopt_3(lopt_3),
+        .lopt_4(lopt_4),
+        .lopt_5(lopt_5),
+        .lopt_6(lopt_6),
+        .lopt_7(lopt_7),
+        .lopt_8(lopt_8),
+        .lopt_9(lopt_9),
         .m_axis_tready(m_axis_tready),
         .p_0_in(p_0_in),
         .p_2_out(p_2_out),
@@ -5514,12 +5862,12 @@ fifo_generator_0wr_status_flags_ss \gwss.wsts
         .v1_reg(\c0/v1_reg ),
         .v1_reg_0(\c1/v1_reg ),
         .v1_reg_1(\gaf.c2/v1_reg ));
-fifo_generator_0wr_bin_cntr wpntr
+fifo_generator_0_wr_bin_cntr wpntr
        (.AR(AR),
         .E(WEA),
-        .O1(O1),
-        .O2(O2),
-        .O3(O3),
+        .I6(I6),
+        .I7(I7),
+        .O1(O3),
         .O4(O4),
         .Q(Q),
         .s_aclk(s_aclk),
@@ -5531,15 +5879,27 @@ fifo_generator_0wr_bin_cntr wpntr
 endmodule
 
 (* ORIG_REF_NAME = "wr_status_flags_ss" *) 
-module fifo_generator_0wr_status_flags_ss
+module fifo_generator_0_wr_status_flags_ss
    (comp0,
     comp1,
     p_0_in,
     p_2_out,
     axis_almost_full,
     O1,
+    O2,
     E,
-    O7,
+    O16,
+    O17,
+    O18,
+    O19,
+    O20,
+    O21,
+    O22,
+    O23,
+    O24,
+    O3,
+    O25,
+    O27,
     axis_wr_eop,
     s_axis_tready,
     v1_reg,
@@ -5552,19 +5912,44 @@ module fifo_generator_0wr_status_flags_ss
     s_aclk,
     rst_d2,
     p_2_out_1,
+    axis_data_count,
     s_axis_tvalid,
+    m_axis_tready,
     p_8_out,
     I4,
-    m_axis_tready,
-    DIADI);
+    I5,
+    DIADI,
+    lopt,
+    lopt_1,
+    lopt_2,
+    lopt_3,
+    lopt_4,
+    lopt_5,
+    lopt_6,
+    lopt_7,
+    lopt_8,
+    lopt_9,
+    lopt_10);
   output comp0;
   output comp1;
   output p_0_in;
   output p_2_out;
   output axis_almost_full;
   output O1;
+  output O2;
   output [0:0]E;
-  output O7;
+  output O16;
+  output O17;
+  output O18;
+  output O19;
+  output O20;
+  output O21;
+  output O22;
+  output O23;
+  output O24;
+  output O3;
+  output O25;
+  output O27;
   output axis_wr_eop;
   output s_axis_tready;
   input [4:0]v1_reg;
@@ -5577,11 +5962,24 @@ module fifo_generator_0wr_status_flags_ss
   input s_aclk;
   input rst_d2;
   input p_2_out_1;
+  input [9:0]axis_data_count;
   input s_axis_tvalid;
+  input m_axis_tready;
   input p_8_out;
   input I4;
-  input m_axis_tready;
+  input I5;
   input [0:0]DIADI;
+  input lopt;
+  output lopt_1;
+  input lopt_2;
+  output lopt_3;
+  input lopt_4;
+  output lopt_5;
+  input lopt_6;
+  input lopt_7;
+  input lopt_8;
+  input lopt_9;
+  output lopt_10;
 
   wire [0:0]DIADI;
   wire [0:0]E;
@@ -5589,13 +5987,48 @@ module fifo_generator_0wr_status_flags_ss
   wire I2;
   wire I3;
   wire I4;
+  wire I5;
   wire O1;
-  wire O7;
+  wire O16;
+  wire O17;
+  wire O18;
+  wire O19;
+  wire O2;
+  wire O20;
+  wire O21;
+  wire O22;
+  wire O23;
+  wire O24;
+  wire O25;
+  wire O27;
+  wire O3;
   wire axis_almost_full;
+  wire [9:0]axis_data_count;
   wire axis_wr_eop;
   wire comp0;
   wire comp1;
+  wire \^lopt_2 ;
+  wire \^lopt_3 ;
   wire m_axis_tready;
+  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[10]_i_2 ;
+  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[1]_i_2 ;
+  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[2]_i_2 ;
+  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[3]_i_2 ;
+  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[4]_i_2 ;
+  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[5]_i_2 ;
+  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[6]_i_2 ;
+  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[7]_i_2 ;
+  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[8]_i_2 ;
+  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[9]_i_2 ;
+  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[10]_i_3 ;
+  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[2]_i_3 ;
+  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[3]_i_3 ;
+  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[4]_i_3 ;
+  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[5]_i_3 ;
+  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[6]_i_3 ;
+  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[7]_i_3 ;
+  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[8]_i_3 ;
+  wire \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[9]_i_3 ;
   wire p_0_in;
   wire p_2_out;
   wire p_2_out_1;
@@ -5608,7 +6041,20 @@ module fifo_generator_0wr_status_flags_ss
   wire [4:0]v1_reg;
   wire [4:0]v1_reg_0;
   wire [4:0]v1_reg_1;
+  wire [3:2]\NLW_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[9]_i_3_CARRY4_CO_UNCONNECTED ;
+  wire [3:3]\NLW_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[9]_i_3_CARRY4_DI_UNCONNECTED ;
 
+  assign O16 = lopt_6;
+  assign O17 = lopt_7;
+  assign O18 = lopt_8;
+  assign \^lopt_2  = lopt_9;
+  assign lopt_1 = \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[1]_i_2 ;
+  assign lopt_10 = \^lopt_3 ;
+  assign lopt_3 = \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[2]_i_2 ;
+  assign lopt_5 = \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[3]_i_2 ;
+  assign \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[2]_i_3  = lopt;
+  assign \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[3]_i_3  = lopt_2;
+  assign \n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[4]_i_3  = lopt_4;
 LUT3 #(
     .INIT(8'h04)) 
      \DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram_i_1 
@@ -5616,15 +6062,15 @@ LUT3 #(
         .I1(s_axis_tvalid),
         .I2(p_2_out),
         .O(E));
-fifo_generator_0compare c0
+fifo_generator_0_compare c0
        (.I1(I1),
         .comp0(comp0),
         .v1_reg(v1_reg));
-fifo_generator_0compare_0 c1
+fifo_generator_0_compare_0 c1
        (.I2(I2),
         .comp1(comp1),
         .v1_reg_0(v1_reg_0));
-fifo_generator_0compare_1 \gaf.c2 
+fifo_generator_0_compare_1 \gaf.c2 
        (.I3(I3),
         .p_0_in(p_0_in),
         .v1_reg_1(v1_reg_1));
@@ -5644,6 +6090,25 @@ LUT3 #(
         .I1(O1),
         .I2(s_axis_tvalid),
         .O(axis_wr_eop));
+LUT5 #(
+    .INIT(32'hBBFBBBBB)) 
+     \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[0]_i_3 
+       (.I0(O1),
+        .I1(s_axis_tvalid),
+        .I2(I4),
+        .I3(p_8_out),
+        .I4(m_axis_tready),
+        .O(O2));
+LUT6 #(
+    .INIT(64'h5959555959595959)) 
+     \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[10]_i_2 
+       (.I0(axis_data_count[9]),
+        .I1(s_axis_tvalid),
+        .I2(O1),
+        .I3(m_axis_tready),
+        .I4(p_8_out),
+        .I5(I4),
+        .O(\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[10]_i_2 ));
 (* SOFT_HLUTNM = "soft_lutpair5" *) 
    LUT5 #(
     .INIT(32'h2D222222)) 
@@ -5653,7 +6118,115 @@ LUT3 #(
         .I2(p_8_out),
         .I3(I4),
         .I4(m_axis_tready),
-        .O(O7));
+        .O(O27));
+LUT6 #(
+    .INIT(64'h5959555959595959)) 
+     \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[1]_i_2 
+       (.I0(axis_data_count[0]),
+        .I1(s_axis_tvalid),
+        .I2(O1),
+        .I3(m_axis_tready),
+        .I4(p_8_out),
+        .I5(I4),
+        .O(\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[1]_i_2 ));
+LUT6 #(
+    .INIT(64'h5959555959595959)) 
+     \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[2]_i_2 
+       (.I0(axis_data_count[1]),
+        .I1(s_axis_tvalid),
+        .I2(O1),
+        .I3(m_axis_tready),
+        .I4(p_8_out),
+        .I5(I4),
+        .O(\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[2]_i_2 ));
+LUT6 #(
+    .INIT(64'h5959555959595959)) 
+     \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[3]_i_2 
+       (.I0(axis_data_count[2]),
+        .I1(s_axis_tvalid),
+        .I2(O1),
+        .I3(m_axis_tready),
+        .I4(p_8_out),
+        .I5(I4),
+        .O(\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[3]_i_2 ));
+LUT6 #(
+    .INIT(64'h5959555959595959)) 
+     \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[4]_i_2 
+       (.I0(axis_data_count[3]),
+        .I1(s_axis_tvalid),
+        .I2(O1),
+        .I3(m_axis_tready),
+        .I4(p_8_out),
+        .I5(I4),
+        .O(\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[4]_i_2 ));
+LUT6 #(
+    .INIT(64'h5959555959595959)) 
+     \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[5]_i_2 
+       (.I0(axis_data_count[4]),
+        .I1(s_axis_tvalid),
+        .I2(O1),
+        .I3(m_axis_tready),
+        .I4(p_8_out),
+        .I5(I4),
+        .O(\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[5]_i_2 ));
+LUT6 #(
+    .INIT(64'h5959555959595959)) 
+     \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[6]_i_2 
+       (.I0(axis_data_count[5]),
+        .I1(s_axis_tvalid),
+        .I2(O1),
+        .I3(m_axis_tready),
+        .I4(p_8_out),
+        .I5(I4),
+        .O(\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[6]_i_2 ));
+LUT6 #(
+    .INIT(64'h5959555959595959)) 
+     \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[7]_i_2 
+       (.I0(axis_data_count[6]),
+        .I1(s_axis_tvalid),
+        .I2(O1),
+        .I3(m_axis_tready),
+        .I4(p_8_out),
+        .I5(I4),
+        .O(\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[7]_i_2 ));
+LUT6 #(
+    .INIT(64'h5959555959595959)) 
+     \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[8]_i_2 
+       (.I0(axis_data_count[7]),
+        .I1(s_axis_tvalid),
+        .I2(O1),
+        .I3(m_axis_tready),
+        .I4(p_8_out),
+        .I5(I4),
+        .O(\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[8]_i_2 ));
+LUT6 #(
+    .INIT(64'h5959555959595959)) 
+     \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[9]_i_2 
+       (.I0(axis_data_count[8]),
+        .I1(s_axis_tvalid),
+        .I2(O1),
+        .I3(m_axis_tready),
+        .I4(p_8_out),
+        .I5(I4),
+        .O(\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[9]_i_2 ));
+(* XILINX_LEGACY_PRIM = "(MUXCY,XORCY)" *) 
+   (* XILINX_TRANSFORM_PINMAP = "LO:O" *) 
+   CARRY4 \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[5]_i_3_CARRY4 
+       (.CI(\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[4]_i_3 ),
+        .CO({\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[8]_i_3 ,\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[7]_i_3 ,\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[6]_i_3 ,\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[5]_i_3 }),
+        .CYINIT(1'b0),
+        .DI(axis_data_count[6:3]),
+        .O({O22,O21,O20,O19}),
+        .S({\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[7]_i_2 ,\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[6]_i_2 ,\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[5]_i_2 ,\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[4]_i_2 }));
+(* XILINX_LEGACY_PRIM = "(MUXCY,XORCY)" *) 
+   (* XILINX_TRANSFORM_PINMAP = "LO:O" *) 
+   CARRY4 \gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[9]_i_3_CARRY4 
+       (.CI(\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[8]_i_3 ),
+        .CO({\NLW_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[9]_i_3_CARRY4_CO_UNCONNECTED [3:2],\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[10]_i_3 ,\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[9]_i_3 }),
+        .CYINIT(1'b0),
+        .DI({\NLW_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo_reg[9]_i_3_CARRY4_DI_UNCONNECTED [3],axis_data_count[9:7]}),
+        .O({\^lopt_3 ,O25,O24,O23}),
+        .S({\^lopt_2 ,\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[10]_i_2 ,\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[9]_i_2 ,\n_0_gaxis_fifo.gaxisf.gdc_pkt.axis_dc_pkt_fifo[8]_i_2 }));
 (* equivalent_register_removal = "no" *) 
    FDPE #(
     .INIT(1'b1)) 
@@ -5699,7 +6272,10 @@ module glbl ();
 
     wire PROGB_GLBL;
     wire CCLKO_GLBL;
-
+    wire FCSBO_GLBL;
+    wire [3:0] DO_GLBL;
+    wire [3:0] DI_GLBL;
+   
     reg GSR_int;
     reg GTS_int;
     reg PRLD_int;
