@@ -33,6 +33,8 @@ module receiver #
   wire aclk = M_AXIS_ACLK;
   wire aresetn = M_AXIS_ARESETN;
   wire enable_decoder;
+  wire [C_M_AXIS_TDATA_WIDTH-1 : 0] tdata;
+  wire tvalid;
 
   // Create the synchronizer
   wire sdcka_data, sdcka_posedge, sdcka_negedge;
@@ -81,11 +83,24 @@ module receiver #
     .sdckb_data(sdckb_data),
     .sdckb_posedge(sdckb_posedge),
     .sdckb_negedge(sdckb_negedge),
-    .tdata(M_AXIS_TDATA),
-    .tvalid(M_AXIS_TVALID),
-    .tstrb(M_AXIS_TSTRB),
-    .tkeep(M_AXIS_TKEEP),
-    .tlast(M_AXIS_TLAST)
+    .tdata(tdata),
+    .tvalid(tvalid)
+  );
+  
+  // We need a pending buffer because we want to delay sending the last byte
+  // until the we are DONE so we can send it with the TLAST param.
+  // Create the data decoder
+  data_buffer buffer(
+    .aclk(aclk),
+    .aresetn(aresetn),
+    .enable(enable_decoder),
+    .s_tdata(tdata),
+    .s_tvalid(tvalid),
+    .m_tdata(M_AXIS_TDATA),
+    .m_tvalid(M_AXIS_TVALID),
+    .m_tstrb(M_AXIS_TSTRB),
+    .m_tkeep(M_AXIS_TKEEP),
+    .m_tlast(M_AXIS_TLAST)
   );
 
   // Create an end frame decoder
@@ -104,10 +119,12 @@ module receiver #
   );
 
   //=============Internal Constants======================
-  parameter SIZE = 2;
-  parameter IDLE = 2'b01, ENABLED = 2'b10;
+  parameter SIZE = 3;
+  parameter IDLE    = 3'b001,
+            ENABLED = 3'b010,
+            DONE    = 3'b100;
   //=============Internal Variables======================
-  reg  [SIZE-1:0]         current_state;
+  reg [SIZE-1:0]          current_state;
   reg [SIZE-1:0]          next_state;
 
   initial begin
@@ -130,18 +147,20 @@ module receiver #
           next_state = IDLE;
       ENABLED:
         if (start_frame || start_with_crc || start_reset)
-          next_state = IDLE; // ignore a frame if two start patterns are detected
+          next_state = DONE; // ignore a frame if two start patterns are detected
         else if (end_frame || end_frame_error)
-          next_state = IDLE;
+          next_state = DONE;
         else
           next_state = ENABLED;
+      DONE:
+        next_state = IDLE;
       default:
         next_state = IDLE;
     endcase
   end
 
   assign enable_decoder = (current_state == ENABLED);
-  assign RECEIVING = (current_state == ENABLED);
+  assign RECEIVING = (current_state == ENABLED || DONE);
 
   // -----------------------------------------
   // Register outputs

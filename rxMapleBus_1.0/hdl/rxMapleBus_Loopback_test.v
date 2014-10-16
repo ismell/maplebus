@@ -153,7 +153,7 @@ module rxMapleBusLoopBackTest #
 
   assign s_axis_tx_tstrb = 1;
   assign s_axis_tx_tkeep = 1;
-  assign s_axis_tx_tdata = count;
+  assign s_axis_tx_tdata = count + 2;
   assign s_axis_tx_tlast = (current_state == WRITING) & (count == 4);
 
   // -----------------------------------------
