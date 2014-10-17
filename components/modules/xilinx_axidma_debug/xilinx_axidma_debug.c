@@ -1239,7 +1239,7 @@ static int xilinx_dma_chan_probe(struct xilinx_dma_device *xdev,
 	chan->common.private = (void *)&(chan->private);
 
 	if (!chan->has_dre) {
-		xdev->common.copy_align = 3; //fls(width - 1);
+		xdev->common.copy_align = fls(width - 1);
 	  dev_err(xdev->dev, "Device is missing DRE, setting copy align to 2^%d\n", xdev->common.copy_align);
   } else {
 	  dev_err(xdev->dev, "Device has DRE skip setting copy_align\n");

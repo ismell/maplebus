@@ -198,7 +198,7 @@ static int dmatest_slave_func(void *data)
 	int ret;
 	int src_cnt;
 	int dst_cnt;
-	int bd_cnt = 1;
+	int bd_cnt = 3;
 	int i;
 	struct xilinx_dma_config config;
 	thread_name = current->comm;
@@ -206,7 +206,7 @@ static int dmatest_slave_func(void *data)
 	ret = -ENOMEM;
 
 	/* JZ: limit testing scope here */
-	iterations = 1;
+	iterations = 100;
 	test_buf_size = 128;
 
 	smp_rmb();
@@ -228,7 +228,7 @@ static int dmatest_slave_func(void *data)
 	if (!thread->dsts)
 		goto err_dsts;
 	for (i = 0; i < dst_cnt; i++) {
-		thread->dsts[i] = kmalloc(test_buf_size + 8, GFP_KERNEL);
+		thread->dsts[i] = kmalloc(test_buf_size, GFP_KERNEL);
 		if (!thread->dsts[i])
 			goto err_dstbuf;
 	}
@@ -301,20 +301,20 @@ static int dmatest_slave_func(void *data)
 		for (i = 0; i < dst_cnt; i++) {
 			dma_dsts[i] = dma_map_single(rx_dev->dev,
 							thread->dsts[i],
-							test_buf_size + 8,
+							test_buf_size,
 							DMA_MEM_TO_DEV);
       if (dma_mapping_error(rx_dev->dev, dma_dsts[i])) {
 			  pr_err("Mapping test rx descriptor has failed\n");
         break;
       } else {
         dma_unmap_single(rx_dev->dev, dma_dsts[i],
-                test_buf_size + 8,
+                test_buf_size,
                 DMA_MEM_TO_DEV);
       }
 
 			dma_dsts[i] = dma_map_single(rx_dev->dev,
 							thread->dsts[i],
-							test_buf_size + 8,
+							test_buf_size,
 							DMA_DEV_TO_MEM);
       if (dma_mapping_error(rx_dev->dev, dma_dsts[i])) {
 			  pr_err("Mapping rx descriptor has failed\n");
@@ -333,7 +333,7 @@ static int dmatest_slave_func(void *data)
 			sg_dma_address(&rx_sg[i]) = dma_dsts[i] + dst_off;
 
 			sg_dma_len(&tx_sg[i]) = len;
-			sg_dma_len(&rx_sg[i]) = len + 8;
+			sg_dma_len(&rx_sg[i]) = len;
 
 		}
 
@@ -360,7 +360,7 @@ static int dmatest_slave_func(void *data)
 						DMA_MEM_TO_DEV);
 			for (i = 0; i < dst_cnt; i++)
 				dma_unmap_single(rx_dev->dev, dma_dsts[i],
-						test_buf_size + 8,
+						test_buf_size,
 						DMA_DEV_TO_MEM);
 			pr_err(
 			"%s: #%u: prep error with src_off=0x%x ",
@@ -426,8 +426,8 @@ static int dmatest_slave_func(void *data)
 		if (rx_tmo == 0) {
 			pr_err("%s: #%u: rx test timed out\n",
 				   thread_name, total_tests - 1);
-			//failed_tests++;
-			//continue;
+			failed_tests++;
+			continue;
 		}
 
     if (status != DMA_COMPLETE) {
@@ -437,8 +437,8 @@ static int dmatest_slave_func(void *data)
 			pr_err("but status is \'%s\'\n",
 				   status == DMA_ERROR ? "error" :
 							"in progress");
-			//failed_tests++;
-			//continue;
+			failed_tests++;
+			continue;
 		} else {
 			pr_err("Got completion callback\n");
     }
@@ -446,7 +446,7 @@ static int dmatest_slave_func(void *data)
 		/* Unmap by myself */
 		for (i = 0; i < dst_cnt; i++)
 			dma_unmap_single(rx_dev->dev, dma_dsts[i],
-					test_buf_size + 8, DMA_DEV_TO_MEM);
+					test_buf_size, DMA_DEV_TO_MEM);
 
 		error_count = 0;
 

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Tue Oct 14 11:06:01 2014" VIVADOVERSION="2014.2">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Thu Oct 16 06:57:00 2014" VIVADOVERSION="2014.2">
 
   <SYSTEMINFO ARCH="zynq" BOARD="em.avnet.com:microzed:part0:1.0" DEVICE="7z010" NAME="root_imp" PACKAGE="clg400" SPEEDGRADE="-1"/>
 
