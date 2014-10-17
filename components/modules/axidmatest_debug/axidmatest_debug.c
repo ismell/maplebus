@@ -206,7 +206,7 @@ static int dmatest_slave_func(void *data)
 	ret = -ENOMEM;
 
 	/* JZ: limit testing scope here */
-	iterations = 5;
+	iterations = 1;
 	test_buf_size = 128;
 
 	smp_rmb();
@@ -228,7 +228,7 @@ static int dmatest_slave_func(void *data)
 	if (!thread->dsts)
 		goto err_dsts;
 	for (i = 0; i < dst_cnt; i++) {
-		thread->dsts[i] = kmalloc(test_buf_size, GFP_KERNEL);
+		thread->dsts[i] = kmalloc(test_buf_size + 8, GFP_KERNEL);
 		if (!thread->dsts[i])
 			goto err_dstbuf;
 	}
@@ -249,8 +249,8 @@ static int dmatest_slave_func(void *data)
 		struct completion rx_cmp;
 		struct completion tx_cmp;
 		unsigned long rx_tmo =
-				msecs_to_jiffies(300000); /* RX takes longer */
-		unsigned long tx_tmo = msecs_to_jiffies(30000);
+				msecs_to_jiffies(10000); /* RX takes longer */
+		unsigned long tx_tmo = msecs_to_jiffies(10000);
 		u8 align = 0;
 		struct scatterlist tx_sg[bd_cnt];
 		struct scatterlist rx_sg[bd_cnt];
@@ -267,6 +267,7 @@ static int dmatest_slave_func(void *data)
 				test_buf_size, 1 << align);
 			break;
 		}
+    pr_err("Using alignment value %d", align);
 
 		len = dmatest_random() % test_buf_size + 1;
 		len = (len >> align) << align;
@@ -300,20 +301,20 @@ static int dmatest_slave_func(void *data)
 		for (i = 0; i < dst_cnt; i++) {
 			dma_dsts[i] = dma_map_single(rx_dev->dev,
 							thread->dsts[i],
-							test_buf_size,
+							test_buf_size + 8,
 							DMA_MEM_TO_DEV);
       if (dma_mapping_error(rx_dev->dev, dma_dsts[i])) {
 			  pr_err("Mapping test rx descriptor has failed\n");
         break;
       } else {
         dma_unmap_single(rx_dev->dev, dma_dsts[i],
-                test_buf_size,
+                test_buf_size + 8,
                 DMA_MEM_TO_DEV);
       }
 
 			dma_dsts[i] = dma_map_single(rx_dev->dev,
 							thread->dsts[i],
-							test_buf_size,
+							test_buf_size + 8,
 							DMA_DEV_TO_MEM);
       if (dma_mapping_error(rx_dev->dev, dma_dsts[i])) {
 			  pr_err("Mapping rx descriptor has failed\n");
@@ -332,7 +333,7 @@ static int dmatest_slave_func(void *data)
 			sg_dma_address(&rx_sg[i]) = dma_dsts[i] + dst_off;
 
 			sg_dma_len(&tx_sg[i]) = len;
-			sg_dma_len(&rx_sg[i]) = len;
+			sg_dma_len(&rx_sg[i]) = len + 8;
 
 		}
 
@@ -359,7 +360,7 @@ static int dmatest_slave_func(void *data)
 						DMA_MEM_TO_DEV);
 			for (i = 0; i < dst_cnt; i++)
 				dma_unmap_single(rx_dev->dev, dma_dsts[i],
-						test_buf_size,
+						test_buf_size + 8,
 						DMA_DEV_TO_MEM);
 			pr_err(
 			"%s: #%u: prep error with src_off=0x%x ",
@@ -425,27 +426,31 @@ static int dmatest_slave_func(void *data)
 		if (rx_tmo == 0) {
 			pr_err("%s: #%u: rx test timed out\n",
 				   thread_name, total_tests - 1);
-			failed_tests++;
-			continue;
-		} else if (status != DMA_COMPLETE) {
+			//failed_tests++;
+			//continue;
+		}
+
+    if (status != DMA_COMPLETE) {
 			pr_err(
 			"%s: #%u: rx got completion callback, ",
 				   thread_name, total_tests - 1);
 			pr_err("but status is \'%s\'\n",
 				   status == DMA_ERROR ? "error" :
 							"in progress");
-			failed_tests++;
-			continue;
-		}
+			//failed_tests++;
+			//continue;
+		} else {
+			pr_err("Got completion callback\n");
+    }
 
 		/* Unmap by myself */
 		for (i = 0; i < dst_cnt; i++)
 			dma_unmap_single(rx_dev->dev, dma_dsts[i],
-					test_buf_size, DMA_DEV_TO_MEM);
+					test_buf_size + 8, DMA_DEV_TO_MEM);
 
 		error_count = 0;
 
-		pr_debug("%s: verifying source buffer...\n", thread_name);
+		pr_err("%s: verifying source buffer...\n", thread_name);
 		error_count += dmatest_verify(thread->srcs, 0, src_off,
 				0, PATTERN_SRC, true);
 		error_count += dmatest_verify(thread->srcs, src_off,
@@ -455,7 +460,7 @@ static int dmatest_slave_func(void *data)
 				test_buf_size, src_off + len,
 				PATTERN_SRC, true);
 
-		pr_debug("%s: verifying dest buffer...\n",
+		pr_err("%s: verifying dest buffer...\n",
 				thread->task->comm);
 		error_count += dmatest_verify(thread->dsts, 0, dst_off,
 				0, PATTERN_DST, false);
@@ -473,9 +478,9 @@ static int dmatest_slave_func(void *data)
 				src_off, dst_off, len);
 			failed_tests++;
 		} else {
-			pr_debug("%s: #%u: No errors with ",
+			pr_err("%s: #%u: No errors with ",
 				thread_name, total_tests - 1);
-			pr_debug("src_off=0x%x dst_off=0x%x len=0x%x\n",
+			pr_err("src_off=0x%x dst_off=0x%x len=0x%x\n",
 				src_off, dst_off, len);
 		}
 	}
@@ -511,7 +516,7 @@ static void dmatest_cleanup_channel(struct dmatest_chan *dtc)
 
 	list_for_each_entry_safe(thread, _thread, &dtc->threads, node) {
 		ret = kthread_stop(thread->task);
-		pr_debug("dmatest: thread %s exited with status %d\n",
+		pr_err("dmatest: thread %s exited with status %d\n",
 				thread->task->comm, ret);
 		list_del(&thread->node);
 		kfree(thread);
@@ -594,7 +599,7 @@ static int dmatest_add_slave_channels(struct dma_chan *tx_chan,
 
 static bool xdma_filter(struct dma_chan *chan, void *param)
 {
-	pr_debug("dmatest: Private is %x\n", *((int *)chan->private));
+	pr_err("dmatest: Private is %x\n", *((int *)chan->private));
 
 	if (*((int *)chan->private) == *(int *)param)
 		return true;
@@ -620,14 +625,14 @@ static int __init dmatest_init(void)
 		direction = DMA_MEM_TO_DEV;
 		match = (direction & 0xFF) | XILINX_DMA_IP_DMA |
 				(device_id << XILINX_DMA_DEVICE_ID_SHIFT);
-		pr_debug("dmatest: match is %x\n", match);
+		pr_err("dmatest: match is %x\n", match);
 
 		chan = dma_request_channel(mask, xdma_filter, (void *)&match);
 
 		if (chan)
-			pr_debug("dmatest: Found tx device\n");
+			pr_err("dmatest: Found tx device\n");
 		else
-			pr_debug("dmatest: No more tx channels available\n");
+			pr_err("dmatest: No more tx channels available\n");
 
 		direction = DMA_DEV_TO_MEM;
 		match = (direction & 0xFF) | XILINX_DMA_IP_DMA |
@@ -635,9 +640,9 @@ static int __init dmatest_init(void)
 		rx_chan = dma_request_channel(mask, xdma_filter, &match);
 
 		if (rx_chan)
-			pr_debug("dmatest: Found rx device\n");
+			pr_err("dmatest: Found rx device\n");
 		else
-			pr_debug("dmatest: No more rx channels available\n");
+			pr_err("dmatest: No more rx channels available\n");
 
 		if (chan && rx_chan) {
 			err = dmatest_add_slave_channels(chan, rx_chan);
@@ -665,7 +670,7 @@ static void __exit dmatest_exit(void)
 		list_del(&dtc->node);
 		chan = dtc->chan;
 		dmatest_cleanup_channel(dtc);
-		pr_debug("dmatest: dropped channel %s\n",
+		pr_err("dmatest: dropped channel %s\n",
 			dma_chan_name(chan));
 		dma_release_channel(chan);
 	}

@@ -312,14 +312,23 @@ static void xilinx_chan_desc_cleanup(struct xilinx_dma_chan *chan)
 	unsigned long flags;
 	
   dev_err(chan->dev, "Cleaning up channel %d", chan->id);
+  
+  xilinx_dma_channel_debug(chan);
 
 	spin_lock_irqsave(&chan->lock, flags);
 
 	list_for_each_entry_safe(desc, _desc, &chan->active_list, node) {
 		dma_async_tx_callback callback;
 		void *callback_param;
+    unsigned int status;
 
-	  dev_err(chan->dev, "Checking descriptor %p for channel %d", desc, chan->id);
+    dma_sync_single_for_cpu(chan->dev, desc->async_tx.phys,
+          sizeof(desc->hw),
+          DMA_FROM_DEVICE);
+
+    status = desc->hw.status;
+
+	  dev_err(chan->dev, "Checking descriptor %p for channel %d with status 0x%x", desc, chan->id, status);
 
 		if (xilinx_dma_desc_status(chan, desc) == DMA_IN_PROGRESS) {
 	    dev_err(chan->dev, "Descriptor %p for channel %d is in progress, ABORT!", desc, chan->id);
@@ -360,10 +369,13 @@ static enum dma_status xilinx_tx_status(struct dma_chan *dchan,
 	dma_cookie_t last_used;
 	dma_cookie_t last_complete;
 
+
 	xilinx_chan_desc_cleanup(chan);
 
 	last_used = dchan->cookie;
 	last_complete = chan->completed_cookie;
+
+  dev_err(chan->dev, "Updating Transaction cookie from %d to %d for channel %d\n", last_used, last_complete, chan->id);
 
 	dma_set_tx_state(txstate, last_complete, last_used, 0);
 
@@ -372,6 +384,7 @@ static enum dma_status xilinx_tx_status(struct dma_chan *dchan,
 
 static int dma_is_running(struct xilinx_dma_chan *chan)
 {
+  dev_err(chan->dev, "Is channel %d running?\n", chan->id);
 	return !(dma_read(chan, XILINX_DMA_STATUS_OFFSET) &
 		 XILINX_DMA_SR_HALTED_MASK) &&
 	       (dma_read(chan, XILINX_DMA_CONTROL_OFFSET) &
@@ -380,6 +393,8 @@ static int dma_is_running(struct xilinx_dma_chan *chan)
 
 static int dma_is_idle(struct xilinx_dma_chan *chan)
 {
+  dev_err(chan->dev, "Is channel %d idle?\n", chan->id);
+
 	return dma_read(chan, XILINX_DMA_STATUS_OFFSET) &
 	       XILINX_DMA_SR_IDLE_MASK;
 }
@@ -388,6 +403,8 @@ static int dma_is_idle(struct xilinx_dma_chan *chan)
 static void dma_halt(struct xilinx_dma_chan *chan)
 {
 	int loop = XILINX_DMA_HALT_LOOP;
+
+  dev_err(chan->dev, "Halting DMA channel %d\n", chan->id);
 
 	dma_write(chan, XILINX_DMA_CONTROL_OFFSET,
 		  dma_read(chan, XILINX_DMA_CONTROL_OFFSET) &
@@ -401,6 +418,8 @@ static void dma_halt(struct xilinx_dma_chan *chan)
 
 		loop -= 1;
 	}
+
+  dev_err(chan->dev, "Channel %d halted\n", chan->id);
 
 	if (!loop) {
 		pr_debug("Cannot stop channel %x: %x\n",
@@ -416,6 +435,8 @@ static void dma_start(struct xilinx_dma_chan *chan)
 {
 	int loop = XILINX_DMA_HALT_LOOP;
 
+  dev_err(chan->dev, "Starting DMA channel %d\n", chan->id);
+
 	dma_write(chan, XILINX_DMA_CONTROL_OFFSET,
 		  dma_read(chan, XILINX_DMA_CONTROL_OFFSET) |
 		  XILINX_DMA_CR_RUNSTOP_MASK);
@@ -428,6 +449,8 @@ static void dma_start(struct xilinx_dma_chan *chan)
 
 		loop -= 1;
 	}
+
+  dev_err(chan->dev, "Channel %d started\n", chan->id);
 
 	if (!loop) {
 		pr_debug("Cannot start channel %x: %x\n",
@@ -922,7 +945,7 @@ static struct dma_async_tx_descriptor *xilinx_dma_prep_slave_sg(
 		return NULL;
 
 	chan = to_xilinx_chan(dchan);
-  dev_err(chan->dev, "Preparing Transfer Descriptor for channel %d\n", chan->id);
+	dev_err(chan->dev, "Preparing Transfer Descriptor for channel %d\n", chan->id);
 
 	if (chan->direction != direction) {
     dev_err(chan->dev, "Incorrect direction for channel %d\n", chan->id);
@@ -939,14 +962,14 @@ static struct dma_async_tx_descriptor *xilinx_dma_prep_slave_sg(
 	}
 #endif
 	/* Build transactions using information in the scatter gather list */
-  dev_err(chan->dev, "Looping SG List for channel %d\n", chan->id);
+	dev_err(chan->dev, "Looping SG List for channel %d\n", chan->id);
 	for_each_sg(sgl, sg, sg_len, i) {
 		sg_used = 0;
-    dev_err(chan->dev, "Setting up SG descriptor %d for channel %d\n", i, chan->id);
+		dev_err(chan->dev, "Setting up SG descriptor %d for channel %d\n", i, chan->id);
 
 		/* Loop until the entire scatterlist entry is used */
 		while (sg_used < sg_dma_len(sg)) {
-      dev_err(chan->dev, "Setting up SG Entry %d for channel %d\n", sg_used, chan->id);
+			dev_err(chan->dev, "Setting up SG Entry %d for channel %d\n", sg_used, chan->id);
 
 			/* Allocate the link descriptor from DMA pool */
 			new = xilinx_dma_alloc_descriptor(chan);
@@ -962,12 +985,19 @@ static struct dma_async_tx_descriptor *xilinx_dma_prep_slave_sg(
 			 */
 			copy = min((size_t)(sg_dma_len(sg) - sg_used),
 				   (size_t)chan->max_len);
-      dev_err(chan->dev, "Number of bytes to copy %d\n", copy);
+			dev_err(chan->dev, "Number of bytes to copy %d\n", copy);
 			hw = &(new->hw);
 
 			dma_src = sg_dma_address(sg) + sg_used;
 
-      dev_err(chan->dev, "DMA SRC %x\n", dma_src);
+			dev_err(chan->dev, "DMA SRC %x\n", dma_src);
+
+			if (!chan->has_dre) {
+				dev_err(chan->dev, "Channel %d does not have DRE, validating address %x\n", chan->id, dma_src);
+				if (dma_src & (8 - 1)) {
+				  dev_err(chan->dev, "Channel %d ERROR, Address %x IS NOT 8 word aligned\n", chan->id, dma_src);
+        }
+			}
 
 			hw->buf_addr = dma_src;
 
@@ -1151,7 +1181,9 @@ static int xilinx_dma_chan_probe(struct xilinx_dma_device *xdev,
 	chan->feature = feature;
 	chan->max_len = XILINX_DMA_MAX_TRANS_LEN;
 
+	dev_err(xdev->dev, "Reading include-dre\n");
 	chan->has_dre = of_property_read_bool(node, "xlnx,include-dre");
+	dev_err(xdev->dev, "Read DRE value of %d\n", chan->has_dre);
 
 	dev_err(xdev->dev, "<1>Reading datawidth\n");
 	err = of_property_read_u32(node, "xlnx,datawidth", &value);
@@ -1206,8 +1238,12 @@ static int xilinx_dma_chan_probe(struct xilinx_dma_device *xdev,
 			(device_id << XILINX_DMA_DEVICE_ID_SHIFT);
 	chan->common.private = (void *)&(chan->private);
 
-	if (!chan->has_dre)
-		xdev->common.copy_align = fls(width - 1);
+	if (!chan->has_dre) {
+		xdev->common.copy_align = 3; //fls(width - 1);
+	  dev_err(xdev->dev, "Device is missing DRE, setting copy align to 2^%d\n", xdev->common.copy_align);
+  } else {
+	  dev_err(xdev->dev, "Device has DRE skip setting copy_align\n");
+  }
 
 	chan->dev = xdev->dev;
 	xdev->chan[chan->id] = chan;

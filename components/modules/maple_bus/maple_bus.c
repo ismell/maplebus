@@ -22,10 +22,12 @@ MODULE_DESCRIPTION
 
 /* Simple example of how to receive command line parameters to your module.
    Delete if you don't need them */
-unsigned myint = 0xdeadbeef;
+unsigned pause = 0x0;
+unsigned loopback = 0x1;
 char *mystr = "default";
 
-module_param(myint, int, S_IRUGO);
+module_param(pause, int, S_IRUGO);
+module_param(loopback, int, S_IRUGO);
 module_param(mystr, charp, S_IRUGO);
 
 struct maple_bus_local {
@@ -58,6 +60,7 @@ static int maple_bus_probe(struct platform_device *pdev)
 	struct resource *r_mem; /* IO mem resources */
 	struct device *dev = &pdev->dev;
 	struct maple_bus_local *lp = NULL;
+  unsigned int control = 0;
 
 	int rc = 0;
 	
@@ -121,8 +124,32 @@ static int maple_bus_probe(struct platform_device *pdev)
 		0//lp->irq
     );
 
-  dev_info(dev, "maple_bus config 0x%x", maple_bus_read(lp, 0));
+  if (maple_bus_read(lp, 4*7) == 0xB82FD918) {
+    dev_info(dev, "maple_bus magic number matched");
+  } else {
+    dev_err(dev, "maple_bus magic number did not match");
+  }
+
+  dev_info(dev, "maple_bus current config 0x%x", maple_bus_read(lp, 0));
   dev_info(dev, "maple_bus tx, rx count 0x%x", maple_bus_read(lp, 4));
+
+  control = 0;
+
+  if (!pause) {
+    dev_info(dev, "maple_bus enabling tx/rx");
+    control |= 1 << 0; // Enable TX
+    control |= 1 << 1; // Enable TX
+  }
+
+  if (loopback) {
+    dev_info(dev, "maple_bus enabling loopback");
+    control |= 1 << 2; // Loopback enable
+  }
+
+  maple_bus_write(lp, 0, control);
+
+  dev_info(dev, "maple_bus new config 0x%x", maple_bus_read(lp, 0));
+
 	return 0;
 //error3:
 //	free_irq(lp->irq, lp);
@@ -169,7 +196,7 @@ static struct platform_driver maple_bus_driver = {
 static int __init maple_bus_init(void)
 {
 	printk("<1>Hello module world.\n");
-	printk("<1>Module parameters were (0x%08x) and \"%s\"\n", myint,
+	printk("<1>Module parameters were pause (0x%08x), loopback (0x%08x) and \"%s\"\n", pause, loopback,
 	       mystr);
 
 	return platform_driver_register(&maple_bus_driver);
