@@ -1,0 +1,5 @@
+#!/bin/sh
+
+unload || exit 1
+get || exit 1
+load || exit 1

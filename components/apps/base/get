@@ -1,0 +1,3 @@
+#!/bin/sh
+
+tftp 10.0.0.110 -g -r xilinx_axidma_debug.ko && tftp 10.0.0.110 -g -r axidmatest_debug.ko && tftp 10.0.0.110 -g -r maple_bus.ko

@@ -2,3 +2,4 @@ build/
 images/
 .petalinux/
 *.swp
+.*

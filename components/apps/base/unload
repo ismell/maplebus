@@ -1,0 +1,13 @@
+#!/bin/sh
+
+rm -rf /dev/maplebus0
+
+if /sbin/lsmod | grep maple_bus; then
+  echo "Unloading maple_bus.ko"
+  rmmod maple_bus.ko
+fi
+
+if /sbin/lsmod | grep xilinx_axidma_debug; then
+  echo "Unloading xilinx_axidma_debug.ko"
+  rmmod xilinx_axidma_debug.ko
+fi

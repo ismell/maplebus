@@ -1,0 +1,9 @@
+#!/bin/sh
+
+insmod xilinx_axidma_debug.ko || exit 1
+insmod maple_bus.ko || exit 1
+
+MAJOR=$(awk "\$2==\"maple_bus\" {print \$1}" /proc/devices)
+if [ ! -z "$MAJOR" ]; then
+  mknod /dev/maplebus0 c $MAJOR 0
+fi
