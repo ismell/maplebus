@@ -13,13 +13,12 @@ module data_decoder(
   );
 
   //=============Internal Constants======================
-  parameter SIZE = 6;
+  parameter SIZE = 5;
   parameter IDLE        = 6'b000001,
             PHASE1      = 6'b000010,
             PHASE1_DONE = 6'b000100,
             PHASE2      = 6'b001000,
-            PHASE2_DONE = 6'b010000,
-            DONE        = 6'b100000;
+            PHASE2_DONE = 6'b010000;
   //=============Internal Variables======================
   reg   [SIZE-1:0]          current_state;
   reg   [SIZE-1:0]          next_state;
@@ -63,10 +62,14 @@ module data_decoder(
             next_state = PHASE1;
           end
         end else begin
-          next_state = DONE;
+          next_state = IDLE;
         end
       PHASE1_DONE:
-        next_state = PHASE2;
+        if (enable) begin
+          next_state = PHASE2;
+        end else begin
+          next_state = IDLE;
+        end
       PHASE2:
         if (enable) begin
            if (sdckb_negedge) begin
@@ -75,12 +78,14 @@ module data_decoder(
             next_state = PHASE2;
           end
         end else begin
-          next_state = DONE;
+          next_state = IDLE;
         end
       PHASE2_DONE:
-        next_state = PHASE1;
-      DONE:
-        next_state = IDLE;
+        if (enable) begin
+          next_state = PHASE1;
+        end else begin
+          next_state = IDLE;
+        end
       default:
         next_state = IDLE;
     endcase

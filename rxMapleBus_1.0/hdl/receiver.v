@@ -119,11 +119,13 @@ module receiver #
   );
 
   //=============Internal Constants======================
-  parameter SIZE = 4;
-  parameter IDLE       = 4'b0001,
-            ENABLED    = 4'b0010,
-            SKIP_FRAME = 4'b0100,
-            DONE       = 4'b1000;
+  parameter SIZE = 6;
+  parameter IDLE             = 6'b1 << 0,
+            ENABLED          = 6'b1 << 1,
+            SKIP_FRAME       = 6'b1 << 2,
+            FLUSH_AND_ENABLE = 6'b1 << 3,
+            FLUSH_AND_SKIP   = 6'b1 << 4,
+            DONE             = 6'b1 << 5;
   //=============Internal Variables======================
   reg [SIZE-1:0]          current_state;
   reg [SIZE-1:0]          next_state;
@@ -139,9 +141,6 @@ module receiver #
       current_state <= next_state;
   end
 
-  //TODO: We need to handle the case where we get a partial
-  //      frame (never receive an end frame). We should finish
-  //      the current frame and start receiving the new frame.
   always @(*) begin: FSM_COMBO
     case (current_state)
       IDLE:
@@ -157,15 +156,39 @@ module receiver #
       ENABLED: // Store the frame
         if (end_frame || end_frame_error) begin
           next_state = DONE;
+        end else if (start_frame || start_with_crc || start_reset) begin 
+          // We just received a start frame in the middle of transmission
+          
+          if (M_AXIS_TREADY && ENABLE) begin
+            // Flush out the current packet if any and then store the new packet
+            next_state = FLUSH_AND_ENABLE;
+          end else begin
+          // Flush out the current packet if any and then skip the new packet
+            next_state = FLUSH_AND_SKIP;          
+          end
         end else begin
           next_state = ENABLED;
         end
       SKIP_FRAME: // We are not going to store the frame
         if (end_frame || end_frame_error) begin
           next_state = DONE;
+        end else if (start_frame || start_with_crc || start_reset) begin 
+          // We just received a start frame in the middle of transmission
+          
+          if (M_AXIS_TREADY && ENABLE) begin
+            // There is no packet to flush so just enable
+            next_state = ENABLED;
+          end else begin
+            // We don't have a packet to flush so continue skipping
+            next_state = SKIP_FRAME;
+          end
         end else begin
           next_state = SKIP_FRAME;
         end
+      FLUSH_AND_ENABLE:
+        next_state = ENABLED;
+      FLUSH_AND_SKIP:
+        next_state = SKIP_FRAME;
       DONE:
         next_state = IDLE;
       default:
