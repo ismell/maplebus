@@ -26,7 +26,7 @@ module receiver #
     input wire SDCKA, SDCKB,
     // Enable transmission
     input wire ENABLE,
-    // Indicates the transmitter is busy
+    // Indicates the receiver is getting a frame. It doesn't mean it is storing it though.
     output wire RECEIVING
   );
 
@@ -119,10 +119,11 @@ module receiver #
   );
 
   //=============Internal Constants======================
-  parameter SIZE = 3;
-  parameter IDLE    = 3'b001,
-            ENABLED = 3'b010,
-            DONE    = 3'b100;
+  parameter SIZE = 4;
+  parameter IDLE       = 4'b0001,
+            ENABLED    = 4'b0010,
+            SKIP_FRAME = 4'b0100,
+            DONE       = 4'b1000;
   //=============Internal Variables======================
   reg [SIZE-1:0]          current_state;
   reg [SIZE-1:0]          next_state;
@@ -138,20 +139,33 @@ module receiver #
       current_state <= next_state;
   end
 
+  //TODO: We need to handle the case where we get a partial
+  //      frame (never receive an end frame). We should finish
+  //      the current frame and start receiving the new frame.
   always @(*) begin: FSM_COMBO
     case (current_state)
       IDLE:
-        if ((start_frame || start_with_crc || start_reset) && M_AXIS_TREADY && ENABLE)
-           next_state = ENABLED;
-        else
+        if (start_frame || start_with_crc || start_reset) begin
+          if (M_AXIS_TREADY && ENABLE) begin
+            next_state = ENABLED;
+          end else begin
+            next_state = SKIP_FRAME;          
+          end
+        end else begin
           next_state = IDLE;
-      ENABLED:
-        if (start_frame || start_with_crc || start_reset)
-          next_state = DONE; // ignore a frame if two start patterns are detected
-        else if (end_frame || end_frame_error)
+         end
+      ENABLED: // Store the frame
+        if (end_frame || end_frame_error) begin
           next_state = DONE;
-        else
+        end else begin
           next_state = ENABLED;
+        end
+      SKIP_FRAME: // We are not going to store the frame
+        if (end_frame || end_frame_error) begin
+          next_state = DONE;
+        end else begin
+          next_state = SKIP_FRAME;
+        end
       DONE:
         next_state = IDLE;
       default:
@@ -160,7 +174,7 @@ module receiver #
   end
 
   assign enable_decoder = (current_state == ENABLED);
-  assign RECEIVING = (current_state == ENABLED || current_state == DONE);
+  assign RECEIVING = (current_state != IDLE);
 
   // -----------------------------------------
   // Register outputs
