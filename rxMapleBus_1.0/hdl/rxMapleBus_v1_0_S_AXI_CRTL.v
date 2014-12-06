@@ -13,7 +13,7 @@ module rxMapleBus_v1_0_S_AXI_CRTL #
 		// Width of S_AXI address bus
 		parameter integer C_S_AXI_ADDR_WIDTH	= 5,
 		// Width of DATA_COUNT
-		parameter integer C_DATA_COUNTWIDTH		= 12
+		parameter integer C_DATA_COUNTWIDTH		= 11
 	)
 	(
 		// Users to add ports here

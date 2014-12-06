@@ -62,12 +62,14 @@ module fifo_generator_0 (
   s_axis_tstrb,
   s_axis_tkeep,
   s_axis_tlast,
+  s_axis_tuser,
   m_axis_tvalid,
   m_axis_tready,
   m_axis_tdata,
   m_axis_tstrb,
   m_axis_tkeep,
   m_axis_tlast,
+  m_axis_tuser,
   axis_data_count
 );
 
@@ -87,6 +89,8 @@ input wire [0 : 0] s_axis_tstrb;
 input wire [0 : 0] s_axis_tkeep;
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 S_AXIS TLAST" *)
 input wire s_axis_tlast;
+(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 S_AXIS TUSER" *)
+input wire [1 : 0] s_axis_tuser;
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 M_AXIS TVALID" *)
 output wire m_axis_tvalid;
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 M_AXIS TREADY" *)
@@ -99,7 +103,9 @@ output wire [0 : 0] m_axis_tstrb;
 output wire [0 : 0] m_axis_tkeep;
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 M_AXIS TLAST" *)
 output wire m_axis_tlast;
-output wire [11 : 0] axis_data_count;
+(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 M_AXIS TUSER" *)
+output wire [1 : 0] m_axis_tuser;
+output wire [10 : 0] axis_data_count;
 
   fifo_generator_v12_0 #(
     .C_COMMON_CLOCK(1),
@@ -195,7 +201,7 @@ output wire [11 : 0] axis_data_count;
     .C_HAS_AXIS_TDATA(1),
     .C_HAS_AXIS_TID(0),
     .C_HAS_AXIS_TDEST(0),
-    .C_HAS_AXIS_TUSER(0),
+    .C_HAS_AXIS_TUSER(1),
     .C_HAS_AXIS_TREADY(1),
     .C_HAS_AXIS_TLAST(1),
     .C_HAS_AXIS_TSTRB(1),
@@ -203,7 +209,7 @@ output wire [11 : 0] axis_data_count;
     .C_AXIS_TDATA_WIDTH(8),
     .C_AXIS_TID_WIDTH(1),
     .C_AXIS_TDEST_WIDTH(1),
-    .C_AXIS_TUSER_WIDTH(1),
+    .C_AXIS_TUSER_WIDTH(2),
     .C_AXIS_TSTRB_WIDTH(1),
     .C_AXIS_TKEEP_WIDTH(1),
     .C_WACH_TYPE(0),
@@ -229,7 +235,7 @@ output wire [11 : 0] axis_data_count;
     .C_PRIM_FIFO_TYPE_WRCH("512x36"),
     .C_PRIM_FIFO_TYPE_RACH("512x36"),
     .C_PRIM_FIFO_TYPE_RDCH("1kx36"),
-    .C_PRIM_FIFO_TYPE_AXIS("2kx18"),
+    .C_PRIM_FIFO_TYPE_AXIS("1kx18"),
     .C_USE_ECC_WACH(0),
     .C_USE_ECC_WDCH(0),
     .C_USE_ECC_WRCH(0),
@@ -247,19 +253,19 @@ output wire [11 : 0] axis_data_count;
     .C_DIN_WIDTH_WRCH(2),
     .C_DIN_WIDTH_RACH(32),
     .C_DIN_WIDTH_RDCH(64),
-    .C_DIN_WIDTH_AXIS(11),
+    .C_DIN_WIDTH_AXIS(13),
     .C_WR_DEPTH_WACH(16),
     .C_WR_DEPTH_WDCH(1024),
     .C_WR_DEPTH_WRCH(16),
     .C_WR_DEPTH_RACH(16),
     .C_WR_DEPTH_RDCH(1024),
-    .C_WR_DEPTH_AXIS(2048),
+    .C_WR_DEPTH_AXIS(1024),
     .C_WR_PNTR_WIDTH_WACH(4),
     .C_WR_PNTR_WIDTH_WDCH(10),
     .C_WR_PNTR_WIDTH_WRCH(4),
     .C_WR_PNTR_WIDTH_RACH(4),
     .C_WR_PNTR_WIDTH_RDCH(10),
-    .C_WR_PNTR_WIDTH_AXIS(11),
+    .C_WR_PNTR_WIDTH_AXIS(10),
     .C_HAS_DATA_COUNTS_WACH(0),
     .C_HAS_DATA_COUNTS_WDCH(0),
     .C_HAS_DATA_COUNTS_WRCH(0),
@@ -283,7 +289,7 @@ output wire [11 : 0] axis_data_count;
     .C_PROG_FULL_THRESH_ASSERT_VAL_WRCH(15),
     .C_PROG_FULL_THRESH_ASSERT_VAL_RACH(15),
     .C_PROG_FULL_THRESH_ASSERT_VAL_RDCH(1023),
-    .C_PROG_FULL_THRESH_ASSERT_VAL_AXIS(2047),
+    .C_PROG_FULL_THRESH_ASSERT_VAL_AXIS(1023),
     .C_PROG_EMPTY_TYPE_WACH(0),
     .C_PROG_EMPTY_TYPE_WDCH(0),
     .C_PROG_EMPTY_TYPE_WRCH(0),
@@ -295,7 +301,7 @@ output wire [11 : 0] axis_data_count;
     .C_PROG_EMPTY_THRESH_ASSERT_VAL_WRCH(14),
     .C_PROG_EMPTY_THRESH_ASSERT_VAL_RACH(14),
     .C_PROG_EMPTY_THRESH_ASSERT_VAL_RDCH(1022),
-    .C_PROG_EMPTY_THRESH_ASSERT_VAL_AXIS(2046),
+    .C_PROG_EMPTY_THRESH_ASSERT_VAL_AXIS(1022),
     .C_REG_SLICE_MODE_WACH(0),
     .C_REG_SLICE_MODE_WDCH(0),
     .C_REG_SLICE_MODE_WRCH(0),
@@ -446,7 +452,7 @@ output wire [11 : 0] axis_data_count;
     .s_axis_tlast(s_axis_tlast),
     .s_axis_tid(1'B0),
     .s_axis_tdest(1'B0),
-    .s_axis_tuser(1'B0),
+    .s_axis_tuser(s_axis_tuser),
     .m_axis_tvalid(m_axis_tvalid),
     .m_axis_tready(m_axis_tready),
     .m_axis_tdata(m_axis_tdata),
@@ -455,7 +461,7 @@ output wire [11 : 0] axis_data_count;
     .m_axis_tlast(m_axis_tlast),
     .m_axis_tid(),
     .m_axis_tdest(),
-    .m_axis_tuser(),
+    .m_axis_tuser(m_axis_tuser),
     .axi_aw_injectsbiterr(1'D0),
     .axi_aw_injectdbiterr(1'D0),
     .axi_aw_prog_full_thresh(4'B0),
@@ -523,8 +529,8 @@ output wire [11 : 0] axis_data_count;
     .axi_r_prog_empty(),
     .axis_injectsbiterr(1'D0),
     .axis_injectdbiterr(1'D0),
-    .axis_prog_full_thresh(11'B0),
-    .axis_prog_empty_thresh(11'B0),
+    .axis_prog_full_thresh(10'B0),
+    .axis_prog_empty_thresh(10'B0),
     .axis_data_count(axis_data_count),
     .axis_wr_data_count(),
     .axis_rd_data_count(),

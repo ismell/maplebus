@@ -59,8 +59,8 @@ module rxMapleBus_v1_0 #
   wire [(C_AXIS_TDATA_WIDTH/8)-1 : 0] axis_tx_tkeep, axis_rx_tkeep;
   wire  axis_tx_tlast, axis_rx_tlast;
   wire  axis_tx_tready, axis_rx_tready;
-  wire  [11:0] axis_rx_data_count;
-  wire  [11:0] axis_tx_data_count;
+  wire  [10:0] axis_rx_data_count;
+  wire  [10:0] axis_tx_data_count;
 
   wire enable_tx, enable_rx, enable_loopback, reset_tx, reset_rx;
 
@@ -138,32 +138,23 @@ module rxMapleBus_v1_0 #
     .S_AXIS_TVALID(axis_tx_tvalid),     // input wire s_axis_tvalid
     .SDCKA(sdcka_tx),
     .SDCKB(sdckb_tx),
-    .ENABLE(enable_tx), // FIFO should enable the transmitter
+    .ENABLE(enable_tx && !receiving),   // enabled and we are not receiving
     .TRANSMITTING(transmitting) // Output the signal
   );
 
   always @(*)
   begin : ASSIGN_SDCKX_IN
     if (enable_loopback) begin
-      if (transmitting) begin
-        sdcka_in = sdcka_tx;
-        sdckb_in = sdckb_tx;
-      end else begin
-        sdcka_in = 1'b1;
-        sdckb_in = 1'b1;
-      end
+      // When loopback is enabled we don't ever read anything from the wire 
+      sdcka_in = sdcka_tx;
+      sdckb_in = sdckb_tx;
     end else begin
-      if (enable_rx) begin
-        if (transmitting) begin
-          sdcka_in = 1'b1;
-          sdckb_in = 1'b1;
-        end else begin
-          sdcka_in = sdcka;
-          sdckb_in = sdckb;
-        end
-      end else begin
+      if (transmitting) begin
         sdcka_in = 1'b1;
         sdckb_in = 1'b1;
+      end else begin
+        sdcka_in = sdcka;
+        sdckb_in = sdckb;
       end
     end
   end
@@ -171,17 +162,15 @@ module rxMapleBus_v1_0 #
   always @(*)
   begin : ASSIGN_SDCKX_OUT
     if (enable_loopback) begin
+      // When loopback is enabled we don't ever output anything on the wire
       sdcka_out = 1'bz;
       sdckb_out = 1'bz;
     end else begin
-      if (enable_tx) begin
-        if (transmitting) begin
-          sdcka_out = sdcka_tx;
-          sdckb_out = sdckb_tx;
-        end else begin
-          sdcka_out = 1'bz;
-          sdckb_out = 1'bz;
-        end
+      if (transmitting) begin
+        // We want to allow the pull up resistor to drive the high signal
+        // while we only drive the low signal.
+        sdcka_out = sdcka_tx ? 1'bz : 1'b0;
+        sdckb_out = sdckb_tx ? 1'bz : 1'b0;
       end else begin
         sdcka_out = 1'bz;
         sdckb_out = 1'bz;
