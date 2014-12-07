@@ -13,13 +13,15 @@ module rxMapleBus_v1_0_S_AXI_CRTL #
 		// Width of S_AXI address bus
 		parameter integer C_S_AXI_ADDR_WIDTH	= 5,
 		// Width of DATA_COUNT
-		parameter integer C_DATA_COUNTWIDTH		= 11
+		parameter integer C_DATA_COUNT_WIDTH		= 0
 	)
 	(
 		// Users to add ports here
 
-		input wire [C_DATA_COUNTWIDTH - 1 : 0] RX_DATA_COUNT,
-		input wire [C_DATA_COUNTWIDTH - 1 : 0] TX_DATA_COUNT,
+		input wire [C_DATA_COUNT_WIDTH - 1 : 0] RX_DATA_COUNT,
+		input wire [C_DATA_COUNT_WIDTH - 1 : 0] RX_PACKET_COUNT,
+		input wire [C_DATA_COUNT_WIDTH - 1 : 0] TX_DATA_COUNT,
+		input wire [C_DATA_COUNT_WIDTH - 1 : 0] TX_PACKET_COUNT,
 		output wire ENABLE_TX,
 		output wire ENABLE_RX,
 		output wire ENABLE_LOOPBACK,
@@ -124,8 +126,11 @@ module rxMapleBus_v1_0_S_AXI_CRTL #
 	reg [C_S_AXI_DATA_WIDTH-1:0]	 reg_data_out;
 	integer	 byte_index;
 
-	assign rx_data_count = { {(C_S_AXI_DATA_WIDTH/2 - C_DATA_COUNTWIDTH){1'b0}}, RX_DATA_COUNT};
-	assign tx_data_count = { {(C_S_AXI_DATA_WIDTH/2 - C_DATA_COUNTWIDTH){1'b0}}, TX_DATA_COUNT};
+	assign rx_data_count   = { {(C_S_AXI_DATA_WIDTH/2 - C_DATA_COUNT_WIDTH){1'b0}}, RX_DATA_COUNT};
+	assign rx_packet_count = { {(C_S_AXI_DATA_WIDTH/2 - C_DATA_COUNT_WIDTH){1'b0}}, RX_PACKET_COUNT};
+	
+	assign tx_data_count   = { {(C_S_AXI_DATA_WIDTH/2 - C_DATA_COUNT_WIDTH){1'b0}}, TX_DATA_COUNT};
+	assign tx_packet_count = { {(C_S_AXI_DATA_WIDTH/2 - C_DATA_COUNT_WIDTH){1'b0}}, TX_PACKET_COUNT};
 
 	assign ENABLE_TX = slv_reg0[0];
 	assign ENABLE_RX = slv_reg0[1];
@@ -246,7 +251,7 @@ module rxMapleBus_v1_0_S_AXI_CRTL #
 	                // Slave register 0
 	                slv_reg0[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
 	              end
-	          3'h2:
+	          3'h3:
 	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
 	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
 	                // Respective byte enables are asserted as per write strobes
@@ -371,8 +376,9 @@ module rxMapleBus_v1_0_S_AXI_CRTL #
 	      // Address decoding for reading registers
 	      case ( axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] )
 	        3'h0   : reg_data_out <= slv_reg0;
-	        3'h1   : reg_data_out <= {tx_data_count, rx_data_count};
-	        3'h2   : reg_data_out <= slv_reg2;
+	        3'h1   : reg_data_out <= {tx_packet_count, tx_data_count};
+	        3'h2   : reg_data_out <= {rx_packet_count, rx_data_count};
+	        3'h3   : reg_data_out <= slv_reg2;
 	        3'h7   : reg_data_out <= 32'hB82FD918; // Magic detection number
 	        default : reg_data_out <= 0;
 	      endcase

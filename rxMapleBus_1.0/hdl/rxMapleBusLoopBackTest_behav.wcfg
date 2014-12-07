@@ -10,7 +10,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="46" />
+   <WVObjectSize size="45" />
    <wvobject db_ref_id="1" type="logic" fp_name="/rxMapleBusLoopBackTest/DUT/aclk">
       <obj_property name="ElementShortName">aclk</obj_property>
       <obj_property name="ObjectShortName">aclk</obj_property>
@@ -88,10 +88,12 @@
    <wvobject db_ref_id="1" type="array" fp_name="/rxMapleBusLoopBackTest/DUT/axis_tx_tdata">
       <obj_property name="ElementShortName">axis_tx_tdata[7:0]</obj_property>
       <obj_property name="ObjectShortName">axis_tx_tdata[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject db_ref_id="1" type="array" fp_name="/rxMapleBusLoopBackTest/DUT/axis_rx_tdata">
       <obj_property name="ElementShortName">axis_rx_tdata[7:0]</obj_property>
       <obj_property name="ObjectShortName">axis_rx_tdata[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject db_ref_id="1" type="array" fp_name="/rxMapleBusLoopBackTest/DUT/axis_tx_tstrb">
       <obj_property name="ElementShortName">axis_tx_tstrb[0:0]</obj_property>
@@ -130,9 +132,19 @@
       <obj_property name="ObjectShortName">axis_rx_data_count[10:0]</obj_property>
       <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/rxMapleBusLoopBackTest/DUT/axis_rx_packet_count">
+      <obj_property name="ElementShortName">axis_rx_packet_count[10:0]</obj_property>
+      <obj_property name="ObjectShortName">axis_rx_packet_count[10:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
    <wvobject db_ref_id="1" type="array" fp_name="/rxMapleBusLoopBackTest/DUT/axis_tx_data_count">
       <obj_property name="ElementShortName">axis_tx_data_count[10:0]</obj_property>
       <obj_property name="ObjectShortName">axis_tx_data_count[10:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/rxMapleBusLoopBackTest/DUT/axis_tx_packet_count">
+      <obj_property name="ElementShortName">axis_tx_packet_count[10:0]</obj_property>
+      <obj_property name="ObjectShortName">axis_tx_packet_count[10:0]</obj_property>
       <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject db_ref_id="1" type="logic" fp_name="/rxMapleBusLoopBackTest/DUT/enable_tx">
@@ -186,17 +198,5 @@
    <wvobject db_ref_id="1" type="logic" fp_name="/rxMapleBusLoopBackTest/DUT/sdckb_out">
       <obj_property name="ElementShortName">sdckb_out</obj_property>
       <obj_property name="ObjectShortName">sdckb_out</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" type="array" fp_name="/rxMapleBusLoopBackTest/DUT/C_S_AXI_CRTL_DATA_WIDTH">
-      <obj_property name="ElementShortName">C_S_AXI_CRTL_DATA_WIDTH[31:0]</obj_property>
-      <obj_property name="ObjectShortName">C_S_AXI_CRTL_DATA_WIDTH[31:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" type="array" fp_name="/rxMapleBusLoopBackTest/DUT/C_S_AXI_CRTL_ADDR_WIDTH">
-      <obj_property name="ElementShortName">C_S_AXI_CRTL_ADDR_WIDTH[31:0]</obj_property>
-      <obj_property name="ObjectShortName">C_S_AXI_CRTL_ADDR_WIDTH[31:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" type="array" fp_name="/rxMapleBusLoopBackTest/DUT/C_AXIS_TDATA_WIDTH">
-      <obj_property name="ElementShortName">C_AXIS_TDATA_WIDTH[31:0]</obj_property>
-      <obj_property name="ObjectShortName">C_AXIS_TDATA_WIDTH[31:0]</obj_property>
    </wvobject>
 </wave_config>

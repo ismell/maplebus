@@ -52,6 +52,8 @@ module rxMapleBus_v1_0 #
     input wire  m_axis_rx_tready,
     inout wire sdcka, sdckb
   );
+  
+  localparam C_DATA_COUNT_WIDTH = 11;
 
   wire  axis_tx_tvalid, axis_rx_tvalid;
   wire [C_AXIS_TDATA_WIDTH-1 : 0] axis_tx_tdata, axis_rx_tdata;
@@ -61,6 +63,8 @@ module rxMapleBus_v1_0 #
   wire  axis_tx_tready, axis_rx_tready;
   wire  [10:0] axis_rx_data_count;
   wire  [10:0] axis_tx_data_count;
+  
+  wire [C_DATA_COUNT_WIDTH-1:0] axis_rx_packet_count, axis_tx_packet_count;
 
   wire enable_tx, enable_rx, enable_loopback, reset_tx, reset_rx;
 
@@ -73,7 +77,8 @@ module rxMapleBus_v1_0 #
   // Instantiation of Axi Bus Interface S_AXI_CRTL
   rxMapleBus_v1_0_S_AXI_CRTL # (
     .C_S_AXI_DATA_WIDTH(C_S_AXI_CRTL_DATA_WIDTH),
-    .C_S_AXI_ADDR_WIDTH(C_S_AXI_CRTL_ADDR_WIDTH)
+    .C_S_AXI_ADDR_WIDTH(C_S_AXI_CRTL_ADDR_WIDTH),
+    .C_DATA_COUNT_WIDTH(C_DATA_COUNT_WIDTH)
   ) rxMapleBus_v1_0_S_AXI_CRTL_inst (
     .S_AXI_ACLK(aclk),
     .S_AXI_ARESETN(aresetn),
@@ -97,7 +102,9 @@ module rxMapleBus_v1_0 #
     .S_AXI_RVALID(s_axi_crtl_rvalid),
     .S_AXI_RREADY(s_axi_crtl_rready),
     .RX_DATA_COUNT(axis_rx_data_count),
+    .RX_PACKET_COUNT(axis_rx_packet_count),
     .TX_DATA_COUNT(axis_tx_data_count),
+    .TX_PACKET_COUNT(axis_tx_packet_count),
     .ENABLE_TX(enable_tx),
     .ENABLE_RX(enable_rx),
     .ENABLE_LOOPBACK(enable_loopback),
@@ -125,6 +132,23 @@ module rxMapleBus_v1_0 #
     .m_axis_tlast(axis_tx_tlast),       // output wire m_axis_tlast
     
     .axis_data_count(axis_tx_data_count)    // output wire [10 : 0] axis_data_count
+  );
+  
+  packet_counter #(
+    .C_DATA_COUNT_WIDTH(C_DATA_COUNT_WIDTH)
+  ) tx_packet_counter (
+    .AXIS_ACLK(aclk),                 // input wire aclk
+    .AXIS_ARESETN(aresetn),           // input wire aresetn
+    
+    .S_AXIS_TREADY(s_axis_tx_tready), // input wire s_axis_tready
+    .S_AXIS_TLAST(s_axis_tx_tlast),   // input wire s_axis_tlast
+    .S_AXIS_TVALID(s_axis_tx_tvalid), // input wire s_axis_tvalid
+    
+    .M_AXIS_TREADY(axis_tx_tready),   // input wire m_axis_tready
+    .M_AXIS_TLAST(axis_tx_tlast),     // input wire m_axis_tlast
+    .M_AXIS_TVALID(axis_tx_tvalid),   // input wire m_axis_tvalid
+    
+    .AXIS_PACKET_COUNT(axis_tx_packet_count)
   );
 
   transmitter t(
@@ -215,6 +239,23 @@ module rxMapleBus_v1_0 #
     .m_axis_tkeep(m_axis_rx_tkeep),     // output wire [0 : 0] m_axis_tkeep
     .m_axis_tlast(m_axis_rx_tlast),     // output wire m_axis_tlast
     .axis_data_count(axis_rx_data_count)    // output wire [10 : 0] axis_data_count
+  );
+  
+  packet_counter #(
+    .C_DATA_COUNT_WIDTH(C_DATA_COUNT_WIDTH)
+  ) rx_packet_counter (
+    .AXIS_ACLK(aclk),                 // input wire aclk
+    .AXIS_ARESETN(aresetn),           // input wire aresetn
+    
+    .S_AXIS_TREADY(axis_rx_tready),   // input wire s_axis_tready
+    .S_AXIS_TLAST(axis_rx_tlast),     // input wire s_axis_tlast
+    .S_AXIS_TVALID(axis_rx_tvalid),   // input wire s_axis_tvalid
+    
+    .M_AXIS_TREADY(m_axis_rx_tready), // input wire m_axis_tready
+    .M_AXIS_TLAST(m_axis_rx_tlast),   // input wire m_axis_tlast
+    .M_AXIS_TVALID(m_axis_rx_tvalid), // input wire m_axis_tvalid
+    
+    .AXIS_PACKET_COUNT(axis_rx_packet_count)
   );
 
 endmodule
