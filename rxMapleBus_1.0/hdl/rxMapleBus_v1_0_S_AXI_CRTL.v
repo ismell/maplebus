@@ -27,6 +27,12 @@ module rxMapleBus_v1_0_S_AXI_CRTL #
 		output wire ENABLE_LOOPBACK,
 		output wire RESET_TX,
 		output wire RESET_RX,
+		output wire ENABLE_TX_IRQ,
+		output wire ENABLE_RX_IRQ,
+		output wire CLEAR_TX_IRQ,
+		output wire CLEAR_RX_IRQ,
+		input wire TX_IRQ_STATUS,
+		input wire RX_IRQ_STATUS,
 
 		// User ports ends
 		// Do not modify the ports beyond this line
@@ -116,9 +122,7 @@ module rxMapleBus_v1_0_S_AXI_CRTL #
 	//-- Signals for user logic register space example
 	//------------------------------------------------
 	//-- Number of Slave Registers 8
-	reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg0;
-	wire [C_S_AXI_DATA_WIDTH/2-1:0]	rx_data_count;
-	wire [C_S_AXI_DATA_WIDTH/2-1:0]	tx_data_count;
+	reg [C_S_AXI_DATA_WIDTH-1:0]	slv_ctrl_reg;
 	reg [C_S_AXI_DATA_WIDTH-1:0]	slv_reg2;
 
 	wire	 slv_reg_rden;
@@ -126,17 +130,31 @@ module rxMapleBus_v1_0_S_AXI_CRTL #
 	reg [C_S_AXI_DATA_WIDTH-1:0]	 reg_data_out;
 	integer	 byte_index;
 
+	wire [C_S_AXI_DATA_WIDTH/2-1:0]	rx_data_count, rx_packet_count;
 	assign rx_data_count   = { {(C_S_AXI_DATA_WIDTH/2 - C_DATA_COUNT_WIDTH){1'b0}}, RX_DATA_COUNT};
 	assign rx_packet_count = { {(C_S_AXI_DATA_WIDTH/2 - C_DATA_COUNT_WIDTH){1'b0}}, RX_PACKET_COUNT};
 	
+	wire [C_S_AXI_DATA_WIDTH/2-1:0]	tx_data_count, tx_packet_count;
 	assign tx_data_count   = { {(C_S_AXI_DATA_WIDTH/2 - C_DATA_COUNT_WIDTH){1'b0}}, TX_DATA_COUNT};
 	assign tx_packet_count = { {(C_S_AXI_DATA_WIDTH/2 - C_DATA_COUNT_WIDTH){1'b0}}, TX_PACKET_COUNT};
+	
+	wire [C_S_AXI_DATA_WIDTH-1:0]	slv_status_reg;
+	assign slv_status_reg   = { {(C_S_AXI_DATA_WIDTH - 2){1'b0}}, TX_IRQ_STATUS, RX_IRQ_STATUS};
+	
+	wire [C_S_AXI_DATA_WIDTH-1:0]	slv_tx_reg;
+	assign slv_tx_reg   = {tx_packet_count, tx_data_count};
+	
+	wire [C_S_AXI_DATA_WIDTH-1:0]	slv_rx_reg;
+	assign slv_rx_reg   = {rx_packet_count, rx_data_count};
+	
 
-	assign ENABLE_TX = slv_reg0[0];
-	assign ENABLE_RX = slv_reg0[1];
-	assign ENABLE_LOOPBACK = slv_reg0[2];
-	assign RESET_TX = slv_reg0[3];
-	assign RESET_RX = slv_reg0[4];
+	assign ENABLE_TX = slv_ctrl_reg[0];
+	assign ENABLE_RX = slv_ctrl_reg[1];
+	assign ENABLE_LOOPBACK = slv_ctrl_reg[2];
+	assign RESET_TX = slv_ctrl_reg[3];
+	assign RESET_RX = slv_ctrl_reg[4];
+	assign ENABLE_TX_IRQ = slv_ctrl_reg[5];
+	assign ENABLE_RX_IRQ = slv_ctrl_reg[6];
 
 	// I/O Connections assignments
 
@@ -233,11 +251,21 @@ module rxMapleBus_v1_0_S_AXI_CRTL #
 	// and the slave is ready to accept the write address and write data.
 	assign slv_reg_wren = axi_wready && S_AXI_WVALID && axi_awready && S_AXI_AWVALID;
 
+  assign CLEAR_TX_IRQ = slv_reg_wren
+      && axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] == 3'h1 // We are writing to address 0x04
+      && S_AXI_WSTRB[0] // We are writing to byte 0x04
+      && S_AXI_WDATA[0]; // We are writing to bit 0
+  
+  assign CLEAR_RX_IRQ = slv_reg_wren
+      && axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] == 3'h1 // We are writing to address 0x04
+      && S_AXI_WSTRB[0] // We are writing to byte 0x04
+      && S_AXI_WDATA[0]; // We are writing to bit 1
+
 	always @( posedge S_AXI_ACLK )
 	begin : ASSIGN_REGISTERS
 	  if ( S_AXI_ARESETN == 1'b0 )
 	    begin
-	      slv_reg0 <= 32'h07;// Enable TX, Enable RX, Enable Loopback
+	      slv_ctrl_reg <= 32'h67;// Enable TX, Enable RX, Enable Loopback, Enable IRQ
 	      slv_reg2 <= 0;
 	    end
 	  else begin
@@ -249,9 +277,9 @@ module rxMapleBus_v1_0_S_AXI_CRTL #
 	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
 	                // Respective byte enables are asserted as per write strobes
 	                // Slave register 0
-	                slv_reg0[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
+	                slv_ctrl_reg[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
 	              end
-	          3'h3:
+	          3'h4:
 	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
 	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
 	                // Respective byte enables are asserted as per write strobes
@@ -259,7 +287,7 @@ module rxMapleBus_v1_0_S_AXI_CRTL #
 	                slv_reg2[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
 	              end
 	          default : begin
-	                      slv_reg0 <= slv_reg0;
+	                      slv_ctrl_reg <= slv_ctrl_reg;
 	                      slv_reg2 <= slv_reg2;
 	                    end
 	        endcase
@@ -375,10 +403,11 @@ module rxMapleBus_v1_0_S_AXI_CRTL #
 	    begin
 	      // Address decoding for reading registers
 	      case ( axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] )
-	        3'h0   : reg_data_out <= slv_reg0;
-	        3'h1   : reg_data_out <= {tx_packet_count, tx_data_count};
-	        3'h2   : reg_data_out <= {rx_packet_count, rx_data_count};
-	        3'h3   : reg_data_out <= slv_reg2;
+	        3'h0   : reg_data_out <= slv_ctrl_reg; // Control Register
+	        3'h1   : reg_data_out <= slv_status_reg; // Status Register
+	        3'h2   : reg_data_out <= slv_tx_reg; // TX Counts
+	        3'h3   : reg_data_out <= slv_rx_reg; // RX Counts
+	        3'h4   : reg_data_out <= slv_reg2;
 	        3'h7   : reg_data_out <= 32'hB82FD918; // Magic detection number
 	        default : reg_data_out <= 0;
 	      endcase

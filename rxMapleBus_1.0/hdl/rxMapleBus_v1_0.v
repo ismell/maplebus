@@ -42,6 +42,7 @@ module rxMapleBus_v1_0 #
     input wire [(C_AXIS_TDATA_WIDTH/8)-1 : 0] s_axis_tx_tkeep,
     input wire  s_axis_tx_tlast,
     input wire  s_axis_tx_tvalid,
+    output wire tx_irq,
 
     // Ports of Axi Master Bus Interface M_AXIS_RX
     output wire  m_axis_rx_tvalid,
@@ -50,6 +51,8 @@ module rxMapleBus_v1_0 #
     output wire [(C_AXIS_TDATA_WIDTH/8)-1 : 0] m_axis_rx_tkeep,
     output wire  m_axis_rx_tlast,
     input wire  m_axis_rx_tready,
+    output wire rx_irq,
+    
     inout wire sdcka, sdckb
   );
   
@@ -67,6 +70,7 @@ module rxMapleBus_v1_0 #
   wire [C_DATA_COUNT_WIDTH-1:0] axis_rx_packet_count, axis_tx_packet_count;
 
   wire enable_tx, enable_rx, enable_loopback, reset_tx, reset_rx;
+  wire enable_tx_irq, enable_rx_irq, clear_tx_irq, clear_rx_irq;
 
   wire sdcka_tx, sdckb_tx, transmitting, receiving;
   reg sdcka_in, sdckb_in, sdcka_out, sdckb_out;
@@ -109,12 +113,18 @@ module rxMapleBus_v1_0 #
     .ENABLE_RX(enable_rx),
     .ENABLE_LOOPBACK(enable_loopback),
     .RESET_TX(reset_tx),
-    .RESET_RX(reset_rx)
+    .RESET_RX(reset_rx),
+    .ENABLE_TX_IRQ(enable_tx_irq),
+    .ENABLE_RX_IRQ(enable_rx_irq),
+    .CLEAR_TX_IRQ(clear_tx_irq),
+    .CLEAR_RX_IRQ(clear_rx_irq),
+    .TX_IRQ_STATUS(tx_irq),
+    .RX_IRQ_STATUS(rx_irq)
   );
   
   // We are not receiving a new packet from the master
   // and we have been instructed to reset
-  assign reset_tx_fifo = (!s_axis_tx_tvalid && reset_tx);
+  wire reset_tx_fifo = (!s_axis_tx_tvalid && reset_tx);
 
   // Instantiation of Axi Bus Interface S_AXIS_TX
   fifo_generator_0 tx_fifo (
@@ -152,7 +162,11 @@ module rxMapleBus_v1_0 #
     .M_AXIS_TLAST(axis_tx_tlast),     // input wire m_axis_tlast
     .M_AXIS_TVALID(axis_tx_tvalid),   // input wire m_axis_tvalid
     
-    .AXIS_PACKET_COUNT(axis_tx_packet_count)
+    .AXIS_PACKET_COUNT(axis_tx_packet_count),
+    
+    .ENABLE_IRQ(enable_tx_irq),
+    .CLEAR_IRQ(clear_tx_irq),
+    .IRQ(tx_irq)
   );
 
   transmitter t(
@@ -208,7 +222,7 @@ module rxMapleBus_v1_0 #
   
   
   // The slave is not awating a packet and we have been instructed to reset
-  assign reset_rx_fifo = (!m_axis_rx_tready && reset_rx);
+  wire reset_rx_fifo = (!m_axis_rx_tready && reset_rx);
 
   // Instantiation of Maple Bus Receiver
   receiver r(
@@ -263,7 +277,11 @@ module rxMapleBus_v1_0 #
     .M_AXIS_TLAST(m_axis_rx_tlast),   // input wire m_axis_tlast
     .M_AXIS_TVALID(m_axis_rx_tvalid), // input wire m_axis_tvalid
     
-    .AXIS_PACKET_COUNT(axis_rx_packet_count)
+    .AXIS_PACKET_COUNT(axis_rx_packet_count),
+    
+    .ENABLE_IRQ(enable_rx_irq),
+    .CLEAR_IRQ(clear_rx_irq),
+    .IRQ(rx_irq)
   );
 
 endmodule

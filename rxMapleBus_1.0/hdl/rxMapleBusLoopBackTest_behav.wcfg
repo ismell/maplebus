@@ -10,7 +10,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="45" />
+   <WVObjectSize size="51" />
    <wvobject db_ref_id="1" type="logic" fp_name="/rxMapleBusLoopBackTest/DUT/aclk">
       <obj_property name="ElementShortName">aclk</obj_property>
       <obj_property name="ObjectShortName">aclk</obj_property>
@@ -198,5 +198,29 @@
    <wvobject db_ref_id="1" type="logic" fp_name="/rxMapleBusLoopBackTest/DUT/sdckb_out">
       <obj_property name="ElementShortName">sdckb_out</obj_property>
       <obj_property name="ObjectShortName">sdckb_out</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/rxMapleBusLoopBackTest/DUT/tx_irq">
+      <obj_property name="ElementShortName">tx_irq</obj_property>
+      <obj_property name="ObjectShortName">tx_irq</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/rxMapleBusLoopBackTest/DUT/rx_irq">
+      <obj_property name="ElementShortName">rx_irq</obj_property>
+      <obj_property name="ObjectShortName">rx_irq</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/rxMapleBusLoopBackTest/DUT/enable_tx_irq">
+      <obj_property name="ElementShortName">enable_tx_irq</obj_property>
+      <obj_property name="ObjectShortName">enable_tx_irq</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/rxMapleBusLoopBackTest/DUT/enable_rx_irq">
+      <obj_property name="ElementShortName">enable_rx_irq</obj_property>
+      <obj_property name="ObjectShortName">enable_rx_irq</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/rxMapleBusLoopBackTest/DUT/clear_tx_irq">
+      <obj_property name="ElementShortName">clear_tx_irq</obj_property>
+      <obj_property name="ObjectShortName">clear_tx_irq</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/rxMapleBusLoopBackTest/DUT/clear_rx_irq">
+      <obj_property name="ElementShortName">clear_rx_irq</obj_property>
+      <obj_property name="ObjectShortName">clear_rx_irq</obj_property>
    </wvobject>
 </wave_config>

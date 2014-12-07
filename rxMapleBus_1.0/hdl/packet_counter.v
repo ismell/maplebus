@@ -19,24 +19,31 @@ module packet_counter #
     input wire M_AXIS_TLAST,
     input wire M_AXIS_TVALID,
     
-    output wire [C_DATA_COUNT_WIDTH-1 : 0] AXIS_PACKET_COUNT
-
+    output wire [C_DATA_COUNT_WIDTH-1 : 0] AXIS_PACKET_COUNT,
+    
+    input wire ENABLE_IRQ,
+    input wire CLEAR_IRQ,
+    output wire IRQ
   );
   
   wire aclk = AXIS_ACLK;
   wire aresetn = AXIS_ARESETN;
   
   //=============Internal Constants======================
-  parameter SIZE = 1;
+  localparam SIZE = 2;
 
-  parameter IDLE     = 1'b1 << 0;
+  localparam IDLE     = 2'b1 << 0;
+  localparam ASSERTED = 2'b1 << 1;
 
   //=============Internal Variables======================
   reg   [SIZE-1:0]          current_state;
   reg   [SIZE-1:0]          next_state;
   
-  reg [C_DATA_COUNT_WIDTH:0] packets;
+  reg [C_DATA_COUNT_WIDTH - 1 : 0] packets;
   assign AXIS_PACKET_COUNT = packets;
+  
+  wire increment = (S_AXIS_TREADY && S_AXIS_TLAST && S_AXIS_TVALID);
+  wire decrement = (M_AXIS_TREADY && M_AXIS_TLAST && M_AXIS_TVALID);
 
   initial begin
     packets <= 0;
@@ -54,18 +61,25 @@ module packet_counter #
   always @(*) begin: FSM_COMBO
     case (current_state)
       IDLE:
-        next_state = IDLE;
+        if (ENABLE_IRQ && increment)
+          next_state = ASSERTED;
+        else
+          next_state = IDLE;
+      ASSERTED:
+        if (CLEAR_IRQ)
+          next_state = IDLE;
+        else
+          next_state = ASSERTED;
       default:
         next_state = IDLE;
     endcase 
   end
+  
+  assign IRQ = (current_state == ASSERTED);
 
   // -----------------------------------------
   // Register outputs
   // -----------------------------------------
-  
-  assign increment = (S_AXIS_TREADY && S_AXIS_TLAST && S_AXIS_TVALID);
-  assign decrement = (M_AXIS_TREADY && M_AXIS_TLAST && M_AXIS_TVALID);
 
   always @(posedge aclk) begin: COUNTER
     if (aresetn == 1'b0) begin
@@ -82,8 +96,4 @@ module packet_counter #
       end
     end
   end
-
-
-
-
 endmodule
