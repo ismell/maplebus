@@ -111,11 +111,15 @@ module rxMapleBus_v1_0 #
     .RESET_TX(reset_tx),
     .RESET_RX(reset_rx)
   );
+  
+  // We are not receiving a new packet from the master
+  // and we have been instructed to reset
+  assign reset_tx_fifo = (!s_axis_tx_tvalid && reset_tx);
 
   // Instantiation of Axi Bus Interface S_AXIS_TX
   fifo_generator_0 tx_fifo (
     .s_aclk(aclk),                      // input wire s_aclk
-    .s_aresetn(aresetn && !reset_tx),   // input wire s_aresetn
+    .s_aresetn(aresetn && !reset_tx_fifo),   // input wire s_aresetn
     
     .s_axis_tvalid(s_axis_tx_tvalid),   // input wire s_axis_tvalid
     .s_axis_tready(s_axis_tx_tready),   // output wire s_axis_tready
@@ -138,7 +142,7 @@ module rxMapleBus_v1_0 #
     .C_DATA_COUNT_WIDTH(C_DATA_COUNT_WIDTH)
   ) tx_packet_counter (
     .AXIS_ACLK(aclk),                 // input wire aclk
-    .AXIS_ARESETN(aresetn),           // input wire aresetn
+    .AXIS_ARESETN(aresetn && !reset_tx_fifo), // input wire aresetn
     
     .S_AXIS_TREADY(s_axis_tx_tready), // input wire s_axis_tready
     .S_AXIS_TLAST(s_axis_tx_tlast),   // input wire s_axis_tlast
@@ -153,7 +157,7 @@ module rxMapleBus_v1_0 #
 
   transmitter t(
     .S_AXIS_ACLK(aclk),                 // input wire s_aclk
-    .S_AXIS_ARESETN(aresetn),           // input wire s_aresetn
+    .S_AXIS_ARESETN(aresetn && !reset_tx_fifo), // input wire s_aresetn
     .S_AXIS_TREADY(axis_tx_tready),     // output wire s_axis_tready
     .S_AXIS_TDATA(axis_tx_tdata),       // input wire [7 : 0] s_axis_tdata
     .S_AXIS_TSTRB(axis_tx_tstrb),       // input wire [0 : 0] s_axis_tstrb
@@ -201,6 +205,10 @@ module rxMapleBus_v1_0 #
       end
     end
   end
+  
+  
+  // The slave is not awating a packet and we have been instructed to reset
+  assign reset_rx_fifo = (!m_axis_rx_tready && reset_rx);
 
   // Instantiation of Maple Bus Receiver
   receiver r(
@@ -208,7 +216,7 @@ module rxMapleBus_v1_0 #
     .SDCKB(sdckb_in),
 
     .M_AXIS_ACLK(aclk),                 // input wire s_aclk
-    .M_AXIS_ARESETN(aresetn),           // input wire s_aresetn
+    .M_AXIS_ARESETN(aresetn && !reset_rx_fifo),           // input wire s_aresetn
     .M_AXIS_TREADY(axis_rx_tready),     // input wire m_axis_tready
     .M_AXIS_TDATA(axis_rx_tdata),       // output wire [7 : 0] m_axis_tdata
     .M_AXIS_TSTRB(axis_rx_tstrb),       // output wire [0 : 0] m_axis_tstrb
@@ -223,7 +231,7 @@ module rxMapleBus_v1_0 #
   // Instantiation of Axi Bus Interface M_AXIS_RX
   fifo_generator_0 rx_fifo (
     .s_aclk(aclk),                      // input wire s_aclk
-    .s_aresetn(aresetn && !reset_rx),   // input wire s_aresetn
+    .s_aresetn(aresetn && !reset_rx_fifo),   // input wire s_aresetn
     
     .s_axis_tvalid(axis_rx_tvalid),     // input wire s_axis_tvalid
     .s_axis_tready(axis_rx_tready),     // output wire s_axis_tready
@@ -245,7 +253,7 @@ module rxMapleBus_v1_0 #
     .C_DATA_COUNT_WIDTH(C_DATA_COUNT_WIDTH)
   ) rx_packet_counter (
     .AXIS_ACLK(aclk),                 // input wire aclk
-    .AXIS_ARESETN(aresetn),           // input wire aresetn
+    .AXIS_ARESETN(aresetn && !reset_rx_fifo),           // input wire aresetn
     
     .S_AXIS_TREADY(axis_rx_tready),   // input wire s_axis_tready
     .S_AXIS_TLAST(axis_rx_tlast),     // input wire s_axis_tlast
