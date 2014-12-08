@@ -265,7 +265,7 @@ module rxMapleBus_v1_0_S_AXI_CRTL #
 	begin : ASSIGN_REGISTERS
 	  if ( S_AXI_ARESETN == 1'b0 )
 	    begin
-	      slv_ctrl_reg <= 32'h67;// Enable TX, Enable RX, Enable Loopback, Enable IRQ
+	      slv_ctrl_reg <= 32'h07;// Enable TX, Enable RX, Enable Loopback, Disable IRQ
 	      slv_reg2 <= 0;
 	    end
 	  else begin
