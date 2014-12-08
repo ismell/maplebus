@@ -119,13 +119,13 @@ module receiver #
   );
 
   //=============Internal Constants======================
-  parameter SIZE = 6;
-  parameter IDLE             = 6'b1 << 0,
-            ENABLED          = 6'b1 << 1,
-            SKIP_FRAME       = 6'b1 << 2,
-            FLUSH_AND_ENABLE = 6'b1 << 3,
-            FLUSH_AND_SKIP   = 6'b1 << 4,
-            DONE             = 6'b1 << 5;
+  localparam SIZE = 6;
+  localparam IDLE             = 6'b1 << 0,
+             ENABLED          = 6'b1 << 1,
+             SKIP_FRAME       = 6'b1 << 2,
+             FLUSH_AND_ENABLE = 6'b1 << 3,
+             FLUSH_AND_SKIP   = 6'b1 << 4,
+             DONE             = 6'b1 << 5;
   //=============Internal Variables======================
   reg [SIZE-1:0]          current_state;
   reg [SIZE-1:0]          next_state;

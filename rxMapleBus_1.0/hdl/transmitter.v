@@ -40,13 +40,13 @@ module transmitter #
   frame_pattern_encoder #(.TICKS(2)) efe(S_AXIS_ACLK, S_AXIS_ARESETN, de_done, efe_done, efe_sdckb, efe_sdcka);
 
   //=============Internal Constants======================
-  parameter SIZE = 5;
+  localparam SIZE = 5;
 
-  parameter IDLE              = 5'b00001;
-  parameter START             = 5'b00010;
-  parameter SEND_START_FRAME  = 5'b00100;
-  parameter SEND_DATA         = 5'b01000;
-  parameter SEND_END_FRAME    = 5'b10000;
+  localparam IDLE              = 5'b1 << 0,
+             START             = 5'b1 << 1,
+             SEND_START_FRAME  = 5'b1 << 2,
+             SEND_DATA         = 5'b1 << 3,
+             SEND_END_FRAME    = 5'b1 << 4;
 
   //=============Internal Variables======================
   reg [SIZE-1:0]         current_state;
