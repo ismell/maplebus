@@ -130,11 +130,13 @@ module rxMapleBus_v1_0_S_AXI_CRTL #
 	reg [C_S_AXI_DATA_WIDTH-1:0]	 reg_data_out;
 	integer	 byte_index;
 
-	wire [C_S_AXI_DATA_WIDTH/2-1:0]	rx_data_count, rx_packet_count;
+	wire [C_S_AXI_DATA_WIDTH/2-1:0]	rx_data_count;
+	wire [C_S_AXI_DATA_WIDTH/2-1:0] rx_packet_count;
 	assign rx_data_count   = { {(C_S_AXI_DATA_WIDTH/2 - C_DATA_COUNT_WIDTH){1'b0}}, RX_DATA_COUNT};
 	assign rx_packet_count = { {(C_S_AXI_DATA_WIDTH/2 - C_DATA_COUNT_WIDTH){1'b0}}, RX_PACKET_COUNT};
 	
-	wire [C_S_AXI_DATA_WIDTH/2-1:0]	tx_data_count, tx_packet_count;
+	wire [C_S_AXI_DATA_WIDTH/2-1:0]	tx_data_count;
+	wire [C_S_AXI_DATA_WIDTH/2-1:0] tx_packet_count;
 	assign tx_data_count   = { {(C_S_AXI_DATA_WIDTH/2 - C_DATA_COUNT_WIDTH){1'b0}}, TX_DATA_COUNT};
 	assign tx_packet_count = { {(C_S_AXI_DATA_WIDTH/2 - C_DATA_COUNT_WIDTH){1'b0}}, TX_PACKET_COUNT};
 	
@@ -259,7 +261,7 @@ module rxMapleBus_v1_0_S_AXI_CRTL #
   assign CLEAR_RX_IRQ = slv_reg_wren
       && axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] == 3'h1 // We are writing to address 0x04
       && S_AXI_WSTRB[0] // We are writing to byte 0x04
-      && S_AXI_WDATA[0]; // We are writing to bit 1
+      && S_AXI_WDATA[1]; // We are writing to bit 1
 
 	always @( posedge S_AXI_ACLK )
 	begin : ASSIGN_REGISTERS

@@ -42,7 +42,6 @@ module rxMapleBus_v1_0 #
     input wire [(C_AXIS_TDATA_WIDTH/8)-1 : 0] s_axis_tx_tkeep,
     input wire  s_axis_tx_tlast,
     input wire  s_axis_tx_tvalid,
-    output wire tx_irq,
 
     // Ports of Axi Master Bus Interface M_AXIS_RX
     output wire  m_axis_rx_tvalid,
@@ -51,8 +50,8 @@ module rxMapleBus_v1_0 #
     output wire [(C_AXIS_TDATA_WIDTH/8)-1 : 0] m_axis_rx_tkeep,
     output wire  m_axis_rx_tlast,
     input wire  m_axis_rx_tready,
-    output wire rx_irq,
     
+    output wire interrupt,
     inout wire sdcka, sdckb
   );
   
@@ -62,15 +61,22 @@ module rxMapleBus_v1_0 #
   wire [C_AXIS_TDATA_WIDTH-1 : 0] axis_tx_tdata, axis_rx_tdata;
   wire [(C_AXIS_TDATA_WIDTH/8)-1 : 0] axis_tx_tstrb, axis_rx_tstrb;
   wire [(C_AXIS_TDATA_WIDTH/8)-1 : 0] axis_tx_tkeep, axis_rx_tkeep;
+  
   wire  axis_tx_tlast, axis_rx_tlast;
   wire  axis_tx_tready, axis_rx_tready;
-  wire  [10:0] axis_rx_data_count;
-  wire  [10:0] axis_tx_data_count;
   
-  wire [C_DATA_COUNT_WIDTH-1:0] axis_rx_packet_count, axis_tx_packet_count;
+  wire  [C_DATA_COUNT_WIDTH-1:0] axis_rx_data_count;
+  wire  [C_DATA_COUNT_WIDTH-1:0] axis_tx_data_count;
+  
+  wire [C_DATA_COUNT_WIDTH-1:0] axis_rx_packet_count;
+  wire [C_DATA_COUNT_WIDTH-1:0] axis_tx_packet_count;
 
   wire enable_tx, enable_rx, enable_loopback, reset_tx, reset_rx;
   wire enable_tx_irq, enable_rx_irq, clear_tx_irq, clear_rx_irq;
+  
+  wire tx_irq, rx_irq;
+  
+  assign interrupt = tx_irq || rx_irq;
 
   wire sdcka_tx, sdckb_tx, transmitting, receiving;
   reg sdcka_in, sdckb_in, sdcka_out, sdckb_out;
@@ -122,9 +128,9 @@ module rxMapleBus_v1_0 #
     .RX_IRQ_STATUS(rx_irq)
   );
   
-  // We are not receiving a new packet from the master
-  // and we have been instructed to reset
-  wire reset_tx_fifo = (!s_axis_tx_tvalid && reset_tx);
+  // We are not transmitting a packet, receiving a new packet from
+  // the AXIS master and we have been instructed to reset
+  wire reset_tx_fifo = (!transmitting && !s_axis_tx_tvalid && reset_tx);
 
   // Instantiation of Axi Bus Interface S_AXIS_TX
   fifo_generator_0 tx_fifo (
@@ -171,7 +177,7 @@ module rxMapleBus_v1_0 #
 
   transmitter t(
     .S_AXIS_ACLK(aclk),                 // input wire s_aclk
-    .S_AXIS_ARESETN(aresetn && !reset_tx_fifo), // input wire s_aresetn
+    .S_AXIS_ARESETN(aresetn),           // input wire s_aresetn
     .S_AXIS_TREADY(axis_tx_tready),     // output wire s_axis_tready
     .S_AXIS_TDATA(axis_tx_tdata),       // input wire [7 : 0] s_axis_tdata
     .S_AXIS_TSTRB(axis_tx_tstrb),       // input wire [0 : 0] s_axis_tstrb
@@ -221,8 +227,9 @@ module rxMapleBus_v1_0 #
   end
   
   
-  // The slave is not awating a packet and we have been instructed to reset
-  wire reset_rx_fifo = (!m_axis_rx_tready && reset_rx);
+  // The receiver is not in the middle of receiving a packet, the AXIS slave
+  // is not awating a packet, and we have been instructed to reset
+  wire reset_rx_fifo = (!receiving && !m_axis_rx_tready && reset_rx);
 
   // Instantiation of Maple Bus Receiver
   receiver r(
@@ -230,7 +237,7 @@ module rxMapleBus_v1_0 #
     .SDCKB(sdckb_in),
 
     .M_AXIS_ACLK(aclk),                 // input wire s_aclk
-    .M_AXIS_ARESETN(aresetn && !reset_rx_fifo),           // input wire s_aresetn
+    .M_AXIS_ARESETN(aresetn),           // input wire s_aresetn
     .M_AXIS_TREADY(axis_rx_tready),     // input wire m_axis_tready
     .M_AXIS_TDATA(axis_rx_tdata),       // output wire [7 : 0] m_axis_tdata
     .M_AXIS_TSTRB(axis_rx_tstrb),       // output wire [0 : 0] m_axis_tstrb
