@@ -23,6 +23,8 @@
 #include <linux/fs.h>       /* everything... */
 
 #include "hw.h"
+#include "utils.h"
+#include "dma.h"
 
 /* Standard module information, edit as appropriate */
 MODULE_LICENSE("GPL");
@@ -46,6 +48,8 @@ module_param(mystr, charp, S_IRUGO);
 // Module Globals
 static struct maple_bus_global *gp;
 
+static int maple_bus_start_rx(struct net_device *netdev);
+
 static void maple_bus_print_status(struct maple_bus_local *lp) {
   u32 control, status;
   struct maple_bus_chan_count rx_count, tx_count;
@@ -55,14 +59,10 @@ static void maple_bus_print_status(struct maple_bus_local *lp) {
   maple_bus_get_count(lp, MAPLE_BUS_RX_COUNT_REG, &rx_count);
 
   dev_err(lp->dev,
-      "Control Register: 0x%8x\n"
-      "  TX Enabled: %d, RX Enabled: %d\n, Loopback Enabled: %d\n"
+      "Control Register: 0x%08x\n"
+      "  TX Enabled: %d, RX Enabled: %d, Loopback Enabled: %d\n"
       "  Reset TX: %d, Reset RX: %d\n"
-      "  TX IRQ Enabled: %d, RX IRQ Enabled: %d\n"
-      "Status Register: 0x%8x\n"
-      "  TX IRQ: %d, RX IRQ: %d\n"
-      "TX Buffered Packets: %d, TX Buffer Length: %d\n"
-      "RX Buffered Packets: %d, RX Buffer Length: %d\n",
+      "  TX IRQ Enabled: %d, RX IRQ Enabled: %d\n",
       control,
       !!(control & MAPLE_BUS_ENABLE_TX),
       !!(control & MAPLE_BUS_ENABLE_RX),
@@ -70,7 +70,13 @@ static void maple_bus_print_status(struct maple_bus_local *lp) {
       !!(control & MAPLE_BUS_RESET_TX),
       !!(control & MAPLE_BUS_RESET_RX),
       !!(control & MAPLE_BUS_ENABLE_TX_IRQ),
-      !!(control & MAPLE_BUS_ENABLE_RX_IRQ),
+      !!(control & MAPLE_BUS_ENABLE_RX_IRQ)
+  );
+  dev_err(lp->dev,
+      "Status Register: 0x%08x\n"
+      "  TX IRQ: %d, RX IRQ: %d\n"
+      "  TX Buffered Packets: %d, TX Buffer Length: %d\n"
+      "  RX Buffered Packets: %d, RX Buffer Length: %d\n",
       status,
       !!(status & MAPLE_BUS_TX_IRQ_STATUS),
       !!(status & MAPLE_BUS_RX_IRQ_STATUS),
@@ -107,7 +113,7 @@ static int maple_bus_sbk_to_sgt(struct net_device *netdev, struct sk_buff *skb,
 
   dev_err(lp->dev, "total number of sgs: %d\n", sg_n);
   
-  if (sg_alloc_table(sgt, sg_n, GFP_KERNEL)) {
+  if (sg_alloc_table(sgt, sg_n, GFP_ATOMIC)) {
     dev_err(lp->dev, "Failed to allocate scatterlist\n");
     return -ENOMEM;
   }
@@ -219,6 +225,7 @@ static int maple_bus_alloc_dmadesc(struct maple_bus_async_dma_desc **dmadescp, s
     struct sk_buff *skb, enum dma_transfer_direction direction, dma_async_tx_callback callback) {
   struct maple_bus_local *lp = netdev_priv(netdev);
   struct maple_bus_async_dma_desc *dmadesc;
+  struct sg_table *sgt;
   int err = -EFAULT;
   struct dma_chan *chan;
 
@@ -231,7 +238,7 @@ static int maple_bus_alloc_dmadesc(struct maple_bus_async_dma_desc **dmadescp, s
   else
     return -EINVAL;
 
-  if (!(dmadesc = kzalloc(sizeof(*dmadesc)))) {
+  if (!(dmadesc = kzalloc(sizeof(*dmadesc), GFP_ATOMIC))) {
     dev_err(lp->dev, "Failed to allocate dma desc");
     return -ENOMEM;
   }
@@ -240,8 +247,10 @@ static int maple_bus_alloc_dmadesc(struct maple_bus_async_dma_desc **dmadescp, s
   dmadesc->skb = skb;
   dmadesc->direction = direction;
 
+  sgt = &dmadesc->sgt;
+
   // Map SKB to scattertable
-  if ((err = maple_bus_sbk_to_sgt(netdev, sbk, &dmadesc->sgt))) {
+  if ((err = maple_bus_sbk_to_sgt(netdev, skb, sgt))) {
     goto free_dmadesc;
   }
 
@@ -254,7 +263,7 @@ static int maple_bus_alloc_dmadesc(struct maple_bus_async_dma_desc **dmadescp, s
   // Allocate txd
   dev_err(lp->dev, "Prepping SG list");
 
-  if (!(dmadesc->txd = dmaengine_prep_slave_sg(chan, dmadesc->sgt->sgl, dmadesc->sgt->nents,
+  if (!(dmadesc->txd = dmaengine_prep_slave_sg(chan, sgt->sgl, sgt->nents,
       dmadesc->direction, DMA_CTRL_ACK | DMA_PREP_INTERRUPT))) {
     dev_err(lp->dev, "Failed to prep sg list");
     goto free_mapping; //TODO: I don't know how to free a list
@@ -301,6 +310,7 @@ static void maple_bus_slave_rx_callback(void *arg)
   dev_info(lp->dev, "maple_bus_slave_rx_callback receive skb 0x%p with data 0x%p of size %d\n", skb,
       skb->data, skb->len);
 
+  //skb->mac.raw = netdev->dev_addr;
   skb->pkt_type = PACKET_HOST;
   skb->protocol = htons(ETH_P_MAPLE_BUS);
   skb->ip_summed = CHECKSUM_UNNECESSARY; /* don't check it */
@@ -363,7 +373,7 @@ free_dmadesc:
   maple_bus_free_dmadesc(netdev, dmadesc);
 
 free_skb:
-  kfree_skb(skb)
+  kfree_skb(skb);
 
   return err;
 }
@@ -377,7 +387,7 @@ static int maple_bus_start_rx(struct net_device *netdev) {
   
   dev_info(lp->dev, "maple_bus_start_rx starting\n");
 
-  maple_bus_get_count(lp, MAPLE_BUS_RX_COUNT_REG, count);
+  maple_bus_get_count(lp, MAPLE_BUS_RX_COUNT_REG, &count);
 
   dev_info(lp->dev, "maple_bus_start_rx buffer has %d packets of size %d\n", count.packets,
       count.length);
@@ -400,6 +410,7 @@ static void maple_bus_slave_tx_callback(void *arg)
   struct maple_bus_async_dma_desc *dmadesc = arg;
   struct net_device *netdev = dmadesc->netdev;
   struct maple_bus_local *lp = netdev_priv(netdev);
+  struct sg_table *sgt = &dmadesc->sgt;
   enum dma_status status;
   struct scatterlist *sg;
   int total_len = 0, i = 0;
@@ -417,7 +428,7 @@ static void maple_bus_slave_tx_callback(void *arg)
     return;
   }
 
-  for_each_sg(dmadesc->sgt->sgl, sg, dmadesc->sgt->orig_nents, i) {
+  for_each_sg(sgt->sgl, sg, sgt->orig_nents, i) {
     total_len += sg_dma_len(sg);
   }
 
@@ -435,6 +446,8 @@ static void maple_bus_slave_tx_callback(void *arg)
   if (unlikely(netif_queue_stopped(netdev)))
     netif_wake_queue(netdev);
 
+  maple_bus_print_status(lp);
+
   dev_info(lp->dev, "maple_bus_slave_tx_callback complete\n");
 }
 
@@ -442,6 +455,7 @@ static int maple_bus_xmit_prepare(struct net_device *netdev, struct sk_buff *skb
 {
   struct maple_bus_local *lp = netdev_priv(netdev);
   struct maple_bus_async_dma_desc *dmadesc;
+  int err;
 
   dev_info(lp->dev, "maple_bus_xmit_prepare starting\n");
 
@@ -455,7 +469,7 @@ static int maple_bus_xmit_prepare(struct net_device *netdev, struct sk_buff *skb
   skb_tx_timestamp(skb);
 
   if ((err = maple_bus_submit_dmadesc(netdev, dmadesc))) {
-    goto free_mapping;
+    goto free_dmadesc;
   }
 
   dev_info(lp->dev, "maple_bus_xmit_prepare complete\n");
@@ -479,23 +493,23 @@ static netdev_tx_t maple_bus_net_xmit_frame(struct sk_buff *skb,
 
   switch (err) {
   case 0:
-    netif_printk(nic, tx_err, KERN_DEBUG, netdev,
+    netif_printk(lp, tx_err, KERN_DEBUG, netdev,
         "Packet enqueued\n");
     break;
   case -ENOSPC:
     /* We queued the skb, but now we're out of space. */
-    netif_printk(nic, tx_err, KERN_DEBUG, nic->netdev,
+    netif_printk(lp, tx_err, KERN_DEBUG, netdev,
            "No space for CB\n");
     netif_stop_queue(netdev);
     break;
   case -ENOMEM:
     /* This is a hard error - log it. */
-    netif_printk(nic, tx_err, KERN_DEBUG, netdev,
+    netif_printk(lp, tx_err, KERN_DEBUG, netdev,
            "Out of Tx resources, returning skb\n");
     netif_stop_queue(netdev);
     return NETDEV_TX_BUSY;
   default:
-    netif_printk(nic, tx_err, KERN_DEBUG, netdev,
+    netif_printk(lp, tx_err, KERN_DEBUG, netdev,
         "Could not enqueue packet for an unknown reason\n");
     netif_stop_queue(netdev);
     return NETDEV_TX_BUSY;
@@ -505,6 +519,46 @@ static netdev_tx_t maple_bus_net_xmit_frame(struct sk_buff *skb,
 
   return NETDEV_TX_OK;
 }
+
+static irqreturn_t maple_bus_irq(int irq, void *args)
+{
+  struct net_device *netdev = args;
+  struct maple_bus_local *lp = netdev_priv(netdev);
+  u32 status, clear = 0;
+  irqreturn_t rc = IRQ_NONE;
+
+  dev_info(lp->dev, "maple_bus_irq starting\n");
+
+  maple_bus_print_status(lp);
+  
+  spin_lock(&lp->irq_lock);
+
+  status = maple_bus_read(lp, MAPLE_BUS_STATUS_REG);
+
+  if (status & MAPLE_BUS_TX_IRQ_STATUS) {
+    dev_info(lp->dev, "maple_bus_irq tx IRQ received\n");
+    clear |= MAPLE_BUS_CLEAR_IRQ;
+  }
+
+  if (status & MAPLE_BUS_RX_IRQ_STATUS) {
+    dev_info(lp->dev, "maple_bus_irq rx IRQ received\n");
+    clear |= MAPLE_BUS_CLEAR_IRQ;
+    //TODO: Move this into a tasklet
+    maple_bus_start_rx(netdev);
+  }
+
+  if (clear) {
+    dev_info(lp->dev, "maple_bus_irq clearing IRQ: 0x%08x\n", clear);
+    maple_bus_write(lp, MAPLE_BUS_STATUS_REG, clear);
+    rc = IRQ_HANDLED;
+  }
+  
+  /* Unlock the device and we are done */
+  spin_unlock(&lp->irq_lock);
+
+  return rc;
+}
+
 
 static int maple_bus_up(struct net_device *netdev)
 {
@@ -516,7 +570,8 @@ static int maple_bus_up(struct net_device *netdev)
 
   maple_bus_reset_hw(lp);
 
-  if ((err = devm_request_irq(lp->dev, lp->irq, &maple_bus_irq, 0, netdev->name, netdev))) {
+  dev_info(lp->dev, "maple_bus_up requesting irq %d\n", lp->irq);
+  if ((err = request_irq(lp->irq, maple_bus_irq, 0, netdev->name, netdev))) {
     dev_err(lp->dev, "Could not allocate interrupt %d.\n", lp->irq);
     return -EBUSY;
   }
@@ -548,7 +603,8 @@ static void maple_bus_down(struct net_device *netdev)
 
   netif_stop_queue(netdev);
   maple_bus_reset_hw(lp);
-  devm_free_irq(lp->dev, lp->irq, netdev);
+  dev_info(lp->dev, "maple_bus_down freeing irq %d\n", lp->irq);
+  free_irq(lp->irq, netdev);
   //del_timer_sync(&nic->watchdog);
   netif_carrier_off(netdev);
 
@@ -573,7 +629,7 @@ static int maple_bus_net_stop(struct net_device *netdev)
   return 0;
 }
 
-struct int maple_bus_net_validate_addr(struct net_device *dev) {
+static int maple_bus_net_validate_addr(struct net_device *netdev) {
   struct maple_bus_local *lp = netdev_priv(netdev);
 
   dev_info(lp->dev, "Validating mac address\n");
@@ -612,22 +668,19 @@ static int maple_bus_probe(struct platform_device *pdev)
 {
   struct resource *r_irq; /* Interrupt resources */
 	struct resource *r_mem; /* IO mem resources */
+  int err;
 	
   struct device *dev = &pdev->dev;
   struct net_device *netdev;
   struct maple_bus_local *lp;
-
-  unsigned int control = 0;
-
-	int rc = 0;
 	
 	dev_info(dev, "Device Tree Probing\n");
 
-  netdev = devm_alloc_netdev(dev, sizeof(struct *lp), "maplebus%d", maple_bus_net_init);
-  if (!netdev)
-    return -ENOMEM;
+  netdev = devm_alloc_netdev(dev, sizeof(*lp), "maplebus%d", maple_bus_net_init);
+  if (IS_ERR(netdev))
+    return PTR_ERR(netdev);
 
-  SET_NETDEV_DEV(netdev, dev);
+  memset(netdev->dev_addr, 0, MAPLE_BUS_ALEN);
 
   dev_set_drvdata(dev, netdev);
 
@@ -647,12 +700,16 @@ static int maple_bus_probe(struct platform_device *pdev)
 
   /* Remap IO for device */
   lp->base_addr = devm_ioremap_resource(dev, r_mem);
-  if (IS_ERR(lp->base_addr))
+  if (IS_ERR(lp->base_addr)) {
+    dev_info(dev, "Failed to remap IO\n");
     return PTR_ERR(lp->base_addr);
+  }
 
   /* Make sure we have the correct device */
-  if (maple_bus_verify_magic(lp))
-    return -ENODEV;
+  if ((err = maple_bus_verify_magic(lp))) {
+    dev_info(dev, "failed to validate hw magic\n");
+    return err;
+  }
 
   /* Get IRQ for the device */
   if (!(r_irq = platform_get_resource(pdev, IORESOURCE_IRQ, 0))) {
@@ -669,60 +726,18 @@ static int maple_bus_probe(struct platform_device *pdev)
 
   maple_bus_print_status(lp);
 
+  if ((err = devm_register_netdev(dev, netdev))) {
+    netif_err(lp, probe, netdev, "Cannot register net device, aborting\n");
+    return err;
+  }
+
 	return 0;
 }
-
-static irqreturn_t maple_bus_irq(int irq, void *args)
-{
-  struct netdev *netdev = args;
-  struct maple_bus_local *lp = netdev_priv(netdev);
-  u32 status, clear = 0;
-  irqreturn_t rc = IRQ_NONE;
-
-  dev_info(lp->dev, "maple_bus_irq starting\n");
-
-  maple_bus_print_status(lp);
-  
-  spin_lock(&lp->irq_lock);
-
-  status = maple_bus_read(lp, MAPLE_BUS_STATUS_REG);
-
-  if (status & MAPLE_BUS_TX_IRQ_STATUS) {
-    dev_info(lp->dev, "maple_bus_irq tx IRQ received\n");
-    clear |= MAPLE_BUS_CLEAR_IRQ;
-  }
-
-  if (status & MAPLE_BUS_RX_IRQ_STATUS) {
-    dev_info(lp->dev, "maple_bus_irq rx IRQ received\n");
-    clear |= MAPLE_BUS_CLEAR_IRQ;
-    //TODO: Move this into a tasklet
-    maple_bus_start_rx(netdev);
-  }
-
-  if (clear) {
-    dev_info(lp->dev, "maple_bus_irq clearing IRQ: 0x%8x\n", clear);
-    maple_bus_write(lp, MAPLE_BUS_STATUS_REG, clear);
-    rc = IRQ_HANDLED;
-  }
-  
-  /* Unlock the device and we are done */
-  spin_unlock(&priv->lock);
-
-  return rc;
-}
-
 
 static int maple_bus_remove(struct platform_device *pdev)
 {
 	struct device *dev = &pdev->dev;
-	struct maple_bus_local *lp = dev_get_drvdata(dev);
-
-  free_irq(lp->irq, lp);
-  maple_bus_free_cdev(lp);
-  iounmap(lp->base_addr);
-	release_mem_region(lp->mem_start, lp->mem_end - lp->mem_start + 1);
-  lp->magic = 0;
-	kfree(lp);
+	// All the freeing is handled by devm
 	dev_set_drvdata(dev, NULL);
 	return 0;
 }
@@ -739,7 +754,7 @@ MODULE_DEVICE_TABLE(of, maple_bus_of_match);
 
 
 static struct platform_driver maple_bus_driver = {
-	.driver {
+	.driver = {
 		.name = DRIVER_NAME,
 		.owner = THIS_MODULE,
 		.of_match_table	= maple_bus_of_match,
@@ -750,25 +765,32 @@ static struct platform_driver maple_bus_driver = {
 
 static int __init maple_bus_init(void)
 {
+  int err;
 	printk("<1>Hello module world.\n");
 	printk("<1>Module parameters were pause (0x%08x), loopback (0x%08x) and \"%s\"\n", pause, loopback,
 	       mystr);
 
-  gp = kzalloc(sizeof(*gp), GFP_KERNEL);
+  gp = kzalloc(sizeof(*gp), GFP_ATOMIC);
   if (!gp) {
     printk(KERN_ALERT "Failed to alloc module buffer\n");
     return -EFAULT;
   }
 
   // TODO: We should find a way to find the DMA IP linked to the maple bus
-  if (maple_bus_find_dma_channels(gp, 0)) {
+  if ((err = maple_bus_find_dma_channels(gp, 0))) {
+    printk(KERN_ALERT "Failed to find DMA channels\n");
     goto free_global;
   }
 
   gp->loopback = loopback;
   gp->pause = pause;
 
-	return platform_driver_register(&maple_bus_driver);
+  if ((err = platform_driver_register(&maple_bus_driver))) {
+    printk(KERN_ALERT "Failed to register maple_bus_driver\n");
+    goto free_dma;
+  }
+
+	return 0;
 
 free_dma:
   maple_bus_free_dma_channels(gp);
@@ -782,8 +804,12 @@ free_global:
 
 static void __exit maple_bus_exit(void)
 {
+  printk(KERN_ALERT "Starting maple bus unload\n");
   if (gp) {
+    printk(KERN_ALERT "unloading platform devices\n");
     platform_driver_unregister(&maple_bus_driver);
+
+    printk(KERN_ALERT "Freeing DMA channels\n");
     maple_bus_free_dma_channels(gp);
 
     kfree(gp);

@@ -13,7 +13,7 @@ KERNEL_BUILD:=$(PROOT)/build/$(LINUX_KERNEL)
 
 LOCALPWD=$(shell pwd)
 obj-m += maple_bus.o
-maple_bus-y := net.o dma.o
+maple_bus-y := net.o dma.o utils.o
 
 all: build modules install
 

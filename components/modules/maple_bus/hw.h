@@ -44,13 +44,13 @@ static inline u32 maple_bus_read(struct maple_bus_local *lp, u32 reg)
   return ioread32(lp->base_addr + reg);
 }
 
-static void maple_bus_get_count(struct maple_bus_local *lp, u32 reg, struct maple_bus_chan_count *count) {
+void maple_bus_get_count(struct maple_bus_local *lp, u32 reg, struct maple_bus_chan_count *count) {
   u32 value = maple_bus_read(lp, reg);
   count->packets = (value >> 16);
   count->length = (value & 0x0000FFFF);
 }
 
-static void maple_bus_set_flag(struct maple_bus_local *lp, u32 reg, u32 flags) {
+void maple_bus_set_flag(struct maple_bus_local *lp, u32 reg, u32 flags) {
   unsigned long irq_flags;
   u32 value;
 
@@ -63,7 +63,7 @@ static void maple_bus_set_flag(struct maple_bus_local *lp, u32 reg, u32 flags) {
   spin_unlock_irqrestore(&lp->cmd_lock, irq_flags);
 }
 
-static void maple_bus_unset_flag(struct maple_bus_local *lp, u32 reg, u32 flags) {
+void maple_bus_unset_flag(struct maple_bus_local *lp, u32 reg, u32 flags) {
   unsigned long irq_flags;
   u32 value;
   
@@ -76,7 +76,7 @@ static void maple_bus_unset_flag(struct maple_bus_local *lp, u32 reg, u32 flags)
   spin_unlock_irqrestore(&lp->cmd_lock, irq_flags);
 }
 
-static int maple_bus_verify_magic(struct maple_bus_local *lp) {
+int maple_bus_verify_magic(struct maple_bus_local *lp) {
   dev_info(lp->dev, "maple_bus: verifying magic number");
   if (maple_bus_read(lp, MAPLE_BUS_MAGIC_REG) == MAPLE_BUS_MAGIC_NUMBER) {
     dev_info(lp->dev, "maple_bus: magic number matched");
@@ -87,7 +87,7 @@ static int maple_bus_verify_magic(struct maple_bus_local *lp) {
   }
 }
 
-static void maple_bus_reset_hw(struct maple_bus_local *lp) {
+void maple_bus_reset_hw(struct maple_bus_local *lp) {
   unsigned i;
   u32 control;
   struct maple_bus_chan_count count;

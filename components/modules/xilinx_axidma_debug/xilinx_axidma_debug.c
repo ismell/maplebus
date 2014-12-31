@@ -166,6 +166,8 @@ static inline u32 dma_read(struct xilinx_dma_chan *chan, u32 reg)
 static void xilinx_dma_channel_debug(struct xilinx_dma_chan *chan) {
   unsigned int control, status;
 
+  return;
+
   control = (unsigned int)dma_read(chan, XILINX_DMA_CONTROL_OFFSET);
   status = (unsigned int)dma_read(chan, XILINX_DMA_STATUS_OFFSET);
 
@@ -751,12 +753,12 @@ static irqreturn_t dma_intr_handler(int irq, void *data)
 		  XILINX_DMA_XR_IRQ_ALL_MASK);
 
   dev_err(chan->dev, "ACK IRQ for channel %d\n", chan->id);
-  dev_err(chan->dev, "IRQ Stat 0x%x, IRQ Control 0x%x for channel %d\n", stat, reg, chan->id);
+  dev_err(chan->dev, "IRQ Stat 0x%08x, IRQ Control 0x%08x for channel %d\n", stat, reg, chan->id);
 
 	/* Check for only the interrupts which are enabled */
 	stat &= (reg & XILINX_DMA_XR_IRQ_ALL_MASK);
 
-  dev_err(chan->dev, "IRQ Stat 0x%x, IRQ Control 0x%x for channel %d\n", stat, reg, chan->id);
+  dev_err(chan->dev, "IRQ Stat 0x%08x, IRQ Control 0x%08x for channel %d\n", stat, reg, chan->id);
 
 	if (stat & XILINX_DMA_XR_IRQ_ERROR_MASK) {
 		dev_err(chan->dev,
@@ -1133,7 +1135,7 @@ static int xilinx_dma_device_control(struct dma_chan *dchan,
 			reg &= ~XILINX_DMA_XR_DELAY_MASK;
 			reg |= cfg->delay << XILINX_DMA_DELAY_SHIFT;
 			chan->config.delay = cfg->delay;
-      dev_err(chan->dev, "Set delay to %x for channel %d\n", chan->config.coalesc, chan->id);
+      dev_err(chan->dev, "Set delay to %x for channel %d\n", chan->config.delay, chan->id);
 		}
 
 		dma_write(chan, XILINX_DMA_CONTROL_OFFSET, reg);
@@ -1152,10 +1154,13 @@ static void xilinx_dma_free_channels(struct xilinx_dma_device *xdev)
   dev_err(xdev->dev, "Freeing DMA channels\n");
 
 	for (i = 0; i < XILINX_DMA_MAX_CHANS_PER_DEVICE; i++) {
-    dev_err(xdev->dev, "Freeing DMA channel %d\n", i);
+    dev_err(xdev->dev, "Starting to free DMA channel %d\n", i);
 		list_del(&xdev->chan[i]->common.device_node);
+    dev_err(xdev->dev, "Killing tasklet for channel %d\n", i);
 		tasklet_kill(&xdev->chan[i]->tasklet);
-		irq_dispose_mapping(xdev->chan[i]->irq);
+    //dev_err(xdev->dev, "Disposing of irq mapping %d for channel %d\n", xdev->chan[i]->irq, i);
+		//irq_dispose_mapping(xdev->chan[i]->irq);
+    dev_err(xdev->dev, "DMA channel %d is \"free\". Memory and IRQ are held by devres.\n", i);
 	}
 }
 
@@ -1296,11 +1301,11 @@ static int xilinx_dma_probe(struct platform_device *pdev)
 	int ret;
 	u32 value;
 	
-	dev_err(&pdev->dev, "<1>Trying to allocate memory\n");
+	dev_err(&pdev->dev, "Trying to allocate memory\n");
 
 	xdev = devm_kzalloc(&pdev->dev, sizeof(*xdev), GFP_KERNEL);
 	if (!xdev) {
-		dev_err(&pdev->dev, "<1>Allocation failed!\n");
+		dev_err(&pdev->dev, "Allocation failed!\n");
 		return -ENOMEM;
 	}
 
@@ -1310,37 +1315,37 @@ static int xilinx_dma_probe(struct platform_device *pdev)
 	node = pdev->dev.of_node;
 
 	/* iomap registers */
-	dev_err(&pdev->dev, "<1>IO Mapping Registers\n");
+	dev_err(&pdev->dev, "IO Mapping Registers\n");
 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
 	xdev->regs = devm_ioremap_resource(&pdev->dev, res);
 	if (IS_ERR(xdev->regs)) {
-		dev_err(&pdev->dev, "<1>Memory Remap failed\n");
+		dev_err(&pdev->dev, "Memory Remap failed\n");
 		return PTR_ERR(xdev->regs);
 	}
 
 	/* Check if SG is enabled */
-	dev_err(&pdev->dev, "<1>Checking for SG support\n");
+	dev_err(&pdev->dev, "Checking for SG support\n");
 	value = of_property_read_bool(node, "xlnx,include-sg");
 	if (value) {
-		dev_err(&pdev->dev, "<1>SG Support is enabled\n");
+		dev_err(&pdev->dev, "SG Support is enabled\n");
 		xdev->feature |= XILINX_DMA_FTR_HAS_SG;
 	} else {
-		dev_err(&pdev->dev, "<1>SG Support is disabled\n");
+		dev_err(&pdev->dev, "SG Support is disabled\n");
 	}
 
 	/* Check if status control streams are enabled */
-	dev_err(&pdev->dev, "<1>Checking for Control Stream\n");
+	dev_err(&pdev->dev, "Checking for Control Stream\n");
 	value = of_property_read_bool(node,
 				      "xlnx,sg-include-stscntrl-strm");
 	if (value) {
-		dev_err(&pdev->dev, "<1>Control Stream exists\n");
+		dev_err(&pdev->dev, "Control Stream exists\n");
 		xdev->feature |= XILINX_DMA_FTR_STSCNTRL_STRM;
 	} else {
-		dev_err(&pdev->dev, "<1>Control Stream is disabled\n");
+		dev_err(&pdev->dev, "Control Stream is disabled\n");
 	}
 
 	/* Axi DMA only do slave transfers */
-	dev_err(&pdev->dev, "<1>Setting up Local DMA Device Struct\n");
+	dev_err(&pdev->dev, "Setting up Local DMA Device Struct\n");
 	dma_cap_set(DMA_SLAVE, xdev->common.cap_mask);
 	dma_cap_set(DMA_PRIVATE, xdev->common.cap_mask);
 	xdev->common.device_prep_slave_sg = xilinx_dma_prep_slave_sg;
@@ -1353,23 +1358,23 @@ static int xilinx_dma_probe(struct platform_device *pdev)
 	xdev->common.device_tx_status = xilinx_tx_status;
 	xdev->common.dev = &pdev->dev;
 
-	dev_err(&pdev->dev, "<1>Setting Local Device Struct\n");
+	dev_err(&pdev->dev, "Setting Local Device Struct\n");
 	platform_set_drvdata(pdev, xdev);
 
-	dev_err(&pdev->dev, "<1>Looping child nodes\n");
+	dev_err(&pdev->dev, "Looping child nodes\n");
 	for_each_child_of_node(node, child) {
-		dev_err(&pdev->dev, "<1>Processing Child\n");
+		dev_err(&pdev->dev, "Processing Child\n");
 		ret = xilinx_dma_chan_probe(xdev, child, xdev->feature);
 		if (ret) {
 			dev_err(&pdev->dev, "Probing channels failed\n");
 			goto free_chan_resources;
 		} else {
-			dev_err(&pdev->dev, "<1>Probing succeeded\n");
+			dev_err(&pdev->dev, "Probing succeeded\n");
 		}
 	}
-	dev_err(&pdev->dev, "<1>Looping children done\n");
+	dev_err(&pdev->dev, "Looping children done\n");
 
-	dev_err(&pdev->dev, "<1>Register Async DMA\n");
+	dev_err(&pdev->dev, "Register Async DMA\n");
 	ret = dma_async_device_register(&xdev->common);
 	if (ret) {
 		dev_err(&pdev->dev, "DMA device registration failed\n");

@@ -10,7 +10,7 @@ static bool xdma_filter(struct dma_chan *chan, void *param)
   return false;
 }
 
-static void maple_bus_free_dma_channels(struct maple_bus_global *gp)
+void maple_bus_free_dma_channels(struct maple_bus_global *gp)
 {
   if (gp->rx_chan) {
     dma_release_channel(gp->rx_chan);
@@ -60,7 +60,7 @@ free_chan:
   return err;
 }
 
-static int maple_bus_find_dma_channels(struct maple_bus_global *gp, u32 device_id)
+int maple_bus_find_dma_channels(struct maple_bus_global *gp, u32 device_id)
 {
   int err = 0;
 
