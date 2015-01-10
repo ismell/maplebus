@@ -53,11 +53,17 @@ static int maple_bus_start_rx(struct net_device *netdev);
 static void maple_bus_print_status(struct maple_bus_local *lp) {
   u32 control, status;
   struct maple_bus_chan_count rx_count, tx_count;
+  struct maple_bus_chan_totals totals;
   control = maple_bus_read(lp, MAPLE_BUS_CONTROL_REG);
   status = maple_bus_read(lp, MAPLE_BUS_STATUS_REG);
   maple_bus_get_count(lp, MAPLE_BUS_TX_COUNT_REG, &tx_count);
   maple_bus_get_count(lp, MAPLE_BUS_RX_COUNT_REG, &rx_count);
+  maple_bus_get_totals(lp, &totals);
 
+  dev_info(lp->dev,"maple_bus at 0x%08x with irq %d",
+      (unsigned int __force)lp->base_addr,
+      lp->irq
+  );
   dev_err(lp->dev,
       "Control Register: 0x%08x\n"
       "  TX Enabled: %d, RX Enabled: %d, Loopback Enabled: %d\n"
@@ -76,12 +82,14 @@ static void maple_bus_print_status(struct maple_bus_local *lp) {
       "Status Register: 0x%08x\n"
       "  TX IRQ: %d, RX IRQ: %d\n"
       "  TX Buffered Packets: %d, TX Buffer Length: %d\n"
-      "  RX Buffered Packets: %d, RX Buffer Length: %d\n",
+      "  RX Buffered Packets: %d, RX Buffer Length: %d\n"
+      "  Received Packets: %d, Transmitted Packets: %d\n",
       status,
       !!(status & MAPLE_BUS_TX_IRQ_STATUS),
       !!(status & MAPLE_BUS_RX_IRQ_STATUS),
       tx_count.packets, tx_count.length,
-      rx_count.packets, rx_count.length
+      rx_count.packets, rx_count.length,
+      totals.rx_packets, totals.tx_packets
   );
 }
 
@@ -327,10 +335,10 @@ static void maple_bus_slave_rx_callback(void *arg)
     dev_info(lp->dev, "maple_bus_slave_rx_callback failed to unmap dmadesc\n");
   }
 
-  spin_lock(&lp->irq_lock);
+  spin_lock(&lp->rx_lock);
   lp->pending_rx--;
   maple_bus_start_rx(netdev);
-  spin_unlock(&lp->irq_lock);
+  spin_unlock(&lp->rx_lock);
 
   dev_info(lp->dev, "maple_bus_slave_rx_callback complete\n");
 }
@@ -348,6 +356,8 @@ static int maple_bus_enqueue_rx(struct net_device *netdev, int size) {
     dev_info(lp->dev, "maple_bus_enqueue_rx failed to alloc skb\n");
     return -ENOMEM;
   }
+
+  //size += 37; // DMA enqueues 37 bytes!!!!
 
   skb_put(skb, size);
 
@@ -378,29 +388,51 @@ free_skb:
   return err;
 }
 
-// This is locked by the lp->irq_lock
-// Enque all dma transactions
+// This is locked by the lp->rx_lock
+// Enqueue all dma transactions
 static int maple_bus_start_rx(struct net_device *netdev) {
   struct maple_bus_local *lp = netdev_priv(netdev);
-  struct maple_bus_chan_count count;
-  int i = 0, err = 0;
+  struct maple_bus_chan_totals totals;
+  struct maple_bus_chan_count counts;
+  int i = 0, err = 0, enqueued = 0, diff = 0, size = 0;
   
   dev_info(lp->dev, "maple_bus_start_rx starting\n");
 
-  maple_bus_get_count(lp, MAPLE_BUS_RX_COUNT_REG, &count);
+  maple_bus_get_totals(lp, &totals);
+  maple_bus_get_count(lp, MAPLE_BUS_RX_COUNT_REG, &counts);
 
-  dev_info(lp->dev, "maple_bus_start_rx buffer has %d packets of size %d\n", count.packets,
-      count.length);
-  for (i = lp->pending_rx; i < count.packets; ++i) {
-    if ((err = maple_bus_enqueue_rx(netdev, count.length))) {
+  if (totals.rx_packets < lp->total_rx) { // We overflowed
+    diff = (lp->total_rx - 0x0000FFFF) + totals.rx_packets;
+  } else {
+    diff = totals.rx_packets - lp->total_rx;
+  }
+
+  dev_info(lp->dev, "maple_bus_start_rx enqueuing %d transactions out of (%d/%d).\n", diff,
+    lp->total_rx, totals.rx_packets);
+
+  // The DMA engine fills its buffer with 37 bytes before we have a chance to read the length.
+  size = counts.length + 40; 
+
+  for (i = 0; i < diff; ++i) {
+    if ((err = maple_bus_enqueue_rx(netdev, size))) {
       dev_info(lp->dev, "maple_bus_start_rx failed to enqueue rx transaction\n");
-      return err;
+      break;
     }
+    enqueued += 1;
 
     lp->pending_rx++;
   }
 
-  dev_info(lp->dev, "maple_bus_start_rx done with %d pending rx transactions\n", lp->pending_rx);
+  lp->total_rx = (lp->total_rx + enqueued) % 0x0000FFFF;
+
+  dev_info(lp->dev, "maple_bus_start_rx issuing %d rx transactions\n", enqueued);
+
+  if (enqueued) {
+    dma_async_issue_pending(lp->global->rx_chan);
+  }
+
+  dev_info(lp->dev, "maple_bus_start_rx done with %d total and %d pending rx transactions\n",
+      lp->total_rx, lp->pending_rx);
 
   return 0;
 }
@@ -489,6 +521,10 @@ static netdev_tx_t maple_bus_net_xmit_frame(struct sk_buff *skb,
   struct maple_bus_local *lp = netdev_priv(netdev);
   int err;
 
+  dev_info(lp->dev, "maple_bus_net_xmit_frame starting transmit of skb 0x%p\n", skb);
+
+  maple_bus_print_status(lp);
+
   err = maple_bus_xmit_prepare(netdev, skb);
 
   switch (err) {
@@ -517,7 +553,20 @@ static netdev_tx_t maple_bus_net_xmit_frame(struct sk_buff *skb,
 
   dma_async_issue_pending(lp->global->tx_chan);
 
+  dev_info(lp->dev, "maple_bus_net_xmit_frame completed transmit of skb 0x%p\n", skb);
+
   return NETDEV_TX_OK;
+}
+
+static void maple_bus_tasklet_callback(unsigned long args)
+{
+  struct net_device *netdev = (struct net_device*)args;
+  struct maple_bus_local *lp = netdev_priv(netdev);
+
+  spin_lock(&lp->rx_lock); // This is actually kinda dumb. The tasklet will only run once
+  maple_bus_start_rx(netdev);
+  /* Unlock the device and we are done */
+  spin_unlock(&lp->rx_lock);
 }
 
 static irqreturn_t maple_bus_irq(int irq, void *args)
@@ -529,22 +578,19 @@ static irqreturn_t maple_bus_irq(int irq, void *args)
 
   dev_info(lp->dev, "maple_bus_irq starting\n");
 
-  maple_bus_print_status(lp);
-  
-  spin_lock(&lp->irq_lock);
+  maple_bus_print_status(lp);  
 
   status = maple_bus_read(lp, MAPLE_BUS_STATUS_REG);
 
   if (status & MAPLE_BUS_TX_IRQ_STATUS) {
     dev_info(lp->dev, "maple_bus_irq tx IRQ received\n");
-    clear |= MAPLE_BUS_CLEAR_IRQ;
+    clear |= MAPLE_BUS_CLEAR_TX_IRQ;
   }
 
   if (status & MAPLE_BUS_RX_IRQ_STATUS) {
     dev_info(lp->dev, "maple_bus_irq rx IRQ received\n");
-    clear |= MAPLE_BUS_CLEAR_IRQ;
-    //TODO: Move this into a tasklet
-    maple_bus_start_rx(netdev);
+    clear |= MAPLE_BUS_CLEAR_RX_IRQ;
+    tasklet_schedule(&lp->tasklet);
   }
 
   if (clear) {
@@ -552,9 +598,6 @@ static irqreturn_t maple_bus_irq(int irq, void *args)
     maple_bus_write(lp, MAPLE_BUS_STATUS_REG, clear);
     rc = IRQ_HANDLED;
   }
-  
-  /* Unlock the device and we are done */
-  spin_unlock(&lp->irq_lock);
 
   return rc;
 }
@@ -601,12 +644,20 @@ static void maple_bus_down(struct net_device *netdev)
 
   dev_info(lp->dev, "maple_bus_down starting\n");
 
+  maple_bus_print_status(lp);
+
   netif_stop_queue(netdev);
+
+  dev_info(lp->dev, "Killing tasklet \n");
+  tasklet_kill(&lp->tasklet);
+
   maple_bus_reset_hw(lp);
   dev_info(lp->dev, "maple_bus_down freeing irq %d\n", lp->irq);
   free_irq(lp->irq, netdev);
   //del_timer_sync(&nic->watchdog);
   netif_carrier_off(netdev);
+
+  maple_bus_print_status(lp);
 
   dev_info(lp->dev, "maple_bus_down done\n");
 }
@@ -690,7 +741,9 @@ static int maple_bus_probe(struct platform_device *pdev)
   lp->global = gp;
   lp->msg_enable = 0xFFFF;
   spin_lock_init(&lp->cmd_lock);
-  spin_lock_init(&lp->irq_lock);
+  spin_lock_init(&lp->rx_lock);
+
+  tasklet_init(&lp->tasklet, maple_bus_tasklet_callback, (unsigned long)netdev);
 
   /* Get iospace for the device */
   if (!(r_mem = platform_get_resource(pdev, IORESOURCE_MEM, 0))) {
@@ -718,11 +771,6 @@ static int maple_bus_probe(struct platform_device *pdev)
   }
 	
   lp->irq = r_irq->start;
-
-	dev_info(dev,"maple_bus at 0x%08x with irq %d",
-  		(unsigned int __force)lp->base_addr,
-      lp->irq
-  );
 
   maple_bus_print_status(lp);
 

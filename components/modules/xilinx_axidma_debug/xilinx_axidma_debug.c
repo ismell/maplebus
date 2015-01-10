@@ -166,8 +166,6 @@ static inline u32 dma_read(struct xilinx_dma_chan *chan, u32 reg)
 static void xilinx_dma_channel_debug(struct xilinx_dma_chan *chan) {
   unsigned int control, status;
 
-  return;
-
   control = (unsigned int)dma_read(chan, XILINX_DMA_CONTROL_OFFSET);
   status = (unsigned int)dma_read(chan, XILINX_DMA_STATUS_OFFSET);
 

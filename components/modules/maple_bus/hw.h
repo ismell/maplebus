@@ -8,11 +8,12 @@
 #define MAPLE_BUS_MAGIC_NUMBER 0xB82FD918
 #define MAPLE_BUS_MAX_RESET_WAIT_TIME 5000
 
-#define MAPLE_BUS_CONTROL_REG   4*0
-#define MAPLE_BUS_STATUS_REG    4*1
-#define MAPLE_BUS_TX_COUNT_REG  4*2
-#define MAPLE_BUS_RX_COUNT_REG  4*3
-#define MAPLE_BUS_MAGIC_REG     4*7
+#define MAPLE_BUS_CONTROL_REG      4*0
+#define MAPLE_BUS_STATUS_REG       4*1
+#define MAPLE_BUS_TX_COUNT_REG     4*2
+#define MAPLE_BUS_RX_COUNT_REG     4*3
+#define MAPLE_BUS_TOTAL_COUNT_REG  4*4
+#define MAPLE_BUS_MAGIC_REG        4*7
 
 
 #define MAPLE_BUS_ENABLE_TX         1 << 0
@@ -23,14 +24,20 @@
 #define MAPLE_BUS_ENABLE_TX_IRQ     1 << 5
 #define MAPLE_BUS_ENABLE_RX_IRQ     1 << 6
 
-// Due to a verilog error we can only clear both irqs at once
-#define MAPLE_BUS_CLEAR_IRQ         1 << 0
+// TODO: Come swap these once we rebuild the hw
+#define MAPLE_BUS_CLEAR_TX_IRQ      1 << 0
+#define MAPLE_BUS_CLEAR_RX_IRQ      1 << 1
 #define MAPLE_BUS_TX_IRQ_STATUS     1 << 1
 #define MAPLE_BUS_RX_IRQ_STATUS     1 << 0
 
 struct maple_bus_chan_count {
   u16 packets;
   u16 length;
+};
+
+struct maple_bus_chan_totals {
+  u16 rx_packets;
+  u16 tx_packets;
 };
 
 /* IO accessors */
@@ -48,6 +55,13 @@ void maple_bus_get_count(struct maple_bus_local *lp, u32 reg, struct maple_bus_c
   u32 value = maple_bus_read(lp, reg);
   count->packets = (value >> 16);
   count->length = (value & 0x0000FFFF);
+}
+
+void maple_bus_get_totals(struct maple_bus_local *lp,
+    struct maple_bus_chan_totals *totals) {
+  u32 value = maple_bus_read(lp, MAPLE_BUS_TOTAL_COUNT_REG);
+  totals->rx_packets = (value >> 16);
+  totals->tx_packets = (value & 0x0000FFFF);
 }
 
 void maple_bus_set_flag(struct maple_bus_local *lp, u32 reg, u32 flags) {

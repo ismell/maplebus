@@ -3,9 +3,9 @@
 #ifndef __LINUX_MAPLE_BUS_CORE_H
 #define __LINUX_MAPLE_BUS_CORE_H
 
-#define MAPLE_BUS_ALEN      1     /* Octets in one maple bus addr. */
-#define MAPLE_BUS_HLEN      4     /* Total octets in header.       */
-#define MAPLE_BUS_DATA_LEN  1026  /* Max. octets in payload.       */
+#define MAPLE_BUS_ALEN      1             /* Octets in one maple bus addr. */
+#define MAPLE_BUS_HLEN      4             /* Total octets in header.       */
+#define MAPLE_BUS_DATA_LEN  4 + 1024 + 2  /* Max. octets in payload.       */
 
 #define ETH_P_MAPLE_BUS     0x00F8    /* Maple Bus protocol  */
 
@@ -41,8 +41,11 @@ struct maple_bus_local {
   void __iomem *base_addr;
   int irq;
 
-  spinlock_t irq_lock;
+  struct tasklet_struct tasklet;  /* Cleanup work after irq */
+
+  spinlock_t rx_lock;
   int pending_rx;
+  int total_rx;
   
   spinlock_t cmd_lock;
   struct device *dev;
