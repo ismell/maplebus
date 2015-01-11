@@ -52,8 +52,8 @@ module rxMapleBusLoopBackTest #
   wire  m_axis_rx_tvalid;
 
   // Ports for SDCKX (These should be Z when loopback is enabled)
-  wire sdcka;
-  wire sdckb;
+  tri1 sdcka;
+  tri1 sdckb;
 
   rxMapleBus_v1_0 DUT(
     .aclk(ACLK),

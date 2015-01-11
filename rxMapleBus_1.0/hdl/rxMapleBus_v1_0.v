@@ -56,6 +56,7 @@ module rxMapleBus_v1_0 #
   );
   
   localparam C_DATA_COUNT_WIDTH = 11;
+  localparam C_TOTAL_COUNT_WIDTH = C_S_AXI_CRTL_DATA_WIDTH / 2;
 
   wire  axis_tx_tvalid, axis_rx_tvalid;
   wire [C_AXIS_TDATA_WIDTH-1 : 0] axis_tx_tdata, axis_rx_tdata;
@@ -70,6 +71,9 @@ module rxMapleBus_v1_0 #
   
   wire [C_DATA_COUNT_WIDTH-1:0] axis_rx_packet_count;
   wire [C_DATA_COUNT_WIDTH-1:0] axis_tx_packet_count;
+  
+  wire [C_TOTAL_COUNT_WIDTH-1:0] axis_rx_total_packet_count;
+  wire [C_TOTAL_COUNT_WIDTH-1:0] axis_tx_total_packet_count;
 
   wire enable_tx, enable_rx, enable_loopback, reset_tx, reset_rx;
   wire enable_tx_irq, enable_rx_irq, clear_tx_irq, clear_rx_irq;
@@ -79,7 +83,10 @@ module rxMapleBus_v1_0 #
   assign interrupt = tx_irq || rx_irq;
 
   wire sdcka_tx, sdckb_tx, transmitting, receiving;
-  reg sdcka_in, sdckb_in, sdcka_out, sdckb_out;
+  reg sdcka_in, sdckb_in;
+  reg sdcka_sync, sdckb_sync;
+  wire sdcka_out, sdckb_out;
+  reg sdcka_oe, sdckb_oe;
 
   assign sdcka = sdcka_out,
          sdckb = sdckb_out;
@@ -113,8 +120,12 @@ module rxMapleBus_v1_0 #
     .S_AXI_RREADY(s_axi_crtl_rready),
     .RX_DATA_COUNT(axis_rx_data_count),
     .RX_PACKET_COUNT(axis_rx_packet_count),
+    .RX_TOTAL_PACKET_COUNT(axis_rx_total_packet_count),
+    
     .TX_DATA_COUNT(axis_tx_data_count),
     .TX_PACKET_COUNT(axis_tx_packet_count),
+    .TX_TOTAL_PACKET_COUNT(axis_tx_total_packet_count),
+    
     .ENABLE_TX(enable_tx),
     .ENABLE_RX(enable_rx),
     .ENABLE_LOOPBACK(enable_loopback),
@@ -155,7 +166,8 @@ module rxMapleBus_v1_0 #
   );
   
   packet_counter #(
-    .C_DATA_COUNT_WIDTH(C_DATA_COUNT_WIDTH)
+    .C_DATA_COUNT_WIDTH(C_DATA_COUNT_WIDTH),
+    .C_TOTAL_COUNT_WIDTH(C_TOTAL_COUNT_WIDTH)
   ) tx_packet_counter (
     .AXIS_ACLK(aclk),                 // input wire aclk
     .AXIS_ARESETN(aresetn && !reset_tx_fifo), // input wire aresetn
@@ -169,6 +181,7 @@ module rxMapleBus_v1_0 #
     .M_AXIS_TVALID(axis_tx_tvalid),   // input wire m_axis_tvalid
     
     .AXIS_PACKET_COUNT(axis_tx_packet_count),
+    .AXIS_TOTAL_PACKET_COUNT(axis_tx_total_packet_count),
     
     .ENABLE_IRQ(enable_tx_irq),
     .CLEAR_IRQ(clear_tx_irq),
@@ -189,6 +202,12 @@ module rxMapleBus_v1_0 #
     .ENABLE(enable_tx && !receiving),   // enabled and we are not receiving
     .TRANSMITTING(transmitting) // Output the signal
   );
+  
+  // Perform one step of synchronization
+  always @(posedge aclk) begin: SDCKX_SYNC
+    sdcka_sync = sdcka;
+    sdckb_sync = sdckb;
+  end
 
   always @(*)
   begin : ASSIGN_SDCKX_IN
@@ -201,31 +220,24 @@ module rxMapleBus_v1_0 #
         sdcka_in = 1'b1;
         sdckb_in = 1'b1;
       end else begin
-        sdcka_in = sdcka;
-        sdckb_in = sdckb;
-      end
-    end
-  end
-
-  always @(*)
-  begin : ASSIGN_SDCKX_OUT
-    if (enable_loopback) begin
-      // When loopback is enabled we don't ever output anything on the wire
-      sdcka_out = 1'bz;
-      sdckb_out = 1'bz;
-    end else begin
-      if (transmitting) begin
-        // We want to allow the pull up resistor to drive the high signal
-        // while we only drive the low signal.
-        sdcka_out = sdcka_tx ? 1'bz : 1'b0;
-        sdckb_out = sdckb_tx ? 1'bz : 1'b0;
-      end else begin
-        sdcka_out = 1'bz;
-        sdckb_out = 1'bz;
+        sdcka_in = sdcka_sync;
+        sdckb_in = sdckb_sync;
       end
     end
   end
   
+  always @(posedge aclk) begin: SDCKX_OUTPUT_ENABLE
+    if (aresetn == 1'b0) begin
+      sdcka_oe = 0;
+      sdckb_oe = 0;    
+    end else begin
+      sdcka_oe = (enable_loopback == 0 && transmitting == 1 && sdcka_tx == 0);
+      sdckb_oe = (enable_loopback == 0 && transmitting == 1 && sdckb_tx == 0);    
+    end
+  end
+
+  assign sdcka_out = sdcka_oe ? 1'b0 : 1'bz;
+  assign sdckb_out = sdckb_oe ? 1'b0 : 1'bz;
   
   // The receiver is not in the middle of receiving a packet, the AXIS slave
   // is not awating a packet, and we have been instructed to reset
@@ -271,7 +283,8 @@ module rxMapleBus_v1_0 #
   );
   
   packet_counter #(
-    .C_DATA_COUNT_WIDTH(C_DATA_COUNT_WIDTH)
+    .C_DATA_COUNT_WIDTH(C_DATA_COUNT_WIDTH),
+    .C_TOTAL_COUNT_WIDTH(C_TOTAL_COUNT_WIDTH)
   ) rx_packet_counter (
     .AXIS_ACLK(aclk),                 // input wire aclk
     .AXIS_ARESETN(aresetn && !reset_rx_fifo),           // input wire aresetn
@@ -285,6 +298,7 @@ module rxMapleBus_v1_0 #
     .M_AXIS_TVALID(m_axis_rx_tvalid), // input wire m_axis_tvalid
     
     .AXIS_PACKET_COUNT(axis_rx_packet_count),
+    .AXIS_TOTAL_PACKET_COUNT(axis_rx_total_packet_count),
     
     .ENABLE_IRQ(enable_rx_irq),
     .CLEAR_IRQ(clear_rx_irq),

@@ -5,7 +5,8 @@
 module packet_counter #
   (
     // Parameters of Axi Slave Bus Interface S_AXI_CRTL
-    parameter integer C_DATA_COUNT_WIDTH		= 11
+    parameter integer C_DATA_COUNT_WIDTH		= 11,
+    parameter integer C_TOTAL_COUNT_WIDTH		= 16
   )
   (
     input wire AXIS_ACLK,
@@ -19,7 +20,8 @@ module packet_counter #
     input wire M_AXIS_TLAST,
     input wire M_AXIS_TVALID,
     
-    output wire [C_DATA_COUNT_WIDTH-1 : 0] AXIS_PACKET_COUNT,
+    output reg [C_DATA_COUNT_WIDTH-1 : 0] AXIS_PACKET_COUNT,
+    output reg [C_TOTAL_COUNT_WIDTH-1 : 0] AXIS_TOTAL_PACKET_COUNT,
     
     input wire ENABLE_IRQ,
     input wire CLEAR_IRQ,
@@ -39,14 +41,12 @@ module packet_counter #
   reg   [SIZE-1:0]          current_state;
   reg   [SIZE-1:0]          next_state;
   
-  reg [C_DATA_COUNT_WIDTH - 1 : 0] packets;
-  assign AXIS_PACKET_COUNT = packets;
-  
   wire increment = (S_AXIS_TREADY && S_AXIS_TLAST && S_AXIS_TVALID);
   wire decrement = (M_AXIS_TREADY && M_AXIS_TLAST && M_AXIS_TVALID);
 
   initial begin
-    packets <= 0;
+    AXIS_PACKET_COUNT <= 0;
+    AXIS_TOTAL_PACKET_COUNT <= 0;
     current_state <= IDLE;
   end
 
@@ -83,16 +83,28 @@ module packet_counter #
 
   always @(posedge aclk) begin: COUNTER
     if (aresetn == 1'b0) begin
-      packets <= 0;
+      AXIS_PACKET_COUNT <= 0;
     end else begin
       if (increment && decrement)
-        packets <= packets; // Null op
+        AXIS_PACKET_COUNT <= AXIS_PACKET_COUNT; // Null op
       else if (increment)
-        packets <= packets + 1;
+        AXIS_PACKET_COUNT <= AXIS_PACKET_COUNT + 1;
       else if (decrement)
-        packets <= packets - 1;
+        AXIS_PACKET_COUNT <= AXIS_PACKET_COUNT - 1;
       else begin
-        packets <= packets;
+        AXIS_PACKET_COUNT <= AXIS_PACKET_COUNT;
+      end
+    end
+  end
+  
+  always @(posedge aclk) begin: TOTAL_COUNTER
+    if (aresetn == 1'b0) begin
+      AXIS_TOTAL_PACKET_COUNT <= 0;
+    end else begin
+      if (increment)
+        AXIS_TOTAL_PACKET_COUNT <= AXIS_TOTAL_PACKET_COUNT + 1;
+      else begin
+        AXIS_TOTAL_PACKET_COUNT <= AXIS_TOTAL_PACKET_COUNT;
       end
     end
   end
