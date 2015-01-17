@@ -25,8 +25,8 @@
 #define MAPLE_BUS_ENABLE_RX_IRQ     1 << 6
 
 // TODO: Come swap these once we rebuild the hw
-#define MAPLE_BUS_CLEAR_TX_IRQ      1 << 0
-#define MAPLE_BUS_CLEAR_RX_IRQ      1 << 1
+#define MAPLE_BUS_CLEAR_TX_IRQ      1 << 1
+#define MAPLE_BUS_CLEAR_RX_IRQ      1 << 0
 #define MAPLE_BUS_TX_IRQ_STATUS     1 << 1
 #define MAPLE_BUS_RX_IRQ_STATUS     1 << 0
 
@@ -91,12 +91,12 @@ void maple_bus_unset_flag(struct maple_bus_local *lp, u32 reg, u32 flags) {
 }
 
 int maple_bus_verify_magic(struct maple_bus_local *lp) {
-  dev_info(lp->dev, "maple_bus: verifying magic number");
+  dev_dbg(lp->dev, "maple_bus: verifying magic number");
   if (maple_bus_read(lp, MAPLE_BUS_MAGIC_REG) == MAPLE_BUS_MAGIC_NUMBER) {
-    dev_info(lp->dev, "maple_bus: magic number matched");
+    dev_dbg(lp->dev, "maple_bus: magic number matched");
     return 0;
   } else {
-    dev_err(lp->dev, "maple_bus: magic number did not match");
+    dev_dbg(lp->dev, "maple_bus: magic number did not match");
     return -ENODEV;
   }
 }
@@ -107,7 +107,7 @@ void maple_bus_reset_hw(struct maple_bus_local *lp) {
   struct maple_bus_chan_count count;
   unsigned long flags;
 
-  dev_info(lp->dev, "maple_bus: resetting hardware");
+  dev_dbg(lp->dev, "maple_bus: resetting hardware");
 
   spin_lock_irqsave(&lp->cmd_lock, flags);
 
@@ -133,7 +133,7 @@ void maple_bus_reset_hw(struct maple_bus_local *lp) {
 
   spin_unlock_irqrestore(&lp->cmd_lock, flags);
 
-  dev_info(lp->dev, "maple_bus: hardware reset");
+  dev_dbg(lp->dev, "maple_bus: hardware reset");
 }
 
 

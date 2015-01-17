@@ -21,7 +21,10 @@ struct maple_bus_header {
 } __attribute__((packed));
 
 struct maple_bus_global {
+  spinlock_t rx_chan_lock;
   struct dma_chan *rx_chan;
+
+  spinlock_t tx_chan_lock;
   struct dma_chan *tx_chan;
 
   unsigned pause;

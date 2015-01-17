@@ -53,7 +53,7 @@ static void maple_bus_print_status(struct maple_bus_local *lp) {
   maple_bus_get_count(lp, MAPLE_BUS_TX_COUNT_REG, &tx_count);
   maple_bus_get_count(lp, MAPLE_BUS_RX_COUNT_REG, &rx_count);
 
-  dev_err(lp->dev,
+  dev_dbg(lp->dev,
       "Control Register: 0x%8x\n"
       "  TX Enabled: %d, RX Enabled: %d\n, Loopback Enabled: %d\n"
       "  Reset TX: %d, Reset RX: %d\n"
@@ -162,13 +162,13 @@ static ssize_t maple_bus_op_read (struct file *filp, char __user *buf, size_t co
 
   buffer = kmalloc(count, GFP_KERNEL);
   if (!buffer) {
-    dev_err(lp->dev, "Failed to alloc rx buffer");
+    dev_dbg(lp->dev, "Failed to alloc rx buffer");
     return -EFAULT;
   }
 
   sgl = kzalloc(sizeof(*sgl)*1, GFP_KERNEL);
   if (!sgl) {
-    dev_err(lp->dev, "Failed to allocate rx sgl\n");
+    dev_dbg(lp->dev, "Failed to allocate rx sgl\n");
     goto free_buffer;
   }
 
@@ -176,7 +176,7 @@ static ssize_t maple_bus_op_read (struct file *filp, char __user *buf, size_t co
 
   dma_handle = dma_map_single(lp->dev, buffer, count, DMA_DEV_TO_MEM);
   if (dma_mapping_error(lp->dev, dma_handle)) {
-    dev_err(lp->dev, "Failed to map rx buffer\n");
+    dev_dbg(lp->dev, "Failed to map rx buffer\n");
     goto free_sgl;
   }
 
@@ -188,7 +188,7 @@ static ssize_t maple_bus_op_read (struct file *filp, char __user *buf, size_t co
   rx_dev->device_control(lp->rx_chan, DMA_SLAVE_CONFIG,
       (unsigned long)&config);
 
-  dev_err(lp->dev, "Prepping rx SG list");
+  dev_dbg(lp->dev, "Prepping rx SG list");
 
   flags = DMA_CTRL_ACK | DMA_PREP_INTERRUPT;
 
@@ -196,7 +196,7 @@ static ssize_t maple_bus_op_read (struct file *filp, char __user *buf, size_t co
         DMA_DEV_TO_MEM, flags, NULL);
 
   if (!txd) {
-    dev_err(lp->dev, "Failed to prep rx sg list");
+    dev_dbg(lp->dev, "Failed to prep rx sg list");
     goto free_mapping;
   }
 
@@ -206,7 +206,7 @@ static ssize_t maple_bus_op_read (struct file *filp, char __user *buf, size_t co
   tx_cookie = txd->tx_submit(txd);
 
   if (dma_submit_error(tx_cookie)) {
-    dev_err(lp->dev, "Failed to submit cookie");
+    dev_dbg(lp->dev, "Failed to submit cookie");
     goto free_mapping;
   }
 
@@ -218,12 +218,12 @@ static ssize_t maple_bus_op_read (struct file *filp, char __user *buf, size_t co
             NULL, NULL);
 
   if (tx_tmo == 0) {
-    dev_err(lp->dev, "We timed out!!");
+    dev_dbg(lp->dev, "We timed out!!");
   } else if (status != DMA_COMPLETE) {
-    dev_err(lp->dev, "We got completion callback but status isn't complete!!");
+    dev_dbg(lp->dev, "We got completion callback but status isn't complete!!");
   }
 
-  dev_err(lp->dev, "We received some data!");
+  dev_dbg(lp->dev, "We received some data!");
 
   if (copy_to_user(buf, buffer, count)) {
     printk(KERN_ALERT "Failed to copy buffer\n");
@@ -302,7 +302,7 @@ static ssize_t maple_bus_op_write(struct file *filp, const char __user *buf, siz
   tx_dev->device_control(lp->tx_chan, DMA_SLAVE_CONFIG,
       (unsigned long)&config);
 
-  dev_err(lp->dev, "Prepping SG list");
+  dev_dbg(lp->dev, "Prepping SG list");
 
   flags = DMA_CTRL_ACK | DMA_PREP_INTERRUPT;
 
@@ -310,7 +310,7 @@ static ssize_t maple_bus_op_write(struct file *filp, const char __user *buf, siz
         DMA_MEM_TO_DEV, flags, NULL);
 
   if (!txd) {
-    dev_err(lp->dev, "Failed to prep sg list");
+    dev_dbg(lp->dev, "Failed to prep sg list");
     goto free_mapping;
   }
 
@@ -320,7 +320,7 @@ static ssize_t maple_bus_op_write(struct file *filp, const char __user *buf, siz
   tx_cookie = txd->tx_submit(txd);
 
   if (dma_submit_error(tx_cookie)) {
-    dev_err(lp->dev, "Failed to submit cookie");
+    dev_dbg(lp->dev, "Failed to submit cookie");
     goto free_mapping;
   }
 
@@ -332,12 +332,12 @@ static ssize_t maple_bus_op_write(struct file *filp, const char __user *buf, siz
             NULL, NULL);
 
   if (tx_tmo == 0) {
-    dev_err(lp->dev, "We timed out!!");
+    dev_dbg(lp->dev, "We timed out!!");
   } else if (status != DMA_COMPLETE) {
-    dev_err(lp->dev, "We got completion callback but status isn't complete!!");
+    dev_dbg(lp->dev, "We got completion callback but status isn't complete!!");
   }
 
-  dev_err(lp->dev, "We Sent!");
+  dev_dbg(lp->dev, "We Sent!");
 
   rc = count;
 
@@ -377,7 +377,7 @@ static int maple_bus_init_cdev(struct maple_bus_local *lp)
 
   err = alloc_chrdev_region(&devno, 0, 1, DRIVER_NAME);
   if (err < 0) {
-    dev_err(lp->dev, "Error 0x%x, Couldn't allocate maple bus major number", err);
+    dev_dbg(lp->dev, "Error 0x%x, Couldn't allocate maple bus major number", err);
     goto fail;
   }
 
@@ -385,7 +385,7 @@ static int maple_bus_init_cdev(struct maple_bus_local *lp)
   
   err = cdev_add(&lp->cdev, devno, 1);
   if (err) {
-    dev_err(lp->dev, "Couldn't add char device %d with error 0x%x", devno, err);
+    dev_dbg(lp->dev, "Couldn't add char device %d with error 0x%x", devno, err);
     goto free_cdev;
   }
   
@@ -423,18 +423,18 @@ static int maple_bus_probe(struct platform_device *pdev)
 
 	int rc = 0;
 	
-	dev_info(dev, "Device Tree Probing\n");
+	dev_dbg(dev, "Device Tree Probing\n");
 
 	/* Get iospace for the device */
 	r_mem = platform_get_resource(pdev, IORESOURCE_MEM, 0);
 	if (!r_mem) {
-		dev_err(dev, "invalid address\n");
+		dev_dbg(dev, "invalid address\n");
 		return -ENODEV;
 	}
 	
 	lp = (struct maple_bus_local *) kzalloc(sizeof(struct maple_bus_local), GFP_KERNEL);
 	if (!lp) {
-		dev_err(dev, "Cound not allocate maple_bus device\n");
+		dev_dbg(dev, "Cound not allocate maple_bus device\n");
 		return -ENOMEM;
 	}
 
@@ -450,7 +450,7 @@ static int maple_bus_probe(struct platform_device *pdev)
 	if (!request_mem_region(lp->mem_start,
 				lp->mem_end - lp->mem_start + 1,
 				DRIVER_NAME)) {
-		dev_err(dev, "Couldn't lock memory region at %p\n",
+		dev_dbg(dev, "Couldn't lock memory region at %p\n",
 			(void *)lp->mem_start);
 		rc = -EBUSY;
 		goto free_drv;
@@ -458,25 +458,25 @@ static int maple_bus_probe(struct platform_device *pdev)
 
 	lp->base_addr = ioremap(lp->mem_start, lp->mem_end - lp->mem_start + 1);
 	if (!lp->base_addr) {
-		dev_err(dev, "maple_bus: Could not allocate iomem\n");
+		dev_dbg(dev, "maple_bus: Could not allocate iomem\n");
 		rc = -EIO;
 		goto free_mem_region;
 	}
 
   if (maple_bus_read(lp, MAPLE_BUS_MAGIC_REG) == MAPLE_BUS_MAGIC_NUMBER) {
-    dev_info(dev, "maple_bus: magic number matched");
+    dev_dbg(dev, "maple_bus: magic number matched");
   } else {
-    dev_err(dev, "maple_bus: magic number did not match");
+    dev_dbg(dev, "maple_bus: magic number did not match");
     goto free_remap;
   }
 
-  dev_info(dev, "maple_bus: resetting hardware");
+  dev_dbg(dev, "maple_bus: resetting hardware");
   maple_bus_reset_hw(lp);
 
   mutex_init(&lp->mutex);
 
   if (maple_bus_init_cdev(lp)) {
-    dev_err(dev, "Failed to create character device");
+    dev_dbg(dev, "Failed to create character device");
     rc = -EIO;
     goto free_remap;
   }
@@ -484,7 +484,7 @@ static int maple_bus_probe(struct platform_device *pdev)
   /* Get IRQ for the device */
   r_irq = platform_get_resource(pdev, IORESOURCE_IRQ, 0);
   if (!r_irq) {
-    dev_info(dev, "no IRQ found\n");
+    dev_dbg(dev, "no IRQ found\n");
     rc = -EIO;
     goto free_cdev;
   } 
@@ -492,12 +492,12 @@ static int maple_bus_probe(struct platform_device *pdev)
   
   rc = request_irq(lp->irq, &maple_bus_irq, 0, DRIVER_NAME, lp);
   if (rc) {
-    dev_err(dev, "Could not allocate interrupt %d.\n",
+    dev_dbg(dev, "Could not allocate interrupt %d.\n",
       lp->irq);
     goto free_cdev;
   }
 
-	dev_info(dev,"maple_bus at 0x%08x mapped to 0x%08x with irq %d, major %d and minor %d",
+	dev_dbg(dev,"maple_bus at 0x%08x mapped to 0x%08x with irq %d, major %d and minor %d",
   		(unsigned int __force)lp->mem_start,
   		(unsigned int __force)lp->base_addr,
       lp->irq,
