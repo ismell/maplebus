@@ -11,3 +11,8 @@ if /sbin/lsmod | grep xilinx_axidma_debug; then
   echo "Unloading xilinx_axidma_debug.ko"
   rmmod xilinx_axidma_debug.ko
 fi
+
+if /sbin/lsmod | grep xpad; then
+  echo "Unloading xpad.ko"
+  rmmod xpad
+fi

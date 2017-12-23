@@ -13,10 +13,15 @@
 #include <sys/socket.h>
 #include <netpacket/packet.h>
 #include <argp.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 #include <stdint.h>
 #include <stdarg.h>
 #include <arpa/inet.h>
+
+#include <linux/input.h>
 
 
 #define MAPLE_BUS_ALEN      1     /* Octets in one maple bus addr. */
@@ -31,8 +36,39 @@ struct maple_bus_header {
   uint8_t command;
 };
 
+struct xbox_360_controller {
+  int left_thumb_x;
+  int left_thumb_y;
+  int right_thumb_x;
+  int right_thumb_y;
+
+  uint left_trigger;
+  uint right_trigger;
+
+  int dpad_left;
+  int dpad_right;
+  int dpad_up;
+  int dpad_down;
+
+  char start;
+  char back;
+  char guide;
+
+  char left_shoulder;
+  char right_shoulder;
+  char right_thumb;
+  char left_thumb;
+
+  char a;
+  char b;
+  char x;
+  char y;  
+};
+
 int sock_raw;
 struct ifreq ifr;
+
+struct xbox_360_controller controller;
 
 static void die (const char * format, ...)
 {
@@ -117,6 +153,9 @@ char compute_lrc(unsigned char *data, int size) {
   return lrc;
 }
 
+int get_controller_count = 0;
+int get_device_count = 0;
+
 void handle_request_device_info_command(unsigned char *data, int size) {
   unsigned char device_info[] = {
     0x1c, 0x20, 0x00, 0x05,
@@ -149,19 +188,90 @@ void handle_request_device_info_command(unsigned char *data, int size) {
     0x20, 0x20, 0x20, 0x20,
     0x01, 0xf4, 0x01, 0xae,
     0x00};
+
+  get_device_count++;
+
+  if (get_controller_count > 0) {
+    printf("Dreamcast disconnected us\n");
+    get_device_count = 0;
+    get_controller_count = 0;
+    return;
+  } 
+  if (get_device_count < 4) {
+    printf(".");
+    return;
+  }
   device_info[sizeof(device_info) - 1] = compute_lrc(device_info, sizeof(device_info) - 1);
   send_maple_packet(device_info, sizeof(device_info));
 }
 
-int get_controller_count = 0;
+
+struct maple_bus_packet_header {
+  uint8_t additional_words;
+  uint8_t source_address;
+  uint8_t destination_address;
+  uint8_t command;
+};
+
+struct maple_bus_controller_condition {
+  struct maple_bus_packet_header header;
+  uint32_t function;
+  uint8_t left_trigger;
+  uint8_t right_trigger;
+  uint16_t buttons;
+  uint8_t right_thumb_y;
+  uint8_t right_thumb_x;
+  uint8_t left_thumb_y;
+  uint8_t left_thumb_x;
+};
 
 void handle_get_controller_condition_command(unsigned char *data, int size) {
+  struct maple_bus_controller_condition *condition;
   unsigned char condition_info[] = {
     0x03, 0x20, 0x00, 0x08,
     0x01, 0x00, 0x00, 0x00, // Function
     0x00, 0x00, 0xff, 0xff, // Left Trigger, Right Trigger, XYZ, ABC
     0x80, 0x80, 0x80, 0x80, // A2Y, A2X, A1Y, A2X
     0x00 };
+  if (sizeof(struct maple_bus_controller_condition) != sizeof(condition_info) - 1) {
+    printf("Sizes don't match! %d vs %d\n", sizeof(struct maple_bus_controller_condition),
+        sizeof(condition_info));
+    return;
+  }
+  condition = (struct maple_bus_controller_condition*) &condition_info;
+  condition->left_trigger = controller.left_trigger;
+  condition->right_trigger = controller.right_trigger;
+
+  condition->left_thumb_x = controller.left_thumb_x / 256 + 128;
+  condition->left_thumb_y = controller.left_thumb_y / 256 + 128;
+
+  //condition->right_thumb_x = controller.right_thumb_x / 256;
+  //condition->right_thumb_y = controller.right_thumb_y / 256;
+
+  if (controller.dpad_right)
+    condition->buttons ^= 0x8000;
+  if (controller.dpad_left)
+    condition->buttons ^= 0x4000;
+  if (controller.dpad_down)
+    condition->buttons ^= 0x2000;
+  if (controller.dpad_up)
+    condition->buttons ^= 0x1000;
+  if (controller.start)
+    condition->buttons ^= 0x0800;
+  
+  if (controller.a)
+    condition->buttons ^= 0x0400;
+  if (controller.b)
+    condition->buttons ^= 0x0200;
+  if (controller.right_shoulder)
+    condition->buttons ^= 0x0100;
+  
+  if (controller.x)
+    condition->buttons ^= 0x0004;
+  if (controller.y)
+    condition->buttons ^= 0x0002;
+  if (controller.left_shoulder)
+    condition->buttons ^= 0x0001;
 
 /*
 if (state.IsConnected)
@@ -207,6 +317,8 @@ if (state.IsConnected)
   condition_info[sizeof(condition_info) - 1] = compute_lrc(condition_info,
       sizeof(condition_info) - 1);
   send_maple_packet(condition_info, sizeof(condition_info));
+
+  //PrintData(condition_info, sizeof(condition_info));
 
   get_controller_count++;
 }
@@ -278,7 +390,113 @@ void handle_packet_rx(int fd) {
   handle_maple_data(maple_rx_data, rx_data_size);
 }
 
-void event_loop(int ifd, int ind) {
+void handle_input_event(int inputfd) {
+  ssize_t rd, nevents, i;
+  struct input_event events[64];
+  struct input_event *event;
+  if ((rd = read(inputfd, events, sizeof(events))) < 0) {
+    perror ("read()");
+    return;
+  }
+  nevents = rd/sizeof(struct input_event);
+
+  for (i = 0; i < nevents; ++i) {
+    event = &events[i];
+
+    switch (event->type) {
+      case EV_SYN:
+        // We don't care about SYN
+        break;
+      case EV_ABS:
+        switch (event->code) {
+          case ABS_X:
+            controller.left_thumb_x = event->value; // -32k, 32k
+            break;
+          case ABS_Y:
+            controller.left_thumb_y = event->value;
+            break;
+          case ABS_RX:
+            controller.right_thumb_x = event->value;
+            break;
+          case ABS_RY:
+            controller.right_thumb_y = event->value;
+            break;
+          case ABS_Z:
+            controller.left_trigger = event->value;
+            break;
+          case ABS_RZ:
+            controller.right_trigger = event->value;
+            break;
+          case ABS_HAT0X:
+            controller.dpad_left = (event->value < 0 ? 1 : 0);
+            controller.dpad_right = (event->value > 0 ? 1 : 0);
+            break;
+          case ABS_HAT0Y:
+            controller.dpad_up = (event->value < 0 ? 1 : 0);
+            controller.dpad_down = (event->value > 0 ? 1 : 0);
+            break;
+          default:
+            printf ("Type: 0x%x, Code: 0x%x, Value: %d\n", event->type, event->code, event->value);
+        }
+        break;
+      case EV_KEY:
+        switch (event->code) {
+          case BTN_A:
+            controller.a = event->value;
+            break;
+          case BTN_B:
+            controller.b = event->value;
+            break;
+          case BTN_X:
+            controller.x = event->value;
+            break;
+          case BTN_Y:
+            controller.y = event->value;
+            break;
+          case BTN_MODE:
+            controller.guide = event->value;
+            break;
+          case BTN_START:
+            controller.start = event->value;
+            break;
+          case BTN_SELECT:
+            controller.back = event->value;
+            break;
+          case BTN_TL:
+            controller.left_shoulder = event->value;
+            break;
+          case BTN_TR:
+            controller.right_shoulder = event->value;
+            break;
+          case BTN_THUMBL:
+            controller.right_thumb = event->value;
+            break;
+          case BTN_THUMBR:
+            controller.left_thumb = event->value;
+            break;
+          case BTN_TRIGGER_HAPPY1:
+            controller.dpad_left = event->value;
+            break;
+          case BTN_TRIGGER_HAPPY2:
+            controller.dpad_right = event->value;
+            break;
+          case BTN_TRIGGER_HAPPY3:
+            controller.dpad_up = event->value;
+            break;
+          case BTN_TRIGGER_HAPPY4:
+            controller.dpad_down = event->value;
+            break;
+          default:
+            printf ("Type: 0x%x, Code: 0x%x, Value: %d\n", event->type, event->code, event->value);
+        }
+        break;
+      default:
+        printf ("Type: 0x%x, Code: 0x%x, Value: %d\n", event->type, event->code, event->value);
+    }
+  }
+}
+
+void event_loop(int ifd, int inputfd) {
   fd_set rfds;
   struct timeval tv;
   int retval;
@@ -286,12 +504,16 @@ void event_loop(int ifd, int ind) {
 
   maxfd = ifd;
 
+  if (inputfd > maxfd) {
+    maxfd = inputfd;
+  }
+
   while (1) {
 
     /* Watch stdin (fd 0) to see when it has input. */
     FD_ZERO(&rfds);
     FD_SET(ifd, &rfds);
-    //FD_SET(ind, &rfds);
+    FD_SET(inputfd, &rfds);
 
     /* Wait up to five seconds. */
     tv.tv_sec = 5;
@@ -306,29 +528,53 @@ void event_loop(int ifd, int ind) {
       if (FD_ISSET(ifd, &rfds)) {
         handle_packet_rx(ifd);
       }
-      printf("Data is available now.\n");
+      if (FD_ISSET(inputfd, &rfds)) {
+        handle_input_event(inputfd);
+      }
     } else {
       printf("No data within five seconds.\n");
     }
   }
 }
 
+void set_led(int fd, int led) {
+  struct input_event event;
+
+  event.type = EV_LED;
+  event.code = 0x00;
+  event.value = 1;
+
+  write (fd, &event, sizeof(event));
+}
+
 int main(int argc, char *argv[])
-{
-  int i;
-  
+{ 
+  int inputfd;
+  char name[256] = "Unknown";
 
 	printf("Hello, PetaLinux World!\n");
 	printf("cmdline args:\n");
 	while(argc--)
 		printf("%s\n",*argv++);
+
+  memset(&controller, 0, sizeof(controller));
   
   sock_raw = socket(PF_PACKET, SOCK_RAW, htons(ETH_P_MAPLE_BUS));
 
   strcpy(ifr.ifr_name, "maplebus0" );
   ioctl(sock_raw, SIOCGIFINDEX, &ifr);
 
-  event_loop(sock_raw);
+  //Open Device
+  if ((inputfd = open ("/dev/input/event0", O_RDONLY)) == -1) {
+    perror("open()");
+    exit(1);
+  }
+ 
+  //Print Device Name
+  ioctl (inputfd, EVIOCGNAME (sizeof (name)), name);
+  printf ("Reading From : %s\n", name);
+
+  event_loop(sock_raw, inputfd);
 
   close(sock_raw);
   printf("Finished\n");

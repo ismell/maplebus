@@ -309,12 +309,6 @@ static void maple_bus_dma_rx_callback(void *arg)
 
   spin_lock(&lp->global->rx_chan_lock);
 
-  status = dma_async_is_tx_complete(lp->global->rx_chan, dmadesc->cookie, NULL, NULL);
-  if (status != DMA_COMPLETE) {
-    dev_dbg(lp->dev, "We got rx completion callback but status isn't complete!!");
-    goto unlock;
-  }
-
   //TODO: We don't have  way of calculating the total number of bytes actually transfered :(
 
   dev_dbg(lp->dev, "maple_bus_dma_rx_callback receive skb 0x%p with data 0x%p of size %d\n", skb,
@@ -459,12 +453,6 @@ static void maple_bus_dma_tx_callback(void *arg)
   //    "cb[%d]->status = 0x%04X\n",
   //    (int)(((void*)cb - (void*)nic->cbs)/sizeof(struct cb)),
   //    cb->status);
-
-  status = dma_async_is_tx_complete(lp->global->tx_chan, dmadesc->cookie, NULL, NULL);
-  if (status != DMA_COMPLETE) {
-    dev_dbg(lp->dev, "We got completion callback but status isn't complete!!");
-    goto unlock;
-  }
 
   for_each_sg(sgt->sgl, sg, sgt->orig_nents, i) {
     total_len += sg_dma_len(sg);
