@@ -224,3 +224,10 @@ pip-log.txt
 xsim.dir/
 *.pb
 vivado.jou
+
+## Petalinux
+build/
+images/
+.petalinux/
+*.swp
+.*

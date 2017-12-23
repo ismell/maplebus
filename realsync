@@ -1,0 +1,1 @@
+./resync && git difftool subsystems/linux/configs/device-tree/ && petalinux-build -v && ./package && ./do

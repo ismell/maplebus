@@ -1,0 +1,7 @@
+#!/bin/bash
+petalinux-package --boot --force --fsbl images/linux/zynq_fsbl.elf --fpga subsystems/linux/hw-description/root_wrapper.bit --u-boot && mv BOOT.BIN /tftpboot/
+cp /home/me/Projects/PetaLinux/HelloWorld/build/linux/rootfs/modules/xilinx_axidma_debug/xilinx_axidma_debug.ko /tftpboot/
+cp /home/me/Projects/PetaLinux/HelloWorld/build/linux/rootfs/modules/axidmatest_debug/axidmatest_debug.ko /tftpboot/
+cp /home/me/Projects/PetaLinux/HelloWorld/build/linux/rootfs/modules/maple_bus/maple_bus.ko /tftpboot/
+
+echo "If you updated the bit stream make sure you do 'run update_boot' on the uboot command line"

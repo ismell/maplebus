@@ -1,0 +1,4 @@
+#!/bin/bash -e
+
+petalinux-config --get-hw-description=/home/me/Projects/Vivado/HelloWorld/HelloWorld.sdk/root_wrapper_hw_platform_0/
+cp -rfv subsystems/linux/hw-description/ps7_init.{c,h} components/bootloader/zynq_fsbl/

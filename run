@@ -1,0 +1,15 @@
+dmesg -n 8
+
+tftp 10.0.0.110 -g -r xilinx_axidma_debug.ko && tftp 10.0.0.110 -g -r axidmatest_debug.ko && tftp 10.0.0.110 -g -r maple_bus.ko
+
+insmod maple_bus.ko pause=1
+insmod xilinx_axidma_debug.ko
+export MAJOR=$(awk "\$2==\"maple_bus\" {print \$2}" /proc/devices)
+mknod /dev/maplebus0 c $MAJOR 0
+
+insmod axidmatest_debug.ko
+rmmod maple_bus.ko
+insmod maple_bus.ko pause=1
+rmmod maple_bus.ko
+insmod maple_bus.ko pause=0
+
