@@ -85,11 +85,8 @@ module rxMapleBus_v1_0 #
   wire sdcka_tx, sdckb_tx, transmitting, receiving;
   reg sdcka_in, sdckb_in;
   reg sdcka_sync, sdckb_sync;
-  wire sdcka_out, sdckb_out;
-  reg sdcka_oe, sdckb_oe;
-
-  assign sdcka = sdcka_out,
-         sdckb = sdckb_out;
+  reg sdcka_out, sdckb_out;
+  reg sdck_oe;
 
   // Instantiation of Axi Bus Interface S_AXI_CRTL
   rxMapleBus_v1_0_S_AXI_CRTL # (
@@ -228,16 +225,19 @@ module rxMapleBus_v1_0 #
   
   always @(posedge aclk) begin: SDCKX_OUTPUT_ENABLE
     if (aresetn == 1'b0) begin
-      sdcka_oe = 0;
-      sdckb_oe = 0;    
+      sdck_oe = 0;    
     end else begin
-      sdcka_oe = (enable_loopback == 0 && transmitting == 1 && sdcka_tx == 0);
-      sdckb_oe = (enable_loopback == 0 && transmitting == 1 && sdckb_tx == 0);    
+      sdck_oe = (enable_loopback == 0 && transmitting == 1);    
     end
   end
-
-  assign sdcka_out = sdcka_oe ? 1'b0 : 1'bz;
-  assign sdckb_out = sdckb_oe ? 1'b0 : 1'bz;
+  
+  always @(posedge aclk) begin: SDCKX_OUTPUT
+    sdcka_out = sdcka_tx;
+    sdckb_out = sdckb_tx;    
+  end
+  
+  assign sdcka = sdck_oe == 1 ? sdcka_out : 1'bz;
+  assign sdckb = sdck_oe == 1 ? sdckb_out : 1'bz;
   
   // The receiver is not in the middle of receiving a packet, the AXIS slave
   // is not awating a packet, and we have been instructed to reset
