@@ -40,6 +40,17 @@ typedef struct {
 int rxMapleBus_CfgInitialize(rxMapleBus *InstancePtr, rxMapleBus_Config *ConfigPtr,
                               u32 EffectiveAddr);
 
+/**
+ *
+ * Performs a full hardware reset.
+ *
+ * @param   InstancePtr is the rxMapleBus device instance.
+ *
+ * @return	None
+ *
+ */
+void rxMapleBus_Reset(rxMapleBus *InstancePtr);
+
 /*
  * Diagnostic functions in rxMapleBus_selftest.c
  */

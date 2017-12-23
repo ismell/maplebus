@@ -70,25 +70,3 @@
 /************************** Variable Definitions *****************************/
 
 /************************** Function Prototypes ******************************/
-
-
-/*****************************************************************************/
-/*
-*
-* This function resets the rxMapleBus module by writing reset values to
-* all registers
-*
-* @param	Base address of rxMapleBus module
-*
-* @return	None
-*
-* @note		None.
-*
-******************************************************************************/
-void rxMapleBus_ResetHw(u32 BaseAddress)
-{
-	
-
-}
-
-

@@ -2,7 +2,6 @@
 /***************************** Include Files *******************************/
 #include "rxMapleBus.h"
 #include "xparameters.h"
-#include "stdio.h"
 //#include "xio.h"
 
 /************************** Constant Definitions ***************************/

@@ -79,6 +79,13 @@ extern "C" {
 #define RXMAPLEBUS_REG2_OFFSET 8
 #define RXMAPLEBUS_REG3_OFFSET 12
 #define RXMAPLEBUS_REG4_OFFSET 16
+
+#define RXMAPLEBUS_ENABLE_TX 1 << 0
+#define RXMAPLEBUS_ENABLE_RX 1 << 1
+#define RXMAPLEBUS_ENABLE_LOOPBACK 1 << 2
+#define RXMAPLEBUS_RESET_TX 1 << 3
+#define RXMAPLEBUS_RESET_RX 1 << 4
+
 /* @} */
 
 /**************************** Type Definitions *******************************/
@@ -127,17 +134,6 @@ extern "C" {
 
 
 /************************** Function Prototypes ******************************/
-
-/**
- *
- * Performs a full hardware reset.
- *
- * @param   BaseAddress is the base address of the rxMapleBus device.
- *
- * @return	None
- *
- */
-void rxMapleBus_ResetHw(u32 BaseAddress);
 
 #ifdef __cplusplus
 }

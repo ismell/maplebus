@@ -2,6 +2,7 @@
 
 /***************************** Include Files *******************************/
 #include "rxMapleBus.h"
+#include "xdebug.h"
 
 /************************** Function Definitions ***************************/
 
@@ -27,6 +28,8 @@
 int rxMapleBus_CfgInitialize(rxMapleBus *InstancePtr, rxMapleBus_Config *ConfigPtr,
 				u32 EffectiveAddr)
 {
+	u32 reg;
+	u32 timeout;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
@@ -40,20 +43,36 @@ int rxMapleBus_CfgInitialize(rxMapleBus *InstancePtr, rxMapleBus_Config *ConfigP
 	InstancePtr->MapleBusConfig.DeviceId = ConfigPtr->DeviceId;
 	//InstancePtr->Handler = StubHandler;
 
-	rxMapleBus_WriteReg(InstancePtr->MapleBusConfig.BaseAddr,
-			  RXMAPLEBUS_REG0_OFFSET, 0xFFFFFFFF);
+	//TODO: We need to wait until TX and RX are 0 before we continue
 
 	rxMapleBus_WriteReg(InstancePtr->MapleBusConfig.BaseAddr,
-			  RXMAPLEBUS_REG1_OFFSET, 0xFFFFFFFF);
+			  RXMAPLEBUS_REG0_OFFSET, RXMAPLEBUS_RESET_TX | RXMAPLEBUS_RESET_RX);
+	
+	for (timeout = 10; timeout > 0; --timeout) {
+		reg = rxMapleBus_ReadReg(InstancePtr->MapleBusConfig.BaseAddr, RXMAPLEBUS_REG1_OFFSET);
+		if (!reg) {
+			break;
+		}
+	}
+	if (!timeout) {
+		xdbg_printf(XDBG_DEBUG_ERROR, "rxMapleBus failed reset in initialize\r\n");
+
+		/* Need system hard reset to recover
+		 */
+		return XST_FAILURE;
+	}
 
 	rxMapleBus_WriteReg(InstancePtr->MapleBusConfig.BaseAddr,
-			  RXMAPLEBUS_REG2_OFFSET, 0xFFFFFFFF);
+			  RXMAPLEBUS_REG0_OFFSET, RXMAPLEBUS_ENABLE_LOOPBACK);
 
-	rxMapleBus_WriteReg(InstancePtr->MapleBusConfig.BaseAddr,
-			  RXMAPLEBUS_REG3_OFFSET, 0xFFFFFFFF);
+	reg = rxMapleBus_ReadReg(InstancePtr->MapleBusConfig.BaseAddr, RXMAPLEBUS_REG0_OFFSET);
 
-	rxMapleBus_WriteReg(InstancePtr->MapleBusConfig.BaseAddr,
-			  RXMAPLEBUS_REG4_OFFSET, 0xFFFFFFFF);
+	if (reg != RXMAPLEBUS_ENABLE_LOOPBACK) {
+		xdbg_printf(XDBG_DEBUG_ERROR, "rxMapleBus failed setup in initialize\r\n");
+
+		/* Hardware error */
+		return XST_FAILURE;
+	}
 
 	/*
 	 * Indicate the component is now ready to use.
@@ -61,4 +80,22 @@ int rxMapleBus_CfgInitialize(rxMapleBus *InstancePtr, rxMapleBus_Config *ConfigP
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
 	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/*
+*
+* This function resets the rxMapleBus module by writing reset values to
+* all registers
+*
+* @param	Base address of rxMapleBus module
+*
+* @return	None
+*
+* @note		None.
+*
+******************************************************************************/
+void rxMapleBus_Reset(rxMapleBus *InstancePtr)
+{
+
 }
