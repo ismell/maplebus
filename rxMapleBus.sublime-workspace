@@ -1,0 +1,1169 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"sdcka",
+				"sdcka_out"
+			],
+			[
+				"transmi",
+				"transmitting"
+			],
+			[
+				"sdck",
+				"sdcka_in"
+			],
+			[
+				"enabl",
+				"enable_loopback"
+			],
+			[
+				"M_AS",
+				"M_AXIS_ARESETN"
+			],
+			[
+				"current",
+				"current_state"
+			],
+			[
+				"ARESET",
+				"M_AXIS_ARESETN"
+			],
+			[
+				"ACL",
+				"M_AXIS_ACLK"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "rxMapleBus_1.0/drivers/rxMapleBus_v1_0/data/rxMapleBus.mdd",
+			"settings":
+			{
+				"buffer_size": 185,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "rxMapleBus_1.0/hdl/rxMapleBus_v1_0_S_AXI_CRTL.v",
+			"settings":
+			{
+				"buffer_size": 13447,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "rxMapleBus_1.0/hdl/rxMapleBus_v1_0.v",
+			"settings":
+			{
+				"buffer_size": 8659,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "rxMapleBus_1.0/hdl/rxMapleBus_Loopback_test.v",
+			"settings":
+			{
+				"buffer_size": 5650,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "rxMapleBus_1.0/drivers/rxMapleBus_v1_0/src/Makefile",
+			"settings":
+			{
+				"buffer_size": 453,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "rxMapleBus_1.0/drivers/rxMapleBus_v1_0/src/rxMapleBus.c",
+			"settings":
+			{
+				"buffer_size": 2967,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "rxMapleBus_1.0/drivers/rxMapleBus_v1_0/src/rxMapleBus_g.c",
+			"settings":
+			{
+				"buffer_size": 3637,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "rxMapleBus_1.0/drivers/rxMapleBus_v1_0/src/rxMapleBus_hw.c",
+			"settings":
+			{
+				"buffer_size": 3270,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "rxMapleBus_1.0/drivers/rxMapleBus_v1_0/src/rxMapleBus_selftest.c",
+			"settings":
+			{
+				"buffer_size": 1881,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "rxMapleBus_1.0/drivers/rxMapleBus_v1_0/src/rxMapleBus_sinit.c",
+			"settings":
+			{
+				"buffer_size": 4300,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "Searching 10 files for \"MapleLite\"\n\nC:\\Users\\me\\Projects\\Zynq\\ip_repo\\rxMapleBus_1.0\\drivers\\rxMapleBus_v1_0\\src\\rxMapleBus.c:\n   42  \n   43  	rxMapleBus_WriteReg(InstancePtr->MapleBusConfig.BaseAddr,\n   44: 			  RXMAPLELITE_REG0_OFFSET, 0xFFFFFFFF);\n   45  \n   46  	rxMapleBus_WriteReg(InstancePtr->MapleBusConfig.BaseAddr,\n   47: 			  RXMAPLELITE_REG1_OFFSET, 0xFFFFFFFF);\n   48  \n   49  	rxMapleBus_WriteReg(InstancePtr->MapleBusConfig.BaseAddr,\n   50: 			  RXMAPLELITE_REG2_OFFSET, 0xFFFFFFFF);\n   51  \n   52  	rxMapleBus_WriteReg(InstancePtr->MapleBusConfig.BaseAddr,\n   53: 			  RXMAPLELITE_REG3_OFFSET, 0xFFFFFFFF);\n   54  \n   55  	rxMapleBus_WriteReg(InstancePtr->MapleBusConfig.BaseAddr,\n   56: 			  RXMAPLELITE_REG4_OFFSET, 0xFFFFFFFF);\n   57  \n   58  	/*\n\nC:\\Users\\me\\Projects\\Zynq\\ip_repo\\rxMapleBus_1.0\\drivers\\rxMapleBus_v1_0\\src\\rxMapleBus.h:\n    1  \n    2: #ifndef RXMAPLELITE_H\n    3: #define RXMAPLELITE_H\n    4  \n    5  #ifdef __cplusplus\n\n7 matches across 2 files\n",
+			"settings":
+			{
+				"buffer_size": 984,
+				"line_ending": "Windows",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "rxMapleBus_1.0/drivers/rxMapleBus_v1_0/data/rxMapleBus.tcl",
+			"settings":
+			{
+				"buffer_size": 3066,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/me/Projects/MapleBus/maplebus.v",
+			"settings":
+			{
+				"buffer_size": 1892,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "/******************************************************************************\n*\n* (c) Copyright 2010-2013 Xilinx, Inc. All rights reserved.\n*\n* This file contains confidential and proprietary information of Xilinx, Inc.\n* and is protected under U.S. and international copyright and other\n* intellectual property laws.\n*\n* DISCLAIMER\n* This disclaimer is not a license and does not grant any rights to the\n* materials distributed herewith. Except as otherwise provided in a valid\n* license issued to you by Xilinx, and to the maximum extent permitted by\n* applicable law: (1) THESE MATERIALS ARE MADE AVAILABLE \"AS IS\" AND WITH ALL\n* FAULTS, AND XILINX HEREBY DISCLAIMS ALL WARRANTIES AND CONDITIONS, EXPRESS,\n* IMPLIED, OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF\n* MERCHANTABILITY, NON-INFRINGEMENT, OR FITNESS FOR ANY PARTICULAR PURPOSE;\n* and (2) Xilinx shall not be liable (whether in contract or tort, including\n* negligence, or under any other theory of liability) for any loss or damage\n* of any kind or nature related to, arising under or in connection with these\n* materials, including for any direct, or any indirect, special, incidental,\n* or consequential loss or damage (including loss of data, profits, goodwill,\n* or any type of loss or damage suffered as a result of any action brought by\n* a third party) even if such damage or loss was reasonably foreseeable or\n* Xilinx had been advised of the possibility of the same.\n*\n* CRITICAL APPLICATIONS\n* Xilinx products are not designed or intended to be fail-safe, or for use in\n* any application requiring fail-safe performance, such as life-support or\n* safety devices or systems, Class III medical devices, nuclear facilities,\n* applications related to the deployment of airbags, or any other applications\n* that could lead to death, personal injury, or severe property or\n* environmental damage (individually and collectively, \"Critical\n* Applications\"). Customer assumes the sole risk and liability of any use of\n* Xilinx products in Critical Applications, subject only to applicable laws\n* and regulations governing limitations on product liability.\n*\n* THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS PART OF THIS FILE\n* AT ALL TIMES.\n*\n******************************************************************************/\n/*****************************************************************************/\n/**\n *\n * @file xaxidma_example_sg_poll.c\n *\n * This file demonstrates how to use the xaxidma driver on the Xilinx AXI\n * DMA core (AXIDMA) to transfer packets in polling mode when the AXIDMA\n * core is configured in Scatter Gather Mode.\n *\n * This code assumes a loopback hardware widget is connected to the AXI DMA\n * core for data packet loopback.\n *\n * To see the debug print, you need a Uart16550 or uartlite in your system,\n * and please set \"-DDEBUG\" in your compiler options. You need to rebuild your\n * software executable.\n *\n * Make sure that MEMORY_BASE is defined properly as per the HW system. The\n * h/w system built in Area mode has a maximum DDR memory limit of 64MB. In \n * throughput mode, it is 512MB.  These limits are need to ensured for \n * proper operation of this code. \n * \n *\n * <pre>\n * MODIFICATION HISTORY:\n *\n * Ver   Who  Date     Changes\n * ----- ---- -------- -------------------------------------------------------\n * 1.00a jz   05/17/10 First release\n * 2.00a jz   08/10/10 Second release, added in xaxidma_g.c, xaxidma_sinit.c,\n *                     updated tcl file, added xaxidma_porting_guide.h, removed\n *                     workaround for endianness\n * 4.00a rkv  02/22/11 Name of the file has been changed for naming consistency\n *       	       	   Added interrupt support for ARM.\n * 5.00a srt  03/05/12 Added Flushing and Invalidation of Caches to fix CRs\n *		       		   648103, 648701.\n *		       		   Added V7 DDR Base Address to fix CR 649405.\n * 6.00a srt  03/27/12 Changed API calls to support MCDMA driver.\n * 7.00a srt  06/18/12 API calls are reverted back for backward compatibility.\n * 7.01a srt  11/02/12 Buffer sizes (Tx and Rx) are modified to meet maximum \n *		       DDR memory limit of the h/w system built with Area mode\n * 7.02a srt  03/01/13 Updated DDR base address for IPI designs (CR 703656). \n *\n * </pre>\n *\n * ***************************************************************************\n */\n/***************************** Include Files *********************************/\n#include \"xaxidma.h\"\n#include \"xparameters.h\"\n#include \"xdebug.h\"\n\n#if defined(XPAR_UARTNS550_0_BASEADDR)\n#include \"xuartns550_l.h\"       /* to use uartns550 */\n#endif\n\n#if (!defined(DEBUG))\nextern void xil_printf(const char *format, ...);\n#endif\n\n/******************** Constant Definitions **********************************/\n\n/*\n * Device hardware build related constants.\n */\n\n#define DMA_DEV_ID		XPAR_AXIDMA_0_DEVICE_ID\n\n#ifdef XPAR_V6DDR_0_S_AXI_BASEADDR\n#define DDR_BASE_ADDR		XPAR_V6DDR_0_S_AXI_BASEADDR\n#elif XPAR_S6DDR_0_S0_AXI_BASEADDR\n#define DDR_BASE_ADDR		XPAR_S6DDR_0_S0_AXI_BASEADDR\n#elif XPAR_AXI_7SDDR_0_S_AXI_BASEADDR\n#define DDR_BASE_ADDR		XPAR_AXI_7SDDR_0_S_AXI_BASEADDR\n#elif XPAR_MIG7SERIES_0_BASEADDR\n#define DDR_BASE_ADDR		XPAR_MIG7SERIES_0_BASEADDR\n#endif\n\n#ifndef DDR_BASE_ADDR\n#warning CHECK FOR THE VALID DDR ADDRESS IN XPARAMETERS.H, \\\n			DEFAULT SET TO 0x01000000\n#define MEM_BASE_ADDR		0x01000000\n#else\n#define MEM_BASE_ADDR		(DDR_BASE_ADDR + 0x1000000)\n#endif\n\n#define TX_BD_SPACE_BASE	(MEM_BASE_ADDR)\n#define TX_BD_SPACE_HIGH	(MEM_BASE_ADDR + 0x00000FFF)\n#define RX_BD_SPACE_BASE	(MEM_BASE_ADDR + 0x00001000)\n#define RX_BD_SPACE_HIGH	(MEM_BASE_ADDR + 0x00001FFF)\n#define TX_BUFFER_BASE		(MEM_BASE_ADDR + 0x00100000)\n#define RX_BUFFER_BASE		(MEM_BASE_ADDR + 0x00300000)\n#define RX_BUFFER_HIGH		(MEM_BASE_ADDR + 0x004FFFFF)\n\n\n#define MAX_PKT_LEN		0x20\n\n#define TEST_START_VALUE	0xC\n\n/**************************** Type Definitions *******************************/\n\n\n/***************** Macros (Inline Functions) Definitions *********************/\n\n\n/************************** Function Prototypes ******************************/\n#if defined(XPAR_UARTNS550_0_BASEADDR)\nstatic void Uart550_Setup(void);\n#endif\n\nstatic int RxSetup(XAxiDma * AxiDmaInstPtr);\nstatic int TxSetup(XAxiDma * AxiDmaInstPtr);\nstatic int SendPacket(XAxiDma * AxiDmaInstPtr);\nstatic int CheckData(void);\nstatic int CheckDmaResult(XAxiDma * AxiDmaInstPtr);\n\n/************************** Variable Definitions *****************************/\n/*\n * Device instance definitions\n */\nXAxiDma AxiDma;\n\n/*\n * Buffer for transmit packet. Must be 32-bit aligned to be used by DMA.\n */\nu32 *Packet = (u32 *) TX_BUFFER_BASE;\n\n/*****************************************************************************/\n/**\n*\n* Main function\n*\n* This function is the main entry of the tests on DMA core. It sets up\n* DMA engine to be ready to receive and send packets, then a packet is\n* transmitted and will be verified after it is received via the DMA loopback\n* widget.\n*\n* @param	None\n*\n* @return\n*		- XST_SUCCESS if test passes\n*		- XST_FAILURE if test fails.\n*\n* @note		None.\n*\n******************************************************************************/\nint main(void)\n{\n	int Status;\n	XAxiDma_Config *Config;\n\n#if defined(XPAR_UARTNS550_0_BASEADDR)\n\n	Uart550_Setup();\n\n#endif\n\n	xil_printf(\"\\r\\n--- Entering main() --- \\r\\n\");\n\n	Config = XAxiDma_LookupConfig(DMA_DEV_ID);\n	if (!Config) {\n		xil_printf(\"No config found for %d\\r\\n\", DMA_DEV_ID);\n\n		return XST_FAILURE;\n	}\n\n	/* Initialize DMA engine */\n	Status = XAxiDma_CfgInitialize(&AxiDma, Config);\n	if (Status != XST_SUCCESS) {\n		xil_printf(\"Initialization failed %d\\r\\n\", Status);\n		return XST_FAILURE;\n	}\n\n	if(!XAxiDma_HasSg(&AxiDma)) {\n		xil_printf(\"Device configured as Simple mode \\r\\n\");\n\n		return XST_FAILURE;\n	}\n\n	Status = TxSetup(&AxiDma);\n	if (Status != XST_SUCCESS) {\n		return XST_FAILURE;\n	}\n\n	Status = RxSetup(&AxiDma);\n	if (Status != XST_SUCCESS) {\n		return XST_FAILURE;\n	}\n\n	/* Send a packet */\n	Status = SendPacket(&AxiDma);\n	if (Status != XST_SUCCESS) {\n		return XST_FAILURE;\n	}\n\n	/* Check DMA transfer result */\n	Status = CheckDmaResult(&AxiDma);\n\n	xil_printf(\"AXI DMA SG Polling Test %s\\r\\n\",\n		(Status == XST_SUCCESS)? \"passed\":\"failed\");\n\n	xil_printf(\"--- Exiting main() --- \\r\\n\");\n\n	if (Status != XST_SUCCESS) {\n		return XST_FAILURE;\n	}\n\n	return XST_SUCCESS;\n}\n\n#if defined(XPAR_UARTNS550_0_BASEADDR)\n/*****************************************************************************/\n/*\n*\n* Uart16550 setup routine, need to set baudrate to 9600, and data bits to 8\n*\n* @param	None\n*\n* @return	None\n*\n* @note		None.\n*\n******************************************************************************/\nstatic void Uart550_Setup(void)\n{\n\n	/* Set the baudrate to be predictable\n	 */\n	XUartNs550_SetBaud(XPAR_UARTNS550_0_BASEADDR,\n			XPAR_XUARTNS550_CLOCK_HZ, 9600);\n\n	XUartNs550_SetLineControlReg(XPAR_UARTNS550_0_BASEADDR,\n			XUN_LCR_8_DATA_BITS);\n\n}\n#endif\n\n/*****************************************************************************/\n/**\n*\n* This function sets up RX channel of the DMA engine to be ready for packet\n* reception\n*\n* @param	AxiDmaInstPtr is the pointer to the instance of the DMA engine.\n*\n* @return	XST_SUCCESS if the setup is successful, XST_FAILURE otherwise.\n*\n* @note		None.\n*\n******************************************************************************/\nstatic int RxSetup(XAxiDma * AxiDmaInstPtr)\n{\n	XAxiDma_BdRing *RxRingPtr;\n	int Delay = 0;\n	int Coalesce = 1;\n	int Status;\n	XAxiDma_Bd BdTemplate;\n	XAxiDma_Bd *BdPtr;\n	XAxiDma_Bd *BdCurPtr;\n	u32 BdCount;\n	u32 FreeBdCount;\n	u32 RxBufferPtr;\n	int Index;\n\n	RxRingPtr = XAxiDma_GetRxRing(&AxiDma);\n\n	/* Disable all RX interrupts before RxBD space setup */\n\n	XAxiDma_BdRingIntDisable(RxRingPtr, XAXIDMA_IRQ_ALL_MASK);\n\n	/* Set delay and coalescing */\n	XAxiDma_BdRingSetCoalesce(RxRingPtr, Coalesce, Delay);\n\n	/* Setup Rx BD space */\n	BdCount = XAxiDma_BdRingCntCalc(XAXIDMA_BD_MINIMUM_ALIGNMENT,\n				RX_BD_SPACE_HIGH - RX_BD_SPACE_BASE + 1);\n\n	Status = XAxiDma_BdRingCreate(RxRingPtr, RX_BD_SPACE_BASE,\n				RX_BD_SPACE_BASE,\n				XAXIDMA_BD_MINIMUM_ALIGNMENT, BdCount);\n\n	if (Status != XST_SUCCESS) {\n		xil_printf(\"RX create BD ring failed %d\\r\\n\", Status);\n\n		return XST_FAILURE;\n	}\n\n	/*\n	 * Setup an all-zero BD as the template for the Rx channel.\n	 */\n	XAxiDma_BdClear(&BdTemplate);\n\n	Status = XAxiDma_BdRingClone(RxRingPtr, &BdTemplate);\n	if (Status != XST_SUCCESS) {\n		xil_printf(\"RX clone BD failed %d\\r\\n\", Status);\n\n		return XST_FAILURE;\n	}\n\n	/* Attach buffers to RxBD ring so we are ready to receive packets */\n\n	FreeBdCount = XAxiDma_BdRingGetFreeCnt(RxRingPtr);\n\n	Status = XAxiDma_BdRingAlloc(RxRingPtr, FreeBdCount, &BdPtr);\n	if (Status != XST_SUCCESS) {\n		xil_printf(\"RX alloc BD failed %d\\r\\n\", Status);\n\n		return XST_FAILURE;\n	}\n\n	BdCurPtr = BdPtr;\n	RxBufferPtr = RX_BUFFER_BASE;\n	for (Index = 0; Index < FreeBdCount; Index++) {\n		Status = XAxiDma_BdSetBufAddr(BdCurPtr, RxBufferPtr);\n\n		if (Status != XST_SUCCESS) {\n			xil_printf(\"Set buffer addr %x on BD %x failed %d\\r\\n\",\n			    (unsigned int)RxBufferPtr,\n			    (unsigned int)BdCurPtr, Status);\n\n			return XST_FAILURE;\n		}\n\n		Status = XAxiDma_BdSetLength(BdCurPtr, MAX_PKT_LEN,\n				RxRingPtr->MaxTransferLen);\n		if (Status != XST_SUCCESS) {\n			xil_printf(\"Rx set length %d on BD %x failed %d\\r\\n\",\n			    MAX_PKT_LEN, (unsigned int)BdCurPtr, Status);\n\n			return XST_FAILURE;\n		}\n\n		/* Receive BDs do not need to set anything for the control\n		 * The hardware will set the SOF/EOF bits per stream status\n		 */\n		XAxiDma_BdSetCtrl(BdCurPtr, 0);\n		XAxiDma_BdSetId(BdCurPtr, RxBufferPtr);\n\n		RxBufferPtr += MAX_PKT_LEN;\n		BdCurPtr = XAxiDma_BdRingNext(RxRingPtr, BdCurPtr);\n	}\n\n	/* Clear the receive buffer, so we can verify data\n	 */\n	memset((void *)RX_BUFFER_BASE, 0, MAX_PKT_LEN);\n\n	Status = XAxiDma_BdRingToHw(RxRingPtr, FreeBdCount,\n						BdPtr);\n	if (Status != XST_SUCCESS) {\n		xil_printf(\"RX submit hw failed %d\\r\\n\", Status);\n\n		return XST_FAILURE;\n	}\n\n	/* Start RX DMA channel */\n	Status = XAxiDma_BdRingStart(RxRingPtr);\n	if (Status != XST_SUCCESS) {\n		xil_printf(\"RX start hw failed %d\\r\\n\", Status);\n\n		return XST_FAILURE;\n	}\n\n	return XST_SUCCESS;\n}\n\n/*****************************************************************************/\n/**\n*\n* This function sets up the TX channel of a DMA engine to be ready for packet\n* transmission\n*\n* @param	AxiDmaInstPtr is the instance pointer to the DMA engine.\n*\n* @return	XST_SUCCESS if the setup is successful, XST_FAILURE otherwise.\n*\n* @note		None.\n*\n******************************************************************************/\nstatic int TxSetup(XAxiDma * AxiDmaInstPtr)\n{\n	XAxiDma_BdRing *TxRingPtr;\n	XAxiDma_Bd BdTemplate;\n	int Delay = 0;\n	int Coalesce = 1;\n	int Status;\n	u32 BdCount;\n\n	TxRingPtr = XAxiDma_GetTxRing(&AxiDma);\n\n	/* Disable all TX interrupts before TxBD space setup */\n\n	XAxiDma_BdRingIntDisable(TxRingPtr, XAXIDMA_IRQ_ALL_MASK);\n\n	/* Set TX delay and coalesce */\n	XAxiDma_BdRingSetCoalesce(TxRingPtr, Coalesce, Delay);\n\n	/* Setup TxBD space  */\n	BdCount = XAxiDma_BdRingCntCalc(XAXIDMA_BD_MINIMUM_ALIGNMENT,\n				TX_BD_SPACE_HIGH - TX_BD_SPACE_BASE + 1);\n\n	Status = XAxiDma_BdRingCreate(TxRingPtr, TX_BD_SPACE_BASE,\n				TX_BD_SPACE_BASE,\n				XAXIDMA_BD_MINIMUM_ALIGNMENT, BdCount);\n	if (Status != XST_SUCCESS) {\n		xil_printf(\"failed create BD ring in txsetup\\r\\n\");\n\n		return XST_FAILURE;\n	}\n\n	/*\n	 * We create an all-zero BD as the template.\n	 */\n	XAxiDma_BdClear(&BdTemplate);\n\n	Status = XAxiDma_BdRingClone(TxRingPtr, &BdTemplate);\n	if (Status != XST_SUCCESS) {\n		xil_printf(\"failed bdring clone in txsetup %d\\r\\n\", Status);\n\n		return XST_FAILURE;\n	}\n\n	/* Start the TX channel */\n	Status = XAxiDma_BdRingStart(TxRingPtr);\n	if (Status != XST_SUCCESS) {\n		xil_printf(\"failed start bdring txsetup %d\\r\\n\", Status);\n\n		return XST_FAILURE;\n	}\n\n	return XST_SUCCESS;\n}\n\n/*****************************************************************************/\n/**\n*\n* This function transmits one packet non-blockingly through the DMA engine.\n*\n* @param	AxiDmaInstPtr points to the DMA engine instance\n*\n* @return	- XST_SUCCESS if the DMA accepts the packet successfully,\n*		- XST_FAILURE otherwise.\n*\n* @note     None.\n*\n******************************************************************************/\nstatic int SendPacket(XAxiDma * AxiDmaInstPtr)\n{\n	XAxiDma_BdRing *TxRingPtr;\n	u8 *TxPacket;\n	u8 Value;\n	XAxiDma_Bd *BdPtr;\n	int Status;\n	int Index;\n\n	TxRingPtr = XAxiDma_GetTxRing(AxiDmaInstPtr);\n\n	/* Create pattern in the packet to transmit */\n	TxPacket = (u8 *) Packet;\n\n	Value = TEST_START_VALUE;\n\n	for(Index = 0; Index < MAX_PKT_LEN; Index ++) {\n		TxPacket[Index] = Value;\n\n		Value = (Value + 1) & 0xFF;\n	}\n\n	/* Flush the SrcBuffer before the DMA transfer, in case the Data Cache\n	 * is enabled\n	 */\n	Xil_DCacheFlushRange((u32)TxPacket, MAX_PKT_LEN);\n\n\n	/* Allocate a BD */\n	Status = XAxiDma_BdRingAlloc(TxRingPtr, 1, &BdPtr);\n	if (Status != XST_SUCCESS) {\n		return XST_FAILURE;\n	}\n\n	/* Set up the BD using the information of the packet to transmit */\n	Status = XAxiDma_BdSetBufAddr(BdPtr, (u32) Packet);\n	if (Status != XST_SUCCESS) {\n		xil_printf(\"Tx set buffer addr %x on BD %x failed %d\\r\\n\",\n		    (unsigned int)Packet, (unsigned int)BdPtr, Status);\n\n		return XST_FAILURE;\n	}\n\n	Status = XAxiDma_BdSetLength(BdPtr, MAX_PKT_LEN,\n				TxRingPtr->MaxTransferLen);\n	if (Status != XST_SUCCESS) {\n		xil_printf(\"Tx set length %d on BD %x failed %d\\r\\n\",\n		    MAX_PKT_LEN, (unsigned int)BdPtr, Status);\n\n		return XST_FAILURE;\n	}\n\n#if (XPAR_AXIDMA_0_SG_INCLUDE_STSCNTRL_STRM == 1)\n	Status = XAxiDma_BdSetAppWord(BdPtr,\n	    XAXIDMA_LAST_APPWORD, MAX_PKT_LEN);\n\n	/* If Set app length failed, it is not fatal\n	 */\n	if (Status != XST_SUCCESS) {\n		xil_printf(\"Set app word failed with %d\\r\\n\", Status);\n	}\n#endif\n\n	/* For single packet, both SOF and EOF are to be set\n	 */\n	XAxiDma_BdSetCtrl(BdPtr, XAXIDMA_BD_CTRL_TXEOF_MASK |\n						XAXIDMA_BD_CTRL_TXSOF_MASK);\n\n	XAxiDma_BdSetId(BdPtr, (u32) Packet);\n\n	/* Give the BD to DMA to kick off the transmission. */\n	Status = XAxiDma_BdRingToHw(TxRingPtr, 1, BdPtr);\n	if (Status != XST_SUCCESS) {\n		xil_printf(\"to hw failed %d\\r\\n\", Status);\n		return XST_FAILURE;\n	}\n\n\n\n	return XST_SUCCESS;\n}\n\n/*****************************************************************************/\n/*\n*\n* This function checks data buffer after the DMA transfer is finished.\n*\n* @param	None\n*\n* @return	- XST_SUCCESS if validation is successful\n*		- XST_FAILURE if validation is failure.\n*\n* @note		None.\n*\n******************************************************************************/\nstatic int CheckData(void)\n{\n	u8 *RxPacket;\n	int Index = 0;\n	u8 Value;\n\n\n	RxPacket = (u8 *) RX_BUFFER_BASE;\n	Value = TEST_START_VALUE;\n\n	/* Invalidate the DestBuffer before receiving the data, in case the\n	 * Data Cache is enabled\n	 */\n	Xil_DCacheInvalidateRange((u32)RxPacket, MAX_PKT_LEN);\n\n	for(Index = 0; Index < MAX_PKT_LEN; Index++) {\n		if (RxPacket[Index] != Value) {\n			xil_printf(\"Data error %d: %x/%x\\r\\n\",\n			    Index, (unsigned int)RxPacket[Index],\n			    (unsigned int)Value);\n\n			return XST_FAILURE;\n		}\n		Value = (Value + 1) & 0xFF;\n	}\n\n	return XST_SUCCESS;\n}\n\n/*****************************************************************************/\n/**\n*\n* This function waits until the DMA transaction is finished, checks data,\n* and cleans up.\n*\n* @param	None\n*\n* @return	- XST_SUCCESS if DMA transfer is successful and data is correct,\n*		- XST_FAILURE if fails.\n*\n* @note		None.\n*\n******************************************************************************/\nstatic int CheckDmaResult(XAxiDma * AxiDmaInstPtr)\n{\n	XAxiDma_BdRing *TxRingPtr;\n	XAxiDma_BdRing *RxRingPtr;\n	XAxiDma_Bd *BdPtr;\n	int ProcessedBdCount;\n	int FreeBdCount;\n	int Status;\n\n	TxRingPtr = XAxiDma_GetTxRing(AxiDmaInstPtr);\n	RxRingPtr = XAxiDma_GetRxRing(AxiDmaInstPtr);\n\n	/* Wait until the one BD TX transaction is done */\n	while ((ProcessedBdCount = XAxiDma_BdRingFromHw(TxRingPtr,\n						       XAXIDMA_ALL_BDS,\n						       &BdPtr)) == 0) {\n	}\n\n	/* Free all processed TX BDs for future transmission */\n	Status = XAxiDma_BdRingFree(TxRingPtr, ProcessedBdCount, BdPtr);\n	if (Status != XST_SUCCESS) {\n		xil_printf(\"Failed to free %d tx BDs %d\\r\\n\",\n		    ProcessedBdCount, Status);\n		return XST_FAILURE;\n	}\n\n	/* Wait until the data has been received by the Rx channel */\n	while ((ProcessedBdCount = XAxiDma_BdRingFromHw(RxRingPtr,\n						       XAXIDMA_ALL_BDS,\n						       &BdPtr)) == 0) {\n	}\n\n	/* Check received data */\n	if (CheckData() != XST_SUCCESS) {\n\n		return XST_FAILURE;\n	}\n\n	/* Free all processed RX BDs for future transmission */\n	Status = XAxiDma_BdRingFree(RxRingPtr, ProcessedBdCount, BdPtr);\n	if (Status != XST_SUCCESS) {\n		xil_printf(\"Failed to free %d rx BDs %d\\r\\n\",\n		    ProcessedBdCount, Status);\n		return XST_FAILURE;\n	}\n\n	/* Return processed BDs to RX channel so we are ready to receive new\n	 * packets:\n	 *    - Allocate all free RX BDs\n	 *    - Pass the BDs to RX channel\n	 */\n	FreeBdCount = XAxiDma_BdRingGetFreeCnt(RxRingPtr);\n	Status = XAxiDma_BdRingAlloc(RxRingPtr, FreeBdCount, &BdPtr);\n	if (Status != XST_SUCCESS) {\n		xil_printf(\"bd alloc failed\\r\\n\");\n		return XST_FAILURE;\n	}\n\n	Status = XAxiDma_BdRingToHw(RxRingPtr, FreeBdCount, BdPtr);\n	if (Status != XST_SUCCESS) {\n		xil_printf(\"Submit %d rx BDs failed %d\\r\\n\", FreeBdCount, Status);\n		return XST_FAILURE;\n	}\n\n	return XST_SUCCESS;\n}\n",
+			"settings":
+			{
+				"buffer_size": 19382,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "rxMapleBus_1.0/hdl/transmitter.v",
+			"settings":
+			{
+				"buffer_size": 3433,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "Packages/User/xelab.sublime-build",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"sync",
+				"Set Syntax: C"
+			],
+			[
+				"packages",
+				"Preferences: Browse Packages"
+			],
+			[
+				"linter",
+				"SublimeLinter: Lint This View"
+			],
+			[
+				"plugin",
+				"SublimeLinter: Create Linter Plugin"
+			],
+			[
+				"package contr install",
+				"Package Control: Install Package"
+			],
+			[
+				"packg instl",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 416.0
+	},
+	"console":
+	{
+		"height": 328.0,
+		"history":
+		[
+			"view.settings().get('syntax')",
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/me/Projects/Zynq/ip_repo/rxMapleBus_1.0/drivers/rxMapleBus_v1_0/src/rxMapleBus_hw.h",
+		"/C/Users/me/Projects/Zynq/ip_repo/rxMapleBus_1.0/drivers/rxMapleBus_v1_0/src/rxMapleBus.h",
+		"/C/Users/me/Projects/Zynq/ip_repo/rxMapleBus_1.0/hdl/rxMapleBus_v1_0_S_AXI_CRTL.v",
+		"/C/Users/me/Projects/Zynq/ip_repo/rxMapleBusLoopBackTest_behav3.wcfg",
+		"/C/Users/me/Projects/Zynq/ip_repo/rxMapleBusLoopBackTest_behav2.wcfg",
+		"/C/Users/me/Projects/Zynq/ip_repo/rxMapleBusLoopBackTest_behav1.wcfg",
+		"/C/Users/me/Projects/Zynq/ip_repo/rxMapleBusLoopBackTest_behav.wcfg",
+		"/C/Users/me/Projects/Zynq/ip_repo/rxMapleBus_1.0/hdl/rxMapleBus_Loopback_test.v",
+		"/C/Users/me/Projects/Zynq/ip_repo/rxMapleBus_1.0/src/fifo_generator_0/fifo_generator_v12_0/hdl/builtin/logic_builtin.vhd",
+		"/C/Users/me/Projects/Zynq/ip_repo/rxMapleBus_1.0/drivers/rxMapleBus_v1_0/src/rxMapleBus_g.c",
+		"/C/Users/me/Projects/Zynq/ip_repo/rxMapleBus_1.0/src/fifo_generator_0/fifo_generator_0.xci",
+		"/C/Users/me/Projects/Zynq/ip_repo/rxMapleBus_1.0/rxMapleBus_0/rxMapleBus_0.xci",
+		"/C/Users/me/Projects/Zynq/ip_repo/rxMapleBus_1.0/component.xml",
+		"/C/Users/me/Projects/Zynq/ip_repo/.gitignore",
+		"/C/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/transmitter.v",
+		"/C/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/receiver.v",
+		"/C/Users/me/Projects/Zynq/ip_repo/rxMapleBus_1.0/hdl/rxMapleBus_v1_0.v",
+		"/C/Users/me/Projects/Zynq/ip_repo/rxMapleBus.sublime-project",
+		"/C/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/synchronizer.v",
+		"/C/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/start_frame_decoder.v",
+		"/C/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/data_decoder.v",
+		"/C/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/data_encoder.v",
+		"/C/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/end_frame_decoder.v",
+		"/C/Users/me/Projects/Zynq/ip_repo/rxMapleBus_1.0/hdl/rxMapleBus_v1_0_M_AXIS_RX.v",
+		"/C/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/Loopback/new/rxMapleBus_Loopback_test.v",
+		"/C/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/hdl/rxMapleBus_v1_0.v",
+		"/C/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.xpr",
+		"/C/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/rxmaplebus_1.0/hdl/rxMapleBus_v1_0_S_AXI_CRTL.v",
+		"/C/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.sim/Loopback/behav/compile.bat",
+		"/C/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/frame_pattern_encoder.v",
+		"/C/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sim_1/new/rxMapleBus_Loopback_test.v",
+		"/C/Users/me/Projects/Zynq/ip_repo/rxMapleBus_1.0/src/fifo_generator_0/blk_mem_gen_v8_2/hdl/blk_mem_gen_prim_wrapper_init.vhd",
+		"/C/Users/me/Projects/Zynq/ip_repo/drivers/rxMapleLite_v1_0/src/rxMapleLite_g.c",
+		"/C/Users/me/Projects/Zynq/ip_repo/.gitattributes",
+		"/C/Users/me/Projects/Zynq/ip_repo/rxMapleBus_1.0/src/fifo_generator_0/fifo_generator_v12_0/hdl/builtin/bin_cntr.vhd",
+		"/C/Users/me/Projects/Zynq/ip_repo/rxMapleBus_1.0/src/fifo_generator_0/doc/fifo_generator_v12_0_changelog.txt",
+		"/C/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/rxMapleBus_v1_0.dcp",
+		"/C/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/rxMapleBus_v1_0.tcl",
+		"/C/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/synth_1/rxMapleBus_v1_0.vds",
+		"/C/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/Loopback/new/xsim.dir/xil_defaultlib/transmitter.sdb",
+		"/C/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.srcs/sources_1/imports/MapleBus/xsim.dir/work/transmitter.sdb",
+		"/C/Users/me/Projects/Zynq/ip_repo/xsim.dir/xil_defaultlib/transmitter.sdb",
+		"/C/Users/me/Projects/Zynq/ip_repo/rxMapleBus_1.0/hdl/xelab.pb",
+		"/C/Users/me/Projects/Zynq/ip_repo/rxMapleBus_1.0/hdl/xsim.dir/rxMapleBusLoopBackTest_behav/Compile_Options.txt",
+		"/C/Users/me/Projects/Zynq/ip_repo/rxMapleBus_1.0/hdl/xsim.dir/xil_defaultlib/data_encoder.sdb",
+		"/C/Users/me/Projects/Zynq/ip_repo/rxMapleBus_1.0/src/fifo_generator_0/fifo_generator_v12_0/hdl/ramfifo/rd_dc_as.vhd",
+		"/C/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/fifo_generator_0_synth_1/dont_touch.xdc",
+		"/C/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.cache/wt/synthesis.wdf",
+		"/C/Users/me/Projects/Zynq/ip_repo/rxMapleBusLite_1.0/rxmaplebuslite_v1_0_project/rxMapleBusLite_v1_0_project.xpr",
+		"/C/Users/me/Projects/Zynq/ip_repo/rxMapleBus_1.0/src/fifo_generator_0/blk_mem_gen_v8_2/hdl/blk_mem_min_area_pkg.vhd",
+		"/C/Users/me/Projects/Zynq/ip_repo/rxMapleBus_1.0/src/fifo_generator_0/blk_mem_gen_v8_2/hdl/blk_mem_axi_read_fsm.vhd",
+		"/C/Users/me/Projects/Zynq/ip_repo/drivers/rxMapleLite_v1_0/src/Makefile",
+		"/C/Users/me/Projects/Zynq/ip_repo/rxMapleBus_1.0/src/fifo_generator_0/fifo_generator_v12_0/hdl/ramfifo/clk_x_pntrs.vhd",
+		"/C/Users/me/AppData/Roaming/Sublime Text 3/Packages/User/xelab.sublime-build",
+		"/C/Users/me/Projects/Zynq/ip_repo/rxMapleBus_1.0/src/fifo_generator_0/fifo_generator_v12_0/hdl/ramfifo/rd_dc_fwft_ext_as.vhd",
+		"/C/Users/me/AppData/Roaming/Sublime Text 3/Packages/User/SublimeLinter.sublime-settings",
+		"/C/Users/me/AppData/Roaming/Sublime Text 3/Packages/SublimeLinter/lint/linter.py",
+		"/C/Users/me/AppData/Roaming/Sublime Text 3/Packages/SublimeLinter-contrib-xvlog/linter.py",
+		"/C/Users/me/Projects/Zynq/ip_repo/edit_rxMapleBus_v1_0.runs/fifo_generator_0_synth_1/rundef.js",
+		"/C/Xilinx/Vivado/2014.1/bin/xvlog.bat",
+		"/C/Users/me/AppData/Roaming/Sublime Text 3/Packages/SublimeLinter-contrib-xvlog/.sublimelinterrc",
+		"/C/Users/me/AppData/Roaming/Sublime Text 2/Packages/User/xelab.sublime-build"
+	],
+	"find":
+	{
+		"height": 22.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+			"C:\\Users\\me\\Projects\\Zynq\\ip_repo\\rxMapleBus_1.0\\drivers\\rxMapleBus_v1_0"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"count",
+			"reg",
+			"C_S_AXI_CRTL_ADDR_WIDTH-1",
+			"output",
+			"input",
+			"slv_reg0",
+			"ENABLE_TX",
+			"sdcka",
+			"slv_reg_rden",
+			"slv_reg0",
+			"loopback",
+			"MapleLite",
+			"RXMAPLELITE",
+			"MapleLite",
+			"rxMapleLite",
+			"C_S00_AXI_HIGHADDR",
+			"C_S00_AXI_BASEADDR",
+			"rxMapleLite",
+			"hdl/MapleBus",
+			"$PSRCDIR/sources_1/imports",
+			"ENABLE",
+			"enable_decoder",
+			"ENABLE",
+			"slv_reg0",
+			"slv_reg2",
+			"s_axis_tx_tdata",
+			"tx_read",
+			"tx_enable",
+			"enable_decoder",
+			"RECEIVIN",
+			"m_axis_rx_tvalid",
+			"clk",
+			"DONE",
+			"M_AXIS_ARESETN",
+			"M_AXIS_ACLK",
+			"or negedge reset",
+			"receiver",
+			"or negedge reset",
+			",",
+			"tready",
+			"TREADY",
+			"tready",
+			"data",
+			"DATA",
+			"data",
+			"DATA",
+			"data",
+			"ready",
+			"READY",
+			"ready",
+			"reset",
+			"or negedge reset",
+			",",
+			"s_axis_tx_buffered_tready",
+			"s_axis_tx_buffered_tlast",
+			"s_axis_tx_buffered_tstrb",
+			"s_axis_tx_buffered_tdata",
+			"s_axis_tx_buffered_tvalid",
+			"m_axis_rx_tvalid",
+			"tx_data",
+			"axis_loopback_tlast",
+			"axis_loopback_tstrb",
+			"axis_loopback_tdata",
+			"axis_loopback_tready",
+			"axis_loopback_tvalid",
+			"s_axis_tx_tready",
+			"get_executable_version",
+			"def lint"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": true,
+		"regex": false,
+		"replace_history":
+		[
+			"MapleBus",
+			"RXMAPLEBUS",
+			"MapleBus",
+			"rxMapleBus",
+			"C_S_AXI_CRTL_HIGHADDR",
+			"C_S_AXI_CRTL_BASEADDR",
+			"rxMapleBus",
+			"$PPRDIR/rxmaplebus_1.0/hdl",
+			"axis_tx_tready",
+			"axis_tx_tlast",
+			"axis_tx_tstrb",
+			"axis_tx_tdata",
+			"axis_tx_tvalid",
+			"s_axis_tx_buffered_tlast",
+			"s_axis_tx_buffered_tstrb",
+			"s_axis_tx_buffered_tdata",
+			"s_axis_tx_buffered_tready",
+			"s_axis_tx_buffered_tvalid"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 5,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "rxMapleBus_1.0/drivers/rxMapleBus_v1_0/data/rxMapleBus.mdd",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 185,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								185,
+								185
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "rxMapleBus_1.0/hdl/rxMapleBus_v1_0_S_AXI_CRTL.v",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 13447,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9634,
+								9634
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/SystemVerilog/SystemVerilog.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 45468.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "rxMapleBus_1.0/hdl/rxMapleBus_v1_0.v",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8659,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/SystemVerilog/SystemVerilog.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 61026.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "rxMapleBus_1.0/hdl/rxMapleBus_Loopback_test.v",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5650,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								479,
+								462
+							],
+							[
+								512,
+								495
+							],
+							[
+								539,
+								521
+							],
+							[
+								623,
+								607
+							],
+							[
+								683,
+								667
+							],
+							[
+								709,
+								692
+							],
+							[
+								822,
+								805
+							],
+							[
+								879,
+								862
+							],
+							[
+								912,
+								895
+							],
+							[
+								939,
+								921
+							],
+							[
+								1110,
+								1093
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/SystemVerilog/SystemVerilog.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 16786.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "rxMapleBus_1.0/drivers/rxMapleBus_v1_0/src/Makefile",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 453,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								436,
+								436
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Makefile/Makefile.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 15,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "rxMapleBus_1.0/drivers/rxMapleBus_v1_0/src/rxMapleBus.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2967,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1161,
+								1161
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 420.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "rxMapleBus_1.0/drivers/rxMapleBus_v1_0/src/rxMapleBus_g.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3637,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3406,
+								3406
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 504.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "rxMapleBus_1.0/drivers/rxMapleBus_v1_0/src/rxMapleBus_hw.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3270,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3270,
+								3270
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 616.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "rxMapleBus_1.0/drivers/rxMapleBus_v1_0/src/rxMapleBus_selftest.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1881,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1778,
+								1789
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "rxMapleBus_1.0/drivers/rxMapleBus_v1_0/src/rxMapleBus_sinit.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4300,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1575,
+								1575
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 210.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 14,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 984,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										215,
+										224
+									],
+									[
+										339,
+										348
+									],
+									[
+										463,
+										472
+									],
+									[
+										587,
+										596
+									],
+									[
+										711,
+										720
+									],
+									[
+										883,
+										892
+									],
+									[
+										912,
+										921
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								887,
+								887
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"line_numbers": false,
+							"output_tag": 1,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "rxMapleBus_1.0/drivers/rxMapleBus_v1_0/data/rxMapleBus.tcl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3066,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2863,
+								2875
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/TCL/Tcl.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 294.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 16,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 12,
+					"file": "/C/Users/me/Projects/MapleBus/maplebus.v",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1892,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1428,
+								1437
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/SystemVerilog/SystemVerilog.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1036.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "rxMapleBus_1.0/hdl/rxMapleBus_Loopback_test.v",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5650,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4395,
+								4395
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/SystemVerilog/SystemVerilog.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 43357.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 19382,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								13555,
+								13555
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 5700.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "rxMapleBus_1.0/hdl/rxMapleBus_v1_0_S_AXI_CRTL.v",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 13447,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5169,
+								5169
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/SystemVerilog/SystemVerilog.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1008.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "rxMapleBus_1.0/hdl/transmitter.v",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3433,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1431,
+								1431
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/SystemVerilog/SystemVerilog.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2380.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 22.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.5,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 264.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "rxMapleBus.sublime-project",
+	"replace":
+	{
+		"height": 40.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"ctrl",
+				"rxMapleBus_1.0\\hdl\\rxMapleBus_v1_0_S_AXI_CRTL.v"
+			],
+			[
+				"loopback",
+				"rxMapleBus_1.0\\hdl\\rxMapleBus_Loopback_test.v"
+			],
+			[
+				"transmi",
+				"rxMapleBus_1.0\\hdl\\transmitter.v"
+			],
+			[
+				".xci",
+				"rxMapleBus_1.0\\src\\fifo_generator_0\\fifo_generator_0.xci"
+			],
+			[
+				"gitigno",
+				".gitignore"
+			],
+			[
+				".gitig",
+				".gitignore"
+			],
+			[
+				"sf",
+				"edit_rxMapleBus_v1_0.srcs\\sources_1\\imports\\MapleBus\\start_frame_decoder.v"
+			],
+			[
+				"decoder.v",
+				"edit_rxMapleBus_v1_0.srcs\\sources_1\\imports\\MapleBus\\data_decoder.v"
+			],
+			[
+				"receive",
+				"edit_rxMapleBus_v1_0.srcs\\sources_1\\imports\\MapleBus\\receiver.v"
+			],
+			[
+				"receiv",
+				"edit_rxMapleBus_v1_0.srcs\\sources_1\\imports\\MapleBus\\receiver.v"
+			],
+			[
+				"maplebus.v",
+				"rxMapleBus_1.0\\hdl\\rxMapleBus_v1_0.v"
+			],
+			[
+				"data_dec",
+				"edit_rxMapleBus_v1_0.srcs\\sources_1\\imports\\MapleBus\\data_decoder.v"
+			],
+			[
+				"recei",
+				"edit_rxMapleBus_v1_0.srcs\\sources_1\\imports\\MapleBus\\receiver.v"
+			],
+			[
+				"ta",
+				"edit_rxMapleBus_v1_0.srcs\\sources_1\\imports\\MapleBus\\transmitter.v"
+			],
+			[
+				"compile.",
+				"edit_rxMapleBus_v1_0.sim\\Loopback\\behav\\compile.bat"
+			],
+			[
+				"endcr",
+				"edit_rxMapleBus_v1_0.srcs\\sources_1\\imports\\MapleBus\\end_frame_decoder.v"
+			],
+			[
+				"datadec",
+				"edit_rxMapleBus_v1_0.srcs\\sources_1\\imports\\MapleBus\\data_decoder.v"
+			],
+			[
+				"start",
+				"edit_rxMapleBus_v1_0.srcs\\sources_1\\imports\\MapleBus\\start_frame_decoder.v"
+			],
+			[
+				"synchroni",
+				"edit_rxMapleBus_v1_0.srcs\\sources_1\\imports\\MapleBus\\synchronizer.v"
+			],
+			[
+				"maplebusrx",
+				"rxMapleBus_1.0\\hdl\\rxMapleBus_v1_0_M_AXIS_RX.v"
+			],
+			[
+				"trans",
+				"edit_rxMapleBus_v1_0.srcs\\sources_1\\imports\\MapleBus\\transmitter.v"
+			],
+			[
+				"receiver",
+				"edit_rxMapleBus_v1_0.srcs\\sources_1\\imports\\MapleBus\\receiver.v"
+			],
+			[
+				"rxmaplebu.v",
+				"rxMapleBus_1.0\\hdl\\rxMapleBus_v1_0.v"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 278.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
