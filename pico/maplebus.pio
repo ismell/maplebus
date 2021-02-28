@@ -72,7 +72,7 @@ write_end_frame:
 #include "hardware/gpio.h"
 
 
-static inline void maplebus_program_init(PIO pio, uint sm, uint offset, uint pin_sdcka, uint pin_sdckb) {
+static inline void maplebus_tx_program_init(PIO pio, uint sm, uint offset, uint pin_sdcka, uint pin_sdckb) {
     pio_sm_config c = maplebus_tx_program_get_default_config(offset);
 
     // IO mapping
@@ -117,6 +117,101 @@ int pio_maplebus_tx_blocking(PIO pio, uint sm, uint8_t *buffer, size_t n) {
 
 	for (size_t i = 0; i < n; ++i)
 		pio_sm_put_blocking(pio, sm, (uint32_t)buffer[i] << 24);
+}
+
+
+%}
+
+.program maplebus_rx
+.side_set 1 opt
+
+; Autopush should be enabled on the TX FIFO with a threshold of 8.
+;
+; Pin mapping:
+; - Jump pin 0 is SDCKA
+; - In pins are SDCKA,SDCKB
+
+public entry_point:
+	mov isr, !NULL				; Fill the ISR with 1s
+	set y, 3			
+wait_for_high:
+	mov osr, pins			side 0	; Read all pins into OSR
+	out x, 2				; Move 2 bits from the OSR into x
+	jmp x != y, wait_for_high		; Wait for both SDCK{A,B} to be high
+	wait 0 pin 1				; Wait for SDCKA to drop to signal the start frame
+wait_for_sdckb_falling_edge:
+	jmp pin, verify_start_frame	side 1	; If SDCKA is high, we are done with the start frame
+	mov osr, pins				; Read all the pins into OSR
+	out x, 1				; Read SDCKB into x
+	jmp !x, record_start_frame_falling_edge	; If SDCKB is 0 we found a falling edge
+	jmp wait_for_sdckb_falling_edge		; SDCKB is still high, keep waiting
+record_start_frame_falling_edge:
+	in x, 1					; Shift 0/SDCKB into the ISR
+wait_for_sdckb_rising_edge:
+	jmp pin, verify_start_frame		; If SDCKA is high, the "start frame" is over
+	mov osr, pins				; Read all the pins into OSR
+	out x, 1				; Read SDCKB into x
+	jmp !x, wait_for_sdckb_rising_edge	; If SDCKB is still 0, we keep waiting
+	jmp wait_for_sdckb_falling_edge		; SDCKB is high, we found a rising edge, wait for a falling edge again.
+verify_start_frame:
+	mov osr, isr			side 0	; Copy the ISR into the OSR
+	out NULL, 2				; We need at least 3 down ticks to consider it a start frame
+	out x, 1				; Check the 3rd bit. If it's 0 we know we at least had 3 down ticks.
+	jmp !x, start_data_phase		; We had a successful start frame
+	jmp entry_point				; Not a valid start frame, continue
+start_data_phase:
+	push
+
+% c-sdk {
+
+#include "hardware/clocks.h"
+#include "hardware/gpio.h"
+
+
+static inline void maplebus_rx_program_init(PIO pio, uint sm, uint offset, uint pin_sdcka, uint pin_sdckb) {
+    assert(pin_sdcka == pin_sdckb + 1);
+    pio_sm_set_consecutive_pindirs(pio, sm, pin_sdckb, 2, false);
+    pio_sm_config c = maplebus_rx_program_get_default_config(offset);
+
+    // IO mapping
+    sm_config_set_in_pins(&c, pin_sdckb);
+    sm_config_set_jmp_pin(&c, pin_sdcka);
+
+    // We use the OSR as a temp register
+    sm_config_set_out_shift(&c, true, false, 0);
+    sm_config_set_in_shift(&c, false, false, 0);
+
+    // We want to run pretty fast since we sample for edges
+    float div = 2.0f;
+    sm_config_set_clkdiv(&c, div);
+
+    // Debug pin
+    sm_config_set_sideset_pins(&c, 4); //debug pin
+    pio_sm_set_consecutive_pindirs(pio, sm, 4, 1, true);
+    pio_gpio_init(pio, 4);
+
+    gpio_pull_up(pin_sdcka);
+    gpio_pull_up(pin_sdckb);
+
+    // Clear IRQ flag before starting
+    hw_clear_bits(&pio->inte0, 1u << sm);
+    hw_clear_bits(&pio->inte1, 1u << sm);
+    pio->irq = 1u << sm;
+
+    // Configure and start SM
+    pio_sm_init(pio, sm, offset + maplebus_rx_offset_entry_point, &c);
+    pio_sm_set_enabled(pio, sm, true);
+}
+
+int pio_maplebus_rx_blocking(PIO pio, uint sm, uint8_t *buffer, size_t n) {
+	uint32_t val;
+	if (n < 1)
+		return -1;
+
+	printf("Waiting for val\n");
+	val = pio_sm_get_blocking(pio, sm);
+	
+	printf("RX: %#x\n", val);
 }
 
 
