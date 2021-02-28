@@ -132,13 +132,13 @@ int pio_maplebus_tx_blocking(PIO pio, uint sm, uint8_t *buffer, size_t n) {
 ; - In pins are SDCKA,SDCKB
 
 public entry_point:
-	mov isr, !NULL				; Fill the ISR with 1s
-	set y, 3			
-wait_for_high:
-	mov osr, pins			side 0	; Read all pins into OSR
-	out x, 2				; Move 2 bits from the OSR into x
-	jmp x != y, wait_for_high		; Wait for both SDCK{A,B} to be high
-	wait 0 pin 1				; Wait for SDCKA to drop to signal the start frame
+	mov isr, !NULL			side 0	; Fill the ISR with 1s. We will shift 0 in for each
+						; SDCKB falling edge.
+	wait 0 pin 1				; A falling edge on SDCKA indicated the beginning
+						; of the start frame.
+						; We kind of cheat and don't wait for a falling edge.
+						; This works because in the data phase there is only
+						; ever at most 2 falling edges.
 wait_for_sdckb_falling_edge:
 	jmp pin, verify_start_frame	side 1	; If SDCKA is high, we are done with the start frame
 	mov osr, pins				; Read all the pins into OSR
