@@ -124,6 +124,7 @@ int pio_maplebus_tx_blocking(PIO pio, uint sm, uint8_t *buffer, size_t n) {
 
 .program maplebus_rx
 .side_set 1 opt
+.origin 0
 
 ; Autopush should be enabled on the TX FIFO with a threshold of 8.
 ;
@@ -160,7 +161,32 @@ verify_start_frame:
 	jmp !x, start_data_phase		; We had a successful start frame
 	jmp entry_point				; Not a valid start frame, continue
 start_data_phase:
-	push
+	push					; Push the start frame count
+
+.wrap_target
+read_data_phase:
+						; So this gets a little complicated. We don't have the 
+						; instructions to monitor for an end frame condition.
+						; Instead we loop forever and wait for the CPU to issue
+						; a jmp instruction causing the program to terminate
+						; when all the expected data has been read.
+	set x, 3			side 0	; We need to push every 8 bits. We don't use auto push
+						; because the start frame counter can range from 
+						; 4 to 13 bits.
+read_phase_1:
+	wait 0 pin 1			side 1	; Wait for SDCKA falling edge
+	in pins, 1				; Read data from SDCKB
+	wait 1 pin 0				; Wait for SDCKB to be high
+read_phase_2:
+	wait 0 pin 0			side 0	; Wait for SDCKB falling edge
+	mov osr, pins				; Read all the pins into OSR
+	out NULL, 1				; Discard SDCKB
+	in osr, 1				; Shift SDCKA into ISR
+	wait 1 pin 1				; Wait for SDCKA to be high
+	jmp x--, read_phase_1			; Still have more data to read
+push_data:
+	push				side 1
+.wrap
 
 % c-sdk {
 
@@ -181,8 +207,9 @@ static inline void maplebus_rx_program_init(PIO pio, uint sm, uint offset, uint 
     sm_config_set_out_shift(&c, true, false, 0);
     sm_config_set_in_shift(&c, false, false, 0);
 
-    // We want to run pretty fast since we sample for edges
-    float div = 2.0f;
+    // We need to run fast so we can leave enough wiggle room for the
+    // CPU to decide how much data it wants to read.
+    float div = 1.0f;
     sm_config_set_clkdiv(&c, div);
 
     // Debug pin
@@ -204,14 +231,31 @@ static inline void maplebus_rx_program_init(PIO pio, uint sm, uint offset, uint 
 }
 
 int pio_maplebus_rx_blocking(PIO pio, uint sm, uint8_t *buffer, size_t n) {
-	uint32_t val;
+	uint32_t val, header;
 	if (n < 1)
 		return -1;
 
 	printf("Waiting for val\n");
 	val = pio_sm_get_blocking(pio, sm);
-	
-	printf("RX: %#x\n", val);
+	printf("RX: Got frame: %#x\n", val);
+
+	if (val == 0xFFFFFFF0) { // Start frame w/ CRC
+		val = pio_sm_get_blocking(pio, sm);
+		printf("RX: %#x\n", val);
+		val = pio_sm_get_blocking(pio, sm);
+		printf("RX: %#x\n", val);
+		val = pio_sm_get_blocking(pio, sm);
+		printf("RX: %#x\n", val);
+		val = pio_sm_get_blocking(pio, sm);
+		printf("RX: %#x\n", val);
+		val = pio_sm_get_blocking(pio, sm);
+		printf("RX: %#x\n", val);
+		// We need to manually reset the PC
+		pio_sm_exec(pio, sm, pio_encode_jmp(0));
+	} else {
+		pio_sm_put_blocking(pio, sm, 0);
+		printf("RX: Unknown start frame: %#x\n", val);
+	}
 }
 
 
