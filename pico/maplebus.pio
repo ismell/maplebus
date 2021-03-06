@@ -126,20 +126,18 @@ int pio_maplebus_tx_blocking(PIO pio, uint sm, uint8_t *buffer, size_t n) {
 .side_set 1 opt
 .origin 0
 
-; Autopush should be enabled on the TX FIFO with a threshold of 8.
+; Autopush should be disabled.
 ;
 ; Pin mapping:
 ; - Jump pin 0 is SDCKA
-; - In pins are SDCKA,SDCKB
+; - In pins are 0:SDCKB, 1:SDCKA
 
 public entry_point:
 	mov isr, !NULL			side 0	; Fill the ISR with 1s. We will shift 0 in for each
 						; SDCKB falling edge.
-	wait 0 pin 1				; A falling edge on SDCKA indicated the beginning
+	wait 1 pin 1				; Wait for SDCKA to be high.
+	wait 0 pin 1				; A falling edge on SDCKA indicates the beginning
 						; of the start frame.
-						; We kind of cheat and don't wait for a falling edge.
-						; This works because in the data phase there is only
-						; ever at most 2 falling edges.
 wait_for_sdckb_falling_edge:
 	jmp pin, verify_start_frame	side 1	; If SDCKA is high, we are done with the start frame
 	mov osr, pins				; Read all the pins into OSR
@@ -160,19 +158,32 @@ verify_start_frame:
 	out x, 1				; Check the 3rd bit. If it's 0 we know we at least had 3 down ticks.
 	jmp !x, start_data_phase		; We had a successful start frame
 	jmp entry_point				; Not a valid start frame, continue
-start_data_phase:
-	push					; Push the start frame count
-
+; So this gets a little complicated for the following reasons:
+; * We don't have the instructions to monitor for an end frame condition.
+;   Instead we loop forever and wait for the CPU to issue a `jmp entry_point`
+;   when all the expected data has been read.
+; * The maplebus protocol uses word length transfers. The exception is the
+;   CRC byte at the end. We could use byte length transfers, but then the
+;   endiness would be wrong and we would need to manually post process the
+;   data. Instead we use two loops. An outer loop (y) that counts the number of
+;   bytes that have been read, and an inner loop (x) that counts the number of
+;   bits that have been read in the byte. By default we read in 4 byte
+;   increments before pushing. When we want to read the CRC byte, the CPU
+;   is expected to issue a `set y, 0` within 3 uS after the last full word
+;   has been received. In other words, it we need to update the byte counter
+;   before the full byte has been read and the counter evaluated.
+;   The endiness of the CRC word will be wrong, so it will have to be shifted
+;   by 24 bits.
+; * Since we don't have enough instruction space, we combine the start frame
+;   header push with the data push.
 .wrap_target
+start_data_phase:
+	set y, 3				; Initialize the byte loop. We update this value before
+						; pushing so the CPU can update this value before
+						; the first byte has been fully read.
+	push					; Push the start frame count or word.
 read_data_phase:
-						; So this gets a little complicated. We don't have the 
-						; instructions to monitor for an end frame condition.
-						; Instead we loop forever and wait for the CPU to issue
-						; a jmp instruction causing the program to terminate
-						; when all the expected data has been read.
-	set x, 3			side 0	; We need to push every 8 bits. We don't use auto push
-						; because the start frame counter can range from 
-						; 4 to 13 bits.
+	set x, 3			side 0	; Each byte is 8 bits, so 8/2 - 1 = 3
 read_phase_1:
 	wait 0 pin 1			side 1	; Wait for SDCKA falling edge
 	in pins, 1				; Read data from SDCKB
@@ -183,9 +194,10 @@ read_phase_2:
 	out NULL, 1				; Discard SDCKB
 	in osr, 1				; Shift SDCKA into ISR
 	wait 1 pin 1				; Wait for SDCKA to be high
-	jmp x--, read_phase_1			; Still have more data to read
-push_data:
-	push				side 1
+decrement_counters:
+	jmp x--, read_phase_1			; Check if we have read 8 bits
+	jmp y--, read_data_phase		; Check if we have read finished reading the
+						; required number of bytes.
 .wrap
 
 % c-sdk {
@@ -241,15 +253,13 @@ int pio_maplebus_rx_blocking(PIO pio, uint sm, uint8_t *buffer, size_t n) {
 
 	if (val == 0xFFFFFFF0) { // Start frame w/ CRC
 		val = pio_sm_get_blocking(pio, sm);
-		printf("RX: %#x\n", val);
+		// Update the expected number of bytes to 1
+		pio_sm_exec(pio, sm, pio_encode_set(pio_y, 0));
+		printf("HDR: %#x\n", val);
+
 		val = pio_sm_get_blocking(pio, sm);
-		printf("RX: %#x\n", val);
-		val = pio_sm_get_blocking(pio, sm);
-		printf("RX: %#x\n", val);
-		val = pio_sm_get_blocking(pio, sm);
-		printf("RX: %#x\n", val);
-		val = pio_sm_get_blocking(pio, sm);
-		printf("RX: %#x\n", val);
+		printf("CRC: %#x\n", val);
+
 		// We need to manually reset the PC
 		pio_sm_exec(pio, sm, pio_encode_jmp(0));
 	} else {
