@@ -7,7 +7,7 @@
 #include <stdio.h>
 
 #include "pico/stdlib.h"
-#include "maplebus.pio.h"
+#include "maplebus.h"
 
 #define PIN_HEARTBEAT 4
 #define PIN_SDCKA 3

@@ -18,6 +18,7 @@ pico_generate_pio_header(maplebus ${CMAKE_CURRENT_LIST_DIR}/maplebus.pio)
 
 target_sources(maplebus PRIVATE
         main.c
+        maplebus.c
         )
 
 target_link_libraries(maplebus PRIVATE pico_stdlib hardware_pio)
