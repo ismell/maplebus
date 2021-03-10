@@ -15,11 +15,16 @@
 
 /* Device Info Request */
 uint8_t buffer[] = {
-	0x01, 0x23, 0x45, 0x67, 0x89
-	//0x00, 0x00, 0x20, 0x01, 0x21
+	0x01, 0x00, 0x20, 0x01, 0x01, 0x02, 0x03, 0x04, 0x21
 };
 
-uint8_t rx_buffer[0x10];
+struct {
+	struct maplebus_buffer header;
+	// Max number of additional frames
+	uint32_t data[255];
+} rx_buffer;
+
+_Static_assert (sizeof(rx_buffer) == 1024, "rx_buffer is not 1024 bytes long");
 
 int main() {
 	stdio_init_all();
@@ -43,7 +48,7 @@ int main() {
 
 		//gpio_put(PIN_HEARTBEAT, 1);
 		pio_maplebus_tx_blocking(pio0, sm, buffer, sizeof(buffer));
-		pio_maplebus_rx_blocking(pio1, sm, rx_buffer, sizeof(rx_buffer));
+		pio_maplebus_rx_blocking(pio1, sm, &rx_buffer.header, sizeof(rx_buffer));
 		//gpio_put(PIN_HEARTBEAT, 0);
 
 		iteration++;

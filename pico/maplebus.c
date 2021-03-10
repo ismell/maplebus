@@ -7,7 +7,6 @@
 #include "hardware/clocks.h"
 #include "hardware/gpio.h"
 #include "maplebus.h"
-
 #include <stdio.h>
 
 void maplebus_tx_program_init(PIO pio, uint sm, uint offset, uint pin_sdcka, uint pin_sdckb) {
@@ -93,29 +92,42 @@ void maplebus_rx_program_init(PIO pio, uint sm, uint offset, uint pin_sdcka, uin
     pio_sm_set_enabled(pio, sm, true);
 }
 
-int pio_maplebus_rx_blocking(PIO pio, uint sm, uint8_t *buffer, size_t n) {
-	uint32_t val, header;
-	if (n < 1)
-		return -1;
+enum maplebus_return pio_maplebus_rx_blocking(PIO pio, uint sm, struct maplebus_buffer *buffer, size_t n) {
+	uint32_t frame_type, crc;
+	uint8_t words;
 
-	printf("Waiting for val\n");
-	val = pio_sm_get_blocking(pio, sm);
-	printf("RX: Got frame: %#x\n", val);
+	if (n < sizeof(*buffer))
+		return MAPLEBUS_INVALID_ARGS;
 
-	if (val == 0xFFFFFFF0) { // Start frame w/ CRC
-		val = pio_sm_get_blocking(pio, sm);
+	printf("Waiting for frame_type\n");
+	frame_type = pio_sm_get_blocking(pio, sm);
+	printf("RX: Got frame: %#x\n", frame_type);
+
+	if (frame_type == 0xFFFFFFF0) { // Start frame w/ CRC
+		buffer->header = pio_sm_get_blocking(pio, sm);
+
+		for (words = 0; words < buffer->data_count; ++words) {
+			buffer->data[words] = pio_sm_get_blocking(pio, sm);
+		}
 		// Update the expected number of bytes to 1
 		pio_sm_exec(pio, sm, pio_encode_set(pio_y, 0));
-		printf("HDR: %#x\n", val);
+		maplebus_print(buffer);
 
-		val = pio_sm_get_blocking(pio, sm);
-		printf("CRC: %#x\n", val);
+		crc = pio_sm_get_blocking(pio, sm);
+		printf("CRC: %#x\n", crc);
 
 		// We need to manually reset the PC
 		pio_sm_exec(pio, sm, pio_encode_jmp(0));
 	} else {
 		pio_sm_put_blocking(pio, sm, 0);
-		printf("RX: Unknown start frame: %#x\n", val);
+		printf("RX: Unknown start frame: %#x\n", frame_type);
 	}
+}
+
+void maplebus_print(struct maplebus_buffer *buffer) {
+	printf("Command: %#hhx\n", buffer->command);
+	printf("Destination: %#hhx\n", buffer->destination);
+	printf("Source: %#hhx\n", buffer->source);
+	printf("Words: %#hhx\n", buffer->data_count);
 }
 
