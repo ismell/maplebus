@@ -17,6 +17,20 @@ struct maplebus_buffer {
 	uint32_t data[];
 } __attribute__ ((aligned (4)));
 
+uint8_t compute_lrc(struct maplebus_buffer *buffer) {
+	uint8_t lrc = 0;
+	uint32_t *data = (uint32_t *)buffer;
+
+	for (size_t i = 0; i < buffer->header.length + 1; ++i) {
+	  lrc ^= (data[i] >> 0) & 0xFF;
+	  lrc ^= (data[i] >> 8) & 0xFF;
+	  lrc ^= (data[i] >> 16) & 0xFF;
+	  lrc ^= (data[i] >> 24) & 0xFF;
+	}
+
+	return lrc;
+}
+
 void maplebus_tx_program_init(PIO pio, uint sm, uint offset, uint pin_sdcka, uint pin_sdckb) {
     pio_sm_config c = maplebus_tx_program_get_default_config(offset);
 
@@ -101,7 +115,7 @@ void maplebus_rx_program_init(PIO pio, uint sm, uint offset, uint pin_sdcka, uin
 }
 
 enum maplebus_return pio_maplebus_rx_blocking(PIO pio, uint sm, struct maplebus_header *data, size_t n) {
-	uint32_t frame_type, crc;
+	uint32_t frame_type, actual_crc, expected_crc;
 	struct maplebus_buffer *buffer = (struct maplebus_buffer *)data;
 	enum maplebus_return ret;
 
@@ -131,9 +145,14 @@ enum maplebus_return pio_maplebus_rx_blocking(PIO pio, uint sm, struct maplebus_
 		pio_sm_exec(pio, sm, pio_encode_set(pio_y, 0));
 		maplebus_print(&buffer->header);
 
-		crc = pio_sm_get_blocking(pio, sm);
-		printf("CRC: %#x\n", crc);
-		ret = MAPLEBUS_OK;
+		actual_crc = pio_sm_get_blocking(pio, sm);
+		expected_crc = compute_lrc(buffer);
+		if (actual_crc == expected_crc) {
+			ret = MAPLEBUS_OK;
+		} else {
+			ret = MAPLEBUS_CRC_ERROR;
+			printf("Actual CRC: %#x, Expected CRC: %#x\n", actual_crc, expected_crc);
+		}
 	} else {
 		printf("RX: Unknown start frame: %#x\n", frame_type);
 		ret = MAPLEBUS_UNKNOWN_FRAME_TYPE;
