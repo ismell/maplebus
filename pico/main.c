@@ -42,13 +42,36 @@ int main() {
 	maplebus_rx_program_init(pio1, sm, offset, PIN_SDCKA, PIN_SDCKB);
 
 	uint iteration = 0;
+	enum maplebus_return ret;
 
 	while (true) {
 		printf("Maplebus iteration %u\n", iteration);
 
 		//gpio_put(PIN_HEARTBEAT, 1);
 		pio_maplebus_tx_blocking(pio0, sm, buffer, sizeof(buffer));
-		pio_maplebus_rx_blocking(pio1, sm, &rx_buffer.header, sizeof(rx_buffer));
+		ret = pio_maplebus_rx_blocking(pio1, sm, &rx_buffer.header, sizeof(rx_buffer));
+
+		switch (ret) {
+		case MAPLEBUS_OK:
+			break;
+		case MAPLEBUS_UNKNOWN_FRAME_TYPE:
+			printf("invalid frame type\n");
+			break;
+		case MAPLEBUS_INVALID_ARGS:
+			printf("invalid args\n");
+			break;
+		case MAPLEBUS_CRC_ERROR:
+			printf("crc error\n");
+			break;
+		case MAPLEBUS_MESSAGE_TRUNCATED:
+			printf("rx timeout\n");
+			break;
+		case MAPLEBUS_TIMEOUT:
+			printf("rx timeout\n");
+			break;
+		default:
+			printf("Unknown return code %d\n", ret);
+		}
 		//gpio_put(PIN_HEARTBEAT, 0);
 
 		iteration++;
