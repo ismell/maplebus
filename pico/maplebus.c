@@ -9,6 +9,14 @@
 #include "maplebus.h"
 #include <stdio.h>
 
+struct maplebus_buffer {
+	union {
+		struct maplebus_header header;
+		uint32_t raw_header;
+	};
+	uint32_t data[];
+} __attribute__ ((aligned (4)));
+
 void maplebus_tx_program_init(PIO pio, uint sm, uint offset, uint pin_sdcka, uint pin_sdckb) {
     pio_sm_config c = maplebus_tx_program_get_default_config(offset);
 
@@ -92,42 +100,54 @@ void maplebus_rx_program_init(PIO pio, uint sm, uint offset, uint pin_sdcka, uin
     pio_sm_set_enabled(pio, sm, true);
 }
 
-enum maplebus_return pio_maplebus_rx_blocking(PIO pio, uint sm, struct maplebus_buffer *buffer, size_t n) {
+enum maplebus_return pio_maplebus_rx_blocking(PIO pio, uint sm, struct maplebus_header *data, size_t n) {
 	uint32_t frame_type, crc;
-	uint8_t words;
+	struct maplebus_buffer *buffer = (struct maplebus_buffer *)data;
+	enum maplebus_return ret;
 
-	if (n < sizeof(*buffer))
+	if (n < sizeof(*data))
 		return MAPLEBUS_INVALID_ARGS;
 
 	printf("Waiting for frame_type\n");
 	frame_type = pio_sm_get_blocking(pio, sm);
-	printf("RX: Got frame: %#x\n", frame_type);
+	// printf("RX: Got frame: %#x\n", frame_type);
 
 	if (frame_type == 0xFFFFFFF0) { // Start frame w/ CRC
-		buffer->header = pio_sm_get_blocking(pio, sm);
+		n -= sizeof(uint32_t);
+		buffer->raw_header = pio_sm_get_blocking(pio, sm);
 
-		for (words = 0; words < buffer->data_count; ++words) {
-			buffer->data[words] = pio_sm_get_blocking(pio, sm);
+		for (size_t i = 0; i < buffer->header.length; ++i) {
+			if (n < sizeof(uint32_t)) {
+				ret = MAPLEBUS_MESSAGE_TRUNCATED;
+				goto out;
+			} else {
+				n -= sizeof(uint32_t);
+			}
+
+			buffer->data[i] = pio_sm_get_blocking(pio, sm);
 		}
-		// Update the expected number of bytes to 1
+		
+		// Wait for a 1 byte CRC.
 		pio_sm_exec(pio, sm, pio_encode_set(pio_y, 0));
-		maplebus_print(buffer);
+		maplebus_print(&buffer->header);
 
 		crc = pio_sm_get_blocking(pio, sm);
 		printf("CRC: %#x\n", crc);
-
-		// We need to manually reset the PC
-		pio_sm_exec(pio, sm, pio_encode_jmp(0));
+		ret = MAPLEBUS_OK;
 	} else {
-		pio_sm_put_blocking(pio, sm, 0);
 		printf("RX: Unknown start frame: %#x\n", frame_type);
+		ret = MAPLEBUS_UNKNOWN_FRAME_TYPE;
 	}
+out:
+	// We need to manually reset the PC at the end of the frame.
+	pio_sm_exec(pio, sm, pio_encode_jmp(0));
+	return ret;
 }
 
-void maplebus_print(struct maplebus_buffer *buffer) {
-	printf("Command: %#hhx\n", buffer->command);
-	printf("Destination: %#hhx\n", buffer->destination);
-	printf("Source: %#hhx\n", buffer->source);
-	printf("Words: %#hhx\n", buffer->data_count);
+void maplebus_print(struct maplebus_header *header) {
+	printf("Command: %#hhx\n", header->command);
+	printf("Destination: %#hhx\n", header->destination);
+	printf("Source: %#hhx\n", header->source);
+	printf("Words: %#hhx\n", header->length);
 }
 

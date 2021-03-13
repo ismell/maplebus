@@ -15,11 +15,11 @@
 
 /* Device Info Request */
 uint8_t buffer[] = {
-	0x01, 0x00, 0x20, 0x01, 0x01, 0x02, 0x03, 0x04, 0x21
+	0x00, 0x00, 0x20, 0x01, 0x21
 };
 
 struct {
-	struct maplebus_buffer header;
+	struct maplebus_header header;
 	// Max number of additional frames
 	uint32_t data[255];
 } rx_buffer;

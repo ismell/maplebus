@@ -10,26 +10,24 @@
 #include <inttypes.h>
 #include "maplebus.pio.h"
 
-struct maplebus_buffer {
-	union {
-		struct {
-			uint8_t command;
-			uint8_t destination;
-			uint8_t source;
-			// Number of additional words.
-			uint8_t data_count;
-		};
-		uint32_t header;
-	};
-	uint32_t data[];
-} __attribute__ ((aligned (4)));
+/**
+ * Maplebus frame header.
+ *
+ * @length: The number of of additional dwords following the header.
+ */
+struct maplebus_header {
+	uint8_t command;
+	uint8_t destination;
+	uint8_t source;
+	uint8_t length;
+};
 
 enum maplebus_return {
 	MAPLEBUS_OK,
 	MAPLEBUS_UNKNOWN_FRAME_TYPE,
 	MAPLEBUS_INVALID_ARGS,
 	MAPLEBUS_CRC_ERROR,
-	MAPLEBUS_BUFFER_TOO_SMALL,
+	MAPLEBUS_MESSAGE_TRUNCATED,
 	MAPLEBUS_TIMEOUT,
 };
 
@@ -41,8 +39,8 @@ void maplebus_rx_program_init(PIO pio, uint sm, uint offset, uint pin_sdcka, uin
  * Receive a maplebus frame.
  * @n number of bytes in the @data buffer. Must be >=4.
  */
-enum maplebus_return pio_maplebus_rx_blocking(PIO pio, uint sm, struct maplebus_buffer *buffer, size_t n);
+enum maplebus_return pio_maplebus_rx_blocking(PIO pio, uint sm, struct maplebus_header *data, size_t n);
 
-void maplebus_print(struct maplebus_buffer *buffer);
+void maplebus_print(struct maplebus_header *data);
 
 #endif /* MAPLEBUS_H */
