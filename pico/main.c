@@ -55,6 +55,7 @@ int main() {
 
 		switch (ret) {
 		case MAPLEBUS_OK:
+			maplebus_print(&rx_buffer.header);
 			break;
 		case MAPLEBUS_UNKNOWN_FRAME_TYPE:
 			printf("invalid frame type\n");

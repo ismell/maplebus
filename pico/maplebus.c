@@ -105,11 +105,6 @@ void maplebus_rx_program_init(PIO pio, uint sm, uint offset, uint pin_sdcka, uin
     float div = 1.0f;
     sm_config_set_clkdiv(&c, div);
 
-    // Debug pin
-    sm_config_set_sideset_pins(&c, 4); //debug pin
-    pio_sm_set_consecutive_pindirs(pio, sm, 4, 1, true);
-    pio_gpio_init(pio, 4);
-
     gpio_pull_up(pin_sdcka);
     gpio_pull_up(pin_sdckb);
 
@@ -133,7 +128,6 @@ enum maplebus_return pio_maplebus_rx_blocking(PIO pio, uint sm, struct maplebus_
 
 	printf("Waiting for frame_type\n");
 	frame_type = pio_sm_get_blocking(pio, sm);
-	// printf("RX: Got frame: %#x\n", frame_type);
 
 	if (frame_type == 0xFFFFFFF0) { // Start frame w/ CRC
 		n -= sizeof(uint32_t);
@@ -152,7 +146,6 @@ enum maplebus_return pio_maplebus_rx_blocking(PIO pio, uint sm, struct maplebus_
 		
 		// Wait for a 1 byte CRC.
 		pio_sm_exec(pio, sm, pio_encode_set(pio_y, 0));
-		maplebus_print(&buffer->header);
 
 		actual_crc = pio_sm_get_blocking(pio, sm);
 		expected_crc = compute_lrc(buffer);
