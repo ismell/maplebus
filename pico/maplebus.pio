@@ -1,0 +1,155 @@
+;
+; Copyright (c) 2021 Raul E Rangel
+;
+; SPDX-License-Identifier: GPL-2.0-or-later
+;
+
+.program maplebus_tx
+.side_set 1 opt pindirs
+
+; TX Encoding:
+; | 31:28 | 27:0       |
+; | Type  | Bit Phases |
+;
+; The first word in the sequence describes the parameters of the transaction.
+; Type:
+;    4  Frame w/ CRC
+;    5: Frame w/o CRC
+;   13: Start Reset
+; Bit Phases: The number of A/B phases to perform. This will be # bytes / 2.
+;
+; Autopull should be disabled. We manually pull because data frames are 4 bytes,
+; while the CRC is only 1 byte.
+;
+; Pin mapping:
+; - Set pin 0 is SDCKA
+; - Side-set pin 0 is SDCKB
+; - Out pin 0 is SDCKB
+;
+; SDCKA/SDCKB should have a pull-up enabled, OE inverted, and an output of 0.
+
+clear_osr:
+	out NULL, 32			; Clear out the left over data from the CRC.
+.wrap_target
+public entry_point:
+	pull				; Manually pull the frame descriptor
+write_start_frame:
+	out x, 4			; Read the frame type 
+	set pindirs, 0		[7]	; Pull SDCKA low for 3 cycles.
+start_frame_loop:
+	nop		side 0	[7]	; Pull SDCKB low for 4 cycles.
+	nop		side 1	[6]	; Pull SDCKB high for 3 cycles.
+	jmp x--	start_frame_loop	; Start another iteration
+
+start_bit_loop:
+	set pindirs, 1			; Pull SDCKA high to end the start frame
+	out x, 28		[1]	; Read the number of phase cycles and reset SDCKA
+start_phase:
+	pull ifempty			; We don't use auto pull because we sometimes
+					; write 8 bits or 32 bits.
+	out pindirs, 1		[3]	; Read the first bit to SDCKB
+sdcka_tick:
+	set pindirs, 0		[3]	; SDCKA falling clock edge
+	nop		side 1	[1]	; SDCKB rising clock edge
+	out y, 1			; Read the second bit in the cycle
+	jmp !y, sdckb_0
+sdckb_1:
+	set pindirs, 1		[2]	; SDCKA data 1
+	jmp sdckb_tick
+sdckb_0:
+	set pindirs, 0		[3]	; SDCKA data 0
+sdckb_tick:
+	nop		side 0	[3]	; SDCKB falling clock edge
+	set pindirs, 1		[1]	; SDCKA rising clock edge
+	jmp x--, start_phase
+write_end_frame:
+	nop				; Fix the timing
+	nop		side 1	[7]	; SDCKB done
+	nop		side 0	[7]	; SDCKB down to start end frame
+	set pindirs, 0		[7]	; Pull SDCKA low for 4 cycles.
+	set pindirs, 1		[7]	; Pull SDCKA high for 4 cycles.
+	set pindirs, 0		[7]	; Pull SDCKA low for 4 cycles.
+	set pindirs, 1		[7]	; Pull SDCKA high for 4 cycles.
+	nop		side 1	[4]	; End frame done
+	jmp !osre, clear_osr		; If we are transferring a frame with
+					; a CRC byte, we will leave 24 bits
+					; in the OSR. We need to clear this out.
+					; For frames without a CRC byte, the
+					; OSR will be empty
+.wrap
+
+.program maplebus_rx
+.origin 0
+
+; Autopush should be disabled.
+;
+; Pin mapping:
+; - Jump pin 0 is SDCKA
+; - In pins are 0:SDCKB, 1:SDCKA
+
+public entry_point:
+	mov isr, !NULL				; Fill the ISR with 1s. We will shift 0 in for each
+						; SDCKB falling edge.
+	wait 1 pin 1				; Wait for SDCKA to be high.
+	wait 0 pin 1				; A falling edge on SDCKA indicates the beginning
+						; of the start frame.
+wait_for_sdckb_falling_edge:
+	jmp pin, verify_start_frame		; If SDCKA is high, we are done with the start frame
+	mov osr, pins				; Read all the pins into OSR
+	out x, 1				; Read SDCKB into x
+	jmp !x, record_start_frame_falling_edge	; If SDCKB is 0 we found a falling edge
+	jmp wait_for_sdckb_falling_edge		; SDCKB is still high, keep waiting
+record_start_frame_falling_edge:
+	in x, 1					; Shift 0/SDCKB into the ISR
+wait_for_sdckb_rising_edge:
+	jmp pin, verify_start_frame		; If SDCKA is high, the "start frame" is over
+	mov osr, pins				; Read all the pins into OSR
+	out x, 1				; Read SDCKB into x
+	jmp !x, wait_for_sdckb_rising_edge	; If SDCKB is still 0, we keep waiting
+	jmp wait_for_sdckb_falling_edge		; SDCKB is high, we found a rising edge, wait for a falling edge again.
+verify_start_frame:
+	mov osr, isr				; Copy the ISR into the OSR
+	out NULL, 2				; We need at least 3 down ticks to consider it a start frame
+	out x, 1				; Check the 3rd bit. If it's 0 we know we at least had 3 down ticks.
+	jmp !x, start_data_phase		; We had a successful start frame
+	jmp entry_point				; Not a valid start frame, continue
+; So this gets a little complicated for the following reasons:
+; * We don't have the instructions to monitor for an end frame condition.
+;   Instead we loop forever and wait for the CPU to issue a `jmp entry_point`
+;   when all the expected data has been read.
+; * The maplebus protocol uses word length transfers. The exception is the
+;   CRC byte at the end. We could use byte length transfers, but then the
+;   endiness would be wrong and we would need to manually post process the
+;   data. Instead we use two loops. An outer loop (y) that counts the number of
+;   bytes that have been read, and an inner loop (x) that counts the number of
+;   bits that have been read in the byte. By default we read in 4 byte
+;   increments before pushing. When we want to read the CRC byte, the CPU
+;   is expected to issue a `set y, 0` within 3 uS after the last full word
+;   has been received. In other words, it we need to update the byte counter
+;   before the full byte has been read and the counter evaluated.
+; * Since we don't have enough instruction space, we combine the start frame
+;   header push with the data push.
+.wrap_target
+start_data_phase:
+	set y, 3				; Initialize the byte loop. We update this value before
+						; pushing so the CPU can update this value before
+						; the first byte has been fully read.
+	push					; Push the start frame count or word.
+read_data_phase:
+	set x, 3				; Each byte is 8 bits, so 8/2 - 1 = 3
+read_phase_1:
+	wait 0 pin 1				; Wait for SDCKA falling edge
+	in pins, 1				; Read data from SDCKB
+	wait 1 pin 0				; Wait for SDCKB to be high
+read_phase_2:
+	wait 0 pin 0				; Wait for SDCKB falling edge
+	mov osr, pins				; Read all the pins into OSR
+	out NULL, 1				; Discard SDCKB
+	in osr, 1				; Shift SDCKA into ISR
+	wait 1 pin 1				; Wait for SDCKA to be high
+decrement_counters:
+	jmp x--, read_phase_1			; Check if we have read 8 bits
+	jmp y--, read_data_phase		; Check if we have read finished reading the
+						; required number of bytes.
+.wrap
+
