@@ -40,8 +40,8 @@ void maplebus_tx_program_init(PIO pio, uint sm, uint offset, uint pin_sdcka, uin
 	sm_config_set_out_pins(&c, pin_sdckb, 1);
 
 	// We need to clock out the MSB first, so we need to shift
-	// to the left.
-	sm_config_set_out_shift(&c, false, true, 0);
+	// to the left. Disable autopull.
+	sm_config_set_out_shift(&c, false, false, 0);
 
 	// TODO: Remove the 1000 when we have a large pull-up.
 	float div = (float)clock_get_hz(clk_sys) / (25000000) * 1000; 

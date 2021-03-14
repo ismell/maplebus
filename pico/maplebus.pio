@@ -13,12 +13,13 @@
 ;
 ; The first word in the sequence describes the parameters of the transaction.
 ; Type:
-;    4  Simple Frame
-;    5: Frame w/ CRC
+;    4  Frame w/ CRC
+;    5: Frame w/o CRC
 ;   13: Start Reset
 ; Bit Phases: The number of A/B phases to perform. This will be # bytes / 2.
 ;
-; Autopull should be enabled on the TX FIFO with a threshold of 8.
+; Autopull should be disabled. We manually pull because data frames are 4 bytes,
+; while the CRC is only 1 byte.
 ;
 ; Pin mapping:
 ; - Set pin 0 is SDCKA
@@ -31,7 +32,7 @@ clear_osr:
 	out NULL, 32			; Clear out the left over data from the CRC.
 .wrap_target
 public entry_point:
-
+	pull				; Manually pull the frame descriptor
 write_start_frame:
 	out x, 4			; Read the frame type 
 	set pindirs, 0		[7]	; Pull SDCKA low for 3 cycles.
@@ -42,8 +43,10 @@ start_frame_loop:
 
 start_bit_loop:
 	set pindirs, 1			; Pull SDCKA high to end the start frame
-	out x, 28		[2]	; Read the number of phase cycles and reset SDCKA
+	out x, 28		[1]	; Read the number of phase cycles and reset SDCKA
 start_phase:
+	pull ifempty			; We don't use auto pull because we sometimes
+					; write 8 bits or 32 bits.
 	out pindirs, 1		[3]	; Read the first bit to SDCKB
 sdcka_tick:
 	set pindirs, 0		[3]	; SDCKA falling clock edge
@@ -57,25 +60,22 @@ sdckb_0:
 	set pindirs, 0		[3]	; SDCKA data 0
 sdckb_tick:
 	nop		side 0	[3]	; SDCKB falling clock edge
-	set pindirs, 1		[2]	; SDCKA rising clock edge
+	set pindirs, 1		[1]	; SDCKA rising clock edge
 	jmp x--, start_phase
 write_end_frame:
+	nop				; Fix the timing
 	nop		side 1	[7]	; SDCKB done
 	nop		side 0	[7]	; SDCKB down to start end frame
 	set pindirs, 0		[7]	; Pull SDCKA low for 4 cycles.
 	set pindirs, 1		[7]	; Pull SDCKA high for 4 cycles.
 	set pindirs, 0		[7]	; Pull SDCKA low for 4 cycles.
 	set pindirs, 1		[7]	; Pull SDCKA high for 4 cycles.
-	nop		side 1	[7]	; End frame done
-	jmp !osre, clear_osr		; The CRC byte will leave 24 bits in the OSR.
-					; We need to clear it out. I think this is
-					; kind of racy. Since we are using auto-pull
-					; the OSR can get reloaded at any time.
-					; It also gets complicated because we may or
-					; may not have a CRC byte. If we don't have one
-					; then I wonder if this will clear valid data.
-					; I don't think it's a problem since we don't
-					; queue up multiple transactions back to back.
+	nop		side 1	[4]	; End frame done
+	jmp !osre, clear_osr		; If we are transferring a frame with
+					; a CRC byte, we will leave 24 bits
+					; in the OSR. We need to clear this out.
+					; For frames without a CRC byte, the
+					; OSR will be empty
 .wrap
 
 .program maplebus_rx
