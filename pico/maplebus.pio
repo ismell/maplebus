@@ -27,6 +27,9 @@
 ;
 ; SDCKA/SDCKB should have a pull-up enabled, OE inverted, and an output of 0.
 
+clear_osr:
+	out NULL, 32			; Clear out the left over data from the CRC.
+.wrap_target
 public entry_point:
 
 write_start_frame:
@@ -56,7 +59,6 @@ sdckb_tick:
 	nop		side 0	[3]	; SDCKB falling clock edge
 	set pindirs, 1		[2]	; SDCKA rising clock edge
 	jmp x--, start_phase
-; .wrap
 write_end_frame:
 	nop		side 1	[7]	; SDCKB done
 	nop		side 0	[7]	; SDCKB down to start end frame
@@ -65,6 +67,16 @@ write_end_frame:
 	set pindirs, 0		[7]	; Pull SDCKA low for 4 cycles.
 	set pindirs, 1		[7]	; Pull SDCKA high for 4 cycles.
 	nop		side 1	[7]	; End frame done
+	jmp !osre, clear_osr		; The CRC byte will leave 24 bits in the OSR.
+					; We need to clear it out. I think this is
+					; kind of racy. Since we are using auto-pull
+					; the OSR can get reloaded at any time.
+					; It also gets complicated because we may or
+					; may not have a CRC byte. If we don't have one
+					; then I wonder if this will clear valid data.
+					; I don't think it's a problem since we don't
+					; queue up multiple transactions back to back.
+.wrap
 
 .program maplebus_rx
 .side_set 1 opt

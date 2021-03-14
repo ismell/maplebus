@@ -32,7 +32,7 @@ enum maplebus_return {
 };
 
 void maplebus_tx_program_init(PIO pio, uint sm, uint offset, uint pin_sdcka, uint pin_sdckb);
-int pio_maplebus_tx_blocking(PIO pio, uint sm, uint8_t *buffer, size_t n);
+int pio_maplebus_tx_blocking(PIO pio, uint sm, struct maplebus_header *data);
 
 void maplebus_rx_program_init(PIO pio, uint sm, uint offset, uint pin_sdcka, uint pin_sdckb);
 /**

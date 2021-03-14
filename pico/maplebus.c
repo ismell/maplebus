@@ -41,7 +41,7 @@ void maplebus_tx_program_init(PIO pio, uint sm, uint offset, uint pin_sdcka, uin
 
     // We need to clock out the MSB first, so we need to shift
     // to the left.
-    sm_config_set_out_shift(&c, false, true, 8);
+    sm_config_set_out_shift(&c, false, true, 0);
 
     // TODO: Remove the 1000 when we have a large pull-up.
     float div = (float)clock_get_hz(clk_sys) / (25000000) * 1000; 
@@ -68,14 +68,23 @@ void maplebus_tx_program_init(PIO pio, uint sm, uint offset, uint pin_sdcka, uin
     pio_sm_set_enabled(pio, sm, true);
 }
 
-int pio_maplebus_tx_blocking(PIO pio, uint sm, uint8_t *buffer, size_t n) {
+int pio_maplebus_tx_blocking(PIO pio, uint sm, struct maplebus_header *data) {
+	uint8_t lrc;
 	uint32_t header = 0;
-	header |= (0x3U << 28);
-	header |= n * 8 / 2 - 1; // 4 cycles per byte
-	pio_sm_put_blocking(pio, sm, header);
+	struct maplebus_buffer *buffer = (struct maplebus_buffer *)data;
+	size_t total_bytes = (1 + buffer->header.length) * sizeof(uint32_t) + 1;
 
-	for (size_t i = 0; i < n; ++i)
-		pio_sm_put_blocking(pio, sm, (uint32_t)buffer[i] << 24);
+	header |= (0x3U << 28); // Frame with CRC
+	header |= total_bytes * 8 / 2 - 1; // 4 cycles per byte
+
+	pio_sm_put_blocking(pio, sm, header);
+	pio_sm_put_blocking(pio, sm, buffer->raw_header);
+
+	for (size_t i = 0; i < buffer->header.length; ++i)
+		pio_sm_put_blocking(pio, sm, buffer->data[i]);
+
+	lrc = compute_lrc(buffer);
+	pio_sm_put_blocking(pio, sm, ((uint32_t)lrc) << 24);
 }
 
 void maplebus_rx_program_init(PIO pio, uint sm, uint offset, uint pin_sdcka, uint pin_sdckb) {

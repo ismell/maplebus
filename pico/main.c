@@ -13,11 +13,6 @@
 #define PIN_SDCKA 3
 #define PIN_SDCKB 2
 
-/* Device Info Request */
-uint8_t buffer[] = {
-	0x00, 0x00, 0x20, 0x01, 0x21
-};
-
 struct {
 	struct maplebus_header header;
 	// Max number of additional frames
@@ -25,6 +20,13 @@ struct {
 } rx_buffer;
 
 _Static_assert (sizeof(rx_buffer) == 1024, "rx_buffer is not 1024 bytes long");
+
+struct maplebus_header device_info_request = {
+	.command = 0x01,
+	.destination = 0x20,
+	.source = 0x00,
+	.length = 0x00,
+};
 
 int main() {
 	stdio_init_all();
@@ -48,7 +50,7 @@ int main() {
 		printf("Maplebus iteration %u\n", iteration);
 
 		//gpio_put(PIN_HEARTBEAT, 1);
-		pio_maplebus_tx_blocking(pio0, sm, buffer, sizeof(buffer));
+		pio_maplebus_tx_blocking(pio0, sm, &device_info_request);
 		ret = pio_maplebus_rx_blocking(pio1, sm, &rx_buffer.header, sizeof(rx_buffer));
 
 		switch (ret) {
