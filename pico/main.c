@@ -31,7 +31,7 @@ struct maplebus_header device_info_request = {
 int main() {
 	stdio_init_all();
 
-	printf("Maplebus starting!\n");
+	printf("Maple Bus starting!\n");
 
 	// gpio_init(PIN_HEARTBEAT);
 	// gpio_set_dir(PIN_HEARTBEAT, GPIO_OUT);
@@ -47,7 +47,7 @@ int main() {
 	enum maplebus_return ret;
 
 	while (true) {
-		printf("Maplebus iteration %u\n", iteration);
+		printf("Maple Bus iteration %u\n", iteration);
 
 		//gpio_put(PIN_HEARTBEAT, 1);
 		pio_maplebus_tx_blocking(pio0, sm, &device_info_request);

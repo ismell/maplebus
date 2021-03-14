@@ -11,7 +11,7 @@
 #include "maplebus.pio.h"
 
 /**
- * Maplebus frame header.
+ * Maple Bus frame header.
  *
  * @length: The number of of additional dwords following the header.
  */
