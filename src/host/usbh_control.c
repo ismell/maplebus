@@ -220,6 +220,88 @@ static void _xfer_complete(uint8_t dev_addr, xfer_result_t result)
   if (_ctrl_xfer.complete_cb) _ctrl_xfer.complete_cb(dev_addr, &_ctrl_xfer.request, result);
 }
 
+#define TU_DESC_PRINT_BYTE(format) do { \
+if (len < 1) \
+  break; \
+TU_LOG2(format, buffer[0]); \
+buffer++; \
+len--; \
+} while (0)
+
+#define TU_DESC_PRINT_WORD(format) do { \
+if (len < 2) \
+  break; \
+TU_LOG2(format, buffer[0] | (buffer[1] << 8)); \
+buffer += 2; \
+len -= 2; \
+} while (0)
+
+static void print_descriptor(uint8_t *buffer, uint8_t len) {
+  uint8_t type;
+  if (!len)
+    return;
+
+  TU_LOG2("Len: %d/%d, ", len, *buffer);
+  buffer++; len--;
+
+  if (!len)
+    return;
+
+  type = *buffer;
+  buffer++; len--;
+
+  switch  (type) {
+    case TUSB_DESC_DEVICE:
+      TU_LOG2("Type: DEVICE, ");
+      TU_DESC_PRINT_WORD("USB: %#x, ");
+      TU_DESC_PRINT_BYTE("Class: %#x, ");
+      TU_DESC_PRINT_BYTE("SubClass: %#x, ");
+      TU_DESC_PRINT_BYTE("Protocol: %#x, ");
+      TU_DESC_PRINT_BYTE("PacketSize: %d, ");
+      TU_DESC_PRINT_WORD("VID: %#x, ");
+      TU_DESC_PRINT_WORD("PID: %#x, ");
+      TU_DESC_PRINT_WORD("Device: %#x, ");
+      TU_DESC_PRINT_BYTE("MfgIdx: %d, ");
+      TU_DESC_PRINT_BYTE("ProductIdx: %d, ");
+      TU_DESC_PRINT_BYTE("SerialIdx: %d, ");
+      TU_DESC_PRINT_BYTE("Configs: %d, ");
+      break;
+    case TUSB_DESC_CONFIGURATION:
+      TU_LOG2("Type: CONFIGURATION, ");
+      break;
+    case TUSB_DESC_STRING:
+      TU_LOG2("Type: STRING, ");
+      break;
+    case TUSB_DESC_INTERFACE:
+      TU_LOG2("Type: INTERFACE, ");
+      break;
+    case TUSB_DESC_ENDPOINT:
+      TU_LOG2("Type: ENDPOINT, ");
+      break;
+    case TUSB_DESC_DEVICE_QUALIFIER:
+      TU_LOG2("Type: DEVICE_QUALIFIER, ");
+      break;
+    case TUSB_DESC_OTHER_SPEED_CONFIG:
+      TU_LOG2("Type: OTHER_SPEED_CONFIG, ");
+      break;
+    case TUSB_DESC_INTERFACE_POWER:
+      TU_LOG2("Type: INTERFACE_POWER, ");
+      break;
+    case TUSB_DESC_OTG:
+      TU_LOG2("Type: OTG, ");
+      break;
+    case TUSB_DESC_DEBUG:
+      TU_LOG2("Type: DEBUG, ");
+      break;
+    case TUSB_DESC_INTERFACE_ASSOCIATION:
+      TU_LOG2("Type: INTERFACE_ASSOCIATION, ");
+      break;
+    default:
+      TU_LOG2("Type: %#x, ", *buffer);
+  }
+  TU_LOG2("\r\n");
+}
+
 bool usbh_control_xfer_cb (uint8_t dev_addr, uint8_t ep_addr, xfer_result_t result, uint32_t xferred_bytes)
 {
   (void) ep_addr;
