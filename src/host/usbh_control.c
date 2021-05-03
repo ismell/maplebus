@@ -69,6 +69,142 @@ bool tuh_control_xfer (uint8_t dev_addr, tusb_control_request_t const* request, 
   _ctrl_xfer.complete_cb = complete_cb;
 
   TU_LOG2("Control Setup: ");
+  switch (request->bmRequestType_bit.recipient) {
+  case TUSB_REQ_RCPT_DEVICE:
+    TU_LOG2("R: DEVICE, ");
+    break;
+  case TUSB_REQ_RCPT_INTERFACE:
+    TU_LOG2("R: INTERFACE, ");
+    break;
+  case TUSB_REQ_RCPT_ENDPOINT:
+    TU_LOG2("R: ENDPOINT, ");
+    break;
+  case TUSB_REQ_RCPT_OTHER:
+    TU_LOG2("R: OTHER, ");
+    break;
+  default:
+    TU_LOG2("R: Unknown, ");
+  }
+
+  switch(request->bmRequestType_bit.type) {
+  case TUSB_REQ_TYPE_STANDARD:
+    TU_LOG2("T: STANDARD, ");
+    break;
+  case TUSB_REQ_TYPE_CLASS:
+    TU_LOG2("T: CLASS, ");
+    break;
+  case TUSB_REQ_TYPE_VENDOR:
+    TU_LOG2("T: VENDOR, ");
+    break;
+  case TUSB_REQ_TYPE_INVALID:
+    TU_LOG2("T: INVALID, ");
+    break;
+  default:
+    TU_LOG2("T: Unknown, ");
+  }
+
+  switch(request->bmRequestType_bit.direction) {
+  case TUSB_DIR_OUT:
+    TU_LOG2("D: OUT, ");
+    break;
+  case TUSB_DIR_IN:
+    TU_LOG2("D: IN, ");
+    break;
+  default:
+    TU_LOG2("D: Unknown, ");
+  }
+
+  switch(request->bRequest) {
+  case TUSB_REQ_GET_STATUS:
+    TU_LOG2("R: GET_STATUS, ");
+    break;
+  case TUSB_REQ_CLEAR_FEATURE:
+    TU_LOG2("R: CLEAR_FEATURE, ");
+    break;
+  case TUSB_REQ_RESERVED:
+    TU_LOG2("R: RESERVED, ");
+    break;
+  case TUSB_REQ_SET_FEATURE:
+    TU_LOG2("R: SET_FEATURE, ");
+    break;
+  case TUSB_REQ_RESERVED2:
+    TU_LOG2("R: RESERVED2, ");
+    break;
+  case TUSB_REQ_SET_ADDRESS:
+    TU_LOG2("R: SET_ADDRESS, ");
+    break;
+  case TUSB_REQ_GET_DESCRIPTOR:
+    TU_LOG2("R: GET_DESCRIPTOR, ");
+    break;
+  case TUSB_REQ_SET_DESCRIPTOR:
+    TU_LOG2("R: SET_DESCRIPTOR, ");
+    break;
+  case TUSB_REQ_GET_CONFIGURATION:
+    TU_LOG2("R: GET_CONFIGURATION, ");
+    break;
+  case TUSB_REQ_SET_CONFIGURATION:
+    TU_LOG2("R: SET_CONFIGURATION, ");
+    break;
+  case TUSB_REQ_GET_INTERFACE:
+    TU_LOG2("R: GET_INTERFACE, ");
+    break;
+  case TUSB_REQ_SET_INTERFACE:
+    TU_LOG2("R: SET_INTERFACE, ");
+    break;
+  case TUSB_REQ_SYNCH_FRAME:
+    TU_LOG2("R: SYNCH_FRAME, ");
+    break;
+  default:
+    TU_LOG2("R: Unknown, ");
+  }
+
+  switch(request->bRequest) {
+    case TUSB_REQ_GET_DESCRIPTOR:
+    case TUSB_REQ_SET_DESCRIPTOR:
+      switch(request->wValue >> 8) {
+        case TUSB_DESC_DEVICE:
+          TU_LOG2("V: DEVICE, ");
+          break;
+        case TUSB_DESC_CONFIGURATION:
+          TU_LOG2("V: CONFIGURATION, ");
+          break;
+        case TUSB_DESC_STRING:
+          TU_LOG2("V: STRING, ");
+          break;
+        case TUSB_DESC_INTERFACE:
+          TU_LOG2("V: INTERFACE, ");
+          break;
+        case TUSB_DESC_ENDPOINT:
+          TU_LOG2("V: ENDPOINT, ");
+          break;
+        case TUSB_DESC_DEVICE_QUALIFIER:
+          TU_LOG2("V: DEVICE_QUALIFIER, ");
+          break;
+        case TUSB_DESC_OTHER_SPEED_CONFIG:
+          TU_LOG2("V: OTHER_SPEED_CONFIG, ");
+          break;
+        case TUSB_DESC_INTERFACE_POWER:
+          TU_LOG2("V: INTERFACE_POWER, ");
+          break;
+        case TUSB_DESC_OTG:
+          TU_LOG2("V: OTG, ");
+          break;
+        case TUSB_DESC_DEBUG:
+          TU_LOG2("V: DEBUG, ");
+          break;
+        case TUSB_DESC_INTERFACE_ASSOCIATION:
+          TU_LOG2("V: INTERFACE_ASSOCIATION, ");
+          break;
+      }
+      TU_LOG2("DescIdx: %#x, ", request->wValue & 0xFF);
+      break;
+    default:
+      TU_LOG2("Val: %#x, ", request->wValue);
+  }
+
+  TU_LOG2("Idx: %#x, ", request->wIndex);
+  TU_LOG2("Len: %d\r\n", request->wLength);
+
   TU_LOG2_VAR(request);
   TU_LOG2("\r\n");
 
