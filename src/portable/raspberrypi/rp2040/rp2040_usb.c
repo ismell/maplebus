@@ -31,6 +31,15 @@
 #include <stdlib.h>
 #include "rp2040_usb.h"
 
+// In host mode there is a bug in handling multiple IN packets as part of a transaction.
+// The first and second packets are received correctly but the third packet causes an
+// interrupt to be generated with a status indicating the data has been received out of
+// sequence. Defining this value changes the host controller to initiate a new transfer
+// after each packet, working around the problem.
+#ifdef RP2040_USB_HOST_MODE
+#define RP2040_HOST_DATA_SEQ_WORKAROUND
+#endif
+
 // Direction strings for debug
 const char *ep_dir_string[] = {
         "out",
@@ -154,7 +163,9 @@ void _hw_endpoint_start_next_buffer(struct hw_endpoint *ep)
     // Is this the last buffer? Only really matters for host mode. Will trigger
     // the trans complete irq but also stop it polling. We only really care about
     // trans complete for setup packets being sent
+#ifndef RP2040_HOST_DATA_SEQ_WORKAROUND    
     if (ep->last_buf)
+#endif
     {
         pico_trace("Last buf (%d bytes left)\n", ep->transfer_size);
         val |= USB_BUF_CTRL_LAST;
@@ -297,6 +308,10 @@ bool _hw_endpoint_xfer_continue(struct hw_endpoint *ep)
     else
     {
         _hw_endpoint_start_next_buffer(ep);
+#ifdef RP2040_HOST_DATA_SEQ_WORKAROUND
+        ep->buf_sel = 0;
+        usb_hw->sie_ctrl |= USB_SIE_CTRL_START_TRANS_BITS | (ep->rx ? USB_SIE_CTRL_RECEIVE_DATA_BITS : USB_SIE_CTRL_SEND_DATA_BITS);
+#endif
     }
 
     _hw_endpoint_lock_update(ep, -1);
