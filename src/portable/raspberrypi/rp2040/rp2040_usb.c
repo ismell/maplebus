@@ -186,7 +186,7 @@ void _hw_endpoint_xfer_start(struct hw_endpoint *ep, uint8_t *buffer, uint16_t t
     ep->len = 0;
 
     // Limit by packet size but not less 64 (i.e low speed 8 bytes EP0)
-    ep->transfer_size = tu_min16(total_len, tu_max16(64, ep->wMaxPacketSize));
+    ep->transfer_size = tu_min16(total_len, ep->wMaxPacketSize);
 
     ep->active = true;
     ep->user_buf = buffer;
@@ -273,7 +273,7 @@ bool _hw_endpoint_xfer_continue(struct hw_endpoint *ep)
     // Now we have synced our state with the hardware. Is there more data to transfer?
     // Limit by packet size but not less 64 (i.e low speed 8 bytes EP0)
     uint16_t remaining_bytes = ep->total_len - ep->len;
-    ep->transfer_size = tu_min16(remaining_bytes, tu_max16(64, ep->wMaxPacketSize));
+    ep->transfer_size = tu_min16(remaining_bytes, ep->wMaxPacketSize);
 #if TUSB_OPT_HOST_ENABLED
     _hw_endpoint_update_last_buf(ep);
 #endif
