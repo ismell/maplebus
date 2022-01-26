@@ -237,14 +237,16 @@ len -= 2; \
 } while (0)
 
 static void print_descriptor(uint8_t *buffer, uint8_t len) {
-  uint8_t type;
+  uint8_t type, desc_len;
+start:
   if (!len)
     return;
 
-  TU_LOG2("Len: %d/%d, ", len, *buffer);
+  desc_len = *buffer;
+  TU_LOG2("Len: %d/%d, ", desc_len, len);
   buffer++; len--;
 
-  if (!len)
+  if (!len || !desc_len)
     return;
 
   type = *buffer;
@@ -268,16 +270,33 @@ static void print_descriptor(uint8_t *buffer, uint8_t len) {
       break;
     case TUSB_DESC_CONFIGURATION:
       TU_LOG2("Type: CONFIGURATION, ");
-      break;
+      TU_DESC_PRINT_WORD("Length: %u, ");
+      TU_DESC_PRINT_BYTE("Interfaces: %u, ");
+      TU_DESC_PRINT_BYTE("Config Value: %u, ");
+      TU_DESC_PRINT_BYTE("Config Index: %u, ");
+      TU_DESC_PRINT_BYTE("Attr: %#x, ");
+      TU_DESC_PRINT_BYTE("Max Power: %u\r\n");
+      goto start;
     case TUSB_DESC_STRING:
       TU_LOG2("Type: STRING, ");
       break;
     case TUSB_DESC_INTERFACE:
       TU_LOG2("Type: INTERFACE, ");
-      break;
+      TU_DESC_PRINT_BYTE("Id: %u, ");
+      TU_DESC_PRINT_BYTE("Alt: %u, ");
+      TU_DESC_PRINT_BYTE("N Endpoints: %u, ");
+      TU_DESC_PRINT_BYTE("Class: %u, ");
+      TU_DESC_PRINT_BYTE("SubCode: %u, ");
+      TU_DESC_PRINT_BYTE("Protocol: %u, ");
+      TU_DESC_PRINT_BYTE("Desc Idx: %u\r\n");
+      goto start;
     case TUSB_DESC_ENDPOINT:
       TU_LOG2("Type: ENDPOINT, ");
-      break;
+      TU_DESC_PRINT_BYTE("Addr: %#x, ");
+      TU_DESC_PRINT_BYTE("Attr: %#x, ");
+      TU_DESC_PRINT_WORD("Pkt Size: %u, ");
+      TU_DESC_PRINT_BYTE("Interval: %u\r\n");
+      goto start;
     case TUSB_DESC_DEVICE_QUALIFIER:
       TU_LOG2("Type: DEVICE_QUALIFIER, ");
       break;
@@ -297,7 +316,14 @@ static void print_descriptor(uint8_t *buffer, uint8_t len) {
       TU_LOG2("Type: INTERFACE_ASSOCIATION, ");
       break;
     default:
-      TU_LOG2("Type: %#x, ", *buffer);
+      TU_LOG2("Type: UNKNOWN (%#x)\r\n", type);
+      TU_LOG2_MEM(buffer - 2, desc_len > (len + 2) ? len + 2 : desc_len, 2);
+      /* -2 because we already read 2 bytes */
+      if ((desc_len - 2) > len)
+        return;
+      len -= (desc_len - 2);
+      buffer += (desc_len - 2);
+      goto start;
   }
   TU_LOG2("\r\n");
 }
