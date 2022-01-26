@@ -183,7 +183,7 @@ void _hw_endpoint_start_next_buffer(struct hw_endpoint *ep)
 void _hw_endpoint_xfer_start(struct hw_endpoint *ep, uint8_t *buffer, uint16_t total_len)
 {
     _hw_endpoint_lock_update(ep, 1);
-    pico_trace("Start transfer of total len %d on ep %d %s\n", total_len, tu_edpt_number(ep->ep_addr), ep_dir_string[tu_edpt_dir(ep->ep_addr)]);
+    pico_trace("Start transfer of total len %d on ep %d %s, max: %u\n", total_len, tu_edpt_number(ep->ep_addr), ep_dir_string[tu_edpt_dir(ep->ep_addr)], ep->wMaxPacketSize);
     if (ep->active)
     {
         // TODO: Is this acceptable for interrupt packets?
@@ -251,7 +251,7 @@ void _hw_endpoint_xfer_sync(struct hw_endpoint *ep)
         // If we are OUT we have recieved some data, so can increase the length
         // we have recieved AFTER we have copied it to the user buffer at the appropriate
         // offset
-        pico_trace("rx %d bytes (buf_ctrl 0x%08x)\n", transferred_bytes, buf_ctrl);
+        pico_trace("rx %d bytes (buf_ctrl 0x%08x, ep tx size: %u)\n", transferred_bytes, buf_ctrl, ep->transfer_size);
         assert(buf_ctrl & USB_BUF_CTRL_FULL);
         if (transferred_bytes) {
             TU_LOG2_MEM(ep->hw_data_buf, transferred_bytes, 2);
@@ -289,6 +289,7 @@ bool _hw_endpoint_xfer_continue(struct hw_endpoint *ep)
     uint16_t remaining_bytes = ep->total_len - ep->len;
     ep->transfer_size = tu_min16(remaining_bytes, ep->wMaxPacketSize);
 #if TUSB_OPT_HOST_ENABLED
+    pico_trace("Last Transfer: %u\n", ep->last_buf);
     _hw_endpoint_update_last_buf(ep);
 #endif
 
@@ -310,6 +311,7 @@ bool _hw_endpoint_xfer_continue(struct hw_endpoint *ep)
     }
     else
     {
+        pico_trace("%s: remaining_bytes: %u, ep->transfer_size: %u\n", __func__, remaining_bytes, ep->transfer_size);
         _hw_endpoint_start_next_buffer(ep);
 #ifdef RP2040_HOST_DATA_SEQ_WORKAROUND
         ep->buf_sel = 0;

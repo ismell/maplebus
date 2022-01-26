@@ -786,6 +786,7 @@ static bool enum_get_addr0_device_desc_complete(uint8_t dev_addr, tusb_control_r
 // After SET_ADDRESS is complete
 static bool enum_set_address_complete(uint8_t dev_addr, tusb_control_request_t const * request, xfer_result_t result)
 {
+  TU_LOG2("%s:start\r\n", __func__);
   TU_ASSERT(0 == dev_addr);
   TU_ASSERT(XFER_RESULT_SUCCESS == result);
 
@@ -952,20 +953,27 @@ static bool parse_configuration_descriptor(uint8_t dev_addr, tusb_desc_configura
     // skip until we see interface descriptor
     if ( TUSB_DESC_INTERFACE != tu_desc_type(p_desc) )
     {
+      TU_LOG2("%s: Skipping descriptor %u\r\n", __func__, tu_desc_type(p_desc));
       p_desc = tu_desc_next(p_desc); // skip the descriptor, increase by the descriptor's length
     }else
     {
+      TU_LOG2("%s: Got interface descriptor\r\n", __func__);
       tusb_desc_interface_t const* desc_itf = (tusb_desc_interface_t const*) p_desc;
 
       // Check if class is supported
       uint8_t drv_id;
       for (drv_id = 0; drv_id < USBH_CLASS_DRIVER_COUNT; drv_id++)
       {
-        if ( usbh_class_drivers[drv_id].class_code == desc_itf->bInterfaceClass ) break;
+        TU_LOG2("%s: Checking drv_id: %u, drv->class_code: %u, desc->class: %u\r\n", __func__, drv_id, usbh_class_drivers[drv_id].class_code, desc_itf->bInterfaceClass);
+        if ( usbh_class_drivers[drv_id].class_code == desc_itf->bInterfaceClass ) {
+          TU_LOG2("%s: Match\r\n", __func__);
+          break;
+        }
       }
 
       if( drv_id >= USBH_CLASS_DRIVER_COUNT )
       {
+        TU_LOG2("%s: unsupported class\r\n", __func__);
         // skip unsupported class
         p_desc = tu_desc_next(p_desc);
       }
@@ -973,6 +981,7 @@ static bool parse_configuration_descriptor(uint8_t dev_addr, tusb_desc_configura
       {
         usbh_class_driver_t const * driver = &usbh_class_drivers[drv_id];
 
+        TU_LOG2("%s: assigning drv_id %u to interface %u\r\n", __func__, drv_id, desc_itf->bInterfaceNumber);
         // Interface number must not be used already TODO alternate interface
         TU_ASSERT( dev->itf2drv[desc_itf->bInterfaceNumber] == 0xff );
         dev->itf2drv[desc_itf->bInterfaceNumber] = drv_id;
@@ -981,6 +990,7 @@ static bool parse_configuration_descriptor(uint8_t dev_addr, tusb_desc_configura
         {
           // TODO Attach hub to Hub is not currently supported
           // skip this interface
+          TU_LOG2("%s: Skipping hub\r\n", __func__);
           p_desc = tu_desc_next(p_desc);
         }
         else
@@ -996,6 +1006,7 @@ static bool parse_configuration_descriptor(uint8_t dev_addr, tusb_desc_configura
     }
   }
 
+  TU_LOG2("%s: Done\r\n", __func__);
   return true;
 }
 
