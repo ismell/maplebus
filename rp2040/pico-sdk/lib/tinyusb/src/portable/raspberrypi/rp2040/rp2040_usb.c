@@ -253,8 +253,11 @@ void _hw_endpoint_xfer_sync(struct hw_endpoint *ep)
         // offset
         pico_trace("rx %d bytes (buf_ctrl 0x%08x)\n", transferred_bytes, buf_ctrl);
         assert(buf_ctrl & USB_BUF_CTRL_FULL);
-        memcpy(&ep->user_buf[ep->len], ep->hw_data_buf, transferred_bytes);
-        ep->len += transferred_bytes;
+        if (transferred_bytes) {
+            TU_LOG2_MEM(ep->hw_data_buf, transferred_bytes, 2);
+            memcpy(&ep->user_buf[ep->len], ep->hw_data_buf, transferred_bytes);
+            ep->len += transferred_bytes;
+        }
     }
 
     // Sometimes the host will send less data than we expect...
