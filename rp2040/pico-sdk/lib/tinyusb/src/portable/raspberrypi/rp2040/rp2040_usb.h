@@ -17,19 +17,19 @@
 #endif
 
 
-#if false && !defined(NDEBUG)
+#if !defined(NDEBUG)
 #define pico_trace(format,args...) printf(format, ## args)
 #else
 #define pico_trace(format,...) ((void)0)
 #endif
 
-#if false && !defined(NDEBUG)
+#if !defined(NDEBUG)
 #define pico_info(format,args...) printf(format, ## args)
 #else
 #define pico_info(format,...) ((void)0)
 #endif
 
-#if false && !defined(NDEBUG)
+#if !defined(NDEBUG)
 #define pico_warn(format,args...) printf(format, ## args)
 #else
 #define pico_warn(format,...) ((void)0)
