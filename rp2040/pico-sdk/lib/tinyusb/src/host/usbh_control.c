@@ -365,6 +365,9 @@ bool usbh_control_xfer_cb (uint8_t dev_addr, uint8_t ep_addr, xfer_result_t resu
         {
           TU_LOG2("Control data:\r\n");
           TU_LOG2_MEM(_ctrl_xfer.buffer, request->wLength, 2);
+          if (request->bRequest == TUSB_REQ_GET_DESCRIPTOR) {
+            print_descriptor(_ctrl_xfer.buffer, request->wLength);
+          }
         }
 
         // ACK stage: toggle is always 1
