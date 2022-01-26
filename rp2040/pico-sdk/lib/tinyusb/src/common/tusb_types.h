@@ -262,6 +262,14 @@ enum
 // USB Descriptors
 //--------------------------------------------------------------------+
 
+typedef struct TU_ATTR_PACKED
+{
+  uint8_t  bLength            ; ///< Size of this descriptor in bytes
+  uint8_t  bDescriptorType    ; ///< INTERFACE Descriptor Type
+  uint8_t  data[];
+} tusb_desc_t;
+
+
 /// USB Device Descriptor
 typedef struct TU_ATTR_PACKED
 {
