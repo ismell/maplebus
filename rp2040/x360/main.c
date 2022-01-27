@@ -14,7 +14,7 @@ int main() {
 	stdio_init_all();
 	board_init(); /* Not really needed */
 
-	printf("xpad starting!\n");
+	printf("x360 starting!\n");
 
 	tusb_init();
 
