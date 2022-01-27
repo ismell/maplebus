@@ -4,6 +4,7 @@
 
 cmake_minimum_required(VERSION 3.13)
 
+set(PICO_SDK_PATH ../../pico-sdk)
 include(pico_sdk_import.cmake)
 
 project(maplebus)
