@@ -58,6 +58,10 @@
     #include "class/vendor/vendor_host.h"
   #endif
 
+  #if CFG_TUH_X360
+    #include "class/vendor/x360.h"
+  #endif
+
 #endif
 
 //------------- DEVICE -------------//

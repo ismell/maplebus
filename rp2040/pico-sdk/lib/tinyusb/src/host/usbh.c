@@ -108,6 +108,18 @@ static usbh_class_driver_t const usbh_class_drivers[] =
       .close      = cush_close
     }
   #endif
+
+  #if CFG_TUH_X360
+    {
+      DRIVER_NAME("X360")
+      .class_code = TUSB_CLASS_VENDOR_SPECIFIC,
+      .init       = x360_init,
+      .open       = x360_open,
+      .set_config = x360_set_config,
+      .xfer_cb    = x360_xfer_cb,
+      .close      = x360_close
+    }
+  #endif
 };
 
 enum { USBH_CLASS_DRIVER_COUNT = TU_ARRAY_SIZE(usbh_class_drivers) };
