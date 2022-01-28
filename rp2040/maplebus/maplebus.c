@@ -9,6 +9,10 @@
 #include "maplebus.h"
 #include <stdio.h>
 
+enum maplebus_header_type {
+	FRAME_WITH_CRC = 0x3,
+};
+
 struct maplebus_sm_dev {
 	bool initialized;
 	uint idx;
@@ -26,6 +30,20 @@ struct maplebus_pio_dev {
 static struct maplebus_pio_dev tx_dev;
 static struct maplebus_pio_dev rx_dev;
 
+static struct maplebus_sm_dev *get_tx_dev(maplebus_tx_id_t id)
+{
+	struct maplebus_sm_dev *dev;
+	assert(tx_dev.initialized);
+	assert(id.idx < ARRAY_SIZE(tx_dev.sms));
+
+	dev = &tx_dev.sms[id.idx];
+
+	assert(dev.initialized);
+	assert(dev.idx == id.idx);
+
+	return dev;
+}
+
 struct maplebus_buffer {
 	union {
 		struct maplebus_header header;
@@ -34,7 +52,7 @@ struct maplebus_buffer {
 	uint32_t data[];
 } __attribute__ ((aligned (4)));
 
-uint8_t compute_lrc(struct maplebus_buffer *buffer) {
+uint8_t compute_lrc(const struct maplebus_buffer *buffer) {
 	uint8_t lrc = 0;
 	uint32_t *data = (uint32_t *)buffer;
 
@@ -120,23 +138,39 @@ maplebus_tx_id_t maplebus_tx_init(uint pin_sdcka, uint pin_sdckb)
 	return id;
 }
 
-int pio_maplebus_tx_blocking(PIO pio, uint sm, struct maplebus_header *data) {
-	uint8_t lrc;
+uint32_t maplebus_tx_header(uint8_t frame_type, uint total_bytes)
+{
 	uint32_t header = 0;
-	struct maplebus_buffer *buffer = (struct maplebus_buffer *)data;
-	size_t total_bytes = (1 + buffer->header.length) * sizeof(uint32_t) + 1;
 
-	header |= (0x3U << 28); // Frame with CRC
+	assert(total_bytes);
+
+	header |= (frame_type << 28);
 	header |= total_bytes * 8 / 2 - 1; // 4 cycles per byte
 
-	pio_sm_put_blocking(pio, sm, header);
-	pio_sm_put_blocking(pio, sm, buffer->raw_header);
+	return header;
+}
+
+void pio_maplebus_tx_blocking(maplebus_tx_id_t id, const struct maplebus_header *data, size_t size)
+{
+	assert(size);
+	assert((size % 4) == 0);
+	assert((1 + data->length) * sizeof(uint32_t) == size);
+	assert(tx_dev.initialized);
+
+	PIO pio = tx_dev.pio;
+	struct maplebus_sm_dev *dev = get_tx_dev(id);
+
+	const struct maplebus_buffer *buffer = (struct maplebus_buffer *)data;
+	size_t total_bytes = (1 + data->length) * sizeof(uint32_t) + 1 /* CRC Byte */;
+	uint8_t lrc = compute_lrc(buffer);
+
+	pio_sm_put_blocking(pio, dev->idx, maplebus_tx_header(FRAME_WITH_CRC, total_bytes));
+	pio_sm_put_blocking(pio, dev->idx, buffer->raw_header);
 
 	for (size_t i = 0; i < buffer->header.length; ++i)
-		pio_sm_put_blocking(pio, sm, buffer->data[i]);
+		pio_sm_put_blocking(pio, dev->idx, buffer->data[i]);
 
-	lrc = compute_lrc(buffer);
-	pio_sm_put_blocking(pio, sm, ((uint32_t)lrc) << 24);
+	pio_sm_put_blocking(pio, dev->idx, ((uint32_t)lrc) << 24);
 }
 
 maplebus_rx_id_t maplebus_rx_init(uint pin_sdcka, uint pin_sdckb)

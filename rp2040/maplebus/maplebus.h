@@ -60,7 +60,7 @@ maplebus_tx_id_t maplebus_tx_init(uint pin_sdcka, uint pin_sdckb);
  */
 maplebus_rx_id_t maplebus_rx_init(uint pin_sdcka, uint pin_sdckb);
 
-int pio_maplebus_tx_blocking(PIO pio, uint sm, struct maplebus_header *data);
+void pio_maplebus_tx_blocking(maplebus_tx_id_t id, const struct maplebus_header *data, size_t size);
 
 /**
  * Receive a maplebus frame.

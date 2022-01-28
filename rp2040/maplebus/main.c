@@ -53,7 +53,7 @@ int main() {
 		printf("Maple Bus iteration %u\n", iteration);
 
 		//gpio_put(PIN_HEARTBEAT, 1);
-		pio_maplebus_tx_blocking(pio0, sm, &device_info_request);
+		pio_maplebus_tx_blocking(tx_id, &device_info_request, sizeof(device_info_request));
 		ret = pio_maplebus_rx_blocking(pio1, sm, &rx_buffer.header, sizeof(rx_buffer));
 
 		switch (ret) {
