@@ -31,10 +31,37 @@ enum maplebus_return {
 	MAPLEBUS_TIMEOUT,
 };
 
-void maplebus_tx_program_init(PIO pio, uint sm, uint offset, uint pin_sdcka, uint pin_sdckb);
+/* Opaque struct for API clairty */
+typedef struct maplebus_tx_id {
+	uint idx;
+} maplebus_tx_id_t;
+
+typedef struct maplebus_rx_id {
+	uint idx;
+} maplebus_rx_id_t;
+
+void maplebus_tx_pio_init(PIO pio);
+void maplebus_rx_pio_init(PIO pio);
+
+/**
+ * Initializes a maplebus transmitter.
+ * 
+ * Must call this after maplebus_tx_pio_init.
+ */
+maplebus_tx_id_t maplebus_tx_init(uint pin_sdcka, uint pin_sdckb);
+
+/**
+ * Initializes a maplebus receiver.
+ * 
+ * Must call this after maplebus_rx_pio_init.
+ * 
+ * @id out parameter
+ * @returns -1 on error
+ */
+maplebus_rx_id_t maplebus_rx_init(uint pin_sdcka, uint pin_sdckb);
+
 int pio_maplebus_tx_blocking(PIO pio, uint sm, struct maplebus_header *data);
 
-void maplebus_rx_program_init(PIO pio, uint sm, uint offset, uint pin_sdcka, uint pin_sdckb);
 /**
  * Receive a maplebus frame.
  * @n number of bytes in the @data buffer. Must be >=4.

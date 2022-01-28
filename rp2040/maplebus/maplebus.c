@@ -9,6 +9,23 @@
 #include "maplebus.h"
 #include <stdio.h>
 
+struct maplebus_sm_dev {
+	bool initialized;
+	uint idx;
+};
+
+struct maplebus_pio_dev {
+	PIO pio;
+	bool initialized;
+	uint program_offset;
+	uint free_idx;
+
+	struct maplebus_sm_dev sms[4];
+};
+
+static struct maplebus_pio_dev tx_dev;
+static struct maplebus_pio_dev rx_dev;
+
 struct maplebus_buffer {
 	union {
 		struct maplebus_header header;
@@ -31,8 +48,38 @@ uint8_t compute_lrc(struct maplebus_buffer *buffer) {
 	return lrc;
 }
 
-void maplebus_tx_program_init(PIO pio, uint sm, uint offset, uint pin_sdcka, uint pin_sdckb) {
-	pio_sm_config c = maplebus_tx_program_get_default_config(offset);
+void maplebus_tx_pio_init(PIO pio)
+{
+	assert(!tx_dev.initialized);
+	tx_dev.pio = pio;
+	tx_dev.program_offset = pio_add_program(tx_dev.pio, &maplebus_tx_program);
+}
+
+void maplebus_rx_pio_init(PIO pio)
+{
+	assert(!rx_dev.initialized);
+	rx_dev.pio = pio;
+	rx_dev.program_offset = pio_add_program(rx_dev.pio, &maplebus_rx_program);
+}
+
+maplebus_tx_id_t maplebus_tx_init(uint pin_sdcka, uint pin_sdckb)
+{
+	struct maplebus_sm_dev *sm;
+
+	assert(tx_dev.initialized);
+	assert(tx_dev.free_idx < ARRAY_SIZE(tx_dev.sms));
+
+	{
+		uint idx = tx_dev.free_idx++;
+
+		sm = &tx_dev.sms[idx];
+		sm->idx = idx;
+		sm->initialized = true;
+	}
+
+	PIO pio = tx_dev.pio;
+
+	pio_sm_config c = maplebus_tx_program_get_default_config(tx_dev.program_offset);
 
 	// IO mapping
 	sm_config_set_set_pins(&c, pin_sdcka, 1);
@@ -48,9 +95,10 @@ void maplebus_tx_program_init(PIO pio, uint sm, uint offset, uint pin_sdcka, uin
 	sm_config_set_clkdiv(&c, div);
 
 	uint32_t both_pins = (1u << pin_sdcka) | (1u << pin_sdckb);
-	pio_sm_set_pins_with_mask(pio, sm, 0, both_pins);
-	pio_sm_set_pindirs_with_mask(pio, sm, both_pins, both_pins);
-	pio_gpio_init(pio, pin_sdcka);
+	pio_sm_set_pins_with_mask(pio, sm->idx, 0, both_pins);
+	/* Set all pins to OUT */
+	pio_sm_set_pindirs_with_mask(pio, sm->idx, both_pins, both_pins);
+	pio_gpio_init(pio, pin_sdcka); /* Do we swap this to avoid the glitch ? */
 	gpio_set_oeover(pin_sdcka, GPIO_OVERRIDE_INVERT);
 	pio_gpio_init(pio, pin_sdckb);
 	gpio_set_oeover(pin_sdckb, GPIO_OVERRIDE_INVERT);
@@ -59,13 +107,17 @@ void maplebus_tx_program_init(PIO pio, uint sm, uint offset, uint pin_sdcka, uin
 	gpio_pull_up(pin_sdckb);
 
 	// Clear IRQ flag before starting
-	hw_clear_bits(&pio->inte0, 1u << sm);
-	hw_clear_bits(&pio->inte1, 1u << sm);
-	pio->irq = 1u << sm;
+	hw_clear_bits(&pio->inte0, 1u << sm->idx);
+	hw_clear_bits(&pio->inte1, 1u << sm->idx);
+	pio->irq = 1u << sm->idx;
 
 	// Configure and start SM
-	pio_sm_init(pio, sm, offset + maplebus_tx_offset_entry_point, &c);
-	pio_sm_set_enabled(pio, sm, true);
+	pio_sm_init(pio, sm->idx, tx_dev.program_offset + maplebus_tx_offset_entry_point, &c);
+	pio_sm_set_enabled(pio, sm->idx, true);
+
+	struct maplebus_tx_id id = { .idx = sm->idx };
+
+	return id;
 }
 
 int pio_maplebus_tx_blocking(PIO pio, uint sm, struct maplebus_header *data) {
@@ -87,10 +139,26 @@ int pio_maplebus_tx_blocking(PIO pio, uint sm, struct maplebus_header *data) {
 	pio_sm_put_blocking(pio, sm, ((uint32_t)lrc) << 24);
 }
 
-void maplebus_rx_program_init(PIO pio, uint sm, uint offset, uint pin_sdcka, uint pin_sdckb) {
+maplebus_rx_id_t maplebus_rx_init(uint pin_sdcka, uint pin_sdckb)
+{
+	struct maplebus_sm_dev *sm;
+
+	assert(rx_dev.initialized);
+	assert(rx_dev.free_idx < ARRAY_SIZE(rx_dev.sms));
 	assert(pin_sdcka == pin_sdckb + 1);
-	pio_sm_set_consecutive_pindirs(pio, sm, pin_sdckb, 2, false);
-	pio_sm_config c = maplebus_rx_program_get_default_config(offset);
+
+	{
+		uint idx = rx_dev.free_idx++;
+
+		sm = &rx_dev.sms[idx];
+		sm->idx = idx;
+		sm->initialized = true;
+	}
+
+	PIO pio = rx_dev.pio;
+
+	pio_sm_set_consecutive_pindirs(pio, sm->idx, pin_sdckb, 2, false);
+	pio_sm_config c = maplebus_rx_program_get_default_config(rx_dev.program_offset);
 
 	// IO mapping
 	sm_config_set_in_pins(&c, pin_sdckb);
@@ -109,13 +177,17 @@ void maplebus_rx_program_init(PIO pio, uint sm, uint offset, uint pin_sdcka, uin
 	gpio_pull_up(pin_sdckb);
 
 	// Clear IRQ flag before starting
-	hw_clear_bits(&pio->inte0, 1u << sm);
-	hw_clear_bits(&pio->inte1, 1u << sm);
-	pio->irq = 1u << sm;
+	hw_clear_bits(&pio->inte0, 1u << sm->idx);
+	hw_clear_bits(&pio->inte1, 1u << sm->idx);
+	pio->irq = 1u << sm->idx;
 
 	// Configure and start SM
-	pio_sm_init(pio, sm, offset + maplebus_rx_offset_entry_point, &c);
-	pio_sm_set_enabled(pio, sm, true);
+	pio_sm_init(pio, sm->idx, rx_dev.program_offset + maplebus_rx_offset_entry_point, &c);
+	pio_sm_set_enabled(pio, sm->idx, true);
+
+	struct maplebus_rx_id id = { .idx = sm->idx };
+
+	return id;
 }
 
 enum maplebus_return pio_maplebus_rx_blocking(PIO pio, uint sm, struct maplebus_header *data, size_t n) {

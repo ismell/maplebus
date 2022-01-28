@@ -37,11 +37,14 @@ int main() {
 	// gpio_set_dir(PIN_HEARTBEAT, GPIO_OUT);
 
 	uint sm = 0;
-	uint offset = pio_add_program(pio0, &maplebus_tx_program);
-	maplebus_tx_program_init(pio0, sm, offset, PIN_SDCKA, PIN_SDCKB);
+	maplebus_tx_id_t tx_id;
+	maplebus_rx_id_t rx_id;
 
-	offset = pio_add_program(pio1, &maplebus_rx_program);
-	maplebus_rx_program_init(pio1, sm, offset, PIN_SDCKA, PIN_SDCKB);
+	maplebus_tx_pio_init(pio0);
+	maplebus_rx_pio_init(pio1);
+
+	tx_id = maplebus_tx_init(PIN_SDCKA, PIN_SDCKB);
+	rx_id = maplebus_rx_init(PIN_SDCKA, PIN_SDCKB);
 
 	uint iteration = 0;
 	enum maplebus_return ret;
