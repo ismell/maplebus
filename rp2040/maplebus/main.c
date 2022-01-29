@@ -28,6 +28,19 @@ struct maplebus_header device_info_request = {
 	.length = 0x00,
 };
 
+struct test_packet {
+	struct maplebus_header header;
+	uint8_t data[4];
+} test_packet = {
+	.header = {
+		.command = 0x99,
+		.destination = 0x88,
+		.source = 0x77,
+		.length = sizeof(struct test_packet) / 4 - 1,
+	},
+	.data = {0x66, 0x55, 0x44, 0x33}
+};
+
 int main() {
 	stdio_init_all();
 
@@ -53,7 +66,7 @@ int main() {
 		printf("Maple Bus iteration %u\n", iteration);
 
 		//gpio_put(PIN_HEARTBEAT, 1);
-		pio_maplebus_tx_blocking(tx_id, &device_info_request, sizeof(device_info_request));
+		pio_maplebus_tx_blocking(tx_id, &test_packet.header, sizeof(test_packet));
 		ret = pio_maplebus_rx_blocking(pio1, sm, &rx_buffer.header, sizeof(rx_buffer));
 
 		switch (ret) {
