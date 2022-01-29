@@ -23,5 +23,10 @@ target_sources(maplebus PRIVATE
         )
 
 target_link_libraries(maplebus PRIVATE pico_stdlib hardware_pio)
+target_compile_options(maplebus PRIVATE -Wall -Wextra -Wconversion -Werror)
+target_compile_definitions(maplebus PRIVATE
+        PARAM_ASSERTIONS_ENABLE_ALL=1 # want to check all the assertions for compilation warnings
+)
+
 pico_add_extra_outputs(maplebus)
 

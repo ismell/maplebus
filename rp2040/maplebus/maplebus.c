@@ -56,11 +56,11 @@ uint8_t compute_lrc(const struct maplebus_buffer *buffer) {
 	uint8_t lrc = 0;
 	uint32_t *data = (uint32_t *)buffer;
 
-	for (size_t i = 0; i < buffer->header.length + 1; ++i) {
-		lrc ^= (data[i] >> 0) & 0xFF;
-		lrc ^= (data[i] >> 8) & 0xFF;
-		lrc ^= (data[i] >> 16) & 0xFF;
-		lrc ^= (data[i] >> 24) & 0xFF;
+	for (size_t i = 0; i < buffer->header.length + 1U; ++i) {
+		lrc ^= (uint8_t)((data[i] >> 0) & 0xFF);
+		lrc ^= (uint8_t)((data[i] >> 8) & 0xFF);
+		lrc ^= (uint8_t)((data[i] >> 16) & 0xFF);
+		lrc ^= (uint8_t)((data[i] >> 24) & 0xFF);
 	}
 
 	return lrc;
@@ -144,7 +144,7 @@ uint32_t maplebus_tx_header(uint8_t frame_type, uint total_bytes)
 
 	assert(total_bytes);
 
-	header |= (frame_type << 28);
+	header |= ((uint32_t)frame_type << 28);
 	header |= total_bytes * 8 / 2 - 1; // 4 cycles per byte
 
 	return header;
@@ -161,7 +161,7 @@ void pio_maplebus_tx_blocking(maplebus_tx_id_t id, const struct maplebus_header 
 	struct maplebus_sm_dev *dev = get_tx_dev(id);
 
 	const struct maplebus_buffer *buffer = (struct maplebus_buffer *)data;
-	size_t total_bytes = (1 + data->length) * sizeof(uint32_t) + 1 /* CRC Byte */;
+	size_t total_bytes = size + 1 /* CRC Byte */;
 	uint8_t lrc = compute_lrc(buffer);
 
 	pio_sm_put_blocking(pio, dev->idx, maplebus_tx_header(FRAME_WITH_CRC, total_bytes));
@@ -225,7 +225,8 @@ maplebus_rx_id_t maplebus_rx_init(uint pin_sdcka, uint pin_sdckb)
 }
 
 enum maplebus_return pio_maplebus_rx_blocking(PIO pio, uint sm, struct maplebus_header *data, size_t n) {
-	uint32_t frame_type, actual_crc, expected_crc;
+	uint32_t frame_type, actual_crc;
+	uint8_t expected_crc;
 	struct maplebus_buffer *buffer = (struct maplebus_buffer *)data;
 	enum maplebus_return ret;
 
@@ -259,10 +260,10 @@ enum maplebus_return pio_maplebus_rx_blocking(PIO pio, uint sm, struct maplebus_
 			ret = MAPLEBUS_OK;
 		} else {
 			ret = MAPLEBUS_CRC_ERROR;
-			printf("Actual CRC: %#x, Expected CRC: %#x\n", actual_crc, expected_crc);
+			printf("Actual CRC: %#"PRIx32", Expected CRC: %#"PRIx8"\n", actual_crc, expected_crc);
 		}
 	} else {
-		printf("RX: Unknown start frame: %#x\n", frame_type);
+		printf("RX: Unknown start frame: %#"PRIx32"\n", frame_type);
 		ret = MAPLEBUS_UNKNOWN_FRAME_TYPE;
 	}
 out:
@@ -280,6 +281,6 @@ void maplebus_print(struct maplebus_header *header) {
 	printf("Words: %#hhx\n", header->length);
 
 	for (uint i = 0; i < header->length; ++i)
-		printf("Word %u: %#x\n", i, buffer->data[i]);
+		printf("Word %u: %#"PRIx32"\n", i, buffer->data[i]);
 }
 

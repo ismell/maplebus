@@ -51,7 +51,7 @@ int main() {
 
 	uint sm = 0;
 	maplebus_tx_id_t tx_id;
-	maplebus_rx_id_t rx_id;
+	maplebus_rx_id_t rx_id __unused;
 
 	maplebus_tx_pio_init(pio0);
 	maplebus_rx_pio_init(pio1);
