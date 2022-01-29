@@ -272,9 +272,14 @@ out:
 }
 
 void maplebus_print(struct maplebus_header *header) {
+	struct maplebus_buffer *buffer = (struct maplebus_buffer *)header;
+
 	printf("Command: %#hhx\n", header->command);
 	printf("Destination: %#hhx\n", header->destination);
 	printf("Source: %#hhx\n", header->source);
 	printf("Words: %#hhx\n", header->length);
+
+	for (uint i = 0; i < header->length; ++i)
+		printf("Word %u: %#x\n", i, buffer->data[i]);
 }
 
