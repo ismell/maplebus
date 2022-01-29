@@ -44,6 +44,20 @@ static struct maplebus_sm_dev *get_tx_dev(maplebus_tx_id_t id)
 	return dev;
 }
 
+static struct maplebus_sm_dev *get_rx_dev(maplebus_rx_id_t id)
+{
+	struct maplebus_sm_dev *dev;
+	assert(rx_dev.initialized);
+	assert(id.idx < ARRAY_SIZE(rx_dev.sms));
+
+	dev = &rx_dev.sms[id.idx];
+
+	assert(dev.initialized);
+	assert(dev.idx == id.idx);
+
+	return dev;
+}
+
 struct maplebus_buffer {
 	union {
 		struct maplebus_header header;
@@ -224,21 +238,24 @@ maplebus_rx_id_t maplebus_rx_init(uint pin_sdcka, uint pin_sdckb)
 	return id;
 }
 
-enum maplebus_return pio_maplebus_rx_blocking(PIO pio, uint sm, struct maplebus_header *data, size_t n) {
+enum maplebus_return pio_maplebus_rx_blocking(maplebus_rx_id_t id, struct maplebus_header *data, size_t n)
+{
 	uint32_t frame_type, actual_crc;
 	uint8_t expected_crc;
 	struct maplebus_buffer *buffer = (struct maplebus_buffer *)data;
 	enum maplebus_return ret;
+	PIO pio = rx_dev.pio;
+	struct maplebus_sm_dev *dev = get_rx_dev(id);
 
 	if (n < sizeof(*data))
 		return MAPLEBUS_INVALID_ARGS;
 
 	printf("Waiting for frame_type\n");
-	frame_type = pio_sm_get_blocking(pio, sm);
+	frame_type = pio_sm_get_blocking(pio, dev->idx);
 
 	if (frame_type == 0xFFFFFFF0) { // Start frame w/ CRC
 		n -= sizeof(uint32_t);
-		buffer->raw_header = pio_sm_get_blocking(pio, sm);
+		buffer->raw_header = pio_sm_get_blocking(pio, dev->idx);
 
 		for (size_t i = 0; i < buffer->header.length; ++i) {
 			if (n < sizeof(uint32_t)) {
@@ -248,13 +265,13 @@ enum maplebus_return pio_maplebus_rx_blocking(PIO pio, uint sm, struct maplebus_
 				n -= sizeof(uint32_t);
 			}
 
-			buffer->data[i] = pio_sm_get_blocking(pio, sm);
+			buffer->data[i] = pio_sm_get_blocking(pio, dev->idx);
 		}
 		
 		// Wait for a 1 byte CRC.
-		pio_sm_exec(pio, sm, pio_encode_set(pio_y, 0));
+		pio_sm_exec(pio, dev->idx, pio_encode_set(pio_y, 0));
 
-		actual_crc = pio_sm_get_blocking(pio, sm);
+		actual_crc = pio_sm_get_blocking(pio, dev->idx);
 		expected_crc = compute_lrc(buffer);
 		if (actual_crc == expected_crc) {
 			ret = MAPLEBUS_OK;
@@ -268,7 +285,7 @@ enum maplebus_return pio_maplebus_rx_blocking(PIO pio, uint sm, struct maplebus_
 	}
 out:
 	// We need to manually reset the PC at the end of the frame.
-	pio_sm_exec(pio, sm, pio_encode_jmp(0));
+	pio_sm_exec(pio, dev->idx, pio_encode_jmp(0));
 	return ret;
 }
 

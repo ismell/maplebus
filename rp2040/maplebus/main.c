@@ -49,9 +49,8 @@ int main() {
 	// gpio_init(PIN_HEARTBEAT);
 	// gpio_set_dir(PIN_HEARTBEAT, GPIO_OUT);
 
-	uint sm = 0;
 	maplebus_tx_id_t tx_id;
-	maplebus_rx_id_t rx_id __unused;
+	maplebus_rx_id_t rx_id;
 
 	maplebus_tx_pio_init(pio0);
 	maplebus_rx_pio_init(pio1);
@@ -67,7 +66,7 @@ int main() {
 
 		//gpio_put(PIN_HEARTBEAT, 1);
 		pio_maplebus_tx_blocking(tx_id, &test_packet.header, sizeof(test_packet));
-		ret = pio_maplebus_rx_blocking(pio1, sm, &rx_buffer.header, sizeof(rx_buffer));
+		ret = pio_maplebus_rx_blocking(rx_id, &rx_buffer.header, sizeof(rx_buffer));
 
 		switch (ret) {
 		case MAPLEBUS_OK:

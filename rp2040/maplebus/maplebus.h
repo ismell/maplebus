@@ -66,7 +66,7 @@ void pio_maplebus_tx_blocking(maplebus_tx_id_t id, const struct maplebus_header 
  * Receive a maplebus frame.
  * @n number of bytes in the @data buffer. Must be >=4.
  */
-enum maplebus_return pio_maplebus_rx_blocking(PIO pio, uint sm, struct maplebus_header *data, size_t n);
+enum maplebus_return pio_maplebus_rx_blocking(maplebus_rx_id_t id, struct maplebus_header *data, size_t n);
 
 void maplebus_print(struct maplebus_header *data);
 
