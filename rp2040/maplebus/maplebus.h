@@ -8,6 +8,7 @@
 #define MAPLEBUS_H
 
 #include <inttypes.h>
+#include <futures.h>
 #include "maplebus.pio.h"
 
 /**
@@ -61,6 +62,13 @@ maplebus_tx_id_t maplebus_tx_init(uint pin_sdcka, uint pin_sdckb);
 maplebus_rx_id_t maplebus_rx_init(uint pin_sdcka, uint pin_sdckb);
 
 void pio_maplebus_tx_blocking(maplebus_tx_id_t id, const struct maplebus_header *data, size_t size);
+
+/**
+ * Send data on the bus
+ * 
+ * @param future out - future handle
+ */
+void maplebux_tx(maplebus_tx_id_t id, struct future *future, const struct maplebus_header *data, size_t size);
 
 /**
  * Receive a maplebus frame.

@@ -27,6 +27,18 @@ struct maplebus_buffer {
 struct maplebus_sm_dev {
 	bool initialized;
 	uint idx;
+
+	struct future *future;
+	const struct maplebus_buffer *buffer;
+	uint buffer_size;
+	enum {
+		TX_STATE_SEND_FRAME_HEADER,
+		TX_STATE_SEND_PACKET_HEADER,
+		TX_STATE_SEND_DATA,
+		TX_STATE_SEND_CRC,
+		TX_STATE_SEND_DONE
+	} tx_state;
+	uint data_sent;
 };
 
 struct maplebus_pio_dev {
@@ -53,6 +65,20 @@ static struct maplebus_sm_dev *get_tx_dev(maplebus_tx_id_t id)
 	assert(dev->idx == id.idx);
 
 	return dev;
+}
+
+static struct maplebus_sm_dev *get_tx_dev_from_future(struct future *future)
+{
+	struct maplebus_sm_dev *dev;
+	for (uint i = 0; i < ARRAY_SIZE(tx_dev.sms); ++i) {
+		dev = &tx_dev.sms[i];
+		if (dev->future == future)
+			return dev;
+	}
+
+	assert(false);
+
+	return NULL;
 }
 
 static struct maplebus_sm_dev *get_rx_dev(maplebus_rx_id_t id)
@@ -198,6 +224,81 @@ void pio_maplebus_tx_blocking(maplebus_tx_id_t id,
 		pio_sm_put_blocking(pio, dev->idx, buffer->data[i]);
 
 	pio_sm_put_blocking(pio, dev->idx, ((uint32_t)lrc) << 24);
+}
+
+static enum future_state maplebus_tx_poll(struct future *future,
+					  __unused struct wait_context *ctx)
+{
+	PIO pio = tx_dev.pio;
+	struct maplebus_sm_dev *dev = get_tx_dev_from_future(future);
+	size_t total_bytes;
+	uint32_t frame_header;
+	uint8_t lrc;
+
+	while (!pio_sm_is_tx_fifo_full(pio, dev->idx)) {
+		switch (dev->tx_state) {
+		case TX_STATE_SEND_FRAME_HEADER:
+			total_bytes = dev->buffer_size + 1 /* CRC Byte */;
+			frame_header =
+				maplebus_tx_header(FRAME_WITH_CRC, total_bytes);
+
+			pio_sm_put(pio, dev->idx, frame_header);
+			dev->tx_state = TX_STATE_SEND_PACKET_HEADER;
+			break;
+		case TX_STATE_SEND_PACKET_HEADER:
+			pio_sm_put(pio, dev->idx, dev->buffer->raw_header);
+			dev->tx_state = TX_STATE_SEND_DATA;
+			break;
+		case TX_STATE_SEND_DATA:
+			if (dev->data_sent < dev->buffer->header.length) {
+				pio_sm_put(pio, dev->idx,
+					   dev->buffer->data[dev->data_sent]);
+				dev->data_sent++;
+				break;
+			}
+
+			dev->tx_state = TX_STATE_SEND_CRC;
+			break;
+		case TX_STATE_SEND_CRC:
+			lrc = compute_lrc(dev->buffer);
+
+			pio_sm_put(pio, dev->idx, ((uint32_t)lrc) << 24);
+
+			dev->future = NULL;
+			dev->buffer = NULL;
+			dev->buffer_size = 0;
+			dev->data_sent = 0;
+			dev->tx_state = TX_STATE_SEND_DONE;
+			complete_future(future);
+
+			return FUTURE_DONE;
+		default:
+			assert(false);
+		}
+	}
+
+	return FUTURE_PENDING;
+}
+
+void maplebux_tx(maplebus_tx_id_t id, struct future *future,
+		 const struct maplebus_header *data, size_t size)
+{
+	assert(size);
+	assert((size % 4) == 0);
+	assert((1u + data->length) * sizeof(uint32_t) == size);
+	assert(tx_dev.initialized);
+
+	struct maplebus_sm_dev *dev = get_tx_dev(id);
+	const struct maplebus_buffer *buffer = (struct maplebus_buffer *)data;
+
+	assert(dev->future == NULL);
+
+	dev->future = future;
+	dev->buffer = buffer;
+	dev->buffer_size = size;
+	dev->data_sent = 0;
+	dev->tx_state = TX_STATE_SEND_FRAME_HEADER;
+	future->poll = maplebus_tx_poll;
 }
 
 maplebus_rx_id_t maplebus_rx_init(uint pin_sdcka, uint pin_sdckb)

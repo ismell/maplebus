@@ -52,6 +52,8 @@ int main() {
 	maplebus_tx_id_t tx_id;
 	maplebus_rx_id_t rx_id;
 
+	struct future tx_future;
+
 	maplebus_tx_pio_init(pio0);
 	maplebus_rx_pio_init(pio1);
 
@@ -65,7 +67,11 @@ int main() {
 		printf("Maple Bus iteration %u\n", iteration);
 
 		//gpio_put(PIN_HEARTBEAT, 1);
-		pio_maplebus_tx_blocking(tx_id, &test_packet.header, sizeof(test_packet));
+		maplebux_tx(tx_id, &tx_future, &test_packet.header, sizeof(test_packet));
+		while (tx_future.poll(&tx_future, NULL) != FUTURE_DONE) {
+			printf(".");
+		}
+		printf("\n");
 		ret = pio_maplebus_rx_blocking(rx_id, &rx_buffer.header, sizeof(rx_buffer));
 
 		switch (ret) {
