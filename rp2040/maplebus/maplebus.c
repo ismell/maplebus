@@ -16,6 +16,14 @@ enum maplebus_header_type {
 	FRAME_WITH_CRC = 0x3,
 };
 
+struct maplebus_buffer {
+	union {
+		struct maplebus_header header;
+		uint32_t raw_header;
+	};
+	uint32_t data[];
+} __attribute__((aligned(4)));
+
 struct maplebus_sm_dev {
 	bool initialized;
 	uint idx;
@@ -60,14 +68,6 @@ static struct maplebus_sm_dev *get_rx_dev(maplebus_rx_id_t id)
 
 	return dev;
 }
-
-struct maplebus_buffer {
-	union {
-		struct maplebus_header header;
-		uint32_t raw_header;
-	};
-	uint32_t data[];
-} __attribute__ ((aligned (4)));
 
 uint8_t compute_lrc(const struct maplebus_buffer *buffer)
 {
