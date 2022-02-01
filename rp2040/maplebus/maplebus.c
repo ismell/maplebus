@@ -9,6 +9,9 @@
 #include "maplebus.h"
 #include <stdio.h>
 
+/* TODO: Move into header? */
+#define ARRAY_SIZE(array) (sizeof(array) / sizeof(*array))
+
 enum maplebus_header_type {
 	FRAME_WITH_CRC = 0x3,
 };
@@ -38,8 +41,8 @@ static struct maplebus_sm_dev *get_tx_dev(maplebus_tx_id_t id)
 
 	dev = &tx_dev.sms[id.idx];
 
-	assert(dev.initialized);
-	assert(dev.idx == id.idx);
+	assert(dev->initialized);
+	assert(dev->idx == id.idx);
 
 	return dev;
 }
@@ -52,8 +55,8 @@ static struct maplebus_sm_dev *get_rx_dev(maplebus_rx_id_t id)
 
 	dev = &rx_dev.sms[id.idx];
 
-	assert(dev.initialized);
-	assert(dev.idx == id.idx);
+	assert(dev->initialized);
+	assert(dev->idx == id.idx);
 
 	return dev;
 }
@@ -87,6 +90,7 @@ void maplebus_tx_pio_init(PIO pio)
 	tx_dev.pio = pio;
 	tx_dev.program_offset =
 		pio_add_program(tx_dev.pio, &maplebus_tx_program);
+	tx_dev.initialized = true;
 }
 
 void maplebus_rx_pio_init(PIO pio)
@@ -95,6 +99,7 @@ void maplebus_rx_pio_init(PIO pio)
 	rx_dev.pio = pio;
 	rx_dev.program_offset =
 		pio_add_program(rx_dev.pio, &maplebus_rx_program);
+	rx_dev.initialized = true;
 }
 
 maplebus_tx_id_t maplebus_tx_init(uint pin_sdcka, uint pin_sdckb)
@@ -175,7 +180,7 @@ void pio_maplebus_tx_blocking(maplebus_tx_id_t id,
 {
 	assert(size);
 	assert((size % 4) == 0);
-	assert((1 + data->length) * sizeof(uint32_t) == size);
+	assert((1u + data->length) * sizeof(uint32_t) == size);
 	assert(tx_dev.initialized);
 
 	PIO pio = tx_dev.pio;
