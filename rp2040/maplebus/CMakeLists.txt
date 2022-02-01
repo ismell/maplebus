@@ -7,6 +7,8 @@ cmake_minimum_required(VERSION 3.13)
 set(PICO_SDK_PATH ../../pico-sdk)
 include(pico_sdk_import.cmake)
 
+add_subdirectory(../futures build-futures)
+
 project(maplebus)
 
 pico_sdk_init()
@@ -22,7 +24,7 @@ target_sources(maplebus PRIVATE
         maplebus.c
         )
 
-target_link_libraries(maplebus PRIVATE pico_stdlib hardware_pio)
+target_link_libraries(maplebus PRIVATE pico_stdlib hardware_pio futures)
 target_compile_options(maplebus PRIVATE -Wall -Wextra -Wconversion -Werror)
 target_compile_definitions(maplebus PRIVATE
         PARAM_ASSERTIONS_ENABLE_ALL=1 # want to check all the assertions for compilation warnings
