@@ -66,7 +66,8 @@ struct maplebus_buffer {
 	uint32_t data[];
 } __attribute__ ((aligned (4)));
 
-uint8_t compute_lrc(const struct maplebus_buffer *buffer) {
+uint8_t compute_lrc(const struct maplebus_buffer *buffer)
+{
 	uint8_t lrc = 0;
 	uint32_t *data = (uint32_t *)buffer;
 
@@ -84,14 +85,16 @@ void maplebus_tx_pio_init(PIO pio)
 {
 	assert(!tx_dev.initialized);
 	tx_dev.pio = pio;
-	tx_dev.program_offset = pio_add_program(tx_dev.pio, &maplebus_tx_program);
+	tx_dev.program_offset =
+		pio_add_program(tx_dev.pio, &maplebus_tx_program);
 }
 
 void maplebus_rx_pio_init(PIO pio)
 {
 	assert(!rx_dev.initialized);
 	rx_dev.pio = pio;
-	rx_dev.program_offset = pio_add_program(rx_dev.pio, &maplebus_rx_program);
+	rx_dev.program_offset =
+		pio_add_program(rx_dev.pio, &maplebus_rx_program);
 }
 
 maplebus_tx_id_t maplebus_tx_init(uint pin_sdcka, uint pin_sdckb)
@@ -111,7 +114,8 @@ maplebus_tx_id_t maplebus_tx_init(uint pin_sdcka, uint pin_sdckb)
 
 	PIO pio = tx_dev.pio;
 
-	pio_sm_config c = maplebus_tx_program_get_default_config(tx_dev.program_offset);
+	pio_sm_config c =
+		maplebus_tx_program_get_default_config(tx_dev.program_offset);
 
 	// IO mapping
 	sm_config_set_set_pins(&c, pin_sdcka, 1);
@@ -123,14 +127,15 @@ maplebus_tx_id_t maplebus_tx_init(uint pin_sdcka, uint pin_sdckb)
 	sm_config_set_out_shift(&c, false, false, 0);
 
 	// TODO: Remove the 1000 when we have a large pull-up.
-	float div = (float)clock_get_hz(clk_sys) / (25000000) * 1000; 
+	float div = (float)clock_get_hz(clk_sys) / (25000000) * 1000;
 	sm_config_set_clkdiv(&c, div);
 
 	uint32_t both_pins = (1u << pin_sdcka) | (1u << pin_sdckb);
 	pio_sm_set_pins_with_mask(pio, sm->idx, 0, both_pins);
 	/* Set all pins to OUT */
 	pio_sm_set_pindirs_with_mask(pio, sm->idx, both_pins, both_pins);
-	pio_gpio_init(pio, pin_sdcka); /* Do we swap this to avoid the glitch ? */
+	pio_gpio_init(pio,
+		      pin_sdcka); /* Do we swap this to avoid the glitch ? */
 	gpio_set_oeover(pin_sdcka, GPIO_OVERRIDE_INVERT);
 	pio_gpio_init(pio, pin_sdckb);
 	gpio_set_oeover(pin_sdckb, GPIO_OVERRIDE_INVERT);
@@ -144,7 +149,8 @@ maplebus_tx_id_t maplebus_tx_init(uint pin_sdcka, uint pin_sdckb)
 	pio->irq = 1u << sm->idx;
 
 	// Configure and start SM
-	pio_sm_init(pio, sm->idx, tx_dev.program_offset + maplebus_tx_offset_entry_point, &c);
+	pio_sm_init(pio, sm->idx,
+		    tx_dev.program_offset + maplebus_tx_offset_entry_point, &c);
 	pio_sm_set_enabled(pio, sm->idx, true);
 
 	struct maplebus_tx_id id = { .idx = sm->idx };
@@ -164,7 +170,8 @@ uint32_t maplebus_tx_header(uint8_t frame_type, uint total_bytes)
 	return header;
 }
 
-void pio_maplebus_tx_blocking(maplebus_tx_id_t id, const struct maplebus_header *data, size_t size)
+void pio_maplebus_tx_blocking(maplebus_tx_id_t id,
+			      const struct maplebus_header *data, size_t size)
 {
 	assert(size);
 	assert((size % 4) == 0);
@@ -178,7 +185,8 @@ void pio_maplebus_tx_blocking(maplebus_tx_id_t id, const struct maplebus_header 
 	size_t total_bytes = size + 1 /* CRC Byte */;
 	uint8_t lrc = compute_lrc(buffer);
 
-	pio_sm_put_blocking(pio, dev->idx, maplebus_tx_header(FRAME_WITH_CRC, total_bytes));
+	pio_sm_put_blocking(pio, dev->idx,
+			    maplebus_tx_header(FRAME_WITH_CRC, total_bytes));
 	pio_sm_put_blocking(pio, dev->idx, buffer->raw_header);
 
 	for (size_t i = 0; i < buffer->header.length; ++i)
@@ -206,7 +214,8 @@ maplebus_rx_id_t maplebus_rx_init(uint pin_sdcka, uint pin_sdckb)
 	PIO pio = rx_dev.pio;
 
 	pio_sm_set_consecutive_pindirs(pio, sm->idx, pin_sdckb, 2, false);
-	pio_sm_config c = maplebus_rx_program_get_default_config(rx_dev.program_offset);
+	pio_sm_config c =
+		maplebus_rx_program_get_default_config(rx_dev.program_offset);
 
 	// IO mapping
 	sm_config_set_in_pins(&c, pin_sdckb);
@@ -230,7 +239,8 @@ maplebus_rx_id_t maplebus_rx_init(uint pin_sdcka, uint pin_sdckb)
 	pio->irq = 1u << sm->idx;
 
 	// Configure and start SM
-	pio_sm_init(pio, sm->idx, rx_dev.program_offset + maplebus_rx_offset_entry_point, &c);
+	pio_sm_init(pio, sm->idx,
+		    rx_dev.program_offset + maplebus_rx_offset_entry_point, &c);
 	pio_sm_set_enabled(pio, sm->idx, true);
 
 	struct maplebus_rx_id id = { .idx = sm->idx };
@@ -238,7 +248,9 @@ maplebus_rx_id_t maplebus_rx_init(uint pin_sdcka, uint pin_sdckb)
 	return id;
 }
 
-enum maplebus_return pio_maplebus_rx_blocking(maplebus_rx_id_t id, struct maplebus_header *data, size_t n)
+enum maplebus_return pio_maplebus_rx_blocking(maplebus_rx_id_t id,
+					      struct maplebus_header *data,
+					      size_t n)
 {
 	uint32_t frame_type, actual_crc;
 	uint8_t expected_crc;
@@ -267,7 +279,7 @@ enum maplebus_return pio_maplebus_rx_blocking(maplebus_rx_id_t id, struct mapleb
 
 			buffer->data[i] = pio_sm_get_blocking(pio, dev->idx);
 		}
-		
+
 		// Wait for a 1 byte CRC.
 		pio_sm_exec(pio, dev->idx, pio_encode_set(pio_y, 0));
 
@@ -277,10 +289,12 @@ enum maplebus_return pio_maplebus_rx_blocking(maplebus_rx_id_t id, struct mapleb
 			ret = MAPLEBUS_OK;
 		} else {
 			ret = MAPLEBUS_CRC_ERROR;
-			printf("Actual CRC: %#"PRIx32", Expected CRC: %#"PRIx8"\n", actual_crc, expected_crc);
+			printf("Actual CRC: %#" PRIx32
+			       ", Expected CRC: %#" PRIx8 "\n",
+			       actual_crc, expected_crc);
 		}
 	} else {
-		printf("RX: Unknown start frame: %#"PRIx32"\n", frame_type);
+		printf("RX: Unknown start frame: %#" PRIx32 "\n", frame_type);
 		ret = MAPLEBUS_UNKNOWN_FRAME_TYPE;
 	}
 out:
@@ -289,7 +303,8 @@ out:
 	return ret;
 }
 
-void maplebus_print(struct maplebus_header *header) {
+void maplebus_print(struct maplebus_header *header)
+{
 	struct maplebus_buffer *buffer = (struct maplebus_buffer *)header;
 
 	printf("Command: %#hhx\n", header->command);
@@ -298,6 +313,5 @@ void maplebus_print(struct maplebus_header *header) {
 	printf("Words: %#hhx\n", header->length);
 
 	for (uint i = 0; i < header->length; ++i)
-		printf("Word %u: %#"PRIx32"\n", i, buffer->data[i]);
+		printf("Word %u: %#" PRIx32 "\n", i, buffer->data[i]);
 }
-
