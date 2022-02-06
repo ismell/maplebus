@@ -5,6 +5,7 @@
  */
 
 #include <stdio.h>
+#include <string.h>
 
 #include "pico/stdlib.h"
 #include "maplebus.h"
@@ -102,6 +103,9 @@ int main() {
 			printf("Unknown return code %d\n", ret);
 		}
 		//gpio_put(PIN_HEARTBEAT, 0);
+
+		if (memcmp(&test_packet, &rx_buffer, sizeof(test_packet)))
+			printf("Packet doesn't match!\n");
 
 		iteration++;
 
