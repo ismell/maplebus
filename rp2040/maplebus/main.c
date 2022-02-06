@@ -93,7 +93,7 @@ int main() {
 			printf("crc error\n");
 			break;
 		case MAPLEBUS_MESSAGE_TRUNCATED:
-			printf("rx timeout\n");
+			printf("rx truncated\n");
 			break;
 		case MAPLEBUS_TIMEOUT:
 			printf("rx timeout\n");
