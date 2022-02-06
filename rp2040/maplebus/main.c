@@ -30,7 +30,7 @@ struct maplebus_header device_info_request = {
 
 struct test_packet {
 	struct maplebus_header header;
-	uint8_t data[4];
+	uint32_t data[4];
 } test_packet = {
 	.header = {
 		.command = 0x99,
@@ -38,7 +38,12 @@ struct test_packet {
 		.source = 0x77,
 		.length = sizeof(struct test_packet) / 4 - 1,
 	},
-	.data = {0x66, 0x55, 0x44, 0x33}
+	.data = {
+		0x66 << 0,
+		0x55 << 8,
+		0x44 << 16,
+		0x33 << 24
+	}
 };
 
 int main() {
