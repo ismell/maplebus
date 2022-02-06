@@ -59,6 +59,7 @@ int main() {
 	maplebus_rx_id_t rx_id;
 
 	struct future tx_future;
+	struct maplebus_rx_future rx_future;
 
 	maplebus_tx_pio_init(pio0);
 	maplebus_rx_pio_init(pio1);
@@ -67,20 +68,17 @@ int main() {
 	rx_id = maplebus_rx_init(PIN_SDCKA, PIN_SDCKB);
 
 	uint iteration = 0;
-	enum maplebus_return ret;
 
 	while (true) {
 		printf("Maple Bus iteration %u\n", iteration);
 
 		//gpio_put(PIN_HEARTBEAT, 1);
 		maplebux_tx(tx_id, &tx_future, &test_packet.header, sizeof(test_packet));
-		while (tx_future.poll(&tx_future, NULL) != FUTURE_DONE) {
-			printf(".");
-		}
-		printf("\n");
-		ret = pio_maplebus_rx_blocking(rx_id, &rx_buffer.header, sizeof(rx_buffer));
+		maplebus_rx(rx_id, &rx_future, &rx_buffer.header, sizeof(rx_buffer));
+		while (tx_future.poll(&tx_future, NULL) != FUTURE_DONE || rx_future.future.poll(&rx_future.future, NULL) != FUTURE_DONE)
+			;
 
-		switch (ret) {
+		switch (rx_future.status) {
 		case MAPLEBUS_OK:
 			maplebus_print(&rx_buffer.header);
 			break;
@@ -100,7 +98,7 @@ int main() {
 			printf("rx timeout\n");
 			break;
 		default:
-			printf("Unknown return code %d\n", ret);
+			printf("Unknown return code %d\n", rx_future.status);
 		}
 		//gpio_put(PIN_HEARTBEAT, 0);
 
