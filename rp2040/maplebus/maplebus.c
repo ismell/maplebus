@@ -39,6 +39,18 @@ struct maplebus_sm_dev {
 		TX_STATE_SEND_DONE
 	} tx_state;
 	uint data_sent;
+
+	struct maplebus_rx_future *rx_future;
+	struct maplebus_buffer *rx_buffer;
+	enum maplebus_rx_state {
+		RX_STATE_WAIT_FOR_FRAME_TYPE,
+		RX_STATE_WAIT_FOR_FRAME_HEADER,
+		RX_STATE_WAIT_FOR_DATA,
+		RX_STATE_WAIT_FOR_CRC,
+		RX_STATE_DONE,
+	} rx_state;
+	uint available_data;
+	uint data_received;
 };
 
 struct maplebus_pio_dev {
@@ -93,6 +105,20 @@ static struct maplebus_sm_dev *get_rx_dev(maplebus_rx_id_t id)
 	assert(dev->idx == id.idx);
 
 	return dev;
+}
+
+static struct maplebus_sm_dev *get_rx_dev_from_future(struct future *future)
+{
+	struct maplebus_sm_dev *dev;
+	for (uint i = 0; i < ARRAY_SIZE(rx_dev.sms); ++i) {
+		dev = &rx_dev.sms[i];
+		if (&dev->rx_future->future == future)
+			return dev;
+	}
+
+	assert(false);
+
+	return NULL;
 }
 
 uint8_t compute_lrc(const struct maplebus_buffer *buffer)
@@ -407,6 +433,112 @@ out:
 	// We need to manually reset the PC at the end of the frame.
 	pio_sm_exec(pio, dev->idx, pio_encode_jmp(0));
 	return ret;
+}
+
+
+static void maplebus_complete_rx_future(struct maplebus_sm_dev *dev, enum maplebus_return status)
+{
+	dev->rx_future->status = status;
+	complete_future(&dev->rx_future->future);	
+
+	dev->rx_future = NULL;
+	dev->rx_buffer = NULL;
+	dev->rx_state = RX_STATE_DONE;
+
+	// We need to manually reset the PC at the end of the frame.
+	pio_sm_exec(rx_dev.pio, dev->idx, pio_encode_jmp(0));
+}
+static enum future_state maplebus_rx_poll(struct future *future,
+					  __unused struct wait_context *ctx)
+{
+	PIO pio = rx_dev.pio;
+	struct maplebus_sm_dev *dev = get_rx_dev_from_future(future);
+	uint32_t frame_type, actual_crc;
+	uint8_t expected_crc;
+
+	while (!pio_sm_is_rx_fifo_empty(pio, dev->idx)) {
+		switch (dev->rx_state) {
+		case RX_STATE_WAIT_FOR_FRAME_TYPE:
+			frame_type = pio_sm_get(pio, dev->idx);
+			if (frame_type == 0xFFFFFFF0) { // Start frame w/ CRC
+				dev->rx_state = RX_STATE_WAIT_FOR_FRAME_HEADER;
+			} else {
+				printf("RX: Unknown start frame: %#" PRIx32 "\n", frame_type);
+				maplebus_complete_rx_future(dev, MAPLEBUS_UNKNOWN_FRAME_TYPE);
+				return FUTURE_DONE;
+			}
+			break;
+		case RX_STATE_WAIT_FOR_FRAME_HEADER:
+			dev->rx_buffer->raw_header = pio_sm_get(pio, dev->idx);
+			
+			if (dev->rx_buffer->header.length == 0) {
+				// No data, wait for CRC
+				// This is time critical
+				pio_sm_exec(pio, dev->idx, pio_encode_set(pio_y, 0));	
+				dev->rx_state = RX_STATE_WAIT_FOR_CRC;
+			} else if (dev->rx_buffer->header.length > dev->available_data) {
+				printf("RX: RX buffer too small: %" PRId8 " > %d\n",
+					dev->rx_buffer->header.length, dev->available_data);
+				maplebus_complete_rx_future(dev, MAPLEBUS_MESSAGE_TRUNCATED);
+				return FUTURE_DONE;
+			} else {
+				dev->data_received = 0;
+				dev->rx_state = RX_STATE_WAIT_FOR_DATA;
+			}
+			
+			break;
+		case RX_STATE_WAIT_FOR_DATA:
+			dev->rx_buffer->data[dev->data_received] = pio_sm_get(pio, dev->idx);
+			dev->data_received++;
+			if (dev->data_received >= dev->rx_buffer->header.length) {
+				// No data, wait for CRC
+				// This is time critical
+				pio_sm_exec(pio, dev->idx, pio_encode_set(pio_y, 0));	
+				dev->rx_state = RX_STATE_WAIT_FOR_CRC;
+			}
+			break;
+		case RX_STATE_WAIT_FOR_CRC:
+			actual_crc = pio_sm_get(pio, dev->idx);
+			expected_crc = compute_lrc(dev->rx_buffer);
+			if (actual_crc == expected_crc) {
+				maplebus_complete_rx_future(dev, MAPLEBUS_OK);
+				return FUTURE_DONE;
+			} else {
+				printf("Actual CRC: %#" PRIx32
+				       ", Expected CRC: %#" PRIx8 "\n",
+				       actual_crc, expected_crc);
+				maplebus_complete_rx_future(dev, MAPLEBUS_CRC_ERROR);
+				return FUTURE_DONE;
+			}
+		case RX_STATE_DONE:
+			// Should never happen
+			assert(false);
+			break;
+		}
+	}
+
+	return FUTURE_PENDING;
+}
+
+void maplebus_rx(maplebus_rx_id_t id, struct maplebus_rx_future *future,
+		 struct maplebus_header *data, size_t size)
+{
+	assert(size);
+	assert((size % 4) == 0);
+	assert(rx_dev.initialized);
+	assert(size >= sizeof(*data));
+
+	struct maplebus_sm_dev *dev = get_rx_dev(id);
+	struct maplebus_buffer *buffer = (struct maplebus_buffer *)data;
+
+	assert(dev->future == NULL);
+
+	dev->rx_future = future;
+	dev->rx_buffer = buffer;
+	dev->available_data = (size - sizeof(*data)) / sizeof(uint32_t);
+	dev->data_received = 0;
+	dev->rx_state = RX_STATE_WAIT_FOR_FRAME_TYPE;
+	future->future.poll = maplebus_rx_poll;
 }
 
 void maplebus_print(struct maplebus_header *header)

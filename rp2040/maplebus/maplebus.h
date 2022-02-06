@@ -76,6 +76,21 @@ void maplebux_tx(maplebus_tx_id_t id, struct future *future, const struct mapleb
  */
 enum maplebus_return pio_maplebus_rx_blocking(maplebus_rx_id_t id, struct maplebus_header *data, size_t n);
 
+struct maplebus_rx_future {
+	struct future future;
+
+	/* Only valid once the future is complete. */
+	enum maplebus_return status;
+};
+
+/**
+ * Receive data on the bus
+ * 
+ * @param future out - future handle
+ */
+void maplebus_rx(maplebus_rx_id_t id, struct maplebus_rx_future *future,
+		 struct maplebus_header *data, size_t size);
+
 void maplebus_print(struct maplebus_header *data);
 
 #endif /* MAPLEBUS_H */
